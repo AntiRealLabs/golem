@@ -94,9 +94,10 @@ python3 -I herramientas/servidor_local.py 8788      # http://127.0.0.1:8788
 - No copiar a `site/` datos del piloto ni archivos del prototipo del Lab.
 - No relajar `comprobar_publicacion.py` salvo en el commit que publique el Lab,
   con la aprobación anotada abajo.
-- La CSP de `site/_headers` no admite estilos ni scripts en línea. Si se activa
-  Cloudflare Web Analytics, ya está permitido; cualquier otro servicio externo
-  requiere cambiar la CSP.
+- La CSP de `site/_headers` no admite estilos ni scripts en línea. Cloudflare Web
+  Analytics está activo (comprobado el 18 oct 2026): Cloudflare inyecta `beacon.min.js`
+  desde `static.cloudflareinsights.com` y envía las mediciones a `/cdn-cgi/rum`. La CSP
+  ya lo admite; cualquier otro servicio externo requiere cambiar la CSP.
 
 ## Registro de publicaciones
 
