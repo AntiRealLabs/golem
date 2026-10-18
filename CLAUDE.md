@@ -74,9 +74,17 @@ centro, cuatro rumbos alrededor, nada de arquitectura tradicional (sin barra sup
   descriptor, «Golem» centrado, «Bench» debajo y el lema. Alrededor, cuatro rumbos: el nombre llano en
   un recuadro (`.lugar`) y, en cursiva, un susurro de lo que hay allá (`.susurro`). En los cuatro
   cuadrantes que forma la cruz, un resumen que invita a ir, en rueda de molino: noroeste → preguntas,
-  noreste → laboratorio, sureste → resultados, suroeste → cómo medimos. Es donde aterriza una visita
-  nueva. En pantallas bajas los cuadrantes muestran solo título y enlace; la verificación comprueba
-  que nada se toque en ocho tamaños.
+  noreste → laboratorio, sureste → resultados, suroeste → cómo medimos. En el HTML cada rumbo y su
+  cuadrante van juntos en una estación (`.estacion--preguntas`, `--laboratorio`, `--medimos`,
+  `--resultados`; en escritorio son `display:contents`). Es donde aterriza una visita nueva. En
+  pantallas bajas los cuadrantes muestran solo título y enlace; la verificación comprueba en nueve
+  tamaños que nada se toque y que los cuatro recuadros midan lo mismo.
+- **En el celular** (boceto de Juan, 18 oct 2026) el centro no copia el escritorio: cada estación es
+  una baldosa que se toca entera (el enlace del recuadro se estira sobre ella), con el recuadro junto a
+  la placa, el resumen hacia afuera y una flecha en la mitad del borde por donde se sale: ↑ arriba,
+  → derecha, ← izquierda, ↓ abajo. El lado de la flecha guarda margen para que nada la toque. Sin
+  susurros ni enlaces secundarios: la baldosa es el enlace. El tinte al pasar el puntero solo existe
+  donde hay puntero (`hover:hover`); en un teléfono no se queda pegado.
 - **↑ Preguntas abiertas** (`#preguntas`): un cielo nocturno con la escalera de preguntas, que se lee
   de abajo hacia arriba (`flex-direction: column-reverse`: el primer elemento del documento es el
   más cercano al centro). Abajo del cielo amanece hacia el papel. Será el lugar del Atlas del Lab.
@@ -139,6 +147,14 @@ vertical completa (`arcilla-*.webp`), enmarcada y sin sombreado añadido: a Juan
 viñeta oval. La versión panorámica del taller vive en `herramientas/fuentes/`, no se publica y solo
 la usan las tarjetas para compartir. El favicon y la brújula son la G marfil sobre burdeos, como el
 perfil rojo de esa colección. `herramientas/generar_imagenes.py` rehace el favicon y las tarjetas.
+
+Símbolos de las estaciones (✎ propuesta de Claude, 18 oct 2026, a pedido de Juan): un sprite SVG al
+comienzo de cada página (`svg.simbolos`, con `<symbol>` y `<use href>`), de trazo fino en el color del
+texto. Preguntas abiertas: un signo de pregunta hecho de estrellas (arriba es de noche). Laboratorio:
+un matraz con barro adentro. Cómo medimos: un compás de dibujo. Resultados: el ojo cerrado del golem.
+Van en el recuadro de cada rumbo (24 px; 22 en el celular), en el título de cada sala lateral, al pie
+de la escalera (tostado, sobre la noche) y sobre la sala de resultados (44 px). Son decorativos
+(`aria-hidden`): el nombre siempre va escrito. Un símbolo nuevo se agrega al sprite de las dos páginas.
 
 El borde discontinuo marca lo que está en el taller. La CSP no admite estilos ni scripts en línea:
 nada de `style=""` ni `<script>` sin archivo.

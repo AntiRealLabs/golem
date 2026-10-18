@@ -1,7 +1,7 @@
 {
- "fecha": "2026-10-18 02:03 (UTC−5)",
- "correctas": 103,
- "total": 103,
+ "fecha": "2026-10-18 02:30 (UTC−5)",
+ "correctas": 105,
+ "total": 105,
  "resultados": [
   {
    "comprobacion": "Puerta de publicación: site/ contiene solo la portada",
@@ -111,12 +111,12 @@
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:38931'}"
+   "detalle": "{'127.0.0.1:43991'}"
   },
   {
    "comprobacion": "[es] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "222490 bytes"
+   "detalle": "228090 bytes"
   },
   {
    "comprobacion": "[es] idioma del documento declarado",
@@ -159,6 +159,11 @@
    "detalle": "['ES']"
   },
   {
+   "comprobacion": "[es] cada estación lleva su símbolo: los cuatro existen, se dibujan y los lectores de pantalla los saltan",
+   "ok": true,
+   "detalle": "{'ids': ['s-laboratorio', 's-medimos', 's-preguntas', 's-resultados'], 'rotos': [], 'ruidosos': 0, 'rumbos': ['#preguntas>#s-preguntas', '#laboratorio>#s-laboratorio', '#como-medimos>#s-medimos', '#resultados>#s-resultados'], 'dibujados': True}"
+  },
+  {
    "comprobacion": "[es] enlaces internos válidos y solo los externos previstos",
    "ok": true,
    "detalle": "[]"
@@ -191,12 +196,12 @@
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:38931'}"
+   "detalle": "{'127.0.0.1:43991'}"
   },
   {
    "comprobacion": "[en] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "222212 bytes"
+   "detalle": "227812 bytes"
   },
   {
    "comprobacion": "[en] idioma del documento declarado",
@@ -239,6 +244,11 @@
    "detalle": "['EN']"
   },
   {
+   "comprobacion": "[en] cada estación lleva su símbolo: los cuatro existen, se dibujan y los lectores de pantalla los saltan",
+   "ok": true,
+   "detalle": "{'ids': ['s-laboratorio', 's-medimos', 's-preguntas', 's-resultados'], 'rotos': [], 'ruidosos': 0, 'rumbos': ['#preguntas>#s-preguntas', '#laboratorio>#s-laboratorio', '#como-medimos>#s-medimos', '#resultados>#s-resultados'], 'dibujados': True}"
+  },
+  {
    "comprobacion": "[en] enlaces internos válidos y solo los externos previstos",
    "ok": true,
    "detalle": "[]"
@@ -271,12 +281,12 @@
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:38931'}"
+   "detalle": "{'127.0.0.1:43991'}"
   },
   {
    "comprobacion": "[404] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "145997 bytes"
+   "detalle": "148785 bytes"
   },
   {
    "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces",
@@ -299,9 +309,9 @@
    "detalle": "/ True"
   },
   {
-   "comprobacion": "Teclado: desde el centro, ES → EN → ↑ → ← → → → ↓",
+   "comprobacion": "Teclado: desde el centro, ES → EN → cada estación con su resumen: ↑, →, ←, ↓",
    "ok": true,
-   "detalle": "['ES /', 'EN /en/', 'lugar #preguntas', 'lugar #como-medimos', 'lugar #laboratorio', 'lugar #resultados']"
+   "detalle": "['ES /', 'EN /en/', 'lugar #preguntas', 'q-enlace #preguntas', 'lugar #laboratorio', 'q-enlace #laboratorio', 'lugar #como-medimos', 'q-enlace #como-medimos', 'lugar #resultados', 'q-enlace #resultados']"
   },
   {
    "comprobacion": "Teclado: el foco se ve (contorno de 3 px)",
@@ -401,12 +411,12 @@
   {
    "comprobacion": "Cruz [es · móvil]: se llega al centro (el nombre a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'sx': 0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
    "comprobacion": "Cruz [es · móvil]: la placa del nombre queda en el centro exacto de la pantalla (±3 px)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'sx': 0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
    "comprobacion": "Cruz [es · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -489,7 +499,7 @@
    "detalle": "hidden visible"
   },
   {
-   "comprobacion": "Centro sin choques: cuadrantes, rumbos y placa no se tocan en ocho tamaños, y la placa sigue en el centro",
+   "comprobacion": "Centro sin choques: cuadrantes, rumbos, flechas y placa no se tocan en nueve tamaños; en el celular nada se sale de su estación; los cuatro recuadros miden lo mismo y la placa sigue en el centro",
    "ok": true,
    "detalle": ""
   },

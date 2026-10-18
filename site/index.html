@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/unifrakturmaguntia-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/chakra-petch-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/portada.css?v=4291ab94f1">
+<link rel="stylesheet" href="/assets/portada.css?v=cd6ee38d39">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Golem Bench">
 <meta property="og:title" content="Golem Bench · Preguntas desde el futuro">
@@ -30,6 +30,25 @@
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body class="cruz">
+<svg class="simbolos" aria-hidden="true" focusable="false">
+  <!-- Los símbolos de las cuatro estaciones: una pregunta hecha de estrellas, el compás de medir,
+       el matraz del laboratorio y el ojo todavía cerrado de los resultados. -->
+  <symbol id="s-preguntas" viewBox="0 0 32 32">
+    <path stroke-width="1.15" d="M10.6 10.4 12.6 6.2 16.7 4.5 20.9 6.6 21.7 10.7 18.7 14.3 16.2 17.9"/>
+    <g fill="currentColor" stroke="none"><circle cx="10.6" cy="10.4" r="1.45"/><circle cx="12.6" cy="6.2" r="1.25"/><circle cx="16.7" cy="4.5" r="1.45"/><circle cx="20.9" cy="6.6" r="1.25"/><circle cx="21.7" cy="10.7" r="1.45"/><circle cx="18.7" cy="14.3" r="1.25"/><circle cx="16.2" cy="17.9" r="1.45"/><circle cx="16.2" cy="25.3" r="2"/></g>
+  </symbol>
+  <symbol id="s-medimos" viewBox="0 0 32 32">
+    <circle cx="16" cy="6.4" r="2.3"/>
+    <path d="M14.9 8.5 8.6 27.4M17.1 8.5l6.3 18.9M10.9 20.6q5.1 4 10.2 0M16 1.6v2.5"/>
+  </symbol>
+  <symbol id="s-laboratorio" viewBox="0 0 32 32">
+    <path d="M13.4 3.8h5.2M14.4 3.8v8.4M17.6 3.8v8.4M14.4 12.2A8.2 8.2 0 1 0 17.6 12.2M9.1 21.4q3.4-1.6 6.9 0t6.9 0"/>
+    <g fill="currentColor" stroke="none"><circle cx="13" cy="25.1" r="1.1"/><circle cx="17.6" cy="24.4" r=".75"/><circle cx="16" cy="9.3" r=".8"/></g>
+  </symbol>
+  <symbol id="s-resultados" viewBox="0 0 32 32">
+    <path d="M5.4 13.6Q16 23.8 26.6 13.6M10.7 17.6l-1.6 3.8M16 18.9v4.1M21.3 17.6l1.6 3.8"/>
+  </symbol>
+</svg>
 
 <!-- El centro es el nombre. De ahí salen cuatro rumbos: arriba, las preguntas abiertas;
      abajo, los resultados; a la izquierda, cómo medimos; a la derecha, el laboratorio.
@@ -50,51 +69,57 @@
           <p class="placa-lema">Preguntas desde el futuro</p>
         </div>
         <nav class="rumbos" aria-label="Desde el centro">
-          <div class="rumbo rumbo--n">
-            <p class="susurro">Lo que todavía no sabemos</p>
-            <a class="lugar" href="#preguntas">Preguntas abiertas</a>
+          <div class="estacion estacion--preguntas">
+            <div class="rumbo rumbo--n">
+              <p class="susurro">Lo que todavía no sabemos</p>
+              <a class="lugar" href="#preguntas"><svg class="simbolo" aria-hidden="true" focusable="false"><use href="#s-preguntas"/></svg><span class="lugar-t">Preguntas abiertas</span><span class="lugar-f" aria-hidden="true">↑</span></a>
+            </div>
+            <div class="cuadrante cuadrante--no">
+              <p class="q-titulo">Se leen de abajo hacia arriba</p>
+              <p class="q-pregunta">¿Puede una máquina hacer una buena pregunta, o solo responder bien?</p>
+              <a class="q-enlace" href="#preguntas"><span aria-hidden="true">↑</span> Subir por las preguntas</a>
+            </div>
           </div>
-          <div class="rumbo rumbo--o">
-            <p class="susurro">Lo que nos sostiene</p>
-            <a class="lugar" href="#como-medimos">Cómo medimos</a>
+          <div class="estacion estacion--laboratorio">
+            <div class="rumbo rumbo--e">
+              <p class="susurro">Lo que guardamos</p>
+              <a class="lugar" href="#laboratorio"><svg class="simbolo" aria-hidden="true" focusable="false"><use href="#s-laboratorio"/></svg><span class="lugar-t">Laboratorio</span><span class="lugar-f" aria-hidden="true">→</span></a>
+            </div>
+            <div class="cuadrante cuadrante--ne">
+              <p class="q-titulo">Tres puertas, en el taller</p>
+              <ul class="q-puertas" role="list"><li>Atlas de preguntas</li><li>Mesa de controversias</li><li>Cuaderno Golem</li></ul>
+              <a class="q-enlace" href="#laboratorio">Entrar al laboratorio <span aria-hidden="true">→</span></a>
+            </div>
           </div>
-          <div class="rumbo rumbo--e">
-            <p class="susurro">Lo que guardamos</p>
-            <a class="lugar" href="#laboratorio">Laboratorio</a>
+          <div class="estacion estacion--medimos">
+            <div class="rumbo rumbo--o">
+              <p class="susurro">Lo que nos sostiene</p>
+              <a class="lugar" href="#como-medimos"><svg class="simbolo" aria-hidden="true" focusable="false"><use href="#s-medimos"/></svg><span class="lugar-t">Cómo medimos</span><span class="lugar-f" aria-hidden="true">←</span></a>
+            </div>
+            <div class="cuadrante cuadrante--so">
+              <p class="q-titulo">Cuatro pasos, tres jueces</p>
+              <ol class="q-camino" role="list"><li>Una pregunta</li><li>Una propuesta</li><li>Dos críticas</li><li>Un caso nuevo</li></ol>
+              <a class="q-enlace" href="#como-medimos"><span aria-hidden="true">←</span> Ver cómo medimos</a>
+            </div>
           </div>
-          <div class="rumbo rumbo--s">
-            <a class="lugar" href="#resultados">Resultados de evaluaciones</a>
-            <p class="susurro">Todavía con los ojos cerrados</p>
+          <div class="estacion estacion--resultados">
+            <div class="rumbo rumbo--s">
+              <a class="lugar" href="#resultados"><svg class="simbolo" aria-hidden="true" focusable="false"><use href="#s-resultados"/></svg><span class="lugar-t">Resultados de evaluaciones</span><span class="lugar-f" aria-hidden="true">↓</span></a>
+              <p class="susurro">Todavía con los ojos cerrados</p>
+            </div>
+            <div class="cuadrante cuadrante--se">
+              <p class="stamp">Todavía es arcilla</p>
+              <p class="q-texto">La sala de resultados está vacía a propósito. Se llena cuando termine el piloto y pase la revisión final; ni un día antes.</p>
+              <a class="q-enlace" href="#resultados"><span aria-hidden="true">↓</span> Bajar a los resultados</a>
+            </div>
           </div>
         </nav>
-        <div class="cuadrantes">
-          <div class="cuadrante cuadrante--no">
-            <p class="q-titulo">Se leen de abajo hacia arriba</p>
-            <p class="q-pregunta">¿Puede una máquina hacer una buena pregunta, o solo responder bien?</p>
-            <a class="q-enlace" href="#preguntas"><span aria-hidden="true">↑</span> Subir por las preguntas</a>
-          </div>
-          <div class="cuadrante cuadrante--ne">
-            <p class="q-titulo">Tres puertas, en el taller</p>
-            <ul class="q-puertas" role="list"><li>Atlas de preguntas</li><li>Mesa de controversias</li><li>Cuaderno Golem</li></ul>
-            <a class="q-enlace" href="#laboratorio">Entrar al laboratorio <span aria-hidden="true">→</span></a>
-          </div>
-          <div class="cuadrante cuadrante--so">
-            <p class="q-titulo">Cuatro pasos, tres jueces</p>
-            <ol class="q-camino" role="list"><li>Una pregunta</li><li>Una propuesta</li><li>Dos críticas</li><li>Un caso nuevo</li></ol>
-            <a class="q-enlace" href="#como-medimos"><span aria-hidden="true">←</span> Ver cómo medimos</a>
-          </div>
-          <div class="cuadrante cuadrante--se">
-            <p class="stamp">Todavía es arcilla</p>
-            <p class="q-texto">La sala de resultados está vacía a propósito. Se llena cuando termine el piloto y pase la revisión final; ni un día antes.</p>
-            <a class="q-enlace" href="#resultados"><span aria-hidden="true">↓</span> Bajar a los resultados</a>
-          </div>
-        </div>
       </section>
 
       <section class="panel panel--lado panel--medimos" id="como-medimos" aria-labelledby="t-medimos" tabindex="-1">
         <div class="lado-scroll">
           <div class="lado-in">
-            <h2 class="lugar lugar--aqui" id="t-medimos">Cómo medimos</h2>
+            <h2 class="lugar lugar--aqui" id="t-medimos"><svg class="simbolo" aria-hidden="true" focusable="false"><use href="#s-medimos"/></svg>Cómo medimos</h2>
             <h3 class="sec-titulo">Una pregunta se gana su lugar.</h3>
             <p class="sec-lead">Cada máquina hace el mismo camino, y en cada paso tiene que sostener lo que dijo.</p>
             <ol class="path" role="list">
@@ -135,7 +160,7 @@
       <section class="panel panel--lado panel--lab" id="laboratorio" aria-labelledby="t-lab" tabindex="-1">
         <div class="lado-scroll">
           <div class="lado-in">
-            <h2 class="lugar lugar--aqui" id="t-lab">Laboratorio</h2>
+            <h2 class="lugar lugar--aqui" id="t-lab"><svg class="simbolo" aria-hidden="true" focusable="false"><use href="#s-laboratorio"/></svg>Laboratorio</h2>
             <div class="taller">
               <div class="lab-head">
                 <p class="lockup"><span class="lockup-g">Golem</span> <span class="lockup-lab">Lab</span></p>
@@ -161,7 +186,7 @@
   <section class="sala sala--arriba" aria-labelledby="t-preguntas">
     <!-- Se lee de abajo hacia arriba: el primer elemento del documento es el más cercano al centro. -->
     <ol class="escalera" role="list">
-      <li class="escalera-pie" id="preguntas"><h2 class="sr-only" id="t-preguntas">Preguntas abiertas</h2><p>Estas preguntas se leen de abajo hacia arriba. Mientras más subes, más lejos llegan.</p></li>
+      <li class="escalera-pie" id="preguntas"><h2 class="sr-only" id="t-preguntas">Preguntas abiertas</h2><svg class="simbolo simbolo--sala" aria-hidden="true" focusable="false"><use href="#s-preguntas"/></svg><p>Estas preguntas se leen de abajo hacia arriba. Mientras más subes, más lejos llegan.</p></li>
       <li class="peldano"><p>¿Puede una máquina hacer una buena pregunta, o solo responder bien?</p></li>
       <li class="peldano"><p>¿Sabe reconocer cuándo su propia pregunta estaba mal planteada?</p></li>
       <li class="peldano"><p>Cuando cambia de opinión ante una crítica, ¿lo hace por una razón o por complacer?</p></li>
@@ -178,6 +203,7 @@
     <section class="sec sec--resultados" aria-labelledby="t-resultados">
       <div class="wrap">
         <h2 class="sr-only" id="t-resultados">Resultados de evaluaciones</h2>
+        <svg class="simbolo simbolo--sala" aria-hidden="true" focusable="false"><use href="#s-resultados"/></svg>
         <p class="stamp">Todavía es arcilla</p>
         <h3 class="sec-titulo">La sala de resultados está vacía. A propósito.</h3>
         <p class="sec-lead">Los números de Golem Bench llegan cuando termine el piloto y pase la revisión final. Preferimos una sala vacía a un ranking de relleno.</p>

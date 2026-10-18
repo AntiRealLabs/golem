@@ -7,7 +7,8 @@ Levanta herramientas/servidor_local.py (imita Cloudflare Pages con _headers),
 abre las páginas en Chromium (Playwright) y comprueba: puerta de publicación,
 estados HTTP y cabeceras, contenido de la fase 1, paridad ES/EN, enlaces,
 fuentes, CSP sin violaciones, anchos sin desborde, espaciado de texto,
-teclado, objetivos táctiles, axe-core (WCAG 2.2 A/AA), peso e imágenes.
+teclado, objetivos táctiles, símbolos de las estaciones, choques en el centro,
+axe-core (WCAG 2.2 A/AA), peso e imágenes.
 Escribe verificacion/portada/informe.md e informe.json; las capturas van a
 verificacion/portada/capturas/ (no se suben al repo).
 
@@ -223,6 +224,20 @@ def main():
                 alts = page.evaluate("[...document.querySelectorAll('img')].map(i=>[i.alt.length, i.complete && i.naturalWidth>0])")
                 check(f"[{key}] imágenes cargadas y con texto alternativo descriptivo", alts and all(a > 40 and ok for a, ok in alts), str(alts))
                 check(f"[{key}] el selector marca el idioma actual", info["current"] == [key.upper()], str(info["current"]))
+                sim = page.evaluate(
+                    """() => {
+                      const ids = new Set([...document.querySelectorAll('svg.simbolos symbol')].map(s => s.id));
+                      const rotos = [...document.querySelectorAll('use')].map(u => u.getAttribute('href')).filter(h => !h || h[0] !== '#' || !ids.has(h.slice(1)));
+                      const ruidosos = [...document.querySelectorAll('svg.simbolo, svg.simbolos')].filter(s => s.getAttribute('aria-hidden') !== 'true' || s.getAttribute('focusable') !== 'false').length;
+                      const rumbos = [...document.querySelectorAll('.onfalo .rumbo .lugar')].map(a => { const u = a.querySelector('svg.simbolo use'); return a.getAttribute('href') + '>' + (u ? u.getAttribute('href') : ''); });
+                      const dibujados = [...document.querySelectorAll('.onfalo .rumbo .lugar svg.simbolo')].every(s => { const r = s.getBoundingClientRect(); return r.width >= 16 && r.height >= 16; });
+                      return {ids: [...ids].sort(), rotos, ruidosos, rumbos, dibujados};
+                    }"""
+                )
+                want_r = ["#preguntas>#s-preguntas", "#laboratorio>#s-laboratorio", "#como-medimos>#s-medimos", "#resultados>#s-resultados"]
+                check(f"[{key}] cada estación lleva su símbolo: los cuatro existen, se dibujan y los lectores de pantalla los saltan",
+                      sim["ids"] == ["s-laboratorio", "s-medimos", "s-preguntas", "s-resultados"] and not sim["rotos"]
+                      and not sim["ruidosos"] and sim["rumbos"] == want_r and sim["dibujados"], str(sim))
                 bad_links = []
                 for href in info["links"]:
                     if href.startswith("#"):
@@ -285,11 +300,11 @@ def main():
         check("Teclado: el primer Tab se queda en el centro, a la vista (selector de idioma)", first == "/" and vis, f"{first} {vis}")
         order = []
         page.goto(base + "/", wait_until="networkidle")
-        for _ in range(6):
+        for _ in range(10):
             page.keyboard.press("Tab")
             order.append(page.evaluate("(document.activeElement.className||document.activeElement.textContent.trim().slice(0,12))+' '+document.activeElement.getAttribute('href')"))
-        want_order = ["ES /", "EN /en/", "lugar #preguntas", "lugar #como-medimos", "lugar #laboratorio", "lugar #resultados"]
-        check("Teclado: desde el centro, ES → EN → ↑ → ← → → → ↓", order == want_order, str(order))
+        want_order = ["ES /", "EN /en/"] + [f"{c} #{d}" for d in ("preguntas", "laboratorio", "como-medimos", "resultados") for c in ("lugar", "q-enlace")]
+        check("Teclado: desde el centro, ES → EN → cada estación con su resumen: ↑, →, ←, ↓", order == want_order, str(order))
         outline = page.evaluate("(()=>{document.querySelector('.langs a').focus();const s=getComputedStyle(document.activeElement);return s.outlineStyle+' '+s.outlineWidth})()")
         check("Teclado: el foco se ve (contorno de 3 px)", outline.startswith("solid 3px"), outline)
         ctx.close()
@@ -356,17 +371,29 @@ def main():
           const m = parseFloat(getComputedStyle(document.querySelector('.onfalo')).getPropertyValue('--marco')) || 12;
           const caja = (e, pad=0) => { const r = e.getBoundingClientRect(); return {x0:r.left-pad, y0:r.top-pad, x1:r.right+pad, y1:r.bottom+pad, n:String(e.className).split(' ').pop()}; };
           const vis = s => [...document.querySelectorAll(s)].filter(e => e.getClientRects().length);
+          const toca = (a, b) => a.x0 < b.x1 && a.x1 > b.x0 && a.y0 < b.y1 && a.y1 > b.y0;
+          const fuera = (a, r) => a.x0 < r.left - 1 || a.x1 > r.right + 1 || a.y0 < r.top - 1 || a.y1 > r.bottom + 1;
           const fijos = [caja(document.querySelector('.onfalo .placa'), m + 1), ...vis('.onfalo .rumbo .lugar, .onfalo .rumbo .susurro, .langs a').map(e => caja(e))];
+          const flechas = vis('.onfalo .lugar-f').map(e => caja(e));   // solo en el celular
           const p = document.getElementById('centro').getBoundingClientRect(), s = document.querySelector('.onfalo .placa').getBoundingClientRect();
           const out = [];
           if (Math.abs(s.top + s.height / 2 - innerHeight / 2) > 3) out.push('placa fuera del centro');
-          for (const a of vis('.cuadrante > *').map(e => caja(e))) {
-            if (a.x0 < p.left - 1 || a.x1 > p.right + 1 || a.y0 < p.top - 1 || a.y1 > p.bottom + 1) out.push('fuera: ' + a.n);
-            for (const b of fijos) if (a.x0 < b.x1 && a.x1 > b.x0 && a.y0 < b.y1 && a.y1 > b.y0) out.push(a.n + ' × ' + b.n);
+          for (const e of vis('.cuadrante > *, .onfalo .rumbo .lugar')) {
+            const a = caja(e), cuad = !!e.closest('.cuadrante');
+            if (cuad && fuera(a, p)) out.push('fuera: ' + a.n);
+            if (cuad) for (const b of fijos) if (toca(a, b)) out.push(a.n + ' × ' + b.n);
+            if (!cuad && toca(a, fijos[0])) out.push(a.n + ' × placa');   // los rumbos tampoco tocan el marco de la placa
+            for (const b of flechas) if (toca(a, b)) out.push(a.n + ' × ' + b.n);
+            // en el celular cada estación es una baldosa: lo suyo no se sale de ella
+            const t = e.closest('.estacion');
+            if (t && t.getClientRects().length && fuera(a, t.getBoundingClientRect())) out.push('fuera de su estación: ' + a.n);
           }
+          // los cuatro recuadros miden lo mismo (en el celular caben dos renglones; ninguno pide tres)
+          const altos = vis('.onfalo .rumbo .lugar').map(e => Math.round(e.getBoundingClientRect().height));
+          if (Math.max(...altos) - Math.min(...altos) > 1) out.push('recuadros desiguales: ' + altos.join('/'));
           return out;
         }"""
-        for vw, vh in ((1920, 1080), (1366, 768), (1280, 720), (1024, 768), (768, 1024), (390, 844), (375, 667), (320, 568)):
+        for vw, vh in ((1920, 1080), (1366, 768), (1280, 720), (1024, 768), (768, 1024), (390, 844), (360, 740), (375, 667), (320, 568)):
             ctx = browser.new_context(viewport={"width": vw, "height": vh}, reduced_motion="reduce", is_mobile=vw < 600, has_touch=vw < 600)
             page = ctx.new_page()
             for key, path in (("es", "/"), ("en", "/en/")):
@@ -374,7 +401,7 @@ def main():
                 page.evaluate("document.fonts.ready")
                 choques += [f"{key}@{vw}×{vh}: {c}" for c in page.evaluate(CHOQUES_JS)]
             ctx.close()
-        check("Centro sin choques: cuadrantes, rumbos y placa no se tocan en ocho tamaños, y la placa sigue en el centro",
+        check("Centro sin choques: cuadrantes, rumbos, flechas y placa no se tocan en nueve tamaños; en el celular nada se sale de su estación; los cuatro recuadros miden lo mismo y la placa sigue en el centro",
               not choques, "; ".join(sorted(set(choques)))[:300])
         ctx = browser.new_context(viewport={"width": 1280, "height": 800}, java_script_enabled=False)
         page = ctx.new_page()

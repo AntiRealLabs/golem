@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/unifrakturmaguntia-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/chakra-petch-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/portada.css?v=4291ab94f1">
+<link rel="stylesheet" href="/assets/portada.css?v=cd6ee38d39">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Golem Bench">
 <meta property="og:title" content="Golem Bench · Questions from the future">
@@ -30,6 +30,25 @@
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body class="cruz">
+<svg class="simbolos" aria-hidden="true" focusable="false">
+  <!-- Los símbolos de las cuatro estaciones: una pregunta hecha de estrellas, el compás de medir,
+       el matraz del laboratorio y el ojo todavía cerrado de los resultados. -->
+  <symbol id="s-preguntas" viewBox="0 0 32 32">
+    <path stroke-width="1.15" d="M10.6 10.4 12.6 6.2 16.7 4.5 20.9 6.6 21.7 10.7 18.7 14.3 16.2 17.9"/>
+    <g fill="currentColor" stroke="none"><circle cx="10.6" cy="10.4" r="1.45"/><circle cx="12.6" cy="6.2" r="1.25"/><circle cx="16.7" cy="4.5" r="1.45"/><circle cx="20.9" cy="6.6" r="1.25"/><circle cx="21.7" cy="10.7" r="1.45"/><circle cx="18.7" cy="14.3" r="1.25"/><circle cx="16.2" cy="17.9" r="1.45"/><circle cx="16.2" cy="25.3" r="2"/></g>
+  </symbol>
+  <symbol id="s-medimos" viewBox="0 0 32 32">
+    <circle cx="16" cy="6.4" r="2.3"/>
+    <path d="M14.9 8.5 8.6 27.4M17.1 8.5l6.3 18.9M10.9 20.6q5.1 4 10.2 0M16 1.6v2.5"/>
+  </symbol>
+  <symbol id="s-laboratorio" viewBox="0 0 32 32">
+    <path d="M13.4 3.8h5.2M14.4 3.8v8.4M17.6 3.8v8.4M14.4 12.2A8.2 8.2 0 1 0 17.6 12.2M9.1 21.4q3.4-1.6 6.9 0t6.9 0"/>
+    <g fill="currentColor" stroke="none"><circle cx="13" cy="25.1" r="1.1"/><circle cx="17.6" cy="24.4" r=".75"/><circle cx="16" cy="9.3" r=".8"/></g>
+  </symbol>
+  <symbol id="s-resultados" viewBox="0 0 32 32">
+    <path d="M5.4 13.6Q16 23.8 26.6 13.6M10.7 17.6l-1.6 3.8M16 18.9v4.1M21.3 17.6l1.6 3.8"/>
+  </symbol>
+</svg>
 
 <!-- The centre is the name. Four bearings leave from it: above, the open questions;
      below, the results; to the left, how we measure; to the right, the laboratory.
@@ -50,51 +69,57 @@
           <p class="placa-lema">Questions from the future</p>
         </div>
         <nav class="rumbos" aria-label="From the centre">
-          <div class="rumbo rumbo--n">
-            <p class="susurro">What we do not know yet</p>
-            <a class="lugar" href="#preguntas">Open questions</a>
+          <div class="estacion estacion--preguntas">
+            <div class="rumbo rumbo--n">
+              <p class="susurro">What we do not know yet</p>
+              <a class="lugar" href="#preguntas"><svg class="simbolo" aria-hidden="true" focusable="false"><use href="#s-preguntas"/></svg><span class="lugar-t">Open questions</span><span class="lugar-f" aria-hidden="true">↑</span></a>
+            </div>
+            <div class="cuadrante cuadrante--no">
+              <p class="q-titulo">Read from the bottom up</p>
+              <p class="q-pregunta">Can a machine ask a good question, or only answer well?</p>
+              <a class="q-enlace" href="#preguntas"><span aria-hidden="true">↑</span> Climb the questions</a>
+            </div>
           </div>
-          <div class="rumbo rumbo--o">
-            <p class="susurro">What holds us up</p>
-            <a class="lugar" href="#como-medimos">How we measure</a>
+          <div class="estacion estacion--laboratorio">
+            <div class="rumbo rumbo--e">
+              <p class="susurro">What we keep</p>
+              <a class="lugar" href="#laboratorio"><svg class="simbolo" aria-hidden="true" focusable="false"><use href="#s-laboratorio"/></svg><span class="lugar-t">Laboratory</span><span class="lugar-f" aria-hidden="true">→</span></a>
+            </div>
+            <div class="cuadrante cuadrante--ne">
+              <p class="q-titulo">Three doors, in the workshop</p>
+              <ul class="q-puertas" role="list"><li>Atlas of Questions</li><li>Open Debates</li><li>Golem Notebook</li></ul>
+              <a class="q-enlace" href="#laboratorio">Enter the laboratory <span aria-hidden="true">→</span></a>
+            </div>
           </div>
-          <div class="rumbo rumbo--e">
-            <p class="susurro">What we keep</p>
-            <a class="lugar" href="#laboratorio">Laboratory</a>
+          <div class="estacion estacion--medimos">
+            <div class="rumbo rumbo--o">
+              <p class="susurro">What holds us up</p>
+              <a class="lugar" href="#como-medimos"><svg class="simbolo" aria-hidden="true" focusable="false"><use href="#s-medimos"/></svg><span class="lugar-t">How we measure</span><span class="lugar-f" aria-hidden="true">←</span></a>
+            </div>
+            <div class="cuadrante cuadrante--so">
+              <p class="q-titulo">Four steps, three judges</p>
+              <ol class="q-camino" role="list"><li>A question</li><li>A proposal</li><li>Two critiques</li><li>A new case</li></ol>
+              <a class="q-enlace" href="#como-medimos"><span aria-hidden="true">←</span> See how we measure</a>
+            </div>
           </div>
-          <div class="rumbo rumbo--s">
-            <a class="lugar" href="#resultados">Evaluation results</a>
-            <p class="susurro">Its eyes are still closed</p>
+          <div class="estacion estacion--resultados">
+            <div class="rumbo rumbo--s">
+              <a class="lugar" href="#resultados"><svg class="simbolo" aria-hidden="true" focusable="false"><use href="#s-resultados"/></svg><span class="lugar-t">Evaluation results</span><span class="lugar-f" aria-hidden="true">↓</span></a>
+              <p class="susurro">Its eyes are still closed</p>
+            </div>
+            <div class="cuadrante cuadrante--se">
+              <p class="stamp">Still clay</p>
+              <p class="q-texto">The results room is empty on purpose. It fills when the pilot ends and passes final review; not a day sooner.</p>
+              <a class="q-enlace" href="#resultados"><span aria-hidden="true">↓</span> Go down to the results</a>
+            </div>
           </div>
         </nav>
-        <div class="cuadrantes">
-          <div class="cuadrante cuadrante--no">
-            <p class="q-titulo">Read from the bottom up</p>
-            <p class="q-pregunta">Can a machine ask a good question, or only answer well?</p>
-            <a class="q-enlace" href="#preguntas"><span aria-hidden="true">↑</span> Climb the questions</a>
-          </div>
-          <div class="cuadrante cuadrante--ne">
-            <p class="q-titulo">Three doors, in the workshop</p>
-            <ul class="q-puertas" role="list"><li>Atlas of Questions</li><li>Open Debates</li><li>Golem Notebook</li></ul>
-            <a class="q-enlace" href="#laboratorio">Enter the laboratory <span aria-hidden="true">→</span></a>
-          </div>
-          <div class="cuadrante cuadrante--so">
-            <p class="q-titulo">Four steps, three judges</p>
-            <ol class="q-camino" role="list"><li>A question</li><li>A proposal</li><li>Two critiques</li><li>A new case</li></ol>
-            <a class="q-enlace" href="#como-medimos"><span aria-hidden="true">←</span> See how we measure</a>
-          </div>
-          <div class="cuadrante cuadrante--se">
-            <p class="stamp">Still clay</p>
-            <p class="q-texto">The results room is empty on purpose. It fills when the pilot ends and passes final review; not a day sooner.</p>
-            <a class="q-enlace" href="#resultados"><span aria-hidden="true">↓</span> Go down to the results</a>
-          </div>
-        </div>
       </section>
 
       <section class="panel panel--lado panel--medimos" id="como-medimos" aria-labelledby="t-medimos" tabindex="-1">
         <div class="lado-scroll">
           <div class="lado-in">
-            <h2 class="lugar lugar--aqui" id="t-medimos">How we measure</h2>
+            <h2 class="lugar lugar--aqui" id="t-medimos"><svg class="simbolo" aria-hidden="true" focusable="false"><use href="#s-medimos"/></svg>How we measure</h2>
             <h3 class="sec-titulo">A question earns its place.</h3>
             <p class="sec-lead">Every machine walks the same path, and at each step it has to stand by what it said.</p>
             <ol class="path" role="list">
@@ -135,7 +160,7 @@
       <section class="panel panel--lado panel--lab" id="laboratorio" aria-labelledby="t-lab" tabindex="-1">
         <div class="lado-scroll">
           <div class="lado-in">
-            <h2 class="lugar lugar--aqui" id="t-lab">Laboratory</h2>
+            <h2 class="lugar lugar--aqui" id="t-lab"><svg class="simbolo" aria-hidden="true" focusable="false"><use href="#s-laboratorio"/></svg>Laboratory</h2>
             <div class="taller">
               <div class="lab-head">
                 <p class="lockup"><span class="lockup-g">Golem</span> <span class="lockup-lab">Lab</span></p>
@@ -161,7 +186,7 @@
   <section class="sala sala--arriba" aria-labelledby="t-preguntas">
     <!-- Read from the bottom up: the first item in the document is the one closest to the centre. -->
     <ol class="escalera" role="list">
-      <li class="escalera-pie" id="preguntas"><h2 class="sr-only" id="t-preguntas">Open questions</h2><p>These questions are read from the bottom up. The higher you climb, the further they reach.</p></li>
+      <li class="escalera-pie" id="preguntas"><h2 class="sr-only" id="t-preguntas">Open questions</h2><svg class="simbolo simbolo--sala" aria-hidden="true" focusable="false"><use href="#s-preguntas"/></svg><p>These questions are read from the bottom up. The higher you climb, the further they reach.</p></li>
       <li class="peldano"><p>Can a machine ask a good question, or only answer well?</p></li>
       <li class="peldano"><p>Can it tell when its own question was poorly framed?</p></li>
       <li class="peldano"><p>When it changes its mind under criticism, is it for a reason or to please?</p></li>
@@ -178,6 +203,7 @@
     <section class="sec sec--resultados" aria-labelledby="t-resultados">
       <div class="wrap">
         <h2 class="sr-only" id="t-resultados">Evaluation results</h2>
+        <svg class="simbolo simbolo--sala" aria-hidden="true" focusable="false"><use href="#s-resultados"/></svg>
         <p class="stamp">Still clay</p>
         <h3 class="sec-titulo">The results room is empty. On purpose.</h3>
         <p class="sec-lead">Golem Bench’s numbers arrive when the pilot ends and passes final review. We prefer an empty room to a filler ranking.</p>

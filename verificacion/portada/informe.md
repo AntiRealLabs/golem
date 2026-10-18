@@ -1,6 +1,6 @@
 # Verificación de la portada
 
-**103 de 103 comprobaciones correctas** · 2026-10-18 02:03 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
+**105 de 105 comprobaciones correctas** · 2026-10-18 02:30 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
 
 Inspección automática. No sustituye pruebas con personas, lectores de pantalla reales, otros navegadores ni la revisión del sitio ya publicado en Cloudflare.
 
@@ -37,6 +37,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | [es] imagen para compartir absoluta y existente |  |
 | ✓ | [es] imágenes cargadas y con texto alternativo descriptivo |  |
 | ✓ | [es] el selector marca el idioma actual |  |
+| ✓ | [es] cada estación lleva su símbolo: los cuatro existen, se dibujan y los lectores de pantalla los saltan |  |
 | ✓ | [es] enlaces internos válidos y solo los externos previstos |  |
 | ✓ | [es] fase 1: sin nombres de modelos ni corridas en el texto |  |
 | ✓ | [es] fase 1: ninguna cifra del piloto (solo J1–J3, 01–04 y el año) |  |
@@ -53,6 +54,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | [en] imagen para compartir absoluta y existente |  |
 | ✓ | [en] imágenes cargadas y con texto alternativo descriptivo |  |
 | ✓ | [en] el selector marca el idioma actual |  |
+| ✓ | [en] cada estación lleva su símbolo: los cuatro existen, se dibujan y los lectores de pantalla los saltan |  |
 | ✓ | [en] enlaces internos válidos y solo los externos previstos |  |
 | ✓ | [en] fase 1: sin nombres de modelos ni corridas en el texto |  |
 | ✓ | [en] fase 1: ninguna cifra del piloto (solo J1–J3, 01–04 y el año) |  |
@@ -65,7 +67,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px |  |
 | ✓ | Objetivos táctiles ≥ 24 px en móvil (WCAG 2.5.8) |  |
 | ✓ | Teclado: el primer Tab se queda en el centro, a la vista (selector de idioma) |  |
-| ✓ | Teclado: desde el centro, ES → EN → ↑ → ← → → → ↓ |  |
+| ✓ | Teclado: desde el centro, ES → EN → cada estación con su resumen: ↑, →, ←, ↓ |  |
 | ✓ | Teclado: el foco se ve (contorno de 3 px) |  |
 | ✓ | Cruz [es · escritorio]: se llega al centro (el nombre a la vista, brújula en el centro) |  |
 | ✓ | Cruz [es · escritorio]: la placa del nombre queda en el centro exacto de la pantalla (±3 px) |  |
@@ -103,7 +105,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Cruz [en · móvil]: sin vacío entre el centro y los resultados |  |
 | ✓ | Cruz [en · móvil]: los enlaces llevan a cada sala y la brújula lo marca |  |
 | ✓ | Cruz [en · móvil]: la brújula se esconde en el centro y aparece al alejarse |  |
-| ✓ | Centro sin choques: cuadrantes, rumbos y placa no se tocan en ocho tamaños, y la placa sigue en el centro |  |
+| ✓ | Centro sin choques: cuadrantes, rumbos, flechas y placa no se tocan en nueve tamaños; en el celular nada se sale de su estación; los cuatro recuadros miden lo mismo y la placa sigue en el centro |  |
 | ✓ | Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces |  |
 | ✓ | axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (3 páginas × 2 anchos) |  |
 | ✓ | axe-core · buenas prácticas: sin avisos |  |
