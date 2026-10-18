@@ -24,6 +24,10 @@ git push origin main          (con cambios en site/)
 
 El primer despliegue crea el proyecto `golembench` si todavía no existe. Un
 push que solo cambie documentos no despliega nada.
+
+**Borradores:** cualquier otra rama que toque `site/` se publica como vista previa
+(`.github/workflows/deploy-preview.yml`) en `https://<rama>.golembench.pages.dev`,
+sin tocar golembench.org. Así se revisa en el teléfono antes de pasar a `main`.
 Para volver a desplegar sin cambios: *Actions → Deploy Cloudflare Pages → Run
 workflow*.
 

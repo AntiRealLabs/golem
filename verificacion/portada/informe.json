@@ -1,7 +1,7 @@
 {
- "fecha": "2026-10-17 22:55 (UTC−5)",
- "correctas": 61,
- "total": 61,
+ "fecha": "2026-10-17 23:52 (UTC−5)",
+ "correctas": 64,
+ "total": 64,
  "resultados": [
   {
    "comprobacion": "Puerta de publicación: site/ contiene solo la portada",
@@ -74,14 +74,19 @@
    "detalle": ""
   },
   {
-   "comprobacion": "og-es.png mide 1200×630",
+   "comprobacion": "og-es.jpg mide 1200×630",
    "ok": true,
    "detalle": ""
   },
   {
-   "comprobacion": "og-en.png mide 1200×630",
+   "comprobacion": "og-en.jpg mide 1200×630",
    "ok": true,
    "detalle": ""
+  },
+  {
+   "comprobacion": "Figura de la portada: arte original a tamaño completo (taller 2172 px, arcilla 1122×1402)",
+   "ok": true,
+   "detalle": "{'taller-2172.webp': (2172, 724), 'taller-1280.webp': (1280, 427), 'arcilla-1122.webp': (1122, 1402), 'arcilla-720.webp': (720, 900)}"
   },
   {
    "comprobacion": "favicon.svg es SVG válido",
@@ -96,17 +101,17 @@
   {
    "comprobacion": "[es] las cinco familias de la base cargan desde el propio sitio",
    "ok": true,
-   "detalle": "cargadas: ['UnifrakturMaguntia', 'Chakra Petch', 'Archivo', 'Archivo', 'Fragment Mono', 'DM Sans']"
+   "detalle": "cargadas: ['UnifrakturMaguntia', 'Chakra Petch', 'Archivo', 'Archivo', 'Fragment Mono', 'DM Sans', 'Newsreader']"
   },
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:45861'}"
+   "detalle": "{'127.0.0.1:36713'}"
   },
   {
-   "comprobacion": "[es] peso total de la página ≤ 250 KB",
+   "comprobacion": "[es] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "123391 bytes"
+   "detalle": "199641 bytes"
   },
   {
    "comprobacion": "[es] idioma del documento declarado",
@@ -121,7 +126,7 @@
   {
    "comprobacion": "[es] descripción presente y ≤ 170 caracteres",
    "ok": true,
-   "detalle": "152"
+   "detalle": "154"
   },
   {
    "comprobacion": "[es] canónica correcta",
@@ -139,6 +144,11 @@
    "detalle": ""
   },
   {
+   "comprobacion": "[es] imágenes cargadas y con texto alternativo descriptivo",
+   "ok": true,
+   "detalle": "[[175, True]]"
+  },
+  {
    "comprobacion": "[es] el selector marca el idioma actual",
    "ok": true,
    "detalle": "['ES']"
@@ -149,7 +159,7 @@
    "detalle": "[]"
   },
   {
-   "comprobacion": "[es] fase 1: sin nombres de modelos, corridas, dictámenes ni rankings en el texto",
+   "comprobacion": "[es] fase 1: sin nombres de modelos, corridas ni rankings en el texto",
    "ok": true,
    "detalle": ""
   },
@@ -171,17 +181,17 @@
   {
    "comprobacion": "[en] las cinco familias de la base cargan desde el propio sitio",
    "ok": true,
-   "detalle": "cargadas: ['UnifrakturMaguntia', 'Chakra Petch', 'Archivo', 'Archivo', 'Fragment Mono', 'DM Sans']"
+   "detalle": "cargadas: ['UnifrakturMaguntia', 'Chakra Petch', 'Archivo', 'Archivo', 'Fragment Mono', 'DM Sans', 'Newsreader']"
   },
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:45861'}"
+   "detalle": "{'127.0.0.1:36713'}"
   },
   {
-   "comprobacion": "[en] peso total de la página ≤ 250 KB",
+   "comprobacion": "[en] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "123291 bytes"
+   "detalle": "199503 bytes"
   },
   {
    "comprobacion": "[en] idioma del documento declarado",
@@ -196,7 +206,7 @@
   {
    "comprobacion": "[en] descripción presente y ≤ 170 caracteres",
    "ok": true,
-   "detalle": "151"
+   "detalle": "141"
   },
   {
    "comprobacion": "[en] canónica correcta",
@@ -214,6 +224,11 @@
    "detalle": ""
   },
   {
+   "comprobacion": "[en] imágenes cargadas y con texto alternativo descriptivo",
+   "ok": true,
+   "detalle": "[[148, True]]"
+  },
+  {
    "comprobacion": "[en] el selector marca el idioma actual",
    "ok": true,
    "detalle": "['EN']"
@@ -224,7 +239,7 @@
    "detalle": "[]"
   },
   {
-   "comprobacion": "[en] fase 1: sin nombres de modelos, corridas, dictámenes ni rankings en el texto",
+   "comprobacion": "[en] fase 1: sin nombres de modelos, corridas ni rankings en el texto",
    "ok": true,
    "detalle": ""
   },
@@ -251,17 +266,17 @@
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:45861'}"
+   "detalle": "{'127.0.0.1:36713'}"
   },
   {
-   "comprobacion": "[404] peso total de la página ≤ 250 KB",
+   "comprobacion": "[404] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "102980 bytes"
+   "detalle": "107303 bytes"
   },
   {
    "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces",
    "ok": true,
-   "detalle": "{'es': [3, 10, 12, 25, 5], 'en': [3, 10, 12, 25, 5]}"
+   "detalle": "{'es': [5, 14, 16, 32, 6], 'en': [5, 14, 16, 32, 6]}"
   },
   {
    "comprobacion": "Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px",
@@ -281,7 +296,7 @@
   {
    "comprobacion": "Teclado: orden salto → marca → ES → EN → enlaces del pie",
    "ok": true,
-   "detalle": "['skip #contenido', 'brand /', 'ES /', 'EN /en/', 'Un proyecto  https://antireallabs.com', 'admin@antire mailto:admin@antireallabs.com']"
+   "detalle": "['skip #contenido', 'brand /', 'ES /', 'EN /en/', 'btn mailto:admin@antireallabs.com?subject=Av%C3%ADsenme%20cuando%20el%20golem%20despierte', 'Un proyecto  https://antireallabs.com']"
   },
   {
    "comprobacion": "Teclado: el foco se ve (contorno de 3 px)",

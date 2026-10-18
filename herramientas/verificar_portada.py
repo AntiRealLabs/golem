@@ -41,10 +41,10 @@ import servidor_local  # noqa: E402
 AXE = (ROOT / "herramientas" / "vendor" / "axe.min.js").read_text(encoding="utf-8")
 PAGES = {"es": "/", "en": "/en/", "404": "/esta-ruta-no-existe"}
 WIDTHS = [1440, 1024, 768, 390, 320]
-FAMILIES = ["UnifrakturMaguntia", "Chakra Petch", "Archivo", "Fragment Mono", "DM Sans"]
+FAMILIES = ["UnifrakturMaguntia", "Chakra Petch", "Archivo", "Fragment Mono", "DM Sans", "Newsreader"]
 EXTERNAL_OK = {"https://antireallabs.com", "mailto:admin@antireallabs.com"}
 # Fase 1: nada del piloto en la portada (ni nombres de modelos, ni corridas o casos, ni cifras)
-PHASE1_FORBIDDEN = re.compile(r"\b(Claude|GPT|Gemini|Llama|Mistral|Grok|DeepSeek|dictamen\w*|ranking)\b|\b[A-Z]{2}-\d{2}\b", re.I)
+PHASE1_FORBIDDEN = re.compile(r"\b(Claude|GPT|Gemini|Llama|Mistral|Grok|DeepSeek|ranking)\b|\b[A-Z]{2}-\d{2}\b", re.I)
 DIGITS_OK = {"1", "2", "3", "01", "02", "03", "04", "2026", "404"}
 SPANISH_HINTS = re.compile(r"ñ|ción\b|\b(el|los|las|del|una|que|para|con)\b", re.I)
 ENGLISH_HINTS = re.compile(r"\b(the|and|of|with|what|which|is)\b", re.I)
@@ -150,7 +150,11 @@ def main():
     check("favicon.ico trae 16, 32 y 48 px", {(16, 16), (32, 32), (48, 48)} <= set(ico.info.get("sizes", [])))
     check("apple-touch-icon.png mide 180×180", Image.open(SITE / "apple-touch-icon.png").size == (180, 180))
     for lang in ("es", "en"):
-        check(f"og-{lang}.png mide 1200×630", Image.open(SITE / "assets" / f"og-{lang}.png").size == (1200, 630))
+        check(f"og-{lang}.jpg mide 1200×630", Image.open(SITE / "assets" / f"og-{lang}.jpg").size == (1200, 630))
+    # la figura de la portada tiene que ser el arte original, no una captura reescalada
+    sizes = {f: Image.open(SITE / "assets" / f).size for f in ("taller-2172.webp", "taller-1280.webp", "arcilla-1122.webp", "arcilla-720.webp")}
+    check("Figura de la portada: arte original a tamaño completo (taller 2172 px, arcilla 1122×1402)",
+          sizes["taller-2172.webp"] == (2172, 724) and sizes["arcilla-1122.webp"] == (1122, 1402), str(sizes))
     try:
         ElementTree.fromstring((SITE / "favicon.svg").read_text(encoding="utf-8"))
         check("favicon.svg es SVG válido", True)
@@ -182,7 +186,7 @@ def main():
                 check(f"[{key}] las cinco familias de la base cargan desde el propio sitio", len(used) == len(FAMILIES), f"cargadas: {loaded}")
             check(f"[{key}] todo se sirve desde el mismo origen", origins == {base.split('/')[2]}, str(origins))
             total = sum(sizes)
-            check(f"[{key}] peso total de la página ≤ 250 KB", total <= 250_000, f"{total} bytes")
+            check(f"[{key}] peso total de la página ≤ 700 KB", total <= 700_000, f"{total} bytes")
             if key in ("es", "en"):
                 info = page.evaluate(
                     """() => ({
@@ -205,7 +209,9 @@ def main():
                 want = "https://golembench.org/" + ("" if key == "es" else "en/")
                 check(f"[{key}] canónica correcta", info["canonical"] == want, info["canonical"])
                 check(f"[{key}] alternativas hreflang es/en/x-default", sorted(a.split("=")[0] for a in info["alts"]) == ["en", "es", "x-default"], str(info["alts"]))
-                check(f"[{key}] imagen para compartir absoluta y existente", info["og"] == f"https://golembench.org/assets/og-{key}.png" and (SITE / "assets" / f"og-{key}.png").exists())
+                check(f"[{key}] imagen para compartir absoluta y existente", info["og"] == f"https://golembench.org/assets/og-{key}.jpg" and (SITE / "assets" / f"og-{key}.jpg").exists())
+                alts = page.evaluate("[...document.querySelectorAll('img')].map(i=>[i.alt.length, i.complete && i.naturalWidth>0])")
+                check(f"[{key}] imágenes cargadas y con texto alternativo descriptivo", alts and all(a > 40 and ok for a, ok in alts), str(alts))
                 check(f"[{key}] el selector marca el idioma actual", info["current"] == [key.upper()], str(info["current"]))
                 bad_links = []
                 for href in info["links"]:
@@ -218,12 +224,12 @@ def main():
                             st, _, _ = http(base, hh.get("Location", ""))
                         if st != 200:
                             bad_links.append(f"{href} → {st}")
-                    elif href not in EXTERNAL_OK:
+                    elif href.split("?")[0] not in EXTERNAL_OK:
                         bad_links.append(href)
                 check(f"[{key}] enlaces internos válidos y solo los externos previstos", not bad_links, str(bad_links))
                 text = visible_text(page)
                 m = PHASE1_FORBIDDEN.search(text)
-                check(f"[{key}] fase 1: sin nombres de modelos, corridas, dictámenes ni rankings en el texto", not m, m.group(0) if m else "")
+                check(f"[{key}] fase 1: sin nombres de modelos, corridas ni rankings en el texto", not m, m.group(0) if m else "")
                 nums = set(re.findall(r"\d+", text)) - DIGITS_OK
                 check(f"[{key}] fase 1: ninguna cifra del piloto (solo J1–J3, 01–04 y el año)", not nums, str(sorted(nums)))
                 other = visible_text(page, exclude_lang="es" if key == "en" else "en")

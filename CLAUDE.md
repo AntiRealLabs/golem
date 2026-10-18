@@ -60,14 +60,42 @@ por qué en el mensaje.
   y regenerar las imágenes si cambian el lema o la marca (`herramientas/generar_imagenes.py`).
 - Cada push a main que toque `site/` se publica solo en golembench.org.
 
+## Voz: parresía
+
+Pedido de Juan (17 oct 2026), y vale para cada decisión de texto y de diseño: nada de mensajes ni
+textos genéricos o formulados. Hablar y diseñar con parresía, como decían los griegos: con la fuerza
+de nuestros planteamientos, con orgullo y autenticidad, rompiendo un poco los moldes y con chispa,
+sin caer en la oscuridad ni en la distancia, sino para traer calidez y seducción.
+
+En la práctica:
+
+- Una pregunta antes que un eslogan. La portada abre con «¿Hasta dónde puede filosofar una máquina?».
+- Frases cortas, con verbo y sujeto. Nada de «soluciones», «potenciar», «innovador», «de vanguardia».
+- La franqueza incluye decir lo que no sabemos y lo que todavía no está listo, con gracia
+  («Todavía es arcilla», «ni un día antes»), nunca con letra pequeña.
+- La metáfora de la casa es el golem: barro que una palabra pone a andar. La figura de arcilla con
+  los ojos cerrados es la imagen de la marca.
+- El rigor no se negocia por el estilo: cada frase con chispa tiene que seguir siendo verdad según
+  las reglas de arriba.
+- Prueba antes de publicar un texto: ¿podría firmarlo cualquier otra web? Si sí, se reescribe.
+- En el chat con Juan, lo mismo: directo, cálido y sin plantillas.
+
 ## Identidad visual
 
 Tokens y letras de la base visual (`site/assets/portada.css`): carbón `#1c1d1a`, marfil `#f0ebdf`,
-burdeos `#803a39`, tostado `#d1b698`. UnifrakturMaguntia para la marca, Chakra Petch para
-titulares, Archivo para el texto, Fragment Mono para rótulos y DM Sans para «BENCH». Las fuentes
-(licencia OFL) se sirven desde `site/assets/fonts/`. El borde discontinuo marca lo que está en
-preparación. La CSP no admite estilos ni scripts en línea: nada de `style=""` ni `<script>` sin
-archivo.
+burdeos `#803a39`, tostado `#d1b698`, arcilla `#b98b6a`. UnifrakturMaguntia para la marca, Chakra Petch
+para titulares, Archivo para el texto, Newsreader (cursiva) para las frases con voz literaria,
+Fragment Mono para rótulos y DM Sans para «BENCH». Las fuentes (licencia OFL) se sirven desde
+`site/assets/fonts/`.
+
+Imágenes: vienen de la colección de redes v0.4 (`golem_redes_sociales_v0_4.zip`, arte generado con
+IA y aprobado; se rotula «Imagen generada con IA para Golem Bench»). `taller-*.webp` es la versión
+panorámica del taller (escritorio) y `arcilla-*.webp` la figura vertical (móvil), elegidas con
+`<picture>`. El favicon es la G marfil sobre burdeos, como el perfil rojo de esa colección.
+`herramientas/generar_imagenes.py` rehace el favicon y las tarjetas para compartir.
+
+El borde discontinuo marca lo que está en el taller. La CSP no admite estilos ni scripts en línea:
+nada de `style=""` ni `<script>` sin archivo.
 
 ## Marca
 

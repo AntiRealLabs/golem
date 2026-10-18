@@ -5,7 +5,7 @@ Uso:  python3 -I herramientas/generar_imagenes.py [RAIZ_DEL_REPO]
 
 Escribe en site/:
   favicon.svg, favicon.ico (16/32/48), apple-touch-icon.png (180)
-  assets/og-es.png, assets/og-en.png (1200×630)
+  assets/og-es.jpg, assets/og-en.jpg (1200×630)
 
 La G sale del contorno de UnifrakturMaguntia (licencia OFL; una imagen hecha
 con la fuente no queda sujeta a la licencia). Las imágenes se dibujan con
@@ -26,7 +26,8 @@ ROOT = Path(sys.argv[1] if len(sys.argv) > 1 else Path(__file__).resolve().paren
 SITE = ROOT / "site"
 FONTS = SITE / "assets" / "fonts"
 
-COAL, ON_COAL, ON_COAL_2, TAN, LINE, RED = "#1c1d1a", "#ece6d8", "#bdb9a9", "#d1b698", "#45463e", "#803a39"
+COAL, ON_COAL, ON_COAL_2, TAN, LINE, RED, IVORY = "#1c1d1a", "#ece6d8", "#bdb9a9", "#d1b698", "#45463e", "#803a39", "#f4ede0"
+TALLER = SITE / "assets" / "taller-2172.webp"   # figura panorámica de la colección de redes v0.4
 
 
 def glyph_g():
@@ -48,8 +49,8 @@ def favicon_svg():
     tx, ty = size / 2 - s * cx, size / 2 + s * cy
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
-        f'<rect width="64" height="64" rx="12" fill="{COAL}"/>'
-        f'<path fill="{ON_COAL}" transform="translate({tx:.3f} {ty:.3f}) scale({s:.6f} {-s:.6f})" d="{d}"/>'
+        f'<rect width="64" height="64" rx="12" fill="{RED}"/>'
+        f'<path fill="{IVORY}" transform="translate({tx:.3f} {ty:.3f}) scale({s:.6f} {-s:.6f})" d="{d}"/>'
         "</svg>\n"
     )
 
@@ -61,6 +62,7 @@ def font_faces():
         ("Archivo", 400, "archivo-latin-400-normal.woff2"),
         ("Fragment Mono", 400, "fragment-mono-latin-400-normal.woff2"),
         ("DM Sans", 400, "dm-sans-latin-400-normal.woff2"),
+        ("Newsreader", 400, "newsreader-latin-400-normal.woff2"),
     ]
     return "".join(
         f"@font-face{{font-family:'{fam}';font-weight:{w};src:url('{(FONTS / f).as_uri()}') format('woff2')}}"
@@ -69,35 +71,34 @@ def font_faces():
 
 
 OG = {
-    "es": ("Benchmark de creación filosófica en IA", "Preguntas desde el futuro", "Primera edición en preparación"),
-    "en": ("Benchmark for philosophical creation in AI", "Questions from the future", "First edition in preparation"),
+    "es": ("Benchmark de creación filosófica en IA", "¿Hasta dónde puede filosofar una máquina?", "Preguntas desde el futuro"),
+    "en": ("Benchmark for philosophical creation in AI", "How far can a machine philosophize?", "Questions from the future"),
 }
 
 
 def og_html(lang):
-    eyebrow, lema, status = OG[lang]
+    eyebrow, question, lema = OG[lang]
     return f"""<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><style>
 {font_faces()}
 *{{box-sizing:border-box;margin:0}}
 html,body{{width:1200px;height:630px;overflow:hidden}}
-body{{position:relative;background:{COAL};color:{ON_COAL};font-family:'Archivo',sans-serif}}
-.arc{{position:absolute;right:-230px;top:-290px;width:620px;height:620px;border:1.5px solid {LINE};border-radius:50%;
-  box-shadow:0 0 0 52px rgba(255,255,255,.014),0 0 0 104px rgba(255,255,255,.011)}}
-.in{{position:absolute;inset:0;padding:70px 80px 64px;display:flex;flex-direction:column}}
-.eyebrow{{font:400 22px/1.3 'Fragment Mono';letter-spacing:.14em;text-transform:uppercase;color:{TAN}}}
-.mark{{display:flex;align-items:baseline;gap:26px;margin-top:26px}}
-.g{{font:400 196px/.9 'UnifrakturMaguntia';letter-spacing:-.035em}}
-.b{{font:400 34px/1 'DM Sans';letter-spacing:.34em;color:{ON_COAL_2}}}
-.lema{{font:500 50px/1.2 'Chakra Petch';color:{TAN};margin-top:30px}}
-.foot{{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;padding-top:22px;border-top:1.5px solid {LINE}}}
-.st{{font:400 24px/1.3 'Archivo';color:{ON_COAL_2}}}
-.url{{font:400 24px/1.3 'Fragment Mono';letter-spacing:.04em;color:{ON_COAL}}}
-.bar{{position:absolute;left:0;right:0;bottom:0;height:10px;background:{RED}}}
-</style></head><body><div class="arc"></div><div class="in">
+body{{position:relative;background:{COAL} url('{TALLER.as_uri()}') 82% 40%/auto 100% no-repeat;color:{ON_COAL};font-family:'Archivo',sans-serif}}
+body::before{{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(24,25,21,.96) 0%,rgba(24,25,21,.86) 38%,rgba(24,25,21,.2) 60%,rgba(24,25,21,0) 70%)}}
+.in{{position:absolute;inset:0;padding:58px 72px 54px;display:flex;flex-direction:column;max-width:760px}}
+.eyebrow{{font:400 19px/1.3 'Fragment Mono';letter-spacing:.14em;text-transform:uppercase;color:{TAN}}}
+.mark{{display:flex;align-items:baseline;gap:20px;margin-top:20px}}
+.g{{font:400 132px/.9 'UnifrakturMaguntia';letter-spacing:-.035em}}
+.b{{font:400 26px/1 'DM Sans';letter-spacing:.34em;color:{ON_COAL_2}}}
+.q{{font:500 50px/1.06 'Chakra Petch';letter-spacing:-.02em;margin-top:30px;max-width:17ch;text-wrap:balance}}
+.lema{{font:500 26px/1.2 'Chakra Petch';color:{TAN};margin-top:16px}}
+.url{{margin-top:auto;font:400 21px/1.3 'Fragment Mono';letter-spacing:.06em;color:{ON_COAL_2}}}
+.bar{{position:absolute;left:0;right:0;bottom:0;height:8px;background:{RED}}}
+</style></head><body><div class="in">
 <p class="eyebrow">{eyebrow}</p>
 <p class="mark"><span class="g">Golem</span><span class="b">BENCH</span></p>
+<p class="q">{question}</p>
 <p class="lema">{lema}</p>
-<div class="foot"><span class="st">{status}</span><span class="url">golembench.org</span></div>
+<p class="url">golembench.org</p>
 </div><div class="bar"></div></body></html>"""
 
 
@@ -136,14 +137,14 @@ def main():
                 page.evaluate("document.fonts.ready")
                 page.wait_for_timeout(150)
                 png = Image.open(io.BytesIO(page.screenshot())).convert("RGB")
-                png.save(SITE / "assets" / f"og-{lang}.png", optimize=True)
+                png.save(SITE / "assets" / f"og-{lang}.jpg", quality=86, optimize=True, progressive=True)
                 page.close()
             browser.close()
     finally:
         for f in tmp.glob("*"):
             f.unlink()
         tmp.rmdir()
-    for f in ["favicon.svg", "favicon.ico", "apple-touch-icon.png", "assets/og-es.png", "assets/og-en.png"]:
+    for f in ["favicon.svg", "favicon.ico", "apple-touch-icon.png", "assets/og-es.jpg", "assets/og-en.jpg"]:
         print(f"{f}: {(SITE / f).stat().st_size} bytes")
 
 

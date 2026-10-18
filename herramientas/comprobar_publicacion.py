@@ -14,7 +14,7 @@ import re
 import sys
 from pathlib import Path
 
-ALLOWED_SUFFIXES = {".html", ".css", ".woff2", ".png", ".svg", ".ico", ".txt", ".xml"}
+ALLOWED_SUFFIXES = {".html", ".css", ".woff2", ".png", ".jpg", ".webp", ".svg", ".ico", ".txt", ".xml"}
 ALLOWED_NAMES = {"_headers", "_redirects"}
 MAX_BYTES = 2_000_000
 

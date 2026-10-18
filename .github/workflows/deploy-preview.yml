@@ -1,0 +1,49 @@
+name: Vista previa en Cloudflare Pages
+
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - "site/**"
+      - "herramientas/comprobar_publicacion.py"
+      - ".github/workflows/deploy-preview.yml"
+
+concurrency:
+  group: cloudflare-pages-preview-${{ github.ref_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  preview:
+    name: Vista previa de ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      WRANGLER_SEND_METRICS: "false"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Puerta de publicación
+        run: python3 -I herramientas/comprobar_publicacion.py site
+
+      # Las ramas que no son main salen como vista previa: https://<rama>.golembench.pages.dev
+      - name: Deploy (vista previa)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4"
+          command: pages deploy site --project-name=golembench --branch=${{ github.ref_name }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
