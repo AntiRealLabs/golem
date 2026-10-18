@@ -38,6 +38,9 @@ jobs:
       - name: Puerta de publicación
         run: python3 -I herramientas/comprobar_publicacion.py site
 
+      - name: Huellas de versión de CSS y JS
+        run: python3 -I herramientas/versionar_recursos.py --comprobar
+
       # Las ramas que no son main salen como vista previa: https://<rama>.golembench.pages.dev
       - name: Deploy (vista previa)
         uses: cloudflare/wrangler-action@v3

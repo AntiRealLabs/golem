@@ -8,7 +8,7 @@ Idioma de trabajo: español. Todo contenido público va en español y en inglés
   pequeño (`assets/centro.js`) y ningún recurso externo. `index.html` (ES), `en/index.html` (EN), `404.html`,
   `_headers`, `robots.txt`, `sitemap.xml`, fuentes e imágenes.
 - `herramientas/`: puerta de publicación, servidor local que imita Pages, verificación de la
-  portada y generador del favicon y de las imágenes para compartir.
+  portada, huellas de versión de CSS y JS, y generador del favicon y de las imágenes para compartir.
 - `DEPLOY.md`: cómo se despliega y registro de publicaciones.
 
 El prototipo de Golem Lab (propuesta v0.1) no está en este repo: contiene materiales del piloto
@@ -53,6 +53,10 @@ por qué en el mensaje.
 
 ## Antes de cada push a main
 
+- Si cambian `portada.css` o `centro.js`: `python3 -I herramientas/versionar_recursos.py`. Pone la
+  huella `?v=` en las páginas; Cloudflare guarda CSS y JS 4 horas en los navegadores y, sin huella
+  nueva, quien ya visitó vería la página nueva con estilos viejos. La verificación y los dos
+  workflows fallan si una huella quedó vieja.
 - `python3 -I herramientas/verificar_portada.py` debe dar todo correcto.
 - `python3 -I herramientas/comprobar_publicacion.py site`.
 - Si cambian textos de la portada: mantener la paridad entre `site/index.html` y

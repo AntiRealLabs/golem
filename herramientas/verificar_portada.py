@@ -37,6 +37,7 @@ SHOTS = OUT / "capturas"
 sys.path.insert(0, str(ROOT / "herramientas"))
 import comprobar_publicacion  # noqa: E402
 import servidor_local  # noqa: E402
+import versionar_recursos  # noqa: E402
 
 AXE = (ROOT / "herramientas" / "vendor" / "axe.min.js").read_text(encoding="utf-8")
 PAGES = {"es": "/", "en": "/en/", "404": "/esta-ruta-no-existe"}
@@ -135,6 +136,12 @@ def main():
     check("Caché de fuentes sin valores unidos por reglas repetidas", h.get("Cache-Control") == "public, max-age=31536000, immutable", h.get("Cache-Control", ""))
     s, h, _ = http(base, "/assets/portada.css")
     check("La hoja de estilos no lleva caché larga (cambia con cada versión)", "immutable" not in h.get("Cache-Control", ""))
+    # Cloudflare guarda CSS y JS 4 horas en el navegador: sin huella, quien ya visitó
+    # vería el HTML nuevo con estilos viejos (ver herramientas/versionar_recursos.py)
+    viejas = versionar_recursos.revisar(SITE)
+    sirven = [http(base, f"/{r}?v={versionar_recursos.huella(r)}")[0] for r in versionar_recursos.RECURSOS]
+    check("CSS y JS llevan la huella de su versión (?v=) en todas las páginas y se sirven con ella",
+          not viejas and sirven == [200, 200], "; ".join(viejas) or f"estados {sirven}")
     s, h, b = http(base, "/robots.txt")
     check("robots.txt enlaza el sitemap", s == 200 and b"Sitemap: https://golembench.org/sitemap.xml" in b)
     s, h, b = http(base, "/sitemap.xml")

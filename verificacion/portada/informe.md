@@ -1,6 +1,6 @@
 # Verificación de la portada
 
-**85 de 85 comprobaciones correctas** · 2026-10-18 00:29 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
+**86 de 86 comprobaciones correctas** · 2026-10-18 00:36 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
 
 Inspección automática. No sustituye pruebas con personas, lectores de pantalla reales, otros navegadores ni la revisión del sitio ya publicado en Cloudflare.
 
@@ -16,6 +16,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Cabeceras de seguridad presentes en / |  |
 | ✓ | Caché de fuentes sin valores unidos por reglas repetidas |  |
 | ✓ | La hoja de estilos no lleva caché larga (cambia con cada versión) |  |
+| ✓ | CSS y JS llevan la huella de su versión (?v=) en todas las páginas y se sirven con ella |  |
 | ✓ | robots.txt enlaza el sitemap |  |
 | ✓ | sitemap.xml es XML válido con las dos páginas |  |
 | ✓ | favicon.ico trae 16, 32 y 48 px |  |

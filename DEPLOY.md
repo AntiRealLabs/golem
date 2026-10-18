@@ -55,9 +55,25 @@ El token no se pega en chats ni en archivos del repo.
 - Cloudflare oculta los correos de la página (Email Address Obfuscation): reescribe el `mailto:`
   e inserta `/cdn-cgi/scripts/…/email-decode.min.js`. La CSP lo admite porque es del mismo origen.
 
+## Caché
+
+- El HTML llega fresco en cada visita (`max-age=0`). CSS, JS e imágenes salen con
+  `max-age=14400`: es el *Browser Cache TTL* de 4 horas de la zona, que se impone sobre lo que
+  manda Pages.
+- Por eso las páginas piden `portada.css` y `centro.js` con `?v=<huella>`: cuando el archivo
+  cambia, cambia la dirección y el navegador lo pide de nuevo. Sin eso, quien ya había visitado
+  vería el HTML nuevo con el CSS viejo (pasó el 18 oct 2026, al publicar la cruz).
+  `herramientas/versionar_recursos.py` pone las huellas; la verificación y los dos workflows
+  fallan si alguna quedó vieja.
+- Las fuentes llevan caché de un año (`immutable`): un archivo de fuente nunca se cambia
+  conservando su nombre.
+- Una imagen que cambie conservando su nombre puede tardar hasta 4 horas en verse donde ya
+  estaba guardada. Si importa, se publica con otro nombre.
+
 ## Antes de cada push
 
 ```bash
+python3 -I herramientas/versionar_recursos.py       # si cambiaron portada.css o centro.js
 python3 -I herramientas/verificar_portada.py        # Playwright + Chromium; todo debe dar correcto
 python3 -I herramientas/comprobar_publicacion.py site
 ```
@@ -87,4 +103,4 @@ python3 -I herramientas/servidor_local.py 8788      # http://127.0.0.1:8788
 | Fecha | Qué se publicó | Aprobó |
 |---|---|---|
 | 2026-10-17 | Portada fase 1, ES/EN, sin datos del piloto | Juan · Anti-Real Labs (en el chat de diseño) |
-| 2026-10-18 | Portada «la cruz»: se llega a la pregunta y se navega hacia los cuatro lados. Lema «Preguntas desde el futuro». ES/EN, sin datos del piloto | Juan · Anti-Real Labs (en el chat de diseño) |
+| 2026-10-18 | Portada «la cruz»: se llega a la pregunta y se navega hacia los cuatro lados. Lema «Preguntas desde el futuro». ES/EN, sin datos del piloto. CSS y JS con huella de versión | Juan · Anti-Real Labs (en el chat de diseño) |

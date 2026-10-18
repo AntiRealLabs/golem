@@ -1,7 +1,7 @@
 {
- "fecha": "2026-10-18 00:29 (UTC−5)",
- "correctas": 85,
- "total": 85,
+ "fecha": "2026-10-18 00:36 (UTC−5)",
+ "correctas": 86,
+ "total": 86,
  "resultados": [
   {
    "comprobacion": "Puerta de publicación: site/ contiene solo la portada",
@@ -52,6 +52,11 @@
    "comprobacion": "La hoja de estilos no lleva caché larga (cambia con cada versión)",
    "ok": true,
    "detalle": ""
+  },
+  {
+   "comprobacion": "CSS y JS llevan la huella de su versión (?v=) en todas las páginas y se sirven con ella",
+   "ok": true,
+   "detalle": "estados [200, 200]"
   },
   {
    "comprobacion": "robots.txt enlaza el sitemap",
@@ -106,12 +111,12 @@
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:40645'}"
+   "detalle": "{'127.0.0.1:37427'}"
   },
   {
    "comprobacion": "[es] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "222054 bytes"
+   "detalle": "222080 bytes"
   },
   {
    "comprobacion": "[es] idioma del documento declarado",
@@ -186,12 +191,12 @@
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:40645'}"
+   "detalle": "{'127.0.0.1:37427'}"
   },
   {
    "comprobacion": "[en] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "221828 bytes"
+   "detalle": "221854 bytes"
   },
   {
    "comprobacion": "[en] idioma del documento declarado",
@@ -266,12 +271,12 @@
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:40645'}"
+   "detalle": "{'127.0.0.1:37427'}"
   },
   {
    "comprobacion": "[404] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "118288 bytes"
+   "detalle": "118301 bytes"
   },
   {
    "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces",

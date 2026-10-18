@@ -42,6 +42,11 @@ jobs:
       - name: Puerta de publicación
         run: python3 -I herramientas/comprobar_publicacion.py site
 
+      # La zona de Cloudflare guarda CSS y JS 4 horas en el navegador. Con una huella
+      # vieja, quien ya visitó vería el HTML nuevo con estilos viejos.
+      - name: Huellas de versión de CSS y JS
+        run: python3 -I herramientas/versionar_recursos.py --comprobar
+
       # Como en simioplateado, Pages es un proyecto de «direct upload»: el primer
       # despliegue lo crea; los siguientes lo encuentran y siguen de largo.
       - name: Crear el proyecto de Pages si no existe
