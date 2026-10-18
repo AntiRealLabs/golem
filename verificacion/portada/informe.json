@@ -1,0 +1,312 @@
+{
+ "fecha": "2026-10-17 22:55 (UTC−5)",
+ "correctas": 61,
+ "total": 61,
+ "resultados": [
+  {
+   "comprobacion": "Puerta de publicación: site/ contiene solo la portada",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "Puerta de publicación: rechaza datos del piloto colados (prueba con archivos falsos)",
+   "ok": true,
+   "detalle": "4 problemas"
+  },
+  {
+   "comprobacion": "HTTP: / responde 200 con HTML",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "HTTP: /en/ responde 200",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "HTTP: /en redirige a /en/",
+   "ok": true,
+   "detalle": "308 /en/"
+  },
+  {
+   "comprobacion": "HTTP: una ruta inexistente (p. ej. /lab.html) da 404 con la página propia",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "HTTP: _headers no se sirve como archivo",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "Cabeceras de seguridad presentes en /",
+   "ok": true,
+   "detalle": "faltan []"
+  },
+  {
+   "comprobacion": "Caché de fuentes sin valores unidos por reglas repetidas",
+   "ok": true,
+   "detalle": "public, max-age=31536000, immutable"
+  },
+  {
+   "comprobacion": "La hoja de estilos no lleva caché larga (cambia con cada versión)",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "robots.txt enlaza el sitemap",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "sitemap.xml es XML válido con las dos páginas",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "favicon.ico trae 16, 32 y 48 px",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "apple-touch-icon.png mide 180×180",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "og-es.png mide 1200×630",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "og-en.png mide 1200×630",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "favicon.svg es SVG válido",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "[es] sin errores de consola ni violaciones de la CSP",
+   "ok": true,
+   "detalle": "[] []"
+  },
+  {
+   "comprobacion": "[es] las cinco familias de la base cargan desde el propio sitio",
+   "ok": true,
+   "detalle": "cargadas: ['UnifrakturMaguntia', 'Chakra Petch', 'Archivo', 'Archivo', 'Fragment Mono', 'DM Sans']"
+  },
+  {
+   "comprobacion": "[es] todo se sirve desde el mismo origen",
+   "ok": true,
+   "detalle": "{'127.0.0.1:45861'}"
+  },
+  {
+   "comprobacion": "[es] peso total de la página ≤ 250 KB",
+   "ok": true,
+   "detalle": "123391 bytes"
+  },
+  {
+   "comprobacion": "[es] idioma del documento declarado",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "[es] un solo h1",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "[es] descripción presente y ≤ 170 caracteres",
+   "ok": true,
+   "detalle": "152"
+  },
+  {
+   "comprobacion": "[es] canónica correcta",
+   "ok": true,
+   "detalle": "https://golembench.org/"
+  },
+  {
+   "comprobacion": "[es] alternativas hreflang es/en/x-default",
+   "ok": true,
+   "detalle": "['es=https://golembench.org/', 'en=https://golembench.org/en/', 'x-default=https://golembench.org/']"
+  },
+  {
+   "comprobacion": "[es] imagen para compartir absoluta y existente",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "[es] el selector marca el idioma actual",
+   "ok": true,
+   "detalle": "['ES']"
+  },
+  {
+   "comprobacion": "[es] enlaces internos válidos y solo los externos previstos",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "comprobacion": "[es] fase 1: sin nombres de modelos, corridas, dictámenes ni rankings en el texto",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "[es] fase 1: ninguna cifra del piloto (solo J1–J3, 01–04 y el año)",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "comprobacion": "[es] sin restos del otro idioma fuera de lo marcado con lang",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "comprobacion": "[en] sin errores de consola ni violaciones de la CSP",
+   "ok": true,
+   "detalle": "[] []"
+  },
+  {
+   "comprobacion": "[en] las cinco familias de la base cargan desde el propio sitio",
+   "ok": true,
+   "detalle": "cargadas: ['UnifrakturMaguntia', 'Chakra Petch', 'Archivo', 'Archivo', 'Fragment Mono', 'DM Sans']"
+  },
+  {
+   "comprobacion": "[en] todo se sirve desde el mismo origen",
+   "ok": true,
+   "detalle": "{'127.0.0.1:45861'}"
+  },
+  {
+   "comprobacion": "[en] peso total de la página ≤ 250 KB",
+   "ok": true,
+   "detalle": "123291 bytes"
+  },
+  {
+   "comprobacion": "[en] idioma del documento declarado",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "[en] un solo h1",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "[en] descripción presente y ≤ 170 caracteres",
+   "ok": true,
+   "detalle": "151"
+  },
+  {
+   "comprobacion": "[en] canónica correcta",
+   "ok": true,
+   "detalle": "https://golembench.org/en/"
+  },
+  {
+   "comprobacion": "[en] alternativas hreflang es/en/x-default",
+   "ok": true,
+   "detalle": "['es=https://golembench.org/', 'en=https://golembench.org/en/', 'x-default=https://golembench.org/']"
+  },
+  {
+   "comprobacion": "[en] imagen para compartir absoluta y existente",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "[en] el selector marca el idioma actual",
+   "ok": true,
+   "detalle": "['EN']"
+  },
+  {
+   "comprobacion": "[en] enlaces internos válidos y solo los externos previstos",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "comprobacion": "[en] fase 1: sin nombres de modelos, corridas, dictámenes ni rankings en el texto",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "[en] fase 1: ninguna cifra del piloto (solo J1–J3, 01–04 y el año)",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "comprobacion": "[en] sin restos del otro idioma fuera de lo marcado con lang",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "comprobacion": "[404] sin errores de consola ni violaciones de la CSP",
+   "ok": true,
+   "detalle": "[] []"
+  },
+  {
+   "comprobacion": "[404] fuentes de la marca cargadas",
+   "ok": true,
+   "detalle": "['UnifrakturMaguntia', 'Chakra Petch', 'Archivo', 'Archivo', 'Fragment Mono']"
+  },
+  {
+   "comprobacion": "[404] todo se sirve desde el mismo origen",
+   "ok": true,
+   "detalle": "{'127.0.0.1:45861'}"
+  },
+  {
+   "comprobacion": "[404] peso total de la página ≤ 250 KB",
+   "ok": true,
+   "detalle": "102980 bytes"
+  },
+  {
+   "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces",
+   "ok": true,
+   "detalle": "{'es': [3, 10, 12, 25, 5], 'en': [3, 10, 12, 25, 5]}"
+  },
+  {
+   "comprobacion": "Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "comprobacion": "Objetivos táctiles ≥ 24 px en móvil (WCAG 2.5.8)",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "comprobacion": "Teclado: el primer Tab va al salto al contenido, visible, y lleva al contenido",
+   "ok": true,
+   "detalle": "skip True contenido"
+  },
+  {
+   "comprobacion": "Teclado: orden salto → marca → ES → EN → enlaces del pie",
+   "ok": true,
+   "detalle": "['skip #contenido', 'brand /', 'ES /', 'EN /en/', 'Un proyecto  https://antireallabs.com', 'admin@antire mailto:admin@antireallabs.com']"
+  },
+  {
+   "comprobacion": "Teclado: el foco se ve (contorno de 3 px)",
+   "ok": true,
+   "detalle": "solid 3px"
+  },
+  {
+   "comprobacion": "axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (3 páginas × 2 anchos)",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "comprobacion": "axe-core · buenas prácticas: sin avisos",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "comprobacion": "Espaciado de texto ampliado (WCAG 1.4.12): no se pierde texto",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "comprobacion": "Capturas de escritorio y móvil, ES, EN y 404",
+   "ok": true,
+   "detalle": "10 capturas"
+  }
+ ]
+}

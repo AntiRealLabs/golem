@@ -1,0 +1,5 @@
+# Herramientas locales (no hacen falta para desplegar)
+playwright>=1.48
+pillow>=10
+fonttools>=4.50
+brotli>=1.1

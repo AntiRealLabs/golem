@@ -1,0 +1,76 @@
+# Golem Bench · golembench.org
+
+Idioma de trabajo: español. Todo contenido público va en español y en inglés.
+
+## Qué hay en este repo
+
+- `site/`: lo único que se publica. Portada de la fase 1: HTML y CSS estáticos, sin
+  JavaScript y sin recursos externos. `index.html` (ES), `en/index.html` (EN), `404.html`,
+  `_headers`, `robots.txt`, `sitemap.xml`, fuentes e imágenes.
+- `herramientas/`: puerta de publicación, servidor local que imita Pages, verificación de la
+  portada y generador del favicon y de las imágenes para compartir.
+- `DEPLOY.md`: cómo se despliega y registro de publicaciones.
+
+El prototipo de Golem Lab (propuesta v0.1) no está en este repo: contiene materiales del piloto
+y el repo es público. Juan lo tiene en la entrega `golem-lab-propuesta-v0.1.zip`. Si el repo pasa
+a privado, el prototipo puede guardarse aquí, fuera de `site/`.
+
+## Reglas del proyecto
+
+Vienen del paquete de coordinación del piloto. No se cambian en un commit:
+
+1. Originales, dictámenes y guías se conservan tal cual. No se cambian notas, rúbricas ni textos.
+2. No se calculan notas nuevas, rankings ni tendencias. Un dato desconocido nunca se muestra como 0.
+3. Una revisión por IA se rotula como tal y nunca se presenta como validación humana.
+   «Listo para integración» no es «publicado».
+4. Tres voces separadas por rótulo y estructura, no solo por color: el texto del modelo, la
+   valoración del juez y la explicación editorial o del Lab.
+5. Una traducción no cuenta como otra lectura. Los ejemplos ficticios van marcados como
+   demostración y fuera de todo recuento.
+6. No se simulan lectores humanos.
+7. La reserva del benchmark y las claves nunca entran en este repo.
+
+## Sesiones de Claude en este repo
+
+- No se usan como participantes ni como jueces del benchmark.
+- Las decisiones editoriales que proponga Claude llevan la marca ✎ y las aprueba coordinación.
+
+## Antes de publicar el Lab
+
+No se publica nada del piloto ni del Lab, ni se copia a `site/`, hasta que se cumplan todas:
+
+1. El piloto está cerrado y pasó la revisión final.
+2. Coordinación aprobó las reglas editoriales que propuso el diseño (la lectura de portada del
+   Lab y las reglas del Cuaderno).
+3. Una capa de presentación oculta en la versión pública los datos técnicos internos de los
+   dictámenes (por ejemplo, rutas de archivos locales), sin tocar los originales ni sus huellas.
+4. La integración con la base visual sigue la propuesta de integración de la entrega v0.1, con
+   versión nueva de la base.
+5. Juan aprueba la publicación y queda anotada en el registro de `DEPLOY.md`.
+
+Al publicar el Lab: actualizar `herramientas/comprobar_publicacion.py` en el mismo commit y decir
+por qué en el mensaje.
+
+## Antes de cada push a main
+
+- `python3 -I herramientas/verificar_portada.py` debe dar todo correcto.
+- `python3 -I herramientas/comprobar_publicacion.py site`.
+- Si cambian textos de la portada: mantener la paridad entre `site/index.html` y
+  `site/en/index.html`, actualizar `lastmod` en `site/sitemap.xml` y la línea «Actualizado en…»,
+  y regenerar las imágenes si cambian el lema o la marca (`herramientas/generar_imagenes.py`).
+- Cada push a main que toque `site/` se publica solo en golembench.org.
+
+## Identidad visual
+
+Tokens y letras de la base visual (`site/assets/portada.css`): carbón `#1c1d1a`, marfil `#f0ebdf`,
+burdeos `#803a39`, tostado `#d1b698`. UnifrakturMaguntia para la marca, Chakra Petch para
+titulares, Archivo para el texto, Fragment Mono para rótulos y DM Sans para «BENCH». Las fuentes
+(licencia OFL) se sirven desde `site/assets/fonts/`. El borde discontinuo marca lo que está en
+preparación. La CSP no admite estilos ni scripts en línea: nada de `style=""` ni `<script>` sin
+archivo.
+
+## Marca
+
+Golem Bench es una marca de Anti-Real Labs S.A.S. Recomendación del 17 oct 2026: radicar la
+solicitud ante la SIC (clases 41 y 42) antes de la difusión pública (redes, columnas,
+antireallabs.com).
