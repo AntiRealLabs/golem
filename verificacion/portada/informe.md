@@ -1,6 +1,6 @@
 # Verificación de la portada
 
-**105 de 105 comprobaciones correctas** · 2026-10-18 02:30 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
+**109 de 109 comprobaciones correctas** · 2026-10-18 02:44 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
 
 Inspección automática. No sustituye pruebas con personas, lectores de pantalla reales, otros navegadores ni la revisión del sitio ya publicado en Cloudflare.
 
@@ -72,6 +72,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Cruz [es · escritorio]: se llega al centro (el nombre a la vista, brújula en el centro) |  |
 | ✓ | Cruz [es · escritorio]: la placa del nombre queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [es · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
+| ✓ | Cruz [es · escritorio]: ninguna línea toca el signo del pie de la escalera (12 px de aire) |  |
 | ✓ | Cruz [es · escritorio]: ← y → recorren la fila (laboratorio / cómo medimos) |  |
 | ✓ | Cruz [es · escritorio]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [es · escritorio]: las salas laterales miden una pantalla y se recorren por dentro |  |
@@ -81,6 +82,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Cruz [en · escritorio]: se llega al centro (el nombre a la vista, brújula en el centro) |  |
 | ✓ | Cruz [en · escritorio]: la placa del nombre queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [en · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
+| ✓ | Cruz [en · escritorio]: ninguna línea toca el signo del pie de la escalera (12 px de aire) |  |
 | ✓ | Cruz [en · escritorio]: ← y → recorren la fila (laboratorio / cómo medimos) |  |
 | ✓ | Cruz [en · escritorio]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [en · escritorio]: las salas laterales miden una pantalla y se recorren por dentro |  |
@@ -90,6 +92,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Cruz [es · móvil]: se llega al centro (el nombre a la vista, brújula en el centro) |  |
 | ✓ | Cruz [es · móvil]: la placa del nombre queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [es · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
+| ✓ | Cruz [es · móvil]: ninguna línea toca el signo del pie de la escalera (12 px de aire) |  |
 | ✓ | Cruz [es · móvil]: ← y → recorren la fila (laboratorio / cómo medimos) |  |
 | ✓ | Cruz [es · móvil]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [es · móvil]: las salas laterales miden una pantalla y se recorren por dentro |  |
@@ -99,6 +102,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Cruz [en · móvil]: se llega al centro (el nombre a la vista, brújula en el centro) |  |
 | ✓ | Cruz [en · móvil]: la placa del nombre queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [en · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
+| ✓ | Cruz [en · móvil]: ninguna línea toca el signo del pie de la escalera (12 px de aire) |  |
 | ✓ | Cruz [en · móvil]: ← y → recorren la fila (laboratorio / cómo medimos) |  |
 | ✓ | Cruz [en · móvil]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [en · móvil]: las salas laterales miden una pantalla y se recorren por dentro |  |

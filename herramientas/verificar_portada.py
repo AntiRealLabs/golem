@@ -334,6 +334,19 @@ def main():
                     centro=document.getElementById('cruce').getBoundingClientRect().top;
                     return pie > a && a > z && z > cima && pie < centro; }""")
                 check(f"Cruz [{key} · {label}]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)", order_ok)
+                # el signo del pie no lo atraviesa ninguna línea: ni la de la escalera, ni sus tramos y puntos, ni la que baja al centro
+                pie = page.evaluate("""() => {
+                    const pie = document.querySelector('.escalera-pie').getBoundingClientRect(), zona = [pie.top - 12, pie.bottom + 12];
+                    const tramos = [], caja = (e, pseudo, n) => { const c = getComputedStyle(e, pseudo);
+                        if (c.display === 'none' || c.content === 'none') return;
+                        const t = e.getBoundingClientRect().top + parseFloat(c.top); tramos.push([n, t, t + parseFloat(c.height)]); };
+                    caja(document.querySelector('.escalera'), '::before', 'línea');
+                    for (const e of document.querySelectorAll('.peldano, .escalera-cima')) { caja(e, '::before', 'punto'); caja(e, '::after', 'tramo'); }
+                    caja(document.querySelector('.sala--arriba'), '::after', 'tramo de abajo');
+                    return {tramos: tramos.length, cruzan: tramos.filter(([n, a, b]) => a < zona[1] && b > zona[0]).map(([n, a, b]) => n + ' ' + Math.round(a - pie.top) + '…' + Math.round(b - pie.top))};
+                }""")
+                check(f"Cruz [{key} · {label}]: ninguna línea toca el signo del pie de la escalera (12 px de aire)",
+                      pie["tramos"] >= 3 and not pie["cruzan"], str(pie))
                 page.keyboard.press("ArrowRight")
                 page.wait_for_timeout(900)
                 right = page.evaluate("(document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null")

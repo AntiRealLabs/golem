@@ -88,6 +88,10 @@ centro, cuatro rumbos alrededor, nada de arquitectura tradicional (sin barra sup
 - **↑ Preguntas abiertas** (`#preguntas`): un cielo nocturno con la escalera de preguntas, que se lee
   de abajo hacia arriba (`flex-direction: column-reverse`: el primer elemento del documento es el
   más cercano al centro). Abajo del cielo amanece hacia el papel. Será el lugar del Atlas del Lab.
+  El pie (el signo «?» y su explicación, con el `h2` de la sala) va antes de la lista y no es un
+  peldaño: la sala es una columna invertida, así que queda abajo, y la línea de la escalera termina
+  16 px antes del signo, mida lo que mida el pie. En el celular la línea termina en el punto de la
+  primera pregunta. La verificación comprueba que ninguna línea toque el signo.
 - **← Cómo medimos** (`#como-medimos`): el recorrido de cuatro pasos, los tres jueces y la cita.
 - **→ Laboratorio** (`#laboratorio`): Golem Lab, en el taller (borde discontinuo).
 - **↓ Resultados de evaluaciones** (`#resultados`): la sala vacía a propósito, el pacto y el suelo de

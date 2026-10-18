@@ -1,7 +1,7 @@
 {
- "fecha": "2026-10-18 02:30 (UTC−5)",
- "correctas": 105,
- "total": 105,
+ "fecha": "2026-10-18 02:44 (UTC−5)",
+ "correctas": 109,
+ "total": 109,
  "resultados": [
   {
    "comprobacion": "Puerta de publicación: site/ contiene solo la portada",
@@ -111,12 +111,12 @@
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:43991'}"
+   "detalle": "{'127.0.0.1:41009'}"
   },
   {
    "comprobacion": "[es] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "228090 bytes"
+   "detalle": "228725 bytes"
   },
   {
    "comprobacion": "[es] idioma del documento declarado",
@@ -196,12 +196,12 @@
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:43991'}"
+   "detalle": "{'127.0.0.1:41009'}"
   },
   {
    "comprobacion": "[en] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "227812 bytes"
+   "detalle": "228447 bytes"
   },
   {
    "comprobacion": "[en] idioma del documento declarado",
@@ -281,17 +281,17 @@
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:43991'}"
+   "detalle": "{'127.0.0.1:41009'}"
   },
   {
    "comprobacion": "[404] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "148785 bytes"
+   "detalle": "149420 bytes"
   },
   {
    "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces",
    "ok": true,
-   "detalle": "{'es': [4, 8, 33, 51, 19], 'en': [4, 8, 33, 51, 19]}"
+   "detalle": "{'es': [4, 8, 32, 51, 19], 'en': [4, 8, 32, 51, 19]}"
   },
   {
    "comprobacion": "Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px",
@@ -332,6 +332,11 @@
    "comprobacion": "Cruz [es · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
    "ok": true,
    "detalle": ""
+  },
+  {
+   "comprobacion": "Cruz [es · escritorio]: ninguna línea toca el signo del pie de la escalera (12 px de aire)",
+   "ok": true,
+   "detalle": "{'tramos': 9, 'cruzan': []}"
   },
   {
    "comprobacion": "Cruz [es · escritorio]: ← y → recorren la fila (laboratorio / cómo medimos)",
@@ -379,6 +384,11 @@
    "detalle": ""
   },
   {
+   "comprobacion": "Cruz [en · escritorio]: ninguna línea toca el signo del pie de la escalera (12 px de aire)",
+   "ok": true,
+   "detalle": "{'tramos': 9, 'cruzan': []}"
+  },
+  {
    "comprobacion": "Cruz [en · escritorio]: ← y → recorren la fila (laboratorio / cómo medimos)",
    "ok": true,
    "detalle": "laboratorio como-medimos"
@@ -424,6 +434,11 @@
    "detalle": ""
   },
   {
+   "comprobacion": "Cruz [es · móvil]: ninguna línea toca el signo del pie de la escalera (12 px de aire)",
+   "ok": true,
+   "detalle": "{'tramos': 16, 'cruzan': []}"
+  },
+  {
    "comprobacion": "Cruz [es · móvil]: ← y → recorren la fila (laboratorio / cómo medimos)",
    "ok": true,
    "detalle": "laboratorio como-medimos"
@@ -467,6 +482,11 @@
    "comprobacion": "Cruz [en · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
    "ok": true,
    "detalle": ""
+  },
+  {
+   "comprobacion": "Cruz [en · móvil]: ninguna línea toca el signo del pie de la escalera (12 px de aire)",
+   "ok": true,
+   "detalle": "{'tramos': 16, 'cruzan': []}"
   },
   {
    "comprobacion": "Cruz [en · móvil]: ← y → recorren la fila (laboratorio / cómo medimos)",

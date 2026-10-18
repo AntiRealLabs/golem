@@ -212,8 +212,11 @@ img{display:block;max-width:100%}
 .door p{font-size:16px;line-height:1.55;color:var(--ink-2)}
 
 /* ---------- arriba: un cielo de preguntas abiertas, de abajo hacia arriba ---------- */
-/* abajo del cielo amanece: la noche de las preguntas se vuelve el papel del centro */
-.sala--arriba{position:relative;color:var(--on-coal);padding:84px var(--gutter) 230px;background:
+/* abajo del cielo amanece: la noche de las preguntas se vuelve el papel del centro.
+   La sala es una columna invertida: el pie (el signo y su explicación) va primero en el HTML y queda
+   abajo; la escalera sube desde él. El pie no es un peldaño: así la línea termina en la última
+   pregunta y deja el mismo aire sobre el signo, mida lo que mida el pie. */
+.sala--arriba{--hueco:52px;position:relative;display:flex;flex-direction:column-reverse;gap:var(--hueco);color:var(--on-coal);padding:84px var(--gutter) 230px;background:
   radial-gradient(1.4px 1.4px at 8% 14%,rgba(236,230,216,.55) 50%,transparent 52%),
   radial-gradient(1.2px 1.2px at 23% 62%,rgba(236,230,216,.35) 50%,transparent 52%),
   radial-gradient(1.6px 1.6px at 37% 9%,rgba(209,182,152,.6) 50%,transparent 52%),
@@ -224,21 +227,22 @@ img{display:block;max-width:100%}
   radial-gradient(1.2px 1.2px at 15% 38%,rgba(236,230,216,.3) 50%,transparent 52%),
   linear-gradient(180deg,#0c0d0b 0%,#151612 45%,var(--coal) calc(100% - 230px),#3b322b calc(100% - 160px),#8e7663 calc(100% - 80px),var(--paper) 100%)}
 .sala--arriba::after{content:"";position:absolute;left:50%;bottom:0;width:1px;height:214px;background:var(--eje)}
-.escalera{position:relative;list-style:none;padding:0;margin:0 auto;max-width:1040px;display:flex;flex-direction:column-reverse;gap:52px}
-.escalera::before{content:"";position:absolute;left:50%;top:96px;bottom:84px;width:1px;background:linear-gradient(0deg,var(--clay) 0%,rgba(185,139,106,.35) 70%,rgba(185,139,106,0) 100%)}
+.escalera{position:relative;list-style:none;padding:0;margin:0 auto;width:100%;max-width:1040px;display:flex;flex-direction:column-reverse;gap:52px}
+/* la línea baja de la cima hasta 16 px antes del signo del pie: nunca lo atraviesa */
+.escalera::before{content:"";position:absolute;left:50%;top:96px;bottom:calc(16px - var(--hueco));width:1px;background:linear-gradient(0deg,var(--clay) 0%,rgba(185,139,106,.35) 70%,rgba(185,139,106,0) 100%)}
 .peldano{position:relative;width:50%}
 .peldano p{font:500 var(--fs,24px)/1.18 var(--display);letter-spacing:-.01em;text-wrap:balance;color:var(--on-coal)}
 .peldano::before{content:"";position:absolute;z-index:1;top:.45em;width:11px;height:11px;border-radius:50%;background:var(--coal);border:2px solid var(--clay)}
-.peldano:nth-child(even){align-self:flex-start;text-align:right;padding-right:42px}
-.peldano:nth-child(even)::before{right:-6px}
-.peldano:nth-child(odd){align-self:flex-end;padding-left:42px}
-.peldano:nth-child(odd)::before{left:-6px}
-.peldano:nth-child(2){--fs:31px}
-.peldano:nth-child(3){--fs:29px}
-.peldano:nth-child(4){--fs:27px}
-.peldano:nth-child(5){--fs:25px}
-.peldano:nth-child(6){--fs:24px}
-.peldano:nth-child(7){--fs:23px}
+.peldano:nth-child(odd){align-self:flex-start;text-align:right;padding-right:42px}
+.peldano:nth-child(odd)::before{right:-6px}
+.peldano:nth-child(even){align-self:flex-end;padding-left:42px}
+.peldano:nth-child(even)::before{left:-6px}
+.peldano:nth-child(1){--fs:31px}
+.peldano:nth-child(2){--fs:29px}
+.peldano:nth-child(3){--fs:27px}
+.peldano:nth-child(4){--fs:25px}
+.peldano:nth-child(5){--fs:24px}
+.peldano:nth-child(6){--fs:23px}
 .peldano--ultimo p{font:italic 400 clamp(28px,3vw,40px)/1.15 var(--book);color:var(--tan)}
 .peldano--ultimo::before{background:var(--clay)}
 .escalera-pie,.escalera-cima{align-self:center;max-width:52ch;text-align:center}
@@ -381,6 +385,9 @@ html.viva:not([data-sala="centro"]) .brujula{transition:opacity .25s,visibility 
   .peldano,.peldano:nth-child(even),.peldano:nth-child(odd){width:100%;max-width:30ch;align-self:center;text-align:center;padding:0}
   .peldano:nth-child(n)::before{left:50%;right:auto;top:auto;bottom:-28px;margin-left:-5.5px}
   .peldano::after,.escalera-cima::after{content:"";position:absolute;left:50%;top:100%;width:1px;height:40px;background:var(--eje)}
+  /* bajo la primera pregunta la línea termina en su punto; después, aire y el signo */
+  .sala--arriba{--hueco:44px}
+  .peldano:first-child::after{height:22px}
   .escalera{gap:40px}
   .escalera::before{display:none}
   .escalera-cima{position:relative}
