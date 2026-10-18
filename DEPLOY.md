@@ -39,12 +39,17 @@ El token no se pega en chats ni en archivos del repo.
 
 ## Dominio
 
-- Registrador: Namecheap. Titular: Anti-Real Labs S.A.S. Nameservers: los de Cloudflare.
+- Registrador: Namecheap. Titular: Anti-Real Labs S.A.S. Nameservers (desde el 17 oct 2026):
+  `ram.ns.cloudflare.com` y `rosa.ns.cloudflare.com`. DNSSEC apagado en Namecheap.
 - Zona `golembench.org` en la misma cuenta de Cloudflare que los otros dominios (plan Free).
 - *Custom domains* del proyecto: `golembench.org` y `www.golembench.org`. Se agregan
   una sola vez en *Workers & Pages → golembench → Custom domains*; como la zona está en
   la misma cuenta, Cloudflare crea los registros DNS.
 - `golembench.pages.dev` queda como dirección técnica.
+- Al conectar la zona se borraron los dos registros de estacionamiento de Namecheap (A `@` y
+  CNAME `www`). Los MX y el TXT de reenvío de correo de Namecheap siguen en la zona, sin uso.
+- Cloudflare oculta los correos de la página (Email Address Obfuscation): reescribe el `mailto:`
+  e inserta `/cdn-cgi/scripts/…/email-decode.min.js`. La CSP lo admite porque es del mismo origen.
 
 ## Antes de cada push
 
