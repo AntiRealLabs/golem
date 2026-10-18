@@ -105,3 +105,4 @@ python3 -I herramientas/servidor_local.py 8788      # http://127.0.0.1:8788
 |---|---|---|
 | 2026-10-17 | Portada fase 1, ES/EN, sin datos del piloto | Juan · Anti-Real Labs (en el chat de diseño) |
 | 2026-10-18 | Portada «la cruz»: se llega a la pregunta y se navega hacia los cuatro lados. Lema «Preguntas desde el futuro». ES/EN, sin datos del piloto. CSS y JS con huella de versión | Juan · Anti-Real Labs (en el chat de diseño) |
+| 2026-10-18 | Portada «el mapa en cruz», sobre el boceto de Juan: el nombre en el centro, cuatro rumbos (Preguntas abiertas, Cómo medimos, Laboratorio, Resultados de evaluaciones) y cuatro cuadrantes que invitan a navegar. Sin la pregunta como titular; tarjetas con el lema. ES/EN, sin datos del piloto | Juan · Anti-Real Labs (en el chat de diseño) |
