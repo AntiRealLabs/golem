@@ -292,8 +292,11 @@ html.viva:not([data-sala="centro"]) .brujula{transition:opacity .25s,visibility 
   .rumbo--n,.rumbo--s{grid-column:1/-1}
   .rumbo--n .lugar,.rumbo--s .lugar{font-size:16.5px;padding:9px 16px;white-space:nowrap}
   .susurro{font-size:15.5px}
-  .placa{padding:16px 20px 13px}
-  .wordmark-g{font-size:clamp(48px,14vw,68px)}
+  /* la placa cabe entre los dos rumbos de canto; si no alcanza, «Bench» baja de renglón */
+  .onfalo{--marco:8px}
+  .onfalo .placa{max-width:calc(100vw - 24px - 100px - 2 * var(--marco) - 12px)}
+  .placa{padding:15px 18px 13px}
+  .wordmark-g{font-size:clamp(44px,12.5vw,62px)}
   .descriptor{letter-spacing:.1em;text-wrap:balance}
   .langs a[aria-current]{display:none}
   .lado-in{padding:28px 58px 88px}

@@ -1,5 +1,5 @@
 {
- "fecha": "2026-10-18 01:36 (UTC−5)",
+ "fecha": "2026-10-18 01:39 (UTC−5)",
  "correctas": 102,
  "total": 102,
  "resultados": [
@@ -111,12 +111,12 @@
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:46523'}"
+   "detalle": "{'127.0.0.1:37111'}"
   },
   {
    "comprobacion": "[es] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "217153 bytes"
+   "detalle": "217354 bytes"
   },
   {
    "comprobacion": "[es] idioma del documento declarado",
@@ -191,12 +191,12 @@
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:46523'}"
+   "detalle": "{'127.0.0.1:37111'}"
   },
   {
    "comprobacion": "[en] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "216944 bytes"
+   "detalle": "217145 bytes"
   },
   {
    "comprobacion": "[en] idioma del documento declarado",
@@ -271,12 +271,12 @@
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:46523'}"
+   "detalle": "{'127.0.0.1:37111'}"
   },
   {
    "comprobacion": "[404] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "142086 bytes"
+   "detalle": "142287 bytes"
   },
   {
    "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces",
