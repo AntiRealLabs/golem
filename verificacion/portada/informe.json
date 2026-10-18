@@ -1,5 +1,5 @@
 {
- "fecha": "2026-10-18 00:14 (UTC−5)",
+ "fecha": "2026-10-18 00:29 (UTC−5)",
  "correctas": 85,
  "total": 85,
  "resultados": [
@@ -106,7 +106,7 @@
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:42337'}"
+   "detalle": "{'127.0.0.1:40645'}"
   },
   {
    "comprobacion": "[es] peso total de la página ≤ 700 KB",
@@ -186,7 +186,7 @@
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:42337'}"
+   "detalle": "{'127.0.0.1:40645'}"
   },
   {
    "comprobacion": "[en] peso total de la página ≤ 700 KB",
@@ -266,7 +266,7 @@
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:42337'}"
+   "detalle": "{'127.0.0.1:40645'}"
   },
   {
    "comprobacion": "[404] peso total de la página ≤ 700 KB",

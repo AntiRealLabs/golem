@@ -87,3 +87,4 @@ python3 -I herramientas/servidor_local.py 8788      # http://127.0.0.1:8788
 | Fecha | Qué se publicó | Aprobó |
 |---|---|---|
 | 2026-10-17 | Portada fase 1, ES/EN, sin datos del piloto | Juan · Anti-Real Labs (en el chat de diseño) |
+| 2026-10-18 | Portada «la cruz»: se llega a la pregunta y se navega hacia los cuatro lados. Lema «Preguntas desde el futuro». ES/EN, sin datos del piloto | Juan · Anti-Real Labs (en el chat de diseño) |

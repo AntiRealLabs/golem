@@ -91,6 +91,9 @@ sin caer en la oscuridad ni en la distancia, sino para traer calidez y seducció
 En la práctica:
 
 - Una pregunta antes que un eslogan. La portada abre con «¿Hasta dónde puede filosofar una máquina?».
+- El lema es «Preguntas desde el futuro» (EN: «Questions from the future»). Lo decidió Juan el
+  18 oct 2026. Las piezas de la colección de redes v0.4 dicen «para el futuro»: ese texto no se
+  copia a la portada.
 - Frases cortas, con verbo y sujeto. Nada de «soluciones», «potenciar», «innovador», «de vanguardia».
 - La franqueza incluye decir lo que no sabemos y lo que todavía no está listo, con gracia
   («Todavía es arcilla», «ni un día antes»), nunca con letra pequeña.

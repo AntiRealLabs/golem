@@ -1,6 +1,6 @@
 # Verificación de la portada
 
-**85 de 85 comprobaciones correctas** · 2026-10-18 00:14 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
+**85 de 85 comprobaciones correctas** · 2026-10-18 00:29 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
 
 Inspección automática. No sustituye pruebas con personas, lectores de pantalla reales, otros navegadores ni la revisión del sitio ya publicado en Cloudflare.
 
