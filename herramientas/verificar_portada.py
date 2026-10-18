@@ -350,6 +350,32 @@ def main():
                 check(f"Cruz [{key} · {label}]: la brújula se esconde en el centro y aparece al alejarse",
                       pos["brj"] == "hidden" and brj_abajo == "visible", f"{pos['brj']} {brj_abajo}")
             ctx.close()
+        # el centro no se amontona: los cuadrantes no tocan la placa ni los rumbos, y la placa sigue en el centro
+        choques = []
+        CHOQUES_JS = """() => {
+          const m = parseFloat(getComputedStyle(document.querySelector('.onfalo')).getPropertyValue('--marco')) || 12;
+          const caja = (e, pad=0) => { const r = e.getBoundingClientRect(); return {x0:r.left-pad, y0:r.top-pad, x1:r.right+pad, y1:r.bottom+pad, n:String(e.className).split(' ').pop()}; };
+          const vis = s => [...document.querySelectorAll(s)].filter(e => e.getClientRects().length);
+          const fijos = [caja(document.querySelector('.onfalo .placa'), m + 1), ...vis('.onfalo .rumbo .lugar, .onfalo .rumbo .susurro, .langs a').map(e => caja(e))];
+          const p = document.getElementById('centro').getBoundingClientRect(), s = document.querySelector('.onfalo .placa').getBoundingClientRect();
+          const out = [];
+          if (Math.abs(s.top + s.height / 2 - innerHeight / 2) > 3) out.push('placa fuera del centro');
+          for (const a of vis('.cuadrante > *').map(e => caja(e))) {
+            if (a.x0 < p.left - 1 || a.x1 > p.right + 1 || a.y0 < p.top - 1 || a.y1 > p.bottom + 1) out.push('fuera: ' + a.n);
+            for (const b of fijos) if (a.x0 < b.x1 && a.x1 > b.x0 && a.y0 < b.y1 && a.y1 > b.y0) out.push(a.n + ' × ' + b.n);
+          }
+          return out;
+        }"""
+        for vw, vh in ((1920, 1080), (1366, 768), (1280, 720), (1024, 768), (768, 1024), (390, 844), (375, 667), (320, 568)):
+            ctx = browser.new_context(viewport={"width": vw, "height": vh}, reduced_motion="reduce", is_mobile=vw < 600, has_touch=vw < 600)
+            page = ctx.new_page()
+            for key, path in (("es", "/"), ("en", "/en/")):
+                page.goto(base + path, wait_until="networkidle")
+                page.evaluate("document.fonts.ready")
+                choques += [f"{key}@{vw}×{vh}: {c}" for c in page.evaluate(CHOQUES_JS)]
+            ctx.close()
+        check("Centro sin choques: cuadrantes, rumbos y placa no se tocan en ocho tamaños, y la placa sigue en el centro",
+              not choques, "; ".join(sorted(set(choques)))[:300])
         ctx = browser.new_context(viewport={"width": 1280, "height": 800}, java_script_enabled=False)
         page = ctx.new_page()
         page.goto(base + "/", wait_until="networkidle")

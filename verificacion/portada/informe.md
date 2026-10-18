@@ -1,6 +1,6 @@
 # Verificación de la portada
 
-**102 de 102 comprobaciones correctas** · 2026-10-18 01:39 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
+**103 de 103 comprobaciones correctas** · 2026-10-18 01:57 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
 
 Inspección automática. No sustituye pruebas con personas, lectores de pantalla reales, otros navegadores ni la revisión del sitio ya publicado en Cloudflare.
 
@@ -103,6 +103,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Cruz [en · móvil]: sin vacío entre el centro y los resultados |  |
 | ✓ | Cruz [en · móvil]: los enlaces llevan a cada sala y la brújula lo marca |  |
 | ✓ | Cruz [en · móvil]: la brújula se esconde en el centro y aparece al alejarse |  |
+| ✓ | Centro sin choques: cuadrantes, rumbos y placa no se tocan en ocho tamaños, y la placa sigue en el centro |  |
 | ✓ | Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces |  |
 | ✓ | axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (3 páginas × 2 anchos) |  |
 | ✓ | axe-core · buenas prácticas: sin avisos |  |

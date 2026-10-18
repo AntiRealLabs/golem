@@ -70,9 +70,13 @@ Idea de Juan (18 oct 2026): no todo va de arriba hacia abajo. La portada es una 
 centro; desde ahí se puede ir hacia todos los lados. Con su boceto del mismo día: el logo solo en el
 centro, cuatro rumbos alrededor, nada de arquitectura tradicional (sin barra superior ni pie al uso).
 
-- **Centro** (`#centro`, `.onfalo`): la placa del nombre (descriptor, «Golem Bench», lema) en el
-  centro exacto, sobre papel. Alrededor, cuatro rumbos: el nombre llano en un recuadro (`.lugar`) y,
-  en cursiva, un susurro de lo que hay allá (`.susurro`). Es donde aterriza una visita nueva.
+- **Centro** (`#centro`, `.onfalo`): la placa del nombre en el centro exacto, sobre papel: el
+  descriptor, «Golem» centrado, «Bench» debajo y el lema. Alrededor, cuatro rumbos: el nombre llano en
+  un recuadro (`.lugar`) y, en cursiva, un susurro de lo que hay allá (`.susurro`). En los cuatro
+  cuadrantes que forma la cruz, un resumen que invita a ir, en rueda de molino: noroeste → preguntas,
+  noreste → laboratorio, sureste → resultados, suroeste → cómo medimos. Es donde aterriza una visita
+  nueva. En pantallas bajas los cuadrantes muestran solo título y enlace; la verificación comprueba
+  que nada se toque en ocho tamaños.
 - **↑ Preguntas abiertas** (`#preguntas`): un cielo nocturno con la escalera de preguntas, que se lee
   de abajo hacia arriba (`flex-direction: column-reverse`: el primer elemento del documento es el
   más cercano al centro). Abajo del cielo amanece hacia el papel. Será el lugar del Atlas del Lab.

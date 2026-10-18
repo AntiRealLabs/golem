@@ -1,7 +1,7 @@
 {
- "fecha": "2026-10-18 01:39 (UTC−5)",
- "correctas": 102,
- "total": 102,
+ "fecha": "2026-10-18 01:57 (UTC−5)",
+ "correctas": 103,
+ "total": 103,
  "resultados": [
   {
    "comprobacion": "Puerta de publicación: site/ contiene solo la portada",
@@ -111,12 +111,12 @@
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:37111'}"
+   "detalle": "{'127.0.0.1:46647'}"
   },
   {
    "comprobacion": "[es] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "217354 bytes"
+   "detalle": "222490 bytes"
   },
   {
    "comprobacion": "[es] idioma del documento declarado",
@@ -191,12 +191,12 @@
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:37111'}"
+   "detalle": "{'127.0.0.1:46647'}"
   },
   {
    "comprobacion": "[en] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "217145 bytes"
+   "detalle": "222212 bytes"
   },
   {
    "comprobacion": "[en] idioma del documento declarado",
@@ -271,17 +271,17 @@
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:37111'}"
+   "detalle": "{'127.0.0.1:46647'}"
   },
   {
    "comprobacion": "[404] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "142287 bytes"
+   "detalle": "145997 bytes"
   },
   {
    "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces",
    "ok": true,
-   "detalle": "{'es': [4, 8, 26, 47, 15], 'en': [4, 8, 26, 47, 15]}"
+   "detalle": "{'es': [4, 8, 33, 51, 19], 'en': [4, 8, 33, 51, 19]}"
   },
   {
    "comprobacion": "Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px",
@@ -487,6 +487,11 @@
    "comprobacion": "Cruz [en · móvil]: la brújula se esconde en el centro y aparece al alejarse",
    "ok": true,
    "detalle": "hidden visible"
+  },
+  {
+   "comprobacion": "Centro sin choques: cuadrantes, rumbos y placa no se tocan en ocho tamaños, y la placa sigue en el centro",
+   "ok": true,
+   "detalle": ""
   },
   {
    "comprobacion": "Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces",
