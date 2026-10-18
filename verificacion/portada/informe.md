@@ -1,6 +1,6 @@
 # Verificación de la portada
 
-**94 de 94 comprobaciones correctas** · 2026-10-18 01:14 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
+**102 de 102 comprobaciones correctas** · 2026-10-18 01:36 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
 
 Inspección automática. No sustituye pruebas con personas, lectores de pantalla reales, otros navegadores ni la revisión del sitio ya publicado en Cloudflare.
 
@@ -23,7 +23,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | apple-touch-icon.png mide 180×180 |  |
 | ✓ | og-es.jpg mide 1200×630 |  |
 | ✓ | og-en.jpg mide 1200×630 |  |
-| ✓ | Figura del centro: recorte del arte original sin reescalar; las fuentes quedan fuera de site/ |  |
+| ✓ | Figura del golem: arte original a tamaño completo (1122×1402); la panorámica no se publica |  |
 | ✓ | favicon.svg es SVG válido |  |
 | ✓ | [es] sin errores de consola ni violaciones de la CSP |  |
 | ✓ | [es] las cinco familias de la base cargan desde el propio sitio |  |
@@ -67,32 +67,40 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Teclado: el primer Tab se queda en el centro, a la vista (selector de idioma) |  |
 | ✓ | Teclado: desde el centro, ES → EN → ↑ → ← → → → ↓ |  |
 | ✓ | Teclado: el foco se ve (contorno de 3 px) |  |
-| ✓ | Cruz [es · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
-| ✓ | Cruz [es · escritorio]: el sello queda en el centro exacto de la pantalla (±3 px) |  |
+| ✓ | Cruz [es · escritorio]: se llega al centro (el nombre a la vista, brújula en el centro) |  |
+| ✓ | Cruz [es · escritorio]: la placa del nombre queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [es · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
-| ✓ | Cruz [es · escritorio]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
-| ✓ | Cruz [es · escritorio]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
+| ✓ | Cruz [es · escritorio]: ← y → recorren la fila (laboratorio / cómo medimos) |  |
+| ✓ | Cruz [es · escritorio]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea |  |
+| ✓ | Cruz [es · escritorio]: las salas laterales miden una pantalla y se recorren por dentro |  |
+| ✓ | Cruz [es · escritorio]: sin vacío entre el centro y los resultados |  |
 | ✓ | Cruz [es · escritorio]: los enlaces llevan a cada sala y la brújula lo marca |  |
 | ✓ | Cruz [es · escritorio]: la brújula se esconde en el centro y aparece al alejarse |  |
-| ✓ | Cruz [en · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
-| ✓ | Cruz [en · escritorio]: el sello queda en el centro exacto de la pantalla (±3 px) |  |
+| ✓ | Cruz [en · escritorio]: se llega al centro (el nombre a la vista, brújula en el centro) |  |
+| ✓ | Cruz [en · escritorio]: la placa del nombre queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [en · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
-| ✓ | Cruz [en · escritorio]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
-| ✓ | Cruz [en · escritorio]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
+| ✓ | Cruz [en · escritorio]: ← y → recorren la fila (laboratorio / cómo medimos) |  |
+| ✓ | Cruz [en · escritorio]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea |  |
+| ✓ | Cruz [en · escritorio]: las salas laterales miden una pantalla y se recorren por dentro |  |
+| ✓ | Cruz [en · escritorio]: sin vacío entre el centro y los resultados |  |
 | ✓ | Cruz [en · escritorio]: los enlaces llevan a cada sala y la brújula lo marca |  |
 | ✓ | Cruz [en · escritorio]: la brújula se esconde en el centro y aparece al alejarse |  |
-| ✓ | Cruz [es · móvil]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
-| ✓ | Cruz [es · móvil]: el sello queda en el centro exacto de la pantalla (±3 px) |  |
+| ✓ | Cruz [es · móvil]: se llega al centro (el nombre a la vista, brújula en el centro) |  |
+| ✓ | Cruz [es · móvil]: la placa del nombre queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [es · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
-| ✓ | Cruz [es · móvil]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
-| ✓ | Cruz [es · móvil]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
+| ✓ | Cruz [es · móvil]: ← y → recorren la fila (laboratorio / cómo medimos) |  |
+| ✓ | Cruz [es · móvil]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea |  |
+| ✓ | Cruz [es · móvil]: las salas laterales miden una pantalla y se recorren por dentro |  |
+| ✓ | Cruz [es · móvil]: sin vacío entre el centro y los resultados |  |
 | ✓ | Cruz [es · móvil]: los enlaces llevan a cada sala y la brújula lo marca |  |
 | ✓ | Cruz [es · móvil]: la brújula se esconde en el centro y aparece al alejarse |  |
-| ✓ | Cruz [en · móvil]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
-| ✓ | Cruz [en · móvil]: el sello queda en el centro exacto de la pantalla (±3 px) |  |
+| ✓ | Cruz [en · móvil]: se llega al centro (el nombre a la vista, brújula en el centro) |  |
+| ✓ | Cruz [en · móvil]: la placa del nombre queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [en · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
-| ✓ | Cruz [en · móvil]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
-| ✓ | Cruz [en · móvil]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
+| ✓ | Cruz [en · móvil]: ← y → recorren la fila (laboratorio / cómo medimos) |  |
+| ✓ | Cruz [en · móvil]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea |  |
+| ✓ | Cruz [en · móvil]: las salas laterales miden una pantalla y se recorren por dentro |  |
+| ✓ | Cruz [en · móvil]: sin vacío entre el centro y los resultados |  |
 | ✓ | Cruz [en · móvil]: los enlaces llevan a cada sala y la brújula lo marca |  |
 | ✓ | Cruz [en · móvil]: la brújula se esconde en el centro y aparece al alejarse |  |
 | ✓ | Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces |  |

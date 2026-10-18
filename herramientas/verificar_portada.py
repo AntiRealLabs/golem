@@ -158,14 +158,13 @@ def main():
     check("apple-touch-icon.png mide 180×180", Image.open(SITE / "apple-touch-icon.png").size == (180, 180))
     for lang in ("es", "en"):
         check(f"og-{lang}.jpg mide 1200×630", Image.open(SITE / "assets" / f"og-{lang}.jpg").size == (1200, 630))
-    # la cabeza del centro sale del arte original sin reescalar; las fuentes del arte no se publican
+    # la figura del golem va completa, sin sombreado añadido; la versión panorámica solo sirve a las tarjetas
     fuentes = ROOT / "herramientas" / "fuentes"
-    sizes = {f: Image.open(SITE / "assets" / f).size for f in ("cabeza-720.webp", "cabeza-480.webp")}
-    srcs = {f: Image.open(fuentes / f).size for f in ("arcilla-1122.webp", "taller-2172.webp")}
-    check("Figura del centro: recorte del arte original sin reescalar; las fuentes quedan fuera de site/",
-          sizes == {"cabeza-720.webp": (720, 900), "cabeza-480.webp": (480, 600)}
-          and srcs == {"arcilla-1122.webp": (1122, 1402), "taller-2172.webp": (2172, 724)}
-          and not any((SITE / "assets" / f).exists() for f in srcs), f"{sizes} {srcs}")
+    sizes = {f: Image.open(SITE / "assets" / f).size for f in ("arcilla-1122.webp", "arcilla-720.webp")}
+    taller = Image.open(fuentes / "taller-2172.webp").size
+    check("Figura del golem: arte original a tamaño completo (1122×1402); la panorámica no se publica",
+          sizes == {"arcilla-1122.webp": (1122, 1402), "arcilla-720.webp": (720, 900)} and taller == (2172, 724)
+          and not (SITE / "assets" / "taller-2172.webp").exists(), f"{sizes} {taller}")
     try:
         ElementTree.fromstring((SITE / "favicon.svg").read_text(encoding="utf-8"))
         check("favicon.svg es SVG válido", True)
@@ -289,7 +288,7 @@ def main():
         for _ in range(6):
             page.keyboard.press("Tab")
             order.append(page.evaluate("(document.activeElement.className||document.activeElement.textContent.trim().slice(0,12))+' '+document.activeElement.getAttribute('href')"))
-        want_order = ["ES /", "EN /en/", "pista pista--n #arriba", "pista pista--o #medimos", "pista pista--e #guardamos", "pista pista--s #abajo"]
+        want_order = ["ES /", "EN /en/", "lugar #preguntas", "lugar #como-medimos", "lugar #laboratorio", "lugar #resultados"]
         check("Teclado: desde el centro, ES → EN → ↑ → ← → → → ↓", order == want_order, str(order))
         outline = page.evaluate("(()=>{document.querySelector('.langs a').focus();const s=getComputedStyle(document.activeElement);return s.outlineStyle+' '+s.outlineWidth})()")
         check("Teclado: el foco se ve (contorno de 3 px)", outline.startswith("solid 3px"), outline)
@@ -303,21 +302,21 @@ def main():
                 page.goto(base + path, wait_until="networkidle")
                 page.evaluate("document.fonts.ready")
                 page.wait_for_timeout(250)
-                pos = page.evaluate("""() => { const c=document.getElementById('centro'),
-                    f=document.getElementById('fila'), p=document.getElementById('pregunta'), s=document.querySelector('.onfalo .sello').getBoundingClientRect();
+                pos = page.evaluate("""() => { const c=document.getElementById('cruce'),
+                    f=document.getElementById('fila'), p=document.getElementById('centro'), s=document.querySelector('.onfalo .placa').getBoundingClientRect();
                     return {dy: Math.round(-c.getBoundingClientRect().top), dx: Math.round(f.scrollLeft - p.offsetLeft),
                             sx: Math.round(s.left + s.width / 2 - document.documentElement.clientWidth / 2), sy: Math.round(s.top + s.height / 2 - innerHeight / 2),
                             brj: getComputedStyle(document.querySelector('.brujula')).visibility,
                             cur: (document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null}; }""")
-                check(f"Cruz [{key} · {label}]: se llega al centro (pregunta a la vista, brújula en el centro)",
-                      abs(pos["dy"]) <= 3 and abs(pos["dx"]) <= 3 and pos["cur"] == "pregunta", str(pos))
-                check(f"Cruz [{key} · {label}]: el sello queda en el centro exacto de la pantalla (±3 px)",
+                check(f"Cruz [{key} · {label}]: se llega al centro (el nombre a la vista, brújula en el centro)",
+                      abs(pos["dy"]) <= 3 and abs(pos["dx"]) <= 3 and pos["cur"] == "centro", str(pos))
+                check(f"Cruz [{key} · {label}]: la placa del nombre queda en el centro exacto de la pantalla (±3 px)",
                       abs(pos["sx"]) <= 3 and abs(pos["sy"]) <= 3, str(pos))
                 order_ok = page.evaluate("""() => { const pie=document.querySelector('.escalera-pie').getBoundingClientRect().top,
                     a=document.querySelector('.peldano').getBoundingClientRect().top,
                     z=document.querySelector('.peldano--ultimo').getBoundingClientRect().top,
                     cima=document.querySelector('.escalera-cima').getBoundingClientRect().top,
-                    centro=document.getElementById('centro').getBoundingClientRect().top;
+                    centro=document.getElementById('cruce').getBoundingClientRect().top;
                     return pie > a && a > z && z > cima && pie < centro; }""")
                 check(f"Cruz [{key} · {label}]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)", order_ok)
                 page.keyboard.press("ArrowRight")
@@ -326,29 +325,35 @@ def main():
                 page.keyboard.press("ArrowLeft"); page.wait_for_timeout(900)
                 page.keyboard.press("ArrowLeft"); page.wait_for_timeout(900)
                 left = page.evaluate("(document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null")
-                check(f"Cruz [{key} · {label}]: ← y → recorren la fila (lo que guardamos / lo que medimos)", right == "guardamos" and left == "medimos", f"{right} {left}")
+                check(f"Cruz [{key} · {label}]: ← y → recorren la fila (laboratorio / cómo medimos)", right == "laboratorio" and left == "como-medimos", f"{right} {left}")
                 page.goto(base + path, wait_until="networkidle")
                 page.wait_for_timeout(200)
-                page.click(".pista--o")
+                page.click(".rumbo--o .lugar")
                 page.wait_for_timeout(500)
-                vis = page.evaluate("""() => { const e=document.querySelector('#medimos .rumbo').getBoundingClientRect();
-                    return e.top >= -1 && e.left >= 0 && e.right <= innerWidth && location.hash === '#medimos'; }""")
-                check(f"Cruz [{key} · {label}]: la pista ← lleva a lo que medimos y se ve desde su primera línea", vis)
-                page.goto(base + path + "#abajo", wait_until="networkidle")
+                vis = page.evaluate("""() => { const e=document.querySelector('#como-medimos .lugar--aqui').getBoundingClientRect();
+                    return e.top >= -1 && e.left >= 0 && e.right <= innerWidth && location.hash === '#como-medimos'; }""")
+                check(f"Cruz [{key} · {label}]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea", vis)
+                lado = page.evaluate("""() => { const p=document.getElementById('como-medimos'), s=p.querySelector('.lado-scroll');
+                    return {alto: Math.round(p.getBoundingClientRect().height - innerHeight), corre: s.scrollHeight > s.clientHeight, modo: getComputedStyle(s).overflowY}; }""")
+                check(f"Cruz [{key} · {label}]: las salas laterales miden una pantalla y se recorren por dentro",
+                      abs(lado["alto"]) <= 2 and lado["corre"] and lado["modo"] == "auto", str(lado))
+                hueco = page.evaluate("Math.round(document.getElementById('resultados').getBoundingClientRect().top - document.getElementById('cruce').getBoundingClientRect().bottom)")
+                check(f"Cruz [{key} · {label}]: sin vacío entre el centro y los resultados", abs(hueco) <= 1, f"{hueco} px")
+                page.goto(base + path + "#resultados", wait_until="networkidle")
                 page.wait_for_timeout(400)
                 down = page.evaluate("(document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null")
                 brj_abajo = page.evaluate("getComputedStyle(document.querySelector('.brujula')).visibility")
-                page.goto(base + path + "#arriba", wait_until="networkidle")
+                page.goto(base + path + "#preguntas", wait_until="networkidle")
                 page.wait_for_timeout(400)
                 up = page.evaluate("(document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null")
-                check(f"Cruz [{key} · {label}]: los enlaces llevan a cada sala y la brújula lo marca", down == "abajo" and up == "arriba", f"{down} {up}")
+                check(f"Cruz [{key} · {label}]: los enlaces llevan a cada sala y la brújula lo marca", down == "resultados" and up == "preguntas", f"{down} {up}")
                 check(f"Cruz [{key} · {label}]: la brújula se esconde en el centro y aparece al alejarse",
                       pos["brj"] == "hidden" and brj_abajo == "visible", f"{pos['brj']} {brj_abajo}")
             ctx.close()
         ctx = browser.new_context(viewport={"width": 1280, "height": 800}, java_script_enabled=False)
         page = ctx.new_page()
         page.goto(base + "/", wait_until="networkidle")
-        nojs = page.evaluate("[document.querySelectorAll('h1').length, ['arriba','centro','abajo','medimos','guardamos'].every(id => !!document.getElementById(id))]")
+        nojs = page.evaluate("[document.querySelectorAll('h1').length, ['preguntas','cruce','centro','resultados','como-medimos','laboratorio'].every(id => !!document.getElementById(id))]")
         check("Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces", nojs == [1, True], str(nojs))
         ctx.close()
 
@@ -399,7 +404,7 @@ def main():
                     if key != "404":
                         page.screenshot(path=str(SHOTS / f"{label}_{key}_completa.png"), full_page=True)
                         # las otras salas, para revisar a ojo (no cuentan en el total)
-                        for sala in ("arriba", "medimos", "guardamos", "abajo"):
+                        for sala in ("preguntas", "como-medimos", "laboratorio", "resultados"):
                             page.goto(base + path + "#" + sala, wait_until="networkidle")
                             page.wait_for_timeout(500)
                             (SHOTS / "salas").mkdir(exist_ok=True)

@@ -3,121 +3,145 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Golem Bench · How far can a machine philosophize?</title>
+<title>Golem Bench · Questions from the future</title>
 <meta name="description" content="A golem is clay that a word sets walking. Golem Bench examines whether words are enough for machines to think. First edition in the workshop.">
 <link rel="canonical" href="https://golembench.org/en/">
 <link rel="alternate" hreflang="es" href="https://golembench.org/">
 <link rel="alternate" hreflang="en" href="https://golembench.org/en/">
 <link rel="alternate" hreflang="x-default" href="https://golembench.org/">
-<meta name="theme-color" content="#1c1d1a">
+<meta name="theme-color" content="#f0ebdf">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/unifrakturmaguntia-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/chakra-petch-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/portada.css?v=9c96cfcd09">
+<link rel="stylesheet" href="/assets/portada.css?v=a5ffb49dad">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Golem Bench">
-<meta property="og:title" content="How far can a machine philosophize?">
-<meta property="og:description" content="Golem Bench: a benchmark for philosophical creation in AI. First edition in the workshop.">
+<meta property="og:title" content="Golem Bench · Questions from the future">
+<meta property="og:description" content="A benchmark for philosophical creation in AI. First edition in the workshop.">
 <meta property="og:url" content="https://golembench.org/en/">
 <meta property="og:image" content="https://golembench.org/assets/og-en.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Golem Bench. An unfinished clay head with closed eyes, next to the question: How far can a machine philosophize?">
+<meta property="og:image:alt" content="Golem Bench, a benchmark for philosophical creation in AI: questions from the future. Beside it, an unfinished clay head with closed eyes.">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="es_CO">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body class="cruz">
 
-<!-- You land in the centre: the seal. Four paths leave from it. Above, what we do not know;
-     below, what holds us up; to the left, what we measure; to the right, what we keep.
-     The centre comes first in the document: screen readers and keyboards start at the question. -->
+<!-- The centre is the name. Four bearings leave from it: above, the open questions;
+     below, the results; to the left, how we measure; to the right, the laboratory.
+     The centre comes first in the document: screen readers and keyboards start there. -->
 <main class="mundo">
 
-  <div class="sala sala--centro" id="centro">
+  <div class="sala sala--centro" id="cruce">
     <div class="fila" id="fila">
 
-      <section class="panel panel--pregunta onfalo" id="pregunta" aria-labelledby="title" tabindex="-1">
+      <section class="panel panel--centro onfalo" id="centro" aria-labelledby="t-centro" tabindex="-1">
         <nav class="langs" aria-label="Language">
           <a href="/" hreflang="es" lang="es" aria-label="ES · Español">ES</a>
           <a href="/en/" hreflang="en" lang="en" aria-current="page" aria-label="EN · English">EN</a>
         </nav>
-        <div class="nombre">
-          <p class="wordmark"><span class="wordmark-g">Golem</span> <span class="wordmark-s">Bench</span></p>
+        <div class="placa">
           <p class="descriptor">Benchmark for philosophical creation in AI</p>
-          <h1 class="question" id="title">How far can a machine philosophize?</h1>
-          <p class="lema">Questions from the future</p>
-          <p class="stamp">Still clay</p>
+          <h1 class="wordmark" id="t-centro"><span class="wordmark-g">Golem</span> <span class="wordmark-s">Bench</span></h1>
+          <p class="placa-lema">Questions from the future</p>
         </div>
-        <figure class="cabeza">
-          <img src="/assets/cabeza-720.webp" srcset="/assets/cabeza-480.webp 480w, /assets/cabeza-720.webp 720w" sizes="(max-width: 899px) 220px, 280px" width="720" height="900" fetchpriority="high" alt="An unfinished clay head with closed eyes and a broken crown, resting on a stone pedestal.">
-          <figcaption>AI-generated image for Golem Bench</figcaption>
-        </figure>
-        <div class="sello" aria-hidden="true"><span>G</span></div>
-        <nav class="pistas" aria-label="From the centre">
-          <a class="pista pista--n" href="#arriba"><span class="pista-f" aria-hidden="true">↑</span> <span class="pista-t">What we do not know</span></a>
-          <a class="pista pista--o" href="#medimos"><span class="pista-f" aria-hidden="true">←</span> <span class="pista-t">What we measure</span></a>
-          <a class="pista pista--e" href="#guardamos"><span class="pista-t">What we keep</span> <span class="pista-f" aria-hidden="true">→</span></a>
-          <a class="pista pista--s" href="#abajo"><span class="pista-t">What holds us up</span> <span class="pista-f" aria-hidden="true">↓</span></a>
+        <nav class="rumbos" aria-label="From the centre">
+          <div class="rumbo rumbo--n">
+            <p class="susurro">What we do not know yet</p>
+            <a class="lugar" href="#preguntas">Open questions</a>
+          </div>
+          <div class="rumbo rumbo--o">
+            <p class="susurro">What holds us up</p>
+            <a class="lugar" href="#como-medimos">How we measure</a>
+            <p class="susurro">Four steps, three judges</p>
+          </div>
+          <div class="rumbo rumbo--e">
+            <p class="susurro">What we keep</p>
+            <a class="lugar" href="#laboratorio">Laboratory</a>
+            <p class="susurro">Golem Lab, in the workshop</p>
+          </div>
+          <div class="rumbo rumbo--s">
+            <a class="lugar" href="#resultados">Evaluation results</a>
+            <p class="susurro">Its eyes are still closed</p>
+          </div>
         </nav>
       </section>
 
-      <section class="panel panel--medimos" id="medimos" aria-labelledby="t-medimos" tabindex="-1">
-        <div class="panel-in">
-          <p class="rumbo"><span aria-hidden="true">←</span> What we measure</p>
-          <h2 class="sala-titulo" id="t-medimos">The results room is empty. On purpose.</h2>
-          <p class="panel-text">Golem Bench’s numbers arrive when the pilot ends and passes final review. We prefer an empty room to a filler ranking.</p>
-          <figure class="vacio">
-            <svg viewBox="0 0 320 280" role="img" aria-labelledby="vacio-t">
-              <title id="vacio-t">A chart with three axes, one per judge, with no data drawn.</title>
-              <g class="vacio-ejes">
-                <line x1="160" y1="150" x2="160" y2="30"/>
-                <line x1="160" y1="150" x2="56" y2="210"/>
-                <line x1="160" y1="150" x2="264" y2="210"/>
-                <polygon points="160,30 56,210 264,210"/>
-                <polygon points="160,70 91,190 229,190"/>
-                <polygon points="160,110 125,170 195,170"/>
-              </g>
-              <g class="vacio-rotulos">
-                <text x="160" y="18">J1 · Understand</text>
-                <text x="40" y="236">J2 · Create</text>
-                <text x="280" y="236">J3 · Revise</text>
-              </g>
-              <text class="vacio-nada" x="160" y="268">No points drawn yet</text>
-            </svg>
-          </figure>
-          <p class="panel-note">When they arrive, every number will say what it counted, across how many cases and up to what date.</p>
+      <section class="panel panel--lado panel--medimos" id="como-medimos" aria-labelledby="t-medimos" tabindex="-1">
+        <div class="lado-scroll">
+          <div class="lado-in">
+            <h2 class="lugar lugar--aqui" id="t-medimos">How we measure</h2>
+            <h3 class="sec-titulo">A question earns its place.</h3>
+            <p class="sec-lead">Every machine walks the same path, and at each step it has to stand by what it said.</p>
+            <ol class="path" role="list">
+              <li class="step"><span class="step-n" aria-hidden="true">01</span><h4>A good question</h4><p>It frames its own problem. Sometimes the best question shows that the problem was poorly framed.</p></li>
+              <li class="step"><span class="step-n" aria-hidden="true">02</span><h4>A proposal</h4><p>It answers with a proposal of its own and defends it with reasons.</p></li>
+              <li class="step"><span class="step-n" aria-hidden="true">03</span><h4>Two critiques</h4><p>It receives two objections, each one separately, and decides what to keep and what to change.</p></li>
+              <li class="step"><span class="step-n" aria-hidden="true">04</span><h4>A new case</h4><p>It takes its idea to a new case and explains what changes in the transfer.</p></li>
+            </ol>
+            <h3 class="sec-titulo sec-titulo--jueces">From the number to the argument.</h3>
+            <p class="sec-lead">Three judges, machines too, read every step. No score arrives without its reasons.</p>
+            <ul class="cards" role="list">
+              <li class="card">
+                <div class="card-top"><span class="seal"><span class="sr-only">Judge </span>J1</span><span class="card-label">Understand</span></div>
+                <h4>Did it understand?</h4>
+                <p>Precise distinctions, fair reconstruction of arguments and independent use of sources.</p>
+              </li>
+              <li class="card">
+                <div class="card-top"><span class="seal"><span class="sr-only">Judge </span>J2</span><span class="card-label">Create with grounding</span></div>
+                <h4>Did it bring something?</h4>
+                <p>Contributions and fruitful questions supported by reasons. Originality is assessed relative to the available corpus.</p>
+              </li>
+              <li class="card">
+                <div class="card-top"><span class="seal"><span class="sr-only">Judge </span>J3</span><span class="card-label">Revise and transfer</span></div>
+                <h4>Does it hold up?</h4>
+                <p>Respond to objections, decide what to retain and explain what changes when applying an idea to another case.</p>
+              </li>
+            </ul>
+            <figure class="pull">
+              <blockquote><p>Agreement with a doctrine earns no points.</p></blockquote>
+              <figcaption class="pull-note">Every assessment keeps a reason, an alternative reading and the evidence that would change the score.</figcaption>
+            </figure>
+            <a class="volver volver--lado" href="#centro">Back to the centre <span aria-hidden="true">→</span></a>
+          </div>
         </div>
-        <a class="pista pista--e pista--volver" href="#pregunta"><span class="pista-t">Back to the centre</span> <span class="pista-f" aria-hidden="true">→</span></a>
+        <a class="volver-lado volver-lado--e" href="#centro"><span class="volver-t">Back to the centre</span> <span class="volver-f" aria-hidden="true">→</span></a>
       </section>
 
-      <section class="panel panel--guardamos" id="guardamos" aria-labelledby="t-guardamos" tabindex="-1">
-        <div class="panel-in">
-          <p class="rumbo">What we keep <span aria-hidden="true">→</span></p>
-          <div class="lab-head">
-            <h2 class="lockup" id="t-guardamos"><span class="lockup-g">Golem</span> <span class="lockup-lab">Lab</span></h2>
-            <p class="lab-sub">Cyberlab for Philosophical Inquiry</p>
-            <p class="stamp">In the workshop</p>
+      <section class="panel panel--lado panel--lab" id="laboratorio" aria-labelledby="t-lab" tabindex="-1">
+        <div class="lado-scroll">
+          <div class="lado-in">
+            <h2 class="lugar lugar--aqui" id="t-lab">Laboratory</h2>
+            <div class="taller">
+              <div class="lab-head">
+                <p class="lockup"><span class="lockup-g">Golem</span> <span class="lockup-lab">Lab</span></p>
+                <p class="lab-sub">Cyberlab for Philosophical Inquiry</p>
+                <p class="stamp">In the workshop</p>
+              </div>
+              <p class="lab-text">A living archive of what happens when we set a machine to think: the questions it dares to ask, the objections it receives and what deserves further inquiry.</p>
+              <ul class="doors" role="list">
+                <li class="door"><h3>Atlas of Questions</h3><p>Enter through a problem, a concept or a thinker, and reach the exact text that produced it.</p></li>
+                <li class="door"><h3>Open Debates</h3><p>What it proposed, what was objected, what it held on to and what it had to let go.</p></li>
+                <li class="door"><h3>Golem Notebook</h3><p>An annotated selection with a cut-off date: what is worth reading and what remains open.</p></li>
+              </ul>
+            </div>
+            <a class="volver volver--lado" href="#centro"><span aria-hidden="true">←</span> Back to the centre</a>
           </div>
-          <p class="lab-text">A living archive of what happens when we set a machine to think: the questions it dares to ask, the objections it receives and what deserves further inquiry.</p>
-          <ul class="doors" role="list">
-            <li class="door"><h3>Atlas of Questions</h3><p>Enter through a problem, a concept or a thinker, and reach the exact text that produced it.</p></li>
-            <li class="door"><h3>Open Debates</h3><p>What it proposed, what was objected, what it held on to and what it had to let go.</p></li>
-            <li class="door"><h3>Golem Notebook</h3><p>An annotated selection with a cut-off date: what is worth reading and what remains open.</p></li>
-          </ul>
         </div>
-        <a class="pista pista--o pista--volver" href="#pregunta"><span class="pista-f" aria-hidden="true">←</span> <span class="pista-t">Back to the centre</span></a>
+        <a class="volver-lado volver-lado--o" href="#centro"><span class="volver-f" aria-hidden="true">←</span> <span class="volver-t">Back to the centre</span></a>
       </section>
 
     </div>
   </div>
 
-  <section class="sala sala--arriba" aria-labelledby="t-arriba">
+  <section class="sala sala--arriba" aria-labelledby="t-preguntas">
     <!-- Read from the bottom up: the first item in the document is the one closest to the centre. -->
     <ol class="escalera" role="list">
-      <li class="escalera-pie" id="arriba"><h2 class="sr-only" id="t-arriba"><span aria-hidden="true">↑</span> What we do not know</h2><p>These questions are read from the bottom up. The higher you climb, the further they reach.</p></li>
+      <li class="escalera-pie" id="preguntas"><h2 class="sr-only" id="t-preguntas">Open questions</h2><p>These questions are read from the bottom up. The higher you climb, the further they reach.</p></li>
       <li class="peldano"><p>Can a machine ask a good question, or only answer well?</p></li>
       <li class="peldano"><p>Can it tell when its own question was poorly framed?</p></li>
       <li class="peldano"><p>When it changes its mind under criticism, is it for a reason or to please?</p></li>
@@ -129,77 +153,63 @@
     </ol>
   </section>
 
-  <div class="sala sala--abajo" id="abajo">
+  <div class="sala sala--abajo" id="resultados">
 
-    <section class="sec sec--mito" aria-labelledby="t-abajo">
+    <section class="sec sec--resultados" aria-labelledby="t-resultados">
       <div class="wrap">
-        <h2 class="sr-only" id="t-abajo">What holds us up</h2>
-        <p class="myth">A golem is clay that a word sets walking. Today’s machines have words to spare. We want to know whether they are enough to think.</p>
-        <p class="status">The first edition is still being shaped. It comes out when the pilot ends and passes final review; not a day sooner.</p>
-      </div>
-    </section>
-
-    <section class="sec sec--sostiene" aria-labelledby="path">
-      <div class="wrap">
-        <h2 class="sec-titulo" id="path">A question earns its place.</h2>
-        <p class="sec-lead">Every machine walks the same path, and at each step it has to stand by what it said.</p>
-        <ol class="path" role="list">
-          <li class="step"><span class="step-n" aria-hidden="true">01</span><h3>A good question</h3><p>It frames its own problem. Sometimes the best question shows that the problem was poorly framed.</p></li>
-          <li class="step"><span class="step-n" aria-hidden="true">02</span><h3>A proposal</h3><p>It answers with a proposal of its own and defends it with reasons.</p></li>
-          <li class="step"><span class="step-n" aria-hidden="true">03</span><h3>Two critiques</h3><p>It receives two objections, each one separately, and decides what to keep and what to change.</p></li>
-          <li class="step"><span class="step-n" aria-hidden="true">04</span><h3>A new case</h3><p>It takes its idea to a new case and explains what changes in the transfer.</p></li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="sec sec--judges" aria-labelledby="judges">
-      <div class="wrap">
-        <p class="eyebrow">The three judges</p>
-        <h2 class="sec-titulo" id="judges">From the number to the argument.</h2>
-        <p class="sec-lead">Three judges, machines too, read every step. No score arrives without its reasons.</p>
-        <ul class="cards" role="list">
-          <li class="card">
-            <div class="card-top"><span class="seal"><span class="sr-only">Judge </span>J1</span><span class="card-label">Understand</span></div>
-            <h3>Did it understand?</h3>
-            <p>Precise distinctions, fair reconstruction of arguments and independent use of sources.</p>
-          </li>
-          <li class="card">
-            <div class="card-top"><span class="seal"><span class="sr-only">Judge </span>J2</span><span class="card-label">Create with grounding</span></div>
-            <h3>Did it bring something?</h3>
-            <p>Contributions and fruitful questions supported by reasons. Originality is assessed relative to the available corpus.</p>
-          </li>
-          <li class="card">
-            <div class="card-top"><span class="seal"><span class="sr-only">Judge </span>J3</span><span class="card-label">Revise and transfer</span></div>
-            <h3>Does it hold up?</h3>
-            <p>Respond to objections, decide what to retain and explain what changes when applying an idea to another case.</p>
-          </li>
-        </ul>
-        <figure class="pull">
-          <blockquote><p>Agreement with a doctrine earns no points.</p></blockquote>
-          <figcaption class="pull-note">Every assessment keeps a reason, an alternative reading and the evidence that would change the score.</figcaption>
+        <h2 class="sr-only" id="t-resultados">Evaluation results</h2>
+        <p class="stamp">Still clay</p>
+        <h3 class="sec-titulo">The results room is empty. On purpose.</h3>
+        <p class="sec-lead">Golem Bench’s numbers arrive when the pilot ends and passes final review. We prefer an empty room to a filler ranking.</p>
+        <figure class="vacio">
+          <svg viewBox="0 0 320 280" role="img" aria-labelledby="vacio-t">
+            <title id="vacio-t">A chart with three axes, one per judge, with no data drawn.</title>
+            <g class="vacio-ejes">
+              <line x1="160" y1="150" x2="160" y2="30"/>
+              <line x1="160" y1="150" x2="56" y2="210"/>
+              <line x1="160" y1="150" x2="264" y2="210"/>
+              <polygon points="160,30 56,210 264,210"/>
+              <polygon points="160,70 91,190 229,190"/>
+              <polygon points="160,110 125,170 195,170"/>
+            </g>
+            <g class="vacio-rotulos">
+              <text x="160" y="18">J1 · Understand</text>
+              <text x="40" y="236">J2 · Create</text>
+              <text x="280" y="236">J3 · Revise</text>
+            </g>
+            <text class="vacio-nada" x="160" y="268">No points drawn yet</text>
+          </svg>
         </figure>
+        <p class="nota">When they arrive, every number will say what it counted, across how many cases and up to what date.</p>
       </div>
     </section>
 
     <section class="sec sec--pacto" aria-labelledby="pact">
       <div class="wrap">
         <p class="eyebrow">Our pact</p>
-        <h2 class="sec-titulo" id="pact">What you will not find here.</h2>
+        <h3 class="sec-titulo" id="pact">What you will not find here.</h3>
         <ul class="rules" role="list">
-          <li class="rule"><h3>Blended voices.</h3><p>The model, the judge and the guide each speak under their own name.</p></li>
-          <li class="rule"><h3>Machines dressed as people.</h3><p>If an AI reviewed it, we say so. An automated review never passes for human validation.</p></li>
-          <li class="rule"><h3>Invented zeros.</h3><p>Pending is not zero. Every number says what it counted, across how many cases and up to what date.</p></li>
-          <li class="rule"><h3>Retouched scores.</h3><p>Texts and assessments stay as they were written. Each assessment keeps its version.</p></li>
+          <li class="rule"><h4>Blended voices.</h4><p>The model, the judge and the guide each speak under their own name.</p></li>
+          <li class="rule"><h4>Machines dressed as people.</h4><p>If an AI reviewed it, we say so. An automated review never passes for human validation.</p></li>
+          <li class="rule"><h4>Invented zeros.</h4><p>Pending is not zero. Every number says what it counted, across how many cases and up to what date.</p></li>
+          <li class="rule"><h4>Retouched scores.</h4><p>Texts and assessments stay as they were written. Each assessment keeps its version.</p></li>
         </ul>
       </div>
     </section>
 
     <section class="suelo" aria-labelledby="ground">
       <div class="wrap suelo-in">
-        <h2 class="suelo-titulo" id="ground">Down here is the clay. The golem still has its eyes closed.</h2>
-        <p class="suelo-sub">If you want to be there when it opens them, write to us.</p>
-        <a class="btn btn--carbon" href="mailto:admin@antireallabs.com?subject=Tell%20me%20when%20the%20golem%20wakes%20up">Tell me when it wakes up</a>
-        <a class="volver" href="#pregunta"><span aria-hidden="true">↑</span> Back to the centre</a>
+        <figure class="golem">
+          <img src="/assets/arcilla-720.webp" srcset="/assets/arcilla-720.webp 720w, /assets/arcilla-1122.webp 1122w" sizes="(max-width: 899px) 86vw, 440px" width="1122" height="1402" fetchpriority="low" alt="An unfinished clay head with closed eyes and a broken crown, on a stone pedestal in a dim workshop; beside it, a parchment scroll and printing type.">
+          <figcaption>AI-generated image for Golem Bench</figcaption>
+        </figure>
+        <div class="suelo-texto">
+          <h3 class="suelo-titulo" id="ground">A golem is clay that a word sets walking.</h3>
+          <p class="suelo-sub">Today’s machines have words to spare. We want to know whether they are enough to think.</p>
+          <p class="suelo-sub">This one still has its eyes closed. If you want to be there when it opens them, write to us.</p>
+          <a class="btn btn--carbon" href="mailto:admin@antireallabs.com?subject=Tell%20me%20when%20the%20golem%20wakes%20up">Tell me when it wakes up</a>
+          <a class="volver" href="#centro"><span aria-hidden="true">↑</span> Back to the centre</a>
+        </div>
       </div>
     </section>
 
@@ -219,13 +229,13 @@
 </footer>
 
 <nav class="brujula" aria-label="Compass">
-  <a class="b b--n" href="#arriba" data-sala="arriba"><span class="b-label">What we do not know</span></a>
-  <a class="b b--o" href="#medimos" data-sala="medimos"><span class="b-label">What we measure</span></a>
-  <a class="b b--c" href="#pregunta" data-sala="pregunta"><span class="b-g" aria-hidden="true">G</span><span class="b-label">The centre</span></a>
-  <a class="b b--e" href="#guardamos" data-sala="guardamos"><span class="b-label">What we keep</span></a>
-  <a class="b b--s" href="#abajo" data-sala="abajo"><span class="b-label">What holds us up</span></a>
+  <a class="b b--n" href="#preguntas" data-sala="preguntas"><span class="b-label">Open questions</span></a>
+  <a class="b b--o" href="#como-medimos" data-sala="como-medimos"><span class="b-label">How we measure</span></a>
+  <a class="b b--c" href="#centro" data-sala="centro"><span class="b-g" aria-hidden="true">G</span><span class="b-label">The centre</span></a>
+  <a class="b b--e" href="#laboratorio" data-sala="laboratorio"><span class="b-label">Laboratory</span></a>
+  <a class="b b--s" href="#resultados" data-sala="resultados"><span class="b-label">Evaluation results</span></a>
 </nav>
 
-<script src="/assets/centro.js?v=bae2f6e613"></script>
+<script src="/assets/centro.js?v=8ac085e171"></script>
 </body>
 </html>

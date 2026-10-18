@@ -1,7 +1,7 @@
 {
- "fecha": "2026-10-18 01:14 (UTC−5)",
- "correctas": 94,
- "total": 94,
+ "fecha": "2026-10-18 01:36 (UTC−5)",
+ "correctas": 102,
+ "total": 102,
  "resultados": [
   {
    "comprobacion": "Puerta de publicación: site/ contiene solo la portada",
@@ -89,9 +89,9 @@
    "detalle": ""
   },
   {
-   "comprobacion": "Figura del centro: recorte del arte original sin reescalar; las fuentes quedan fuera de site/",
+   "comprobacion": "Figura del golem: arte original a tamaño completo (1122×1402); la panorámica no se publica",
    "ok": true,
-   "detalle": "{'cabeza-720.webp': (720, 900), 'cabeza-480.webp': (480, 600)} {'arcilla-1122.webp': (1122, 1402), 'taller-2172.webp': (2172, 724)}"
+   "detalle": "{'arcilla-1122.webp': (1122, 1402), 'arcilla-720.webp': (720, 900)} (2172, 724)"
   },
   {
    "comprobacion": "favicon.svg es SVG válido",
@@ -111,12 +111,12 @@
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:33609'}"
+   "detalle": "{'127.0.0.1:46523'}"
   },
   {
    "comprobacion": "[es] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "194681 bytes"
+   "detalle": "217153 bytes"
   },
   {
    "comprobacion": "[es] idioma del documento declarado",
@@ -151,7 +151,7 @@
   {
    "comprobacion": "[es] imágenes cargadas y con texto alternativo descriptivo",
    "ok": true,
-   "detalle": "[[107, True]]"
+   "detalle": "[[175, True]]"
   },
   {
    "comprobacion": "[es] el selector marca el idioma actual",
@@ -191,12 +191,12 @@
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:33609'}"
+   "detalle": "{'127.0.0.1:46523'}"
   },
   {
    "comprobacion": "[en] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "194458 bytes"
+   "detalle": "216944 bytes"
   },
   {
    "comprobacion": "[en] idioma del documento declarado",
@@ -231,7 +231,7 @@
   {
    "comprobacion": "[en] imágenes cargadas y con texto alternativo descriptivo",
    "ok": true,
-   "detalle": "[[89, True]]"
+   "detalle": "[[148, True]]"
   },
   {
    "comprobacion": "[en] el selector marca el idioma actual",
@@ -266,22 +266,22 @@
   {
    "comprobacion": "[404] fuentes de la marca cargadas",
    "ok": true,
-   "detalle": "['UnifrakturMaguntia', 'Chakra Petch', 'Archivo', 'Archivo', 'Fragment Mono']"
+   "detalle": "['UnifrakturMaguntia', 'Chakra Petch', 'Archivo', 'Fragment Mono', 'DM Sans', 'Newsreader']"
   },
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:33609'}"
+   "detalle": "{'127.0.0.1:46523'}"
   },
   {
    "comprobacion": "[404] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "118500 bytes"
+   "detalle": "142086 bytes"
   },
   {
    "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces",
    "ok": true,
-   "detalle": "{'es': [8, 14, 26, 45, 13], 'en': [8, 14, 26, 45, 13]}"
+   "detalle": "{'es': [4, 8, 26, 47, 15], 'en': [4, 8, 26, 47, 15]}"
   },
   {
    "comprobacion": "Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px",
@@ -301,7 +301,7 @@
   {
    "comprobacion": "Teclado: desde el centro, ES → EN → ↑ → ← → → → ↓",
    "ok": true,
-   "detalle": "['ES /', 'EN /en/', 'pista pista--n #arriba', 'pista pista--o #medimos', 'pista pista--e #guardamos', 'pista pista--s #abajo']"
+   "detalle": "['ES /', 'EN /en/', 'lugar #preguntas', 'lugar #como-medimos', 'lugar #laboratorio', 'lugar #resultados']"
   },
   {
    "comprobacion": "Teclado: el foco se ve (contorno de 3 px)",
@@ -309,14 +309,14 @@
    "detalle": "solid 3px"
   },
   {
-   "comprobacion": "Cruz [es · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro)",
+   "comprobacion": "Cruz [es · escritorio]: se llega al centro (el nombre a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'brj': 'hidden', 'cur': 'pregunta'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
-   "comprobacion": "Cruz [es · escritorio]: el sello queda en el centro exacto de la pantalla (±3 px)",
+   "comprobacion": "Cruz [es · escritorio]: la placa del nombre queda en el centro exacto de la pantalla (±3 px)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'brj': 'hidden', 'cur': 'pregunta'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
    "comprobacion": "Cruz [es · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -324,19 +324,29 @@
    "detalle": ""
   },
   {
-   "comprobacion": "Cruz [es · escritorio]: ← y → recorren la fila (lo que guardamos / lo que medimos)",
+   "comprobacion": "Cruz [es · escritorio]: ← y → recorren la fila (laboratorio / cómo medimos)",
    "ok": true,
-   "detalle": "guardamos medimos"
+   "detalle": "laboratorio como-medimos"
   },
   {
-   "comprobacion": "Cruz [es · escritorio]: la pista ← lleva a lo que medimos y se ve desde su primera línea",
+   "comprobacion": "Cruz [es · escritorio]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea",
    "ok": true,
    "detalle": ""
   },
   {
+   "comprobacion": "Cruz [es · escritorio]: las salas laterales miden una pantalla y se recorren por dentro",
+   "ok": true,
+   "detalle": "{'alto': 0, 'corre': True, 'modo': 'auto'}"
+  },
+  {
+   "comprobacion": "Cruz [es · escritorio]: sin vacío entre el centro y los resultados",
+   "ok": true,
+   "detalle": "0 px"
+  },
+  {
    "comprobacion": "Cruz [es · escritorio]: los enlaces llevan a cada sala y la brújula lo marca",
    "ok": true,
-   "detalle": "abajo arriba"
+   "detalle": "resultados preguntas"
   },
   {
    "comprobacion": "Cruz [es · escritorio]: la brújula se esconde en el centro y aparece al alejarse",
@@ -344,14 +354,14 @@
    "detalle": "hidden visible"
   },
   {
-   "comprobacion": "Cruz [en · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro)",
+   "comprobacion": "Cruz [en · escritorio]: se llega al centro (el nombre a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'brj': 'hidden', 'cur': 'pregunta'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': 0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
-   "comprobacion": "Cruz [en · escritorio]: el sello queda en el centro exacto de la pantalla (±3 px)",
+   "comprobacion": "Cruz [en · escritorio]: la placa del nombre queda en el centro exacto de la pantalla (±3 px)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'brj': 'hidden', 'cur': 'pregunta'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': 0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
    "comprobacion": "Cruz [en · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -359,19 +369,29 @@
    "detalle": ""
   },
   {
-   "comprobacion": "Cruz [en · escritorio]: ← y → recorren la fila (lo que guardamos / lo que medimos)",
+   "comprobacion": "Cruz [en · escritorio]: ← y → recorren la fila (laboratorio / cómo medimos)",
    "ok": true,
-   "detalle": "guardamos medimos"
+   "detalle": "laboratorio como-medimos"
   },
   {
-   "comprobacion": "Cruz [en · escritorio]: la pista ← lleva a lo que medimos y se ve desde su primera línea",
+   "comprobacion": "Cruz [en · escritorio]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea",
    "ok": true,
    "detalle": ""
   },
   {
+   "comprobacion": "Cruz [en · escritorio]: las salas laterales miden una pantalla y se recorren por dentro",
+   "ok": true,
+   "detalle": "{'alto': 0, 'corre': True, 'modo': 'auto'}"
+  },
+  {
+   "comprobacion": "Cruz [en · escritorio]: sin vacío entre el centro y los resultados",
+   "ok": true,
+   "detalle": "0 px"
+  },
+  {
    "comprobacion": "Cruz [en · escritorio]: los enlaces llevan a cada sala y la brújula lo marca",
    "ok": true,
-   "detalle": "abajo arriba"
+   "detalle": "resultados preguntas"
   },
   {
    "comprobacion": "Cruz [en · escritorio]: la brújula se esconde en el centro y aparece al alejarse",
@@ -379,14 +399,14 @@
    "detalle": "hidden visible"
   },
   {
-   "comprobacion": "Cruz [es · móvil]: se llega al centro (pregunta a la vista, brújula en el centro)",
+   "comprobacion": "Cruz [es · móvil]: se llega al centro (el nombre a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'pregunta'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': 0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
-   "comprobacion": "Cruz [es · móvil]: el sello queda en el centro exacto de la pantalla (±3 px)",
+   "comprobacion": "Cruz [es · móvil]: la placa del nombre queda en el centro exacto de la pantalla (±3 px)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'pregunta'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': 0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
    "comprobacion": "Cruz [es · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -394,19 +414,29 @@
    "detalle": ""
   },
   {
-   "comprobacion": "Cruz [es · móvil]: ← y → recorren la fila (lo que guardamos / lo que medimos)",
+   "comprobacion": "Cruz [es · móvil]: ← y → recorren la fila (laboratorio / cómo medimos)",
    "ok": true,
-   "detalle": "guardamos medimos"
+   "detalle": "laboratorio como-medimos"
   },
   {
-   "comprobacion": "Cruz [es · móvil]: la pista ← lleva a lo que medimos y se ve desde su primera línea",
+   "comprobacion": "Cruz [es · móvil]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea",
    "ok": true,
    "detalle": ""
   },
   {
+   "comprobacion": "Cruz [es · móvil]: las salas laterales miden una pantalla y se recorren por dentro",
+   "ok": true,
+   "detalle": "{'alto': 0, 'corre': True, 'modo': 'auto'}"
+  },
+  {
+   "comprobacion": "Cruz [es · móvil]: sin vacío entre el centro y los resultados",
+   "ok": true,
+   "detalle": "0 px"
+  },
+  {
    "comprobacion": "Cruz [es · móvil]: los enlaces llevan a cada sala y la brújula lo marca",
    "ok": true,
-   "detalle": "abajo arriba"
+   "detalle": "resultados preguntas"
   },
   {
    "comprobacion": "Cruz [es · móvil]: la brújula se esconde en el centro y aparece al alejarse",
@@ -414,14 +444,14 @@
    "detalle": "hidden visible"
   },
   {
-   "comprobacion": "Cruz [en · móvil]: se llega al centro (pregunta a la vista, brújula en el centro)",
+   "comprobacion": "Cruz [en · móvil]: se llega al centro (el nombre a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': -0.0, 'sy': 0, 'brj': 'hidden', 'cur': 'pregunta'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': 0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
-   "comprobacion": "Cruz [en · móvil]: el sello queda en el centro exacto de la pantalla (±3 px)",
+   "comprobacion": "Cruz [en · móvil]: la placa del nombre queda en el centro exacto de la pantalla (±3 px)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': -0.0, 'sy': 0, 'brj': 'hidden', 'cur': 'pregunta'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': 0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
    "comprobacion": "Cruz [en · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -429,19 +459,29 @@
    "detalle": ""
   },
   {
-   "comprobacion": "Cruz [en · móvil]: ← y → recorren la fila (lo que guardamos / lo que medimos)",
+   "comprobacion": "Cruz [en · móvil]: ← y → recorren la fila (laboratorio / cómo medimos)",
    "ok": true,
-   "detalle": "guardamos medimos"
+   "detalle": "laboratorio como-medimos"
   },
   {
-   "comprobacion": "Cruz [en · móvil]: la pista ← lleva a lo que medimos y se ve desde su primera línea",
+   "comprobacion": "Cruz [en · móvil]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea",
    "ok": true,
    "detalle": ""
   },
   {
+   "comprobacion": "Cruz [en · móvil]: las salas laterales miden una pantalla y se recorren por dentro",
+   "ok": true,
+   "detalle": "{'alto': 0, 'corre': True, 'modo': 'auto'}"
+  },
+  {
+   "comprobacion": "Cruz [en · móvil]: sin vacío entre el centro y los resultados",
+   "ok": true,
+   "detalle": "0 px"
+  },
+  {
    "comprobacion": "Cruz [en · móvil]: los enlaces llevan a cada sala y la brújula lo marca",
    "ok": true,
-   "detalle": "abajo arriba"
+   "detalle": "resultados preguntas"
   },
   {
    "comprobacion": "Cruz [en · móvil]: la brújula se esconde en el centro y aparece al alejarse",

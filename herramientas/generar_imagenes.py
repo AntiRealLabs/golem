@@ -1,25 +1,24 @@
 #!/usr/bin/env python3
-"""Genera el favicon, la cabeza del centro y las imágenes para compartir de la portada.
+"""Genera el favicon y las imágenes para compartir de la portada.
 
-Uso:  python3 -I herramientas/generar_imagenes.py [--solo-cabeza] [RAIZ_DEL_REPO]
+Uso:  python3 -I herramientas/generar_imagenes.py [RAIZ_DEL_REPO]
 
 Escribe en site/:
   favicon.svg, favicon.ico (16/32/48), apple-touch-icon.png (180)
-  assets/cabeza-720.webp, assets/cabeza-480.webp (la figura del centro, 4:5)
   assets/og-es.jpg, assets/og-en.jpg (1200×630)
 
-Las fuentes del arte (colección de redes v0.4, generada con IA y aprobada) viven
-en herramientas/fuentes/ y no se publican: la página solo usa los recortes.
+El arte viene de la colección de redes v0.4 (generada con IA y aprobada). La
+versión panorámica del taller, que solo usan las tarjetas, vive en
+herramientas/fuentes/ y no se publica.
 La G sale del contorno de UnifrakturMaguntia (licencia OFL; una imagen hecha
 con la fuente no queda sujeta a la licencia). Las imágenes para compartir se
 dibujan con Chromium (Playwright) usando las mismas fuentes que la página.
-Requiere: fonttools, brotli, pillow, numpy, playwright.
+Requiere: fonttools, brotli, pillow, playwright.
 """
 import io
 import sys
 from pathlib import Path
 
-import numpy as np
 from fontTools.pens.boundsPen import BoundsPen
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.ttLib import TTFont
@@ -33,27 +32,7 @@ FONTS = SITE / "assets" / "fonts"
 FUENTES = ROOT / "herramientas" / "fuentes"
 
 COAL, ON_COAL, ON_COAL_2, TAN, LINE, RED, IVORY = "#1c1d1a", "#ece6d8", "#bdb9a9", "#d1b698", "#45463e", "#803a39", "#f4ede0"
-TALLER = FUENTES / "taller-2172.webp"    # versión panorámica del taller (2172×724)
-FIGURA = FUENTES / "arcilla-1122.webp"   # figura vertical original (1122×1402)
-
-
-def cabeza():
-    """Recorta la cabeza y el borde del pedestal (720×900, sin reescalar) y la funde
-    con el carbón de la página, para que salga de la oscuridad encima del sello."""
-    im = Image.open(FIGURA).convert("RGB")
-    crop = im.crop((301, 150, 1021, 1050))                     # 720×900, la cabeza al centro
-    w, h = crop.size
-    y, x = np.mgrid[0:h, 0:w].astype(np.float32)
-    # elipse un poco más alta que ancha, centrada algo arriba (la cara), que se apaga hacia los bordes
-    d = np.sqrt(((x - w / 2) / (w * .5)) ** 2 + ((y - h * .47) / (h * .53)) ** 2)
-    a = np.clip((1.0 - d) / .34, 0, 1)
-    a = a * a * (3 - 2 * a)                                     # suavizado (smoothstep)
-    src = np.asarray(crop, dtype=np.float32)
-    coal = np.array([0x1c, 0x1d, 0x1a], dtype=np.float32)
-    out = src * a[..., None] + coal * (1 - a[..., None])
-    img = Image.fromarray(np.clip(out + .5, 0, 255).astype(np.uint8))
-    img.save(SITE / "assets" / "cabeza-720.webp", quality=84, method=6)
-    img.resize((480, 600), Image.LANCZOS).save(SITE / "assets" / "cabeza-480.webp", quality=84, method=6)
+TALLER = FUENTES / "taller-2172.webp"    # versión panorámica del taller (2172×724), solo para las tarjetas
 
 
 def glyph_g():
@@ -90,20 +69,22 @@ def font_faces():
         ("DM Sans", 400, "dm-sans-latin-400-normal.woff2"),
         ("Newsreader", 400, "newsreader-latin-400-normal.woff2"),
     ]
-    return "".join(
+    css = "".join(
         f"@font-face{{font-family:'{fam}';font-weight:{w};src:url('{(FONTS / f).as_uri()}') format('woff2')}}"
         for fam, w, f in faces
     )
+    italic = (FONTS / "newsreader-latin-400-italic.woff2").as_uri()
+    return css + f"@font-face{{font-family:'Newsreader';font-style:italic;font-weight:400;src:url('{italic}') format('woff2')}}"
 
 
 OG = {
-    "es": ("Benchmark de creación filosófica en IA", "¿Hasta dónde puede filosofar una máquina?", "Preguntas desde el futuro"),
-    "en": ("Benchmark for philosophical creation in AI", "How far can a machine philosophize?", "Questions from the future"),
+    "es": ("Benchmark de creación filosófica en IA", "Preguntas desde el futuro"),
+    "en": ("Benchmark for philosophical creation in AI", "Questions from the future"),
 }
 
 
 def og_html(lang):
-    eyebrow, question, lema = OG[lang]
+    eyebrow, lema = OG[lang]
     return f"""<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><style>
 {font_faces()}
 *{{box-sizing:border-box;margin:0}}
@@ -115,25 +96,18 @@ body::before{{content:"";position:absolute;inset:0;background:linear-gradient(90
 .mark{{display:flex;align-items:baseline;gap:20px;margin-top:20px}}
 .g{{font:400 132px/.9 'UnifrakturMaguntia';letter-spacing:-.035em}}
 .b{{font:400 26px/1 'DM Sans';letter-spacing:.34em;color:{ON_COAL_2}}}
-.q{{font:500 50px/1.06 'Chakra Petch';letter-spacing:-.02em;margin-top:30px;max-width:17ch;text-wrap:balance}}
-.lema{{font:500 26px/1.2 'Chakra Petch';color:{TAN};margin-top:16px}}
+.lema{{font:italic 400 56px/1.1 'Newsreader';color:{ON_COAL};margin-top:34px;max-width:11ch;text-wrap:balance}}
 .url{{margin-top:auto;font:400 21px/1.3 'Fragment Mono';letter-spacing:.06em;color:{ON_COAL_2}}}
 .bar{{position:absolute;left:0;right:0;bottom:0;height:8px;background:{RED}}}
 </style></head><body><div class="in">
 <p class="eyebrow">{eyebrow}</p>
 <p class="mark"><span class="g">Golem</span><span class="b">BENCH</span></p>
-<p class="q">{question}</p>
 <p class="lema">{lema}</p>
 <p class="url">golembench.org</p>
 </div><div class="bar"></div></body></html>"""
 
 
 def main():
-    cabeza()
-    if "--solo-cabeza" in sys.argv:
-        for f in ["assets/cabeza-720.webp", "assets/cabeza-480.webp"]:
-            print(f"{f}: {(SITE / f).stat().st_size} bytes")
-        return
     svg = favicon_svg()
     (SITE / "favicon.svg").write_text(svg, encoding="utf-8")
     tmp = ROOT / ".tmp-imagenes"
@@ -175,8 +149,7 @@ def main():
         for f in tmp.glob("*"):
             f.unlink()
         tmp.rmdir()
-    for f in ["favicon.svg", "favicon.ico", "apple-touch-icon.png", "assets/cabeza-720.webp", "assets/cabeza-480.webp",
-              "assets/og-es.jpg", "assets/og-en.jpg"]:
+    for f in ["favicon.svg", "favicon.ico", "apple-touch-icon.png", "assets/og-es.jpg", "assets/og-en.jpg"]:
         print(f"{f}: {(SITE / f).stat().st_size} bytes")
 
 

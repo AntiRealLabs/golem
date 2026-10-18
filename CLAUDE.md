@@ -64,33 +64,33 @@ por qué en el mensaje.
   y regenerar las imágenes si cambian el lema o la marca (`herramientas/generar_imagenes.py`).
 - Cada push a main que toque `site/` se publica solo en golembench.org.
 
-## Estructura: la cruz y el sello
+## Estructura: el mapa en cruz
 
 Idea de Juan (18 oct 2026): no todo va de arriba hacia abajo. La portada es una cruz y se llega al
-centro; desde ahí se puede ir hacia todos los lados. Segundo pedido del mismo día: el logo en el
-centro exacto y nada de arquitectura tradicional (sin barra superior ni pie al uso).
+centro; desde ahí se puede ir hacia todos los lados. Con su boceto del mismo día: el logo solo en el
+centro, cuatro rumbos alrededor, nada de arquitectura tradicional (sin barra superior ni pie al uso).
 
-- **Centro** (`#pregunta`, `.onfalo`): el sello, la G, en el centro exacto de la pantalla. Encima, la
-  cabeza de arcilla; debajo, el nombre, la pregunta, el lema y «Todavía es arcilla». Los cuatro
-  caminos están en los bordes; el idioma, en una esquina. Es donde aterriza una visita nueva.
-- **↑ Arriba** (`#arriba`): lo que no sabemos. Una escalera de preguntas abiertas que se lee de abajo
-  hacia arriba (`flex-direction: column-reverse`: el primer elemento del documento es el más cercano
-  al centro). Será el lugar del Atlas de preguntas del Lab.
-- **↓ Abajo** (`#abajo`): lo que nos sostiene. El mito, el recorrido, los jueces, el pacto y el suelo
-  de barro con el contacto. El pie va debajo, sobre carbón.
-- **← Izquierda** (`#medimos`): lo que medimos. La sala de resultados, vacía a propósito hasta que se
-  publique el piloto.
-- **→ Derecha** (`#guardamos`): lo que guardamos. Golem Lab, en el taller.
+- **Centro** (`#centro`, `.onfalo`): la placa del nombre (descriptor, «Golem Bench», lema) en el
+  centro exacto, sobre papel. Alrededor, cuatro rumbos: el nombre llano en un recuadro (`.lugar`) y,
+  en cursiva, un susurro de lo que hay allá (`.susurro`). Es donde aterriza una visita nueva.
+- **↑ Preguntas abiertas** (`#preguntas`): un cielo nocturno con la escalera de preguntas, que se lee
+  de abajo hacia arriba (`flex-direction: column-reverse`: el primer elemento del documento es el
+  más cercano al centro). Abajo del cielo amanece hacia el papel. Será el lugar del Atlas del Lab.
+- **← Cómo medimos** (`#como-medimos`): el recorrido de cuatro pasos, los tres jueces y la cita.
+- **→ Laboratorio** (`#laboratorio`): Golem Lab, en el taller (borde discontinuo).
+- **↓ Resultados de evaluaciones** (`#resultados`): la sala vacía a propósito, el pacto y el suelo de
+  barro con el golem de ojos cerrados y el contacto. El pie va debajo, sobre carbón.
 
 Cómo está hecho: el centro va primero en el HTML (lectores de pantalla y teclado empiezan ahí) y la
 rejilla de `main` lo pone en medio. El centro es una rejilla en cruz de 5×5; las dos filas de aire
-miden lo mismo, así que el sello queda en el centro exacto (la verificación lo mide en varios
-tamaños). Los rayos del sello son el eje de la página: suben por la escalera, bajan por cada sección
-hasta el suelo y, a los lados, llegan a «Volver al centro». La fila del centro es un carrusel
-horizontal con `scroll-snap`; cada sala mide lo que necesita. `site/assets/centro.js` (pequeño, sin
-dependencias) aterriza en el centro en una visita nueva, mueve los dos ejes con los enlaces, marca la
-brújula y atiende ← →. La brújula, un sello pequeño, aparece cuando uno se aleja del centro. Sin
-JavaScript todo sigue accesible con enlaces. El scroll es el del navegador: nada de secuestrarlo.
+miden lo mismo, así que la placa queda en el centro exacto (la verificación lo mide). De la placa
+salen dos meridianos que atraviesan la página: suben por la escalera y bajan por cada sección hasta
+el barro. La fila del centro es un carrusel horizontal con `scroll-snap` de una pantalla de alto; las
+salas laterales se recorren por dentro, así no queda vacío entre el centro y los resultados.
+`site/assets/centro.js` (pequeño, sin dependencias) aterriza en el centro en una visita nueva, mueve
+los dos ejes con los enlaces, marca la brújula y atiende ← →. La brújula, un sello pequeño, aparece
+cuando uno se aleja del centro. Sin JavaScript todo sigue accesible con enlaces. El scroll es el del
+navegador: nada de secuestrarlo.
 
 ## Voz: parresía
 
@@ -101,7 +101,11 @@ sin caer en la oscuridad ni en la distancia, sino para traer calidez y seducció
 
 En la práctica:
 
-- Una pregunta antes que un eslogan. La portada abre con «¿Hasta dónde puede filosofar una máquina?».
+- Nombres llanos para orientarse, voz poética para el sentido: el recuadro dice adónde va uno
+  («Cómo medimos») y el susurro dice qué encuentra («Lo que nos sostiene»).
+- Las preguntas viven arriba, en la escalera; el centro es el nombre. Juan descartó como titular
+  «¿Hasta dónde puede filosofar una máquina?» (18 oct 2026): no se usa en la portada ni en las
+  tarjetas para compartir.
 - El lema es «Preguntas desde el futuro» (EN: «Questions from the future»). Lo decidió Juan el
   18 oct 2026. Las piezas de la colección de redes v0.4 dicen «para el futuro»: ese texto no se
   copia a la portada.
@@ -123,12 +127,14 @@ para titulares, Archivo para el texto, Newsreader (cursiva) para las frases con 
 Fragment Mono para rótulos y DM Sans para «BENCH». Las fuentes (licencia OFL) se sirven desde
 `site/assets/fonts/`.
 
+El suelo de la portada es el papel (marfil); arriba, la noche de las preguntas; abajo, la arcilla.
+
 Imágenes: vienen de la colección de redes v0.4 (`golem_redes_sociales_v0_4.zip`, arte generado con
-IA y aprobado; se rotula «Imagen generada con IA para Golem Bench»). Las fuentes del arte viven en
-`herramientas/fuentes/` y no se publican. La página usa `cabeza-*.webp`, un recorte sin reescalar de
-la figura vertical fundido con el carbón. El sello y el favicon son la G marfil sobre burdeos, como
-el perfil rojo de esa colección. `herramientas/generar_imagenes.py` rehace la cabeza, el favicon y
-las tarjetas para compartir (estas usan la versión panorámica del taller).
+IA y aprobado; se rotula «Imagen generada con IA para Golem Bench»). La página usa la figura
+vertical completa (`arcilla-*.webp`), enmarcada y sin sombreado añadido: a Juan no le gustó la
+viñeta oval. La versión panorámica del taller vive en `herramientas/fuentes/`, no se publica y solo
+la usan las tarjetas para compartir. El favicon y la brújula son la G marfil sobre burdeos, como el
+perfil rojo de esa colección. `herramientas/generar_imagenes.py` rehace el favicon y las tarjetas.
 
 El borde discontinuo marca lo que está en el taller. La CSP no admite estilos ni scripts en línea:
 nada de `style=""` ni `<script>` sin archivo.

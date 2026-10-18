@@ -1,17 +1,17 @@
 /* Golem Bench · el centro
-   Se llega al centro, al sello, y desde ahí se puede ir hacia todos los lados:
-   arriba, lo que no sabemos; abajo, lo que nos sostiene; a la izquierda, lo que medimos;
-   a la derecha, lo que guardamos.
+   Se llega al centro, al nombre, y desde ahí se puede ir hacia todos los lados:
+   arriba, las preguntas abiertas; abajo, los resultados; a la izquierda, cómo medimos;
+   a la derecha, el laboratorio.
    Sin este archivo la página sigue funcionando: cada sala tiene su enlace. */
 (function () {
   'use strict';
   var d = document, w = window;
   var fila = d.getElementById('fila');
-  var pregunta = d.getElementById('pregunta');
-  var centro = d.getElementById('centro');
-  if (!fila || !pregunta || !centro) return;
+  var centro = d.getElementById('centro');   // la sala del centro, en la fila
+  var cruce = d.getElementById('cruce');     // la fila entera, entre arriba y abajo
+  if (!fila || !centro || !cruce) return;
 
-  var ORDEN = ['medimos', 'pregunta', 'guardamos'];   // orden visual de la fila
+  var ORDEN = ['como-medimos', 'centro', 'laboratorio'];   // orden visual de la fila
 
   function reducir() {
     return w.matchMedia && w.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -23,6 +23,9 @@
   function indiceFila() {
     return Math.max(0, Math.min(ORDEN.length - 1, Math.round(fila.scrollLeft / Math.max(1, fila.clientWidth))));
   }
+  function alturaCruce() {
+    return cruce.getBoundingClientRect().top + w.pageYOffset;
+  }
 
   /* 1. Aterrizar en el centro: solo en una visita nueva y sin destino en la dirección.
         Si la persona vuelve atrás o recarga, el navegador recuerda dónde estaba. */
@@ -30,11 +33,10 @@
   function aterrizar() {
     if (tocado) return;
     var destino = location.hash.slice(1);
-    // la fila mira a la pregunta salvo que el enlace pida una de sus salas laterales
-    if (destino !== 'medimos' && destino !== 'guardamos') fila.scrollLeft = pregunta.offsetLeft;
+    // la fila mira al centro salvo que el enlace pida una de sus salas laterales
+    if (destino !== 'como-medimos' && destino !== 'laboratorio') fila.scrollLeft = centro.offsetLeft;
     if (destino || tipoDeLlegada() !== 'navigate') return;
-    var y = centro.getBoundingClientRect().top + w.pageYOffset;
-    w.scrollTo({ top: Math.max(0, y), left: 0, behavior: 'instant' });
+    w.scrollTo({ top: Math.max(0, alturaCruce()), left: 0, behavior: 'instant' });
   }
   aterrizar();
   ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(function (ev) {
@@ -49,9 +51,9 @@
   var actual = null;
   function sala() {
     var mitad = w.innerHeight / 2;
-    var r = centro.getBoundingClientRect();
+    var r = cruce.getBoundingClientRect();
     if (r.top <= mitad && r.bottom >= mitad) return ORDEN[indiceFila()];
-    return r.top > mitad ? 'arriba' : 'abajo';
+    return r.top > mitad ? 'preguntas' : 'resultados';
   }
   function marcar() {
     pendiente = false;
@@ -89,12 +91,11 @@
   });
 
   /* 3. Los enlaces a las salas de la fila mueven los dos ejes a la vez:
-        la página baja o sube hasta la fila, y la fila se desliza hacia el lado. */
+        la página sube o baja hasta la fila, y la fila se desliza hacia el lado. */
   function irA(destino, como) {
     var i = ORDEN.indexOf(destino);
     if (i === -1) return false;
-    var y = centro.getBoundingClientRect().top + w.pageYOffset;
-    w.scrollTo({ top: Math.max(0, y), left: 0, behavior: como });
+    w.scrollTo({ top: Math.max(0, alturaCruce()), left: 0, behavior: como });
     fila.scrollTo({ left: i * fila.clientWidth, behavior: como });
     return true;
   }
@@ -111,19 +112,19 @@
     if (sala && sala.focus) sala.focus({ preventScroll: true });
   });
   w.addEventListener('popstate', function () {
-    var destino = location.hash.slice(1) || 'pregunta';
+    var destino = location.hash.slice(1) || 'centro';
     if (ORDEN.indexOf(destino) !== -1) fila.scrollTo({ left: ORDEN.indexOf(destino) * fila.clientWidth, behavior: 'instant' });
   });
   w.addEventListener('hashchange', function () { irA(location.hash.slice(1), 'instant'); });
   if (ORDEN.indexOf(location.hash.slice(1)) !== -1) irA(location.hash.slice(1), 'instant');
 
-  /* 4. Con el teclado: ← y → recorren la fila del centro cuando está a la vista. */
+  /* 4. Con el teclado: ← y → recorren la fila cuando está a la vista. */
   d.addEventListener('keydown', function (e) {
     if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
     var t = e.target;
     if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
-    var r = centro.getBoundingClientRect();
+    var r = cruce.getBoundingClientRect();
     if (r.bottom < w.innerHeight * 0.35 || r.top > w.innerHeight * 0.65) return;
     var i = indiceFila() + (e.key === 'ArrowRight' ? 1 : -1);
     if (i < 0 || i >= ORDEN.length) return;
