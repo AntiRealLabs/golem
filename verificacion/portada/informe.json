@@ -1,7 +1,7 @@
 {
- "fecha": "2026-10-18 02:44 (UTC−5)",
- "correctas": 109,
- "total": 109,
+ "fecha": "2026-10-18 05:30 (UTC−5)",
+ "correctas": 113,
+ "total": 113,
  "resultados": [
   {
    "comprobacion": "Puerta de publicación: site/ contiene solo la portada",
@@ -56,7 +56,7 @@
   {
    "comprobacion": "CSS y JS llevan la huella de su versión (?v=) en todas las páginas y se sirven con ella",
    "ok": true,
-   "detalle": "estados [200, 200]"
+   "detalle": "estados [200, 200, 200]"
   },
   {
    "comprobacion": "robots.txt enlaza el sitemap",
@@ -106,17 +106,17 @@
   {
    "comprobacion": "[es] las cinco familias de la base cargan desde el propio sitio",
    "ok": true,
-   "detalle": "cargadas: ['UnifrakturMaguntia', 'Chakra Petch', 'Archivo', 'Archivo', 'Fragment Mono', 'DM Sans', 'Newsreader']"
+   "detalle": "cargadas: ['UnifrakturMaguntia', 'Chakra Petch', 'Archivo', 'Archivo', 'Fragment Mono', 'DM Sans', 'Newsreader', 'Newsreader']"
   },
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:41009'}"
+   "detalle": "{'127.0.0.1:41557'}"
   },
   {
    "comprobacion": "[es] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "228725 bytes"
+   "detalle": "366466 bytes"
   },
   {
    "comprobacion": "[es] idioma del documento declarado",
@@ -159,9 +159,9 @@
    "detalle": "['ES']"
   },
   {
-   "comprobacion": "[es] cada estación lleva su símbolo: los cuatro existen, se dibujan y los lectores de pantalla los saltan",
+   "comprobacion": "[es] cada estación lleva su símbolo; la mascota va a la izquierda de «Golem» y firma el pie y el laboratorio; los lectores de pantalla los saltan",
    "ok": true,
-   "detalle": "{'ids': ['s-laboratorio', 's-medimos', 's-preguntas', 's-resultados'], 'rotos': [], 'ruidosos': 0, 'rumbos': ['#preguntas>#s-preguntas', '#laboratorio>#s-laboratorio', '#como-medimos>#s-medimos', '#resultados>#s-resultados'], 'dibujados': True}"
+   "detalle": "{'ids': ['s-golem', 's-laboratorio', 's-medimos', 's-preguntas', 's-resultados'], 'rotos': [], 'ruidosos': 0, 'rumbos': ['#preguntas>#s-preguntas', '#laboratorio>#s-laboratorio', '#como-medimos>#s-medimos', '#resultados>#s-resultados'], 'dibujados': True, 'mascota': True}"
   },
   {
    "comprobacion": "[es] enlaces internos válidos y solo los externos previstos",
@@ -169,14 +169,14 @@
    "detalle": "[]"
   },
   {
-   "comprobacion": "[es] fase 1: sin nombres de modelos ni corridas en el texto",
+   "comprobacion": "[es] ED01: solo se nombran las cuatro configuraciones de la cohorte",
    "ok": true,
-   "detalle": ""
+   "detalle": "falta alguna de la cohorte"
   },
   {
-   "comprobacion": "[es] fase 1: ninguna cifra del piloto (solo J1–J3, 01–04 y el año)",
+   "comprobacion": "[es] ED01: lo pendiente dice «Pendiente», sin ranking ni notas por frase; dos reglas con una marca; las tres voces con su rótulo; F004 con su nota",
    "ok": true,
-   "detalle": "[]"
+   "detalle": ""
   },
   {
    "comprobacion": "[es] sin restos del otro idioma fuera de lo marcado con lang",
@@ -191,17 +191,17 @@
   {
    "comprobacion": "[en] las cinco familias de la base cargan desde el propio sitio",
    "ok": true,
-   "detalle": "cargadas: ['UnifrakturMaguntia', 'Chakra Petch', 'Archivo', 'Archivo', 'Fragment Mono', 'DM Sans', 'Newsreader']"
+   "detalle": "cargadas: ['UnifrakturMaguntia', 'Chakra Petch', 'Archivo', 'Archivo', 'Fragment Mono', 'DM Sans', 'Newsreader', 'Newsreader']"
   },
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:41009'}"
+   "detalle": "{'127.0.0.1:41557'}"
   },
   {
    "comprobacion": "[en] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "228447 bytes"
+   "detalle": "375903 bytes"
   },
   {
    "comprobacion": "[en] idioma del documento declarado",
@@ -244,9 +244,9 @@
    "detalle": "['EN']"
   },
   {
-   "comprobacion": "[en] cada estación lleva su símbolo: los cuatro existen, se dibujan y los lectores de pantalla los saltan",
+   "comprobacion": "[en] cada estación lleva su símbolo; la mascota va a la izquierda de «Golem» y firma el pie y el laboratorio; los lectores de pantalla los saltan",
    "ok": true,
-   "detalle": "{'ids': ['s-laboratorio', 's-medimos', 's-preguntas', 's-resultados'], 'rotos': [], 'ruidosos': 0, 'rumbos': ['#preguntas>#s-preguntas', '#laboratorio>#s-laboratorio', '#como-medimos>#s-medimos', '#resultados>#s-resultados'], 'dibujados': True}"
+   "detalle": "{'ids': ['s-golem', 's-laboratorio', 's-medimos', 's-preguntas', 's-resultados'], 'rotos': [], 'ruidosos': 0, 'rumbos': ['#preguntas>#s-preguntas', '#laboratorio>#s-laboratorio', '#como-medimos>#s-medimos', '#resultados>#s-resultados'], 'dibujados': True, 'mascota': True}"
   },
   {
    "comprobacion": "[en] enlaces internos válidos y solo los externos previstos",
@@ -254,14 +254,14 @@
    "detalle": "[]"
   },
   {
-   "comprobacion": "[en] fase 1: sin nombres de modelos ni corridas en el texto",
+   "comprobacion": "[en] ED01: solo se nombran las cuatro configuraciones de la cohorte",
    "ok": true,
-   "detalle": ""
+   "detalle": "falta alguna de la cohorte"
   },
   {
-   "comprobacion": "[en] fase 1: ninguna cifra del piloto (solo J1–J3, 01–04 y el año)",
+   "comprobacion": "[en] ED01: lo pendiente dice «Pending», sin ranking ni notas por frase; dos reglas con una marca; las tres voces con su rótulo; F004 con su nota",
    "ok": true,
-   "detalle": "[]"
+   "detalle": ""
   },
   {
    "comprobacion": "[en] sin restos del otro idioma fuera de lo marcado con lang",
@@ -281,17 +281,17 @@
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:41009'}"
+   "detalle": "{'127.0.0.1:41557'}"
   },
   {
    "comprobacion": "[404] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "149420 bytes"
+   "detalle": "185602 bytes"
   },
   {
-   "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces",
+   "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces (sin contar el original español que acompaña a la traducción)",
    "ok": true,
-   "detalle": "{'es': [4, 8, 32, 51, 19], 'en': [4, 8, 32, 51, 19]}"
+   "detalle": "{'es': [9, 19, 90, 276, 46], 'en': [9, 19, 90, 276, 46]}"
   },
   {
    "comprobacion": "Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px",
@@ -309,9 +309,9 @@
    "detalle": "/ True"
   },
   {
-   "comprobacion": "Teclado: desde el centro, ES → EN → cada estación con su resumen: ↑, →, ←, ↓",
+   "comprobacion": "Teclado: desde el centro, ES → EN → cada estación con lo de su esquina: ↑, →, ←, ↓",
    "ok": true,
-   "detalle": "['ES /', 'EN /en/', 'lugar #preguntas', 'q-enlace #preguntas', 'lugar #laboratorio', 'q-enlace #laboratorio', 'lugar #como-medimos', 'q-enlace #como-medimos', 'lugar #resultados', 'q-enlace #resultados']"
+   "detalle": "[['/', 'idioma'], ['/en/', 'idioma'], ['lugar #preguntas', 'preguntas'], ['#apuestas', 'preguntas'], ['lugar #laboratorio', 'laboratorio'], ['#que-contamos', 'laboratorio'], ['#laboratorio', 'laboratorio'], ['lugar #como-medimos', 'medimos'], ['#como-medimos', 'medimos'], ['lugar #resultados', 'resultados'], ['#resultados', 'resultados']]"
   },
   {
    "comprobacion": "Teclado: el foco se ve (contorno de 3 px)",
@@ -321,12 +321,12 @@
   {
    "comprobacion": "Cruz [es · escritorio]: se llega al centro (el nombre a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': -0.0, 'sy': 0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
    "comprobacion": "Cruz [es · escritorio]: la placa del nombre queda en el centro exacto de la pantalla (±3 px)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': -0.0, 'sy': 0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
    "comprobacion": "Cruz [es · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -354,9 +354,9 @@
    "detalle": "{'alto': 0, 'corre': True, 'modo': 'auto'}"
   },
   {
-   "comprobacion": "Cruz [es · escritorio]: sin vacío entre el centro y los resultados",
+   "comprobacion": "Cruz [es · escritorio]: sin vacío entre el centro y lo de abajo (en el celular, los cuatro tráileres; luego, los resultados)",
    "ok": true,
-   "detalle": "0 px"
+   "detalle": "[0, 0] px"
   },
   {
    "comprobacion": "Cruz [es · escritorio]: los enlaces llevan a cada sala y la brújula lo marca",
@@ -371,12 +371,12 @@
   {
    "comprobacion": "Cruz [en · escritorio]: se llega al centro (el nombre a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'sx': 0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
    "comprobacion": "Cruz [en · escritorio]: la placa del nombre queda en el centro exacto de la pantalla (±3 px)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'sx': 0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
    "comprobacion": "Cruz [en · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -404,9 +404,9 @@
    "detalle": "{'alto': 0, 'corre': True, 'modo': 'auto'}"
   },
   {
-   "comprobacion": "Cruz [en · escritorio]: sin vacío entre el centro y los resultados",
+   "comprobacion": "Cruz [en · escritorio]: sin vacío entre el centro y lo de abajo (en el celular, los cuatro tráileres; luego, los resultados)",
    "ok": true,
-   "detalle": "0 px"
+   "detalle": "[0, 0] px"
   },
   {
    "comprobacion": "Cruz [en · escritorio]: los enlaces llevan a cada sala y la brújula lo marca",
@@ -421,12 +421,12 @@
   {
    "comprobacion": "Cruz [es · móvil]: se llega al centro (el nombre a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
    "comprobacion": "Cruz [es · móvil]: la placa del nombre queda en el centro exacto de la pantalla (±3 px)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
    "comprobacion": "Cruz [es · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -454,9 +454,9 @@
    "detalle": "{'alto': 0, 'corre': True, 'modo': 'auto'}"
   },
   {
-   "comprobacion": "Cruz [es · móvil]: sin vacío entre el centro y los resultados",
+   "comprobacion": "Cruz [es · móvil]: sin vacío entre el centro y lo de abajo (en el celular, los cuatro tráileres; luego, los resultados)",
    "ok": true,
-   "detalle": "0 px"
+   "detalle": "[0, 0] px"
   },
   {
    "comprobacion": "Cruz [es · móvil]: los enlaces llevan a cada sala y la brújula lo marca",
@@ -471,12 +471,12 @@
   {
    "comprobacion": "Cruz [en · móvil]: se llega al centro (el nombre a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'sx': 0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
    "comprobacion": "Cruz [en · móvil]: la placa del nombre queda en el centro exacto de la pantalla (±3 px)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'sx': 0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'centro'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'brj': 'hidden', 'cur': 'centro'}"
   },
   {
    "comprobacion": "Cruz [en · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -504,9 +504,9 @@
    "detalle": "{'alto': 0, 'corre': True, 'modo': 'auto'}"
   },
   {
-   "comprobacion": "Cruz [en · móvil]: sin vacío entre el centro y los resultados",
+   "comprobacion": "Cruz [en · móvil]: sin vacío entre el centro y lo de abajo (en el celular, los cuatro tráileres; luego, los resultados)",
    "ok": true,
-   "detalle": "0 px"
+   "detalle": "[0, 0] px"
   },
   {
    "comprobacion": "Cruz [en · móvil]: los enlaces llevan a cada sala y la brújula lo marca",
@@ -519,7 +519,7 @@
    "detalle": "hidden visible"
   },
   {
-   "comprobacion": "Centro sin choques: cuadrantes, rumbos, flechas y placa no se tocan en nueve tamaños; en el celular nada se sale de su estación; los cuatro recuadros miden lo mismo y la placa sigue en el centro",
+   "comprobacion": "Centro sin choques: tráileres, rumbos, flechas y placa no se tocan en diez tamaños; nada se sale de su esquina ni de su estación; los cuatro recuadros miden lo mismo y la placa sigue en el centro",
    "ok": true,
    "detalle": ""
   },
@@ -527,6 +527,26 @@
    "comprobacion": "Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces",
    "ok": true,
    "detalle": "[1, True]"
+  },
+  {
+   "comprobacion": "Sin JavaScript: cada fragmento rotativo queda quieto en GB-ED01-F001, sin controles, y «Leer en contexto» lleva a la ficha completa de su fuente",
+   "ok": true,
+   "detalle": "['GB-ED01-F001', 'GB-ED01-F001'] True"
+  },
+  {
+   "comprobacion": "Fragmentos: orden barajado de cinco por visita; «siguiente» avanza uno y el foco se queda en el botón; sin avance automático; el inglés conserva el mismo fragmento",
+   "ok": true,
+   "detalle": "{'orden': ['GB-ED01-F002', 'GB-ED01-F005', 'GB-ED01-F001', 'GB-ED01-F003', 'GB-ED01-F004'], 'actual': 'GB-ED01-F002'} ['GB-ED01-F002', 'Fragmento 1 de 5'] ['GB-ED01-F005', 'Fragmento 2 de 5'] ['GB-ED01-F005', 'Fragmento 2 de 5'] ['GB-ED01-F005', 'Excerpt 2 of 5'] foco=True"
+  },
+  {
+   "comprobacion": "Movimiento reducido: el cambio de fragmento aparece sin animación (con movimiento, un fundido corto)",
+   "ok": true,
+   "detalle": "none / aparece"
+  },
+  {
+   "comprobacion": "Panel de lectura: «Leer en contexto» abre la fuente con la cita marcada a la vista; se cierra con Esc, con su botón o tocando afuera, y el foco vuelve al enlace; si falta la fuente lo dice",
+   "ok": true,
+   "detalle": ""
   },
   {
    "comprobacion": "axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (3 páginas × 2 anchos)",

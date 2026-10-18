@@ -34,6 +34,10 @@ FORBIDDEN_TEXT = [
     (re.compile(r"window\.GOLEM_"), "datos empaquetados del prototipo"),
 ]
 TEXT_SUFFIXES = {".html", ".css", ".js", ".txt", ".xml", ".svg", ""}
+# Primer corte ED01 (aprobación de Juan: 18 oct 2026, anotada en DEPLOY.md). Dos identificadores públicos que
+# sí pueden aparecer: «IA-01» nombra la serie anterior en la nota que la separa de ED01, y «BF-03» está
+# dentro del texto literal de una entrega (SmolLM3-3B, BF03), que no se toca.
+PUBLICOS = {"IA-01", "BF-03"}
 
 
 def check(folder: Path):
@@ -59,7 +63,7 @@ def check(folder: Path):
         if p.suffix.lower() in TEXT_SUFFIXES or p.name in ALLOWED_NAMES:
             text = p.read_text(encoding="utf-8", errors="replace")
             for rx, what in FORBIDDEN_TEXT:
-                m = rx.search(text)
+                m = next((x for x in rx.finditer(text) if x.group(0) not in PUBLICOS), None)
                 if m:
                     problems.append(f"{rel}: contiene {what} («{m.group(0)}»)")
     return problems

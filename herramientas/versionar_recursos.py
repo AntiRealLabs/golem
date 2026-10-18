@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Huellas de versión para la hoja de estilos y el script de la portada.
+"""Huellas de versión para la hoja de estilos y los scripts de la portada.
 
 Uso:  python3 -I herramientas/versionar_recursos.py              pone las huellas
       python3 -I herramientas/versionar_recursos.py --comprobar  solo revisa (sale con 1 si falta algo)
@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parents[1] / "site"
-RECURSOS = ("assets/portada.css", "assets/centro.js")
+RECURSOS = ("assets/portada.css", "assets/centro.js", "assets/archivo.js")
 
 
 def huella(rel, site=SITE):

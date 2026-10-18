@@ -1,8 +1,9 @@
 /* Golem Bench · portada
    Un mapa sobre papel. En el centro, el nombre; de él salen cuatro rumbos:
    arriba, las preguntas abiertas (un cielo nocturno que se lee hacia arriba);
-   abajo, los resultados, hasta el barro donde el golem todavía duerme;
+   abajo, los resultados, hasta el barro donde el golem entreabre los ojos;
    a la izquierda, cómo medimos; a la derecha, el laboratorio.
+   En las cuatro esquinas del centro, cuatro tráileres: una idea, una muestra concreta y una invitación.
    Tokens y letras de la base visual; la figura de arcilla de la colección v0.4.
    Sin recursos externos: todo se sirve desde aquí. */
 
@@ -36,12 +37,14 @@
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-h1,h2,h3,h4,p,ul,ol,figure,blockquote{margin:0}
+h1,h2,h3,h4,p,ul,ol,dl,dd,figure,blockquote{margin:0}
 a{color:inherit}
 img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+[hidden]{display:none!important}
 
 /* ---------- piezas comunes ---------- */
 
@@ -56,22 +59,35 @@ img{display:block;max-width:100%}
 .lugar-f{display:none;font:400 .95em/1 var(--body);color:var(--clay)}
 .simbolo--sala{display:block;width:44px;height:44px;margin:0 auto 16px}
 .escalera-pie .simbolo--sala{color:var(--tan)}
+/* la mascota: el busto de arcilla con la corona rota. Cada uso pone su grosor, en unidades del símbolo (64) */
+.simbolo--golem{width:30px;height:30px;stroke-width:2.2}
 /* el susurro: lo que ese rumbo guarda, dicho en voz baja */
 .susurro{font:italic 400 clamp(16px,1.2vw,18px)/1.35 var(--book);color:var(--muted)}
 
-/* el nombre en su placa, como en la marca */
-.placa{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(18px,2.2vw,30px) clamp(26px,3.2vw,46px) clamp(16px,1.9vw,26px);background:var(--coal);color:var(--on-coal);box-shadow:0 0 0 var(--marco) var(--paper),0 0 0 calc(var(--marco) + 1px) var(--eje)}
+/* el nombre en su placa, como en la marca; --wg es el cuerpo de «Golem» */
+.placa{--wg:clamp(56px,min(6vw,10.5svh),96px);position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(18px,2.2vw,30px) clamp(26px,3.2vw,46px) clamp(16px,1.9vw,26px);background:var(--coal);color:var(--on-coal);box-shadow:0 0 0 var(--marco) var(--paper),0 0 0 calc(var(--marco) + 1px) var(--eje)}
 .descriptor{font:400 clamp(10.5px,.85vw,12.5px)/1.45 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--tan)}
-.wordmark{display:flex;flex-direction:column;align-items:center;margin-top:clamp(6px,.8vw,12px);font-weight:400}
-.wordmark-g{font:400 clamp(56px,min(6vw,10.5svh),96px)/.92 var(--gothic);letter-spacing:-.035em;color:var(--on-coal)}
+.wordmark{display:flex;flex-direction:column;align-items:center;font-weight:400}
+.wordmark-g{font:400 var(--wg)/.92 var(--gothic);letter-spacing:-.035em;color:var(--on-coal)}
+/* La mascota va a la izquierda de «Golem», de su tamaño y a su altura (Juan, 18 oct 2026). El dibujo llena
+   su caja (el viewBox va ajustado a la tinta) y mide lo que mide la tinta de «Golem»: .74 de su cuerpo, de lo
+   alto de la G al pie de las letras. La caja se apoya en la línea de base y baja .02 hasta ese pie.
+   «Golem» sigue en el eje de la placa, sobre «Bench» y el lema: la mascota cuelga a su izquierda y una
+   columna igual, vacía, la equilibra a la derecha. */
+.marca-golem{flex:none;width:auto;aspect-ratio:34.5/53.2;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.placa-marca{display:grid;grid-template-columns:1fr auto 1fr;align-items:baseline;column-gap:calc(var(--wg) * .14);margin-top:clamp(6px,.8vw,12px)}
+.placa-golem{justify-self:end;position:relative;top:calc(var(--wg) * .02);height:calc(var(--wg) * .74);color:var(--tan)}
 .wordmark-s{margin:clamp(4px,.5vw,8px) -.34em 0 0;font:400 clamp(13px,1.25vw,19px)/1 'DM Sans',var(--body);letter-spacing:.34em;text-transform:uppercase;color:var(--on-coal-2)}
 .placa-lema{margin-top:clamp(10px,1.1vw,16px);font:italic 400 clamp(16px,1.35vw,20px)/1.3 var(--book);color:var(--tan)}
+/* el estado de la edición va inscrito en el marco, como la cartela de un museo: no agranda la placa */
+.placa-estado{position:absolute;z-index:1;left:50%;top:100%;transform:translate(-50%,calc(var(--marco) - 50% + .5px));padding:0 10px;background:var(--paper);font:400 10.5px/1.7 var(--mono);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;color:var(--ink-2)}
 /* los meridianos: del nombre salen el eje vertical y el horizontal de toda la página */
 .placa::before,.placa::after{content:"";position:absolute;z-index:-1;background:var(--eje)}
 .placa::before{top:50%;left:-100vw;right:-100vw;height:1px}
 .placa::after{left:50%;top:-100vh;bottom:-100vh;width:1px}
 
 .stamp{display:inline-block;padding:6px 12px;border:2px solid var(--red);color:var(--ink);font:400 12.5px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;transform:rotate(-1.5deg);white-space:nowrap}
+.stamp--estado{max-width:100%;padding:4px 9px;font-size:11px;letter-spacing:.12em;white-space:normal;transform:rotate(-1.2deg)}
 .eyebrow{margin-bottom:14px;font:400 12.5px/1.45 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:12px 20px;font:500 15px/1.25 var(--body);text-decoration:none;border:1px solid var(--red-2);background:var(--red);color:var(--on-red)}
 .btn:hover{background:var(--red-2)}
@@ -80,6 +96,55 @@ img{display:block;max-width:100%}
 .volver{display:inline-flex;align-items:center;gap:8px;min-height:44px;font:italic 400 18px/1.2 var(--book);color:var(--coal);text-underline-offset:5px}
 .volver:hover{color:#000}
 .volver--lado{margin-top:clamp(40px,7vh,72px);color:var(--ink)}
+.seal{display:inline-grid;place-items:center;flex:none;width:44px;height:44px;border-radius:50%;background:var(--red);color:var(--on-red);font:500 15px/1 var(--display);letter-spacing:.03em}
+.cifra{font:500 24px/1.1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
+.cifra-s{font:500 1.06em/1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
+/* el rótulo de cada capa de lectura: quién habla en ese bloque */
+.capa-rotulo{font:400 10.5px/1.45 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+/* los desplegables: un signo que cambia al abrir */
+.desplegable > summary,.apuesta > summary,.fuente > summary{position:relative;cursor:pointer;list-style:none}
+.desplegable > summary::-webkit-details-marker,.apuesta > summary::-webkit-details-marker,.fuente > summary::-webkit-details-marker{display:none}
+.desplegable > summary::after,.apuesta > summary::after,.fuente > summary::after{content:"+";position:absolute;right:8px;top:50%;transform:translateY(-50%);font:400 24px/1 var(--body);color:var(--clay)}
+.desplegable[open] > summary::after,.apuesta[open] > summary::after,.fuente[open] > summary::after{content:"−"}
+
+/* ---------- las tres voces: el texto del modelo, la lectura del juez y la guía editorial ----------
+   Se separan por rótulo y por estructura, no solo por color:
+   el modelo habla entre una marca de cita, en letra de libro recta;
+   el juez, dentro de un recuadro firme con su sello;
+   la guía editorial, al lado de un filo de arcilla y con su nombre arriba. */
+.fragmento{display:flex;flex-direction:column;align-items:inherit;gap:6px;min-width:0}
+.f-tipo,.fuente-tipo{font:400 11px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.f-figura{display:flex;flex-direction:column;align-items:inherit;gap:6px;margin:0}
+.f-cita p{font:400 16.5px/1.32 var(--book);color:var(--ink);text-wrap:pretty}
+.f-cita p::before{content:"«";float:left;margin:.02em .14em -.3em -.04em;font:400 2.5em/.85 var(--book);color:var(--clay)}
+html[lang="en"] .f-cita p::before{content:"“"}
+.f-autoria,.fuente-voz{font:400 12.5px/1.5 var(--body);color:var(--muted)}
+.f-voz{display:inline-block;margin-right:6px;padding:0 5px;border:1px solid var(--ink-2);font:400 9.5px/1.6 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink);white-space:nowrap;vertical-align:1px}
+.f-quien{color:var(--ink-2)}
+.f-caso{display:block}
+.f-traduccion{display:block;font-style:italic}
+.f-sub{margin-right:6px;font:400 10.5px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.f-guia,.lectura-guia{display:grid;gap:7px;padding:2px 0 2px 14px;border-left:2px solid var(--clay);text-align:left}
+.f-guia p:not(.capa-rotulo),.lectura-guia p:not(.capa-rotulo){font:400 15px/1.55 var(--body);color:var(--ink-2)}
+.f-nota{max-width:34em;padding-left:10px;border-left:2px solid var(--clay);font:400 13.5px/1.45 var(--body);color:var(--ink-2);text-align:left}
+.f-acciones{display:flex;align-items:center;min-height:32px}
+.f-sep{margin:0 2px;color:var(--clay)}
+.f-autoria .f-leer{font-size:15px;white-space:nowrap}
+.f-leer,.door-estado a,.cifras-que{padding-block:5px}
+.f-leer{font:italic 400 16px/1.3 var(--book);color:var(--red);text-decoration-thickness:1px;text-underline-offset:3px}
+.f-leer:hover{color:var(--red-2)}
+
+/* el rotador: cinco fragmentos, uno a la vista. Se apilan en la misma celda, así la caja guarda
+   la altura del más largo y nada salta al cambiar. Se avanza a mano: no hay avance automático. */
+.rotador{position:relative;display:grid;width:100%}
+.rot-pila{display:grid}
+.rotador--vivo .rot-pila > .fragmento{grid-area:1/1;visibility:hidden}
+.rotador--vivo .rot-pila > .fragmento[data-actual]{visibility:visible}
+.rot-controles{display:flex;align-items:center;gap:6px}
+.rot-btn{display:inline-grid;place-items:center;width:32px;height:32px;padding:0;border:1px solid var(--ink-2);background:var(--paper);color:var(--ink);font:400 16px/1 var(--body);cursor:pointer;transition:background .15s,color .15s}
+@media (hover:hover){.rot-btn:hover{background:var(--ink);color:var(--paper)}}
+.rot-cuenta{min-width:4.6em;text-align:center;font:400 11.5px/1.2 var(--mono);letter-spacing:.04em;color:var(--muted);font-variant-numeric:tabular-nums}
+.rot-vacio{font:italic 400 16px/1.45 var(--book);color:var(--ink-2)}
 
 /* ---------- el mundo: arriba, el cruce, abajo ---------- */
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
@@ -88,6 +153,7 @@ img{display:block;max-width:100%}
 .sala--centro{grid-area:centro}
 .sala--abajo{grid-area:abajo}
 #preguntas{scroll-margin-top:calc(100vh - 300px);scroll-margin-top:calc(100svh - 300px)}
+#apuestas{scroll-margin-top:24px}
 
 /* el cruce: cómo medimos ← el centro → el laboratorio. Cada sala mide una pantalla;
    las laterales se recorren por dentro, así no queda vacío entre el centro y lo que hay abajo. */
@@ -105,8 +171,9 @@ img{display:block;max-width:100%}
   display:grid;
   grid-template-columns:var(--lado) minmax(0,1fr) auto minmax(0,1fr) var(--lado);
   grid-template-rows:auto minmax(0,1fr) auto minmax(0,1fr) auto;
-  padding:clamp(18px,2.6vw,36px);
+  padding:clamp(12px,1.7vh,30px) clamp(18px,2.6vw,36px);
   background:var(--paper);
+  container:centro/size;
 }
 .onfalo .placa{grid-row:3;grid-column:3;align-self:center}
 
@@ -118,41 +185,130 @@ img{display:block;max-width:100%}
 .rumbo--o{grid-row:3;grid-column:1;justify-self:start;align-self:center;align-items:flex-start;text-align:left}
 .rumbo--e{grid-row:3;grid-column:5;justify-self:end;align-self:center;align-items:flex-end;text-align:right}
 .rumbo--o,.rumbo--e{position:relative}
-.rumbo--o .susurro,.rumbo--e .susurro{position:absolute;bottom:calc(100% + 8px);white-space:nowrap}
+.rumbo--o .susurro,.rumbo--e .susurro{position:absolute;top:calc(100% + 8px);white-space:nowrap}
 .rumbo--o .susurro{left:0}
 .rumbo--e .susurro{right:0}
 
-/* los cuatro cuadrantes: cada uno resume el rumbo vecino e invita a ir, como una rueda de molino
-   (noroeste → preguntas, noreste → laboratorio, sureste → resultados, suroeste → cómo medimos).
-   En escritorio viven entre el borde y la placa; las filas de aire no crecen por ellos. */
+/* los cuatro cuadrantes: cuatro tráileres en rueda de molino (noroeste → preguntas, noreste → laboratorio,
+   sureste → resultados, suroeste → cómo medimos). Cada uno dice lo mismo en el mismo orden: rótulo,
+   titular, una muestra concreta y una invitación. Los de arriba cuelgan del borde superior y los de abajo
+   se apoyan en el inferior: el nombre queda con aire alrededor. Cada esquina es un contenedor; lo que no
+   cabe a su altura se guarda entero (la letra no se achica) y el detalle completo espera en su sala. */
 .estacion{display:contents}
-.cuadrante{align-self:center;justify-self:center;width:min(31ch,100%);display:flex;flex-direction:column;gap:10px;pointer-events:auto}
-.cuadrante--no{grid-row:2;grid-column:1/3}
-.cuadrante--ne{grid-row:2;grid-column:4/6}
-.cuadrante--so{grid-row:4;grid-column:1/3}
-.cuadrante--se{grid-row:4;grid-column:4/6}
-.cuadrante--no,.cuadrante--so{align-items:flex-end;text-align:right}
-.cuadrante--ne,.cuadrante--se{align-items:flex-start;text-align:left}
-/* del lado de la placa se reserva el marco, para que nada lo roce */
-.cuadrante{--reserva:calc(var(--marco) + 14px);width:min(31ch,100% - var(--reserva))}
-.cuadrante--no,.cuadrante--so{margin-right:var(--reserva)}
-.cuadrante--ne,.cuadrante--se{margin-left:var(--reserva)}
-.q-titulo{font:500 clamp(15px,1.15vw,17px)/1.3 var(--display);letter-spacing:.005em;color:var(--ink)}
-.q-pregunta{font:italic 400 clamp(19px,1.55vw,23px)/1.28 var(--book);color:var(--ink);text-wrap:balance}
-.q-texto{font:400 15.5px/1.5 var(--body);color:var(--ink-2)}
-.q-enlace{display:inline-block;padding:5px 0;font:italic 400 17.5px/1.3 var(--book);color:var(--red);text-decoration-thickness:1px;text-underline-offset:4px}
+.cuadrante{
+  --reserva:calc(var(--marco) + 14px);
+  container:esquina/size;
+  align-self:stretch;justify-self:stretch;min-width:0;min-height:0;overflow:auto;scrollbar-width:none;
+  display:flex;flex-direction:column;gap:8px;padding:7px;
+  pointer-events:none;
+}
+.cuadrante::-webkit-scrollbar{display:none}
+.cuadrante > *{pointer-events:auto;max-width:min(100%,30rem);flex:none}
+/* cada esquina baja (o sube) hasta los recuadros de los lados sin tocarlos: arriba deja libres los 36 px
+   sobre el meridiano (medio recuadro y aire); abajo, los 68 px bajo él (recuadro, su susurro y aire).
+   La rejilla del centro es un contenedor: 50cqh es la distancia del borde al meridiano. */
+.cuadrante--no,.cuadrante--ne{grid-row:1/4;align-self:start;height:calc(50cqh - 30px);justify-content:flex-start}
+.cuadrante--so,.cuadrante--se{grid-row:3/6;align-self:end;height:calc(50cqh - 68px);justify-content:safe flex-end}
+.cuadrante--no{grid-column:1/3}
+.cuadrante--ne{grid-column:4/6}
+.cuadrante--so{grid-column:1/3}
+.cuadrante--se{grid-column:4/6}
+.cuadrante--no,.cuadrante--so{align-items:flex-end;text-align:right;padding-right:var(--reserva)}
+.cuadrante--ne,.cuadrante--se{align-items:flex-start;text-align:left;padding-left:var(--reserva)}
+/* arriba a la derecha está el selector de idioma: las dos primeras líneas del laboratorio le dejan su sitio */
+.cuadrante--ne > .q-rotulo,.cuadrante--ne > .q-titular{max-width:calc(100% - 7.5rem)}
+.q-resumen{display:none}
+.q-rotulo,.tr-rotulo{display:inline-flex;align-items:center;gap:8px;font:400 11.5px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.q-rotulo .simbolo{width:17px;height:17px;color:var(--ink)}
+.q-titular{font:500 clamp(19px,1.45vw,23px)/1.14 var(--display);letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
+.q-muestra{position:relative;display:flex;flex-direction:column;align-items:inherit;gap:9px;width:100%}
+.q-gancho{font:italic 400 17px/1.35 var(--book);color:var(--ink-2);text-wrap:balance}
+.q-enlace{display:inline-block;padding:3px 0;font:italic 400 17.5px/1.3 var(--book);color:var(--red);text-decoration-thickness:1px;text-underline-offset:4px}
 .q-enlace:hover{color:var(--red-2)}
-/* tres puertas: el borde discontinuo marca lo que está en el taller */
-.q-puertas{list-style:none;padding:0;display:grid;gap:5px;font:400 15.5px/1.35 var(--body);color:var(--ink-2)}
-.q-puertas li::before{content:"";display:inline-block;width:10px;height:14px;margin-right:9px;border:1.5px dashed var(--coal-line-2);border-bottom:0;border-radius:5px 5px 0 0;vertical-align:-2px}
-/* el camino: es una secuencia, por eso va numerado (el número no se lee en voz alta: la lista ya lo dice) */
-.q-camino{list-style:none;padding:0;display:grid;gap:3px;counter-reset:paso;font:400 15px/1.4 var(--body);color:var(--ink-2)}
-.cuadrante--so .q-camino{justify-items:end}
-.q-camino li{counter-increment:paso}
-.q-camino li::after{content:"0" counter(paso) / "";margin-left:10px;font:400 12px/1 var(--mono);letter-spacing:.08em;color:var(--red)}
-.cuadrante .stamp{transform:rotate(-1.5deg)}
-@media (min-width:900px) and (max-height:760px){
-  .q-pregunta,.q-puertas,.q-camino,.cuadrante--se .q-texto{display:none}
+.q-alcance{max-width:34em;font:400 13.5px/1.45 var(--body);color:var(--muted)}
+/* en la esquina, los controles del fragmento van arriba a la derecha, en el renglón del tipo de selección:
+   no se mueven de un fragmento a otro */
+.q-muestra .rot-controles{position:absolute;right:0;top:0}
+.q-muestra .rot-btn{width:28px;height:28px}
+.q-muestra .rotador--vivo .f-tipo{display:flex;align-items:center;min-height:28px;padding-right:9rem}
+
+/* el tríptico: tres notas al margen, cada palabra con su línea */
+.triptico{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;border-block:1px solid var(--line)}
+.tri-nota{padding:9px 12px 10px;text-align:center}
+.tri-nota+.tri-nota{border-left:1px solid var(--line)}
+.tri-nota dt{font:500 15.5px/1.2 var(--display);color:var(--ink)}
+.tri-nota dd{margin-top:5px;font:italic 400 15px/1.3 var(--book);color:var(--ink-2)}
+
+/* la franja de datos: tres cifras, siempre con su alcance, aparte del fragmento */
+.cifras{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:inherit;gap:2px 14px;width:100%;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.cifras-lista{flex-basis:100%;order:-1}
+.cifras-alcance{font:400 12.5px/1.4 var(--body);color:var(--muted)}
+.cifras-lista{list-style:none;padding:0;display:flex;flex-wrap:wrap;justify-content:inherit;gap:2px 16px}
+.cifras-lista li{display:inline-flex;align-items:baseline;gap:6px;white-space:nowrap}
+.cifra-l{font:400 14px/1.3 var(--body);color:var(--ink-2)}
+.cifras-que{padding:2px 0;font:italic 400 15.5px/1.3 var(--book);color:var(--red);text-underline-offset:3px;white-space:nowrap}
+
+/* los resultados, en miniatura: las cuatro configuraciones con el mismo peso, y la ruta */
+.cohorte-mini{list-style:none;padding:0;display:grid;gap:2px;width:100%}
+.cohorte-mini li{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:inherit;gap:0 9px}
+.c-nombre{font:500 15px/1.3 var(--display);color:var(--ink)}
+.c-conf{font:400 13px/1.3 var(--body);color:var(--muted)}
+.resumen-mini{font:400 13.5px/1.4 var(--body);color:var(--ink-2)}
+/* la ruta: la pregunta inicial, cerrada; lo demás, pendiente y con borde discontinuo, como lo que está en el taller */
+.ruta{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;text-align:left}
+.ruta-fase{position:relative;padding:18px 8px 0 0}
+.ruta-fase::before{content:"";position:absolute;left:0;top:0;width:11px;height:11px;border-radius:50%;border:1.5px dashed var(--ink-2);background:var(--paper)}
+.ruta-fase--cerrada::before{border:0;background:var(--ink)}
+.ruta-fase::after{content:"";position:absolute;left:16px;right:5px;top:5px;height:1px;background:var(--line)}
+.ruta-fase:last-child::after{content:none}
+.ruta-l{display:block;font:400 12.5px/1.25 var(--body);color:var(--ink-2)}
+.ruta-e{display:block;margin-top:2px;font:400 10px/1.35 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.ruta-fase--cerrada .ruta-e{color:var(--ink)}
+
+/* tres sellos del mismo tamaño; un trazo los une a la hoja que examinan los tres:
+   son tres especialidades leyendo el mismo trabajo, no tres retratos de máquinas */
+.sellos{--g:7px;display:grid;grid-template-columns:auto 26px 26px;align-items:stretch}
+.sellos-lista{list-style:none;padding:0;display:grid;gap:var(--g)}
+.sello{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:10px;text-align:right}
+.sello::after{content:"";position:absolute;left:100%;top:50%;width:10px;border-top:1px solid var(--ink-2)}
+.sello::before{content:"";position:absolute;left:calc(100% + 10px);top:calc(var(--g) / -2);bottom:calc(var(--g) / -2);border-left:1px solid var(--ink-2)}
+.sello:first-child::before{top:50%}
+.sello:last-child::before{bottom:50%}
+.sello-txt{display:flex;flex-direction:column}
+.sello-t{font:500 15px/1.2 var(--display);color:var(--ink)}
+.sello-q{font:italic 400 15px/1.3 var(--book);color:var(--ink-2)}
+.seal--sello{width:30px;height:30px;font-size:12px}
+.sellos-hoja{position:relative;align-self:center;width:26px;height:33px;padding:7px 5px 6px;border:1px solid var(--ink);background:repeating-linear-gradient(180deg,var(--ink-2) 0 1px,transparent 1px 5px) content-box,var(--sheet)}
+.sellos-hoja::before{content:"";position:absolute;right:100%;top:50%;width:16px;border-top:1px solid var(--ink-2)}
+
+/* lo que no cabe en cada esquina se guarda entero, de lo accesorio a lo esencial: la letra no se achica.
+   Con JavaScript, archivo.js prueba cada esquina en su tamaño real y guarda lo justo (data-guardado);
+   sin él, estos umbrales hacen lo mismo de forma aproximada y la esquina se puede recorrer por dentro. */
+[data-guardado]{display:none!important}
+@container esquina (height < 236px){html:not(.ajusta) .q--preguntas .q-gancho{display:none}}
+@container esquina (height < 212px){html:not(.ajusta) .q--preguntas .tri-nota dd{display:none}}
+@container esquina (height < 150px){html:not(.ajusta) .q--preguntas .triptico{display:none}}
+@container esquina (height < 424px){html:not(.ajusta) .q--laboratorio .q-gancho{display:none}}
+@container esquina (330px <= height < 392px){html:not(.ajusta) .q--laboratorio > .q-enlace{display:none}}
+@container esquina (330px <= height < 360px){html:not(.ajusta) .q--laboratorio > .q-rotulo{display:none}}
+@container esquina (height < 330px){html:not(.ajusta) .q--laboratorio .rotador{display:none}}
+@container esquina (height < 175px){html:not(.ajusta) .q--laboratorio .cifras{display:none}}
+@container esquina (height < 356px){html:not(.ajusta) .q--resultados .q-gancho{display:none}}
+@container esquina (height < 325px){html:not(.ajusta) .q--resultados .resumen-mini{display:none}}
+@container esquina (height < 262px){html:not(.ajusta) .q--resultados .ruta{display:none}}
+@container esquina (height < 196px){html:not(.ajusta) .q--resultados .cohorte-mini{display:none}}
+@container esquina (height < 310px){html:not(.ajusta) .q--como-medimos .q-gancho{display:none}}
+@container esquina (height < 278px){html:not(.ajusta) .q--como-medimos .q-alcance{display:none}}
+@container esquina (height < 232px){html:not(.ajusta) .q--como-medimos .sello-q{display:none}}
+@container esquina (height < 165px){html:not(.ajusta) .q--como-medimos .sellos{display:none}}
+@container esquina (width < 340px){
+  .q--preguntas .triptico{grid-template-columns:minmax(0,1fr)}
+  .q--preguntas .tri-nota{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:baseline;gap:0 8px;padding:5px 0;text-align:right}
+  .q--preguntas .tri-nota+.tri-nota{border-left:0;border-top:1px solid var(--line)}
+  .q--preguntas .tri-nota dd{margin:0}
+  .q--resultados .ruta{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:8px}
+  .q--resultados .ruta-fase:nth-child(2)::after{content:none}
+  .q--resultados .c-conf{display:none}
 }
 
 .langs{position:absolute;z-index:1;top:clamp(14px,2vw,28px);right:clamp(14px,2vw,28px);display:flex;gap:4px}
@@ -174,6 +330,8 @@ img{display:block;max-width:100%}
 .sec-titulo{margin-inline:auto;max-width:22ch;font:500 clamp(30px,3.4vw,46px)/1.08 var(--display);letter-spacing:-.02em;text-wrap:balance;color:var(--ink)}
 .sec-lead{margin:16px auto 40px;max-width:56ch;font-size:18.5px;line-height:1.6;color:var(--ink-2)}
 .sec-titulo--jueces{margin-top:clamp(64px,10vh,104px)}
+.alcance{margin:22px auto 0;max-width:62ch;font:400 15.5px/1.55 var(--body);color:var(--ink-2)}
+.sub-titulo{font:500 clamp(22px,2vw,28px)/1.15 var(--display);letter-spacing:-.01em;text-wrap:balance}
 
 /* el recorrido: cuatro pasos */
 .path{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid var(--ink)}
@@ -184,25 +342,56 @@ img{display:block;max-width:100%}
 .step h4{margin-bottom:10px;font:500 clamp(21px,1.9vw,26px)/1.12 var(--display);letter-spacing:-.01em}
 .step p{margin-inline:auto;max-width:28ch;font-size:16px;line-height:1.55;color:var(--ink-2)}
 
-/* los tres jueces */
+/* los tres jueces: tres especialidades, cada una con su pregunta */
 .cards{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.card{display:flex;flex-direction:column;align-items:center;gap:12px;padding:26px 24px 28px;background:var(--sheet);border:1px solid var(--line);border-top:4px solid var(--ink)}
+.card{display:flex;flex-direction:column;align-items:center;gap:12px;padding:26px 24px 24px;background:var(--sheet);border:1px solid var(--line);border-top:4px solid var(--ink)}
 .card-top{display:flex;flex-direction:column;align-items:center;gap:10px}
-.seal{display:inline-grid;place-items:center;flex:none;width:44px;height:44px;border-radius:50%;background:var(--red);color:var(--on-red);font:500 15px/1 var(--display);letter-spacing:.03em}
 .card-label{font:400 12.5px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.card h4{font:500 clamp(28px,2.8vw,38px)/1.04 var(--display);letter-spacing:-.02em}
+.card h4{font:500 clamp(24px,2.2vw,31px)/1.08 var(--display);letter-spacing:-.015em;text-wrap:balance}
 .card p{max-width:32ch;font-size:16.5px;line-height:1.56;color:var(--ink-2)}
+.card .card-full{font:400 11.5px/1.45 var(--mono);letter-spacing:.06em;color:var(--muted)}
+.card .card-guarda{margin-top:auto;padding-top:12px;border-top:1px solid var(--line);font:italic 400 16.5px/1.45 var(--book);color:var(--ink)}
 .pull{margin:56px auto 0;max-width:900px}
 .pull blockquote p{font:italic 400 clamp(30px,3.8vw,52px)/1.14 var(--book);color:var(--ink);text-wrap:balance}
 .pull blockquote p::before{content:"«";color:var(--red)}
 .pull blockquote p::after{content:"»";color:var(--red)}
+html[lang="en"] .pull blockquote p::before{content:"“"}
+html[lang="en"] .pull blockquote p::after{content:"”"}
 .pull-note{margin:18px auto 0;max-width:58ch;font-size:17px;line-height:1.6;color:var(--ink-2)}
+/* en profundidad: criterios, referentes, escala, índice y límites */
+.desplegables{margin:48px auto 0;max-width:58rem;text-align:left;border-top:2px solid var(--ink)}
+.desplegable{border-bottom:1px solid var(--line)}
+.desplegable > summary{padding:16px 44px 16px 2px;font:500 19px/1.3 var(--display)}
+.desplegable-cuerpo{display:grid;gap:14px;padding:2px 2px 26px}
+.desplegable-cuerpo > p{max-width:68ch;font-size:16px;line-height:1.6;color:var(--ink-2)}
+.tabla-caja{overflow-x:auto}
+.tabla-caja:focus-visible,.ranking-caja:focus-visible{outline-offset:2px}
+.criterios{width:100%;min-width:30rem;border-collapse:collapse;font-size:15px;line-height:1.45}
+.criterios caption{padding:8px 0;text-align:left;font:400 11.5px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.criterios th,.criterios td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.criterios thead th{border-bottom:1.5px solid var(--ink);font:400 10.5px/1.35 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.criterios tbody th{font-weight:400}
+.crit-id{margin-right:6px;font:400 12px/1 var(--mono);color:var(--red)}
+.es-cerrado{font-weight:500}
+.es-pendiente{color:var(--muted);font-style:italic}
+.referentes{display:grid;gap:12px}
+.referentes dt{font:500 16px/1.3 var(--display)}
+.referentes dd{margin-top:2px;font:italic 400 17.5px/1.4 var(--book);color:var(--ink-2)}
+.anclas{list-style:none;padding:0;display:grid;gap:7px}
+.anclas li{display:flex;align-items:baseline;gap:12px;font-size:16px;line-height:1.4}
+.ancla-n{display:inline-grid;place-items:center;flex:none;width:28px;height:28px;border:1px solid var(--ink);font:500 14px/1 var(--display)}
 
-/* el laboratorio: el borde discontinuo marca lo que está en el taller */
+/* el laboratorio: el borde discontinuo marca lo que está en el taller (las tres puertas);
+   lo que ya existe de ED01 va debajo, con borde firme */
 .taller{padding:clamp(24px,4vw,48px);background:var(--sheet);border:2px dashed var(--coal-line-2)}
-.lab-head{display:flex;flex-direction:column;align-items:center;gap:12px}
-.lockup{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:2px 14px}
-.lockup-g{font:400 clamp(58px,7vw,88px)/.95 var(--gothic);letter-spacing:-.02em;color:var(--ink)}
+.lab-head{display:flex;flex-direction:column;align-items:center;gap:12px;container-type:inline-size}
+/* «Golem Lab»: la mascota va pegada a «Golem», de su tamaño y a su altura, como en la placa. El par no se
+   separa nunca; en un celular estrecho la letra baja lo justo para que el par quepa en .lab-head. */
+.lockup{--lg:clamp(58px,7vw,88px);display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:2px 14px}
+@supports (width:1cqi){.lockup{--lg:clamp(40px,min(max(58px,7vw),100cqi / 3.1),88px)}}
+.lockup-par{display:inline-flex;align-items:baseline;gap:calc(var(--lg) * .14)}
+.lockup .marca-golem{position:relative;top:calc(var(--lg) * .02);height:calc(var(--lg) * .74);color:var(--ink)}
+.lockup-g{font:400 var(--lg)/.95 var(--gothic);letter-spacing:-.02em;color:var(--ink)}
 .lockup-lab{margin-right:-.32em;font:500 clamp(18px,2vw,24px)/1 var(--display);letter-spacing:.32em;text-transform:uppercase;color:var(--red)}
 .lab-sub{font:400 12.5px/1.45 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
 .lab-text{margin:22px auto 0;max-width:40ch;font:italic 400 clamp(21px,2vw,26px)/1.42 var(--book);color:var(--ink)}
@@ -210,12 +399,78 @@ img{display:block;max-width:100%}
 .door{padding:18px 0 4px;border-top:1px solid var(--line)}
 .door h3{margin-bottom:8px;font:500 21px/1.25 var(--display)}
 .door p{font-size:16px;line-height:1.55;color:var(--ink-2)}
+.door .door-estado{margin-top:12px;font-size:14.5px}
+.door-sello{display:table;margin:0 auto 6px;padding:1px 8px;border:1.5px dashed var(--coal-line-2);font:400 10.5px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+.door-estado a{color:var(--red);text-underline-offset:3px}
+.lab-bloque{position:relative;margin-top:clamp(72px,10vh,104px)}
+.lab-bloque::before{content:"";position:absolute;left:50%;bottom:calc(100% + 16px);height:clamp(40px,6vh,64px);width:1px;background:var(--eje)}
+.lab-h{margin:0 auto;max-width:24ch;font:500 clamp(26px,2.6vw,36px)/1.1 var(--display);letter-spacing:-.015em;text-wrap:balance}
+.lab-lead{margin:14px auto 0;max-width:56ch;font-size:17.5px;line-height:1.6;color:var(--ink-2)}
+.lab-lead--voz{font:italic 400 clamp(20px,1.8vw,24px)/1.4 var(--book);color:var(--ink)}
+.lab-cifras .cifras{max-width:46rem;margin:28px auto 0;justify-content:center;padding-block:16px 18px;border-top:2px solid var(--ink)}
+.lab-cifras .cifras-alcance{text-align:center}
+.lab-cifras .cifras-lista{justify-content:center;gap:10px 40px}
+.lab-cifras .cifra{font-size:clamp(36px,3.6vw,48px)}
+.lab-cifras .cifra-l{font-size:16px}
+.que-contamos{max-width:62rem;margin:26px auto 0}
+.pc-alcance{font:400 11px/1.45 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.definiciones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:14px;text-align:left}
+.definiciones div{padding-top:12px;border-top:1px solid var(--ink)}
+.definiciones dt{font:500 17px/1.3 var(--display)}
+.definiciones dd{margin-top:6px;font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.voces-nota{margin:10px auto 0;max-width:60ch;font:400 14.5px/1.5 var(--body);color:var(--muted)}
+.voces-lista{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:30px;text-align:left}
+.fragmento--completo{align-items:stretch;gap:10px;padding:22px 24px 16px;background:var(--sheet);border:1px solid var(--line);border-top:3px solid var(--ink);text-align:left}
+.fragmento--completo .f-cita p{font-size:19.5px;line-height:1.4}
+.fragmento--completo .f-guia{margin-top:4px}
+.supuesto .fragmento--completo{max-width:46rem;margin:26px auto 0;border-top-color:var(--red)}
+.supuesto-discutir{margin-top:6px}
+.temas-lista{list-style:none;padding:0;margin:22px auto 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:56rem}
+.temas-lista li{display:grid;gap:3px;padding:12px 18px 13px;background:var(--sheet);border:1px solid var(--line)}
+.tema-l{font:500 17px/1.3 var(--display)}
+.tema-caso{font:400 12px/1.4 var(--mono);letter-spacing:.04em;color:var(--muted)}
+.fuentes-nota{margin:12px auto 24px;max-width:62ch;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.fuente{max-width:52rem;margin:0 auto;border-top:1px solid var(--line);text-align:left}
+.fuente:last-child{border-bottom:1px solid var(--line)}
+.fuente > summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;padding:14px 44px 14px 0}
+.fuente-modelo{font:500 17px/1.3 var(--display)}
+.fuente-conf{font-size:14.5px;color:var(--ink-2)}
+.fuente-caso{flex-basis:100%;font:400 12px/1.4 var(--mono);letter-spacing:.04em;color:var(--muted)}
+.fuente .panel-contenido{padding:4px 0 28px}
+.lab-historia{max-width:58ch;margin:64px auto 0;padding-top:16px;border-top:1px solid var(--line);font:italic 400 17px/1.5 var(--book);color:var(--ink-2)}
+/* la ficha de una fuente: en el laboratorio y en el panel de lectura */
+.panel-contenido{text-align:left}
+.fuente-meta{display:flex;flex-wrap:wrap;gap:10px 26px;margin-bottom:16px}
+.fuente-meta dt{font:400 10.5px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.fuente-meta dd{margin-top:2px;font-size:14.5px;line-height:1.4}
+.f-guia--fuente{margin:8px 0 20px}
+.fuente-texto{margin-top:8px;padding:18px 20px;background:var(--sheet);border:1px solid var(--line);font:400 17px/1.62 var(--book);color:var(--ink)}
+.fuente-texto p+p{margin-top:.75em}
+mark.cita-en-fuente{padding:.04em .12em;background:rgba(185,139,106,.34);color:inherit;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.original{margin-top:10px}
+.original > summary{display:inline-block;padding:6px 0;cursor:pointer;font:italic 400 16px/1.4 var(--book);color:var(--red)}
+.fuente-aviso{margin-top:14px;font:italic 400 15.5px/1.5 var(--book);color:var(--ink-2)}
+.fuente-huella{margin-top:8px;font:400 11px/1.65 var(--mono);color:var(--muted);overflow-wrap:anywhere}
+.fuente-huella code{font:inherit}
+
+/* el panel de lectura: se abre encima de la página, se cierra con Esc, con su botón o tocando afuera,
+   y le devuelve el foco al enlace que lo abrió */
+.panel-lectura{width:min(46rem,calc(100vw - 32px));max-width:none;max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px);padding:0;border:1px solid var(--ink);background:var(--paper);color:var(--ink);overflow:hidden}
+.panel-lectura[open]{display:flex;flex-direction:column}
+.panel-lectura::backdrop{background:rgba(20,21,17,.66)}
+.pl-cabeza{flex:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 12px 10px 22px;background:var(--coal);color:var(--on-coal)}
+.pl-titulo{font:500 16.5px/1.3 var(--display);letter-spacing:.005em}
+.pl-cerrar{flex:none;min-width:44px;min-height:44px;padding:8px 14px;border:1px solid var(--coal-line-2);background:transparent;color:var(--on-coal);font:400 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.pl-cerrar:hover{border-color:var(--on-coal)}
+.pl-cuerpo{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:22px 26px 30px}
+.pl-error{padding:22px 26px;font:italic 400 18px/1.5 var(--book);color:var(--red)}
+html:has(.panel-lectura[open]){overflow:hidden}
 
 /* ---------- arriba: un cielo de preguntas abiertas, de abajo hacia arriba ---------- */
 /* abajo del cielo amanece: la noche de las preguntas se vuelve el papel del centro.
-   La sala es una columna invertida: el pie (el signo y su explicación) va primero en el HTML y queda
-   abajo; la escalera sube desde él. El pie no es un peldaño: así la línea termina en la última
-   pregunta y deja el mismo aire sobre el signo, mida lo que mida el pie. */
+   La sala es una columna invertida: lo primero del HTML queda abajo. Junto al centro, nuestras seis
+   apuestas; encima, el pie (el signo y su explicación) y la escalera que sube desde él. El pie no es
+   un peldaño: así la línea termina en la última pregunta y deja el mismo aire sobre el signo. */
 .sala--arriba{--hueco:52px;position:relative;display:flex;flex-direction:column-reverse;gap:var(--hueco);color:var(--on-coal);padding:84px var(--gutter) 230px;background:
   radial-gradient(1.4px 1.4px at 8% 14%,rgba(236,230,216,.55) 50%,transparent 52%),
   radial-gradient(1.2px 1.2px at 23% 62%,rgba(236,230,216,.35) 50%,transparent 52%),
@@ -249,23 +504,117 @@ img{display:block;max-width:100%}
 .escalera-pie p{font:italic 400 18px/1.45 var(--book);color:var(--on-coal-2)}
 .escalera-cima p{font:italic 400 clamp(22px,2.2vw,30px)/1.3 var(--book);color:var(--on-coal)}
 .escalera-cima .lema{margin-top:10px;font:500 16px/1.3 var(--display);font-style:normal;letter-spacing:.06em;color:var(--tan)}
+/* las seis apuestas: compromisos explícitos y discutibles; cada una muestra la pregunta que la pone a prueba */
+.apuestas{align-self:center;width:100%;max-width:1040px;text-align:center}
+.apuestas-titulo{font:500 clamp(28px,3vw,40px)/1.1 var(--display);letter-spacing:-.015em;color:var(--on-coal);text-wrap:balance}
+.apuestas-intro{max-width:58ch;margin:14px auto 30px;font:italic 400 clamp(18px,1.6vw,21px)/1.5 var(--book);color:var(--on-coal-2)}
+.apuestas-lista{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;text-align:left}
+.apuesta{border:1px solid var(--coal-line-2);background:rgba(12,13,11,.55)}
+.apuesta[open]{border-color:var(--clay)}
+.apuesta > summary{display:grid;gap:5px;padding:17px 52px 18px 20px}
+.apuesta > summary::after{color:var(--tan);right:18px}
+.ap-t{font:500 20px/1.2 var(--display);color:var(--on-coal)}
+.ap-pregunta{font:italic 400 17.5px/1.35 var(--book);color:var(--tan)}
+.ap-texto{padding:0 20px 20px;font:400 16px/1.6 var(--body);color:var(--on-coal-2)}
+.apuestas-peso{max-width:64ch;margin:24px auto 0;font:400 14.5px/1.6 var(--body);color:var(--on-coal-2)}
+.apuesta > summary:focus-visible{outline-offset:-3px}
 
 /* ---------- abajo: los resultados, colgados del eje hasta el barro ---------- */
 .sec{position:relative;padding-block:96px 84px;background:var(--paper);color:var(--ink);text-align:center}
 .sec::before,.sec::after{content:"";position:absolute;left:50%;width:1px;background:var(--eje)}
 .sec::before{top:0;height:68px}
 .sec::after{bottom:0;height:60px}
+.sec--resultados{padding-bottom:110px}
+.sec--resultados .eyebrow{margin-bottom:12px}
 .sec--resultados .stamp{margin-bottom:22px}
-.nota{margin:10px auto 0;max-width:50ch;font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+.estado-publico{max-width:60ch;margin:0 auto;font-size:16.5px;line-height:1.55;color:var(--ink)}
+.ir-dos{margin-top:18px}
+.ir-dos a{display:inline-flex;align-items:center;gap:8px;min-height:44px;font:italic 400 18px/1.3 var(--book);color:var(--red);text-underline-offset:4px}
+/* cada parte cuelga del meridiano */
+.cohorte,.fases,.ranking,.limites,.dos-lecturas{position:relative;margin-top:112px}
+.cohorte::before,.fases::before,.ranking::before,.limites::before,.dos-lecturas::before{content:"";position:absolute;left:50%;bottom:calc(100% + 18px);height:72px;width:1px;background:var(--eje)}
+.cohorte-orden{margin-top:8px;font:italic 400 16.5px/1.4 var(--book);color:var(--muted)}
+.cohorte-lista{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;max-width:76rem;margin:26px auto 0;text-align:left}
+.cfg{display:flex;flex-direction:column;gap:6px;padding:18px 18px 12px;background:var(--sheet);border:1px solid var(--line);border-top:3px solid var(--ink)}
+.cfg-nombre{font:500 21px/1.15 var(--display)}
+.cfg-conf{font-size:15px;line-height:1.45;color:var(--ink-2)}
+.cfg-ident{display:block;font:400 11.5px/1.5 var(--mono);color:var(--muted);overflow-wrap:anywhere}
+.cfg-estado{font:italic 400 16px/1.4 var(--book);color:var(--ink)}
+.cfg-casos{margin-top:auto;padding-top:8px;border-top:1px solid var(--line)}
+.cfg-casos > summary{display:inline-block;padding:6px 0;cursor:pointer;font:400 14.5px/1.4 var(--body);color:var(--red)}
+.cfg-casos ul{list-style:none;padding:0;display:grid;gap:9px;margin-top:6px}
+.cfg-casos li{display:grid;font-size:14px;line-height:1.4}
+.pc-caso{font-weight:500}
+.pc-estado--fuera{color:var(--red)}
+.pc-palabras{font:400 11.5px/1.5 var(--mono);color:var(--muted)}
+.adm{max-width:46rem;margin:30px auto 0;padding:20px 22px;border:1px solid var(--line)}
+.adm-cifras{font-size:17px;line-height:1.4}
+.adm-cifras .cifra{font-size:34px}
+.adm-sep{margin:0 12px;color:var(--clay)}
+.adm-label{margin-top:10px;font-weight:500;line-height:1.45}
+.adm-exp{max-width:60ch;margin:6px auto 0;font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+/* las fases: una ruta; lo pendiente lleva el borde discontinuo del taller y dice «Pendiente», nunca cero */
+.fases-lista{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));max-width:64rem;margin:30px auto 0;text-align:left}
+.fase{position:relative;padding:28px 18px 0 0}
+.fase::before{content:"";position:absolute;left:0;top:0;width:15px;height:15px;border-radius:50%;border:1.5px dashed var(--ink-2);background:var(--paper)}
+.fase--cerrada::before{border:0;background:var(--ink)}
+.fase::after{content:"";position:absolute;left:22px;right:8px;top:7px;height:1px;background:var(--line)}
+.fase:nth-child(4)::after,.fase--aparte::after{content:none}
+.fase-id{display:block;font:400 11px/1.3 var(--mono);letter-spacing:.08em;color:var(--muted)}
+.fase-l{display:block;margin-top:3px;font:500 18px/1.25 var(--display)}
+.fase-e{display:inline-block;margin-top:8px;padding:1px 8px;border:1.5px dashed var(--coal-line-2);font:400 10.5px/1.6 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.fase--cerrada .fase-e{border-style:solid;border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.fase-alcance{display:block;margin-top:8px;font-size:14px;line-height:1.45;color:var(--ink-2)}
+.fase--aparte{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-top:26px;padding:12px 16px;border:1.5px dashed var(--coal-line-2)}
+.fase--aparte::before{content:none}
+.fase--aparte .fase-l,.fase--aparte .fase-e{margin-top:0}
+.fases-nota{max-width:58ch;margin:26px auto 0;font:italic 400 18px/1.5 var(--book);color:var(--ink)}
+.fases-orden{max-width:64ch;margin:10px auto 0;font-size:15px;line-height:1.55;color:var(--ink-2)}
+/* el ranking: listo para un conjunto liberado; mientras tanto, el marco vacío y su estado */
+.ranking .stamp{margin-top:16px}
+.ranking-caja{max-width:64rem;margin:24px auto 0;overflow-x:auto;border:1.5px dashed var(--coal-line-2);background:var(--sheet)}
+.ranking-tabla{width:100%;min-width:38rem;border-collapse:collapse}
+.ranking-tabla caption{caption-side:bottom;padding:36px 16px 40px;font:italic 400 19px/1.4 var(--book);color:var(--ink-2)}
+.ranking-tabla th{padding:12px;border-bottom:1px solid var(--line);font:400 10.5px/1.35 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left}
+.ranking-nota{max-width:64ch;margin:16px auto 0;font-size:15px;line-height:1.55;color:var(--ink-2)}
+/* una pregunta, dos lecturas: dos reglas con una marca cada una; ni flecha entre ellas ni promedio */
+.dos-lecturas{padding:56px clamp(18px,4vw,48px) 52px;background:var(--sheet);border:1px solid var(--line)}
+.dos-lecturas .eyebrow{color:var(--red)}
+.dl-capas{display:grid;gap:14px;max-width:46rem;margin:30px auto 0;text-align:left}
+.dl-pregunta{display:flex;flex-direction:column;gap:6px}
+.dl-pregunta .f-cita p{font-size:21px;line-height:1.4}
+.dl-entrega{display:flex}
+.dl-criterio{display:grid;gap:3px;padding:12px 16px;border:1px solid var(--line);background:var(--paper)}
+.dl-criterio p:not(.capa-rotulo){font-size:16px;line-height:1.45}
+.dl-criterio .dl-de{font-size:14.5px;color:var(--muted)}
+.dl-lecturas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:64rem;margin:34px auto 0;text-align:left}
+.lectura{display:flex;flex-direction:column;gap:12px;padding:22px 22px 18px;background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--ink)}
+.lectura-quien{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font:500 19px/1.2 var(--display)}
+.lectura-crit{font:400 11.5px/1 var(--mono);letter-spacing:.06em;color:var(--muted)}
+.seal--chico{width:34px;height:34px;font-size:12.5px}
+.regla{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin-top:4px}
+.regla::before{content:"";position:absolute;top:6px;left:10%;right:10%;height:1px;background:var(--ink-2)}
+.regla-pos{position:relative;display:grid;justify-items:center;gap:7px}
+.regla-pos::before{content:"";width:1px;height:13px;background:var(--ink-2)}
+.regla-pos--marca::before{width:13px;border-radius:50%;background:var(--red)}
+.regla-n{font:400 12px/1 var(--mono);color:var(--muted)}
+.regla-pos--marca .regla-n{color:var(--ink)}
+.regla-ancla{font-size:15.5px;line-height:1.4}
+.lectura-juez{display:grid;gap:8px;padding:14px 16px;background:var(--sheet);border:1px solid var(--ink-2)}
+.lectura-cita p{font:400 16px/1.55 var(--body);color:var(--ink)}
+.lectura-cita p::before{content:"«"}
+.lectura-cita p::after{content:"»"}
+html[lang="en"] .lectura-cita p::before{content:"“"}
+html[lang="en"] .lectura-cita p::after{content:"”"}
+.lectura-cita[lang="es"] p::before{content:"«"}
+.lectura-cita[lang="es"] p::after{content:"»"}
+.lectura-alcance{margin-top:auto;font:400 12px/1.5 var(--mono);color:var(--muted)}
+.dl-lector{max-width:40ch;margin:36px auto 0;font:italic 400 clamp(22px,2.2vw,28px)/1.3 var(--book);color:var(--ink);text-wrap:balance}
+.dl-limites{max-width:64ch;margin:18px auto 0;font-size:15px;line-height:1.55;color:var(--muted)}
+.limites-lista{list-style:none;padding:0;display:grid;max-width:52rem;margin:22px auto 0;text-align:left}
+.limites-lista li{position:relative;padding:12px 0 12px 26px;border-top:1px solid var(--line);font-size:16px;line-height:1.55;color:var(--ink-2)}
+.limites-lista li::before{content:"";position:absolute;left:4px;top:1.2em;width:9px;height:9px;border-radius:50%;border:1.5px solid var(--clay)}
 .sec--pacto{background:var(--band)}
-
-/* la sala vacía: un gráfico sin un solo punto */
-.vacio{margin:4px auto 0;width:min(100%,360px)}
-.vacio svg{display:block;width:100%;height:auto;overflow:visible}
-.vacio-ejes line,.vacio-ejes polygon{fill:none;stroke:#a19b8b;stroke-width:1.2;stroke-dasharray:4 5}
-.vacio-ejes polygon:first-of-type{stroke:var(--clay);stroke-width:1.6;stroke-dasharray:none}
-.vacio-rotulos text{font:400 11.5px var(--mono);letter-spacing:.08em;fill:var(--muted);text-anchor:middle}
-.vacio-nada{font:italic 400 16px var(--book);fill:var(--red);text-anchor:middle}
 
 /* el pacto: lo que no vas a encontrar aquí */
 .rules{list-style:none;padding:0;margin:34px auto 0;max-width:980px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px}
@@ -273,7 +622,7 @@ img{display:block;max-width:100%}
 .rule h4{font:500 23px/1.2 var(--display)}
 .rule p{margin:6px auto 0;max-width:40ch;font-size:16.5px;line-height:1.56;color:var(--ink-2)}
 
-/* el suelo: el barro donde el golem todavía tiene los ojos cerrados */
+/* el suelo: el barro donde el golem entreabre los ojos */
 .suelo{position:relative;background:var(--clay);color:var(--coal);padding-block:104px 80px}
 .suelo::before{content:"";position:absolute;left:50%;top:0;width:1px;height:64px;background:rgba(28,29,26,.5)}
 .suelo::after{content:"";position:absolute;left:50%;top:64px;width:9px;height:9px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--coal)}
@@ -285,10 +634,14 @@ img{display:block;max-width:100%}
 .suelo-sub{max-width:40ch;font:400 18px/1.55 var(--body);color:#2e2a24}
 .suelo-texto .btn{margin-top:8px}
 
+/* los tráileres apilados: solo en el celular, debajo del centro (ver más abajo) */
+.trailers{display:none}
+
 /* ---------- pie, sobre la roca ---------- */
 .foot{background:var(--coal);color:var(--on-coal-2);padding-block:36px 40px;text-align:center}
 .foot-in{display:flex;flex-direction:column;align-items:center;gap:12px}
-.foot-brand{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:4px 12px}
+.foot-brand{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 12px}
+.foot-brand .simbolo--golem{color:var(--tan)}
 .foot-name{font:400 13px/1 var(--body);letter-spacing:.15em;text-transform:uppercase;color:var(--on-coal)}
 .foot-lema{font:italic 400 15px/1.3 var(--book);color:var(--tan)}
 .foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:0 24px;list-style:none;padding:0}
@@ -317,8 +670,8 @@ html.viva:not([data-sala="centro"]) .brujula{transition:opacity .25s,visibility 
 .lost{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-rows:1fr auto 1fr;justify-items:center;min-height:100vh;min-height:100svh;padding:24px var(--gutter);background:var(--paper);text-align:center}
 .lost-codigo{align-self:end;margin-bottom:calc(var(--marco) + 26px);padding:4px 10px;background:var(--paper);font:400 12.5px/1.45 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
 .placa--sola{padding:clamp(14px,1.6vw,22px) clamp(20px,2.4vw,32px)}
-.placa--sola .wordmark{margin-top:0}
-.placa--sola .wordmark-g{font-size:clamp(48px,5vw,76px)}
+.placa--sola{--wg:clamp(48px,5vw,76px)}
+.placa--sola .placa-marca{margin-top:0}
 .lost-texto{align-self:start;display:flex;flex-direction:column;align-items:center;margin-top:calc(var(--marco) + 26px);padding:6px 18px 12px;background:var(--paper)}
 .lost-titulo{max-width:20ch;font:500 clamp(26px,min(6.4vw,4.6svh),44px)/1.08 var(--display);letter-spacing:-.02em;text-wrap:balance}
 .lost-sub{margin-top:14px;max-width:52ch;font:400 17px/1.55 var(--body);color:var(--ink-2)}
@@ -330,16 +683,22 @@ html.viva:not([data-sala="centro"]) .brujula{transition:opacity .25s,visibility 
   .step:nth-child(3){border-left:0}
   .step:nth-child(n+3){margin-top:22px;border-top:1px solid var(--line)}
   .cards,.doors{grid-template-columns:minmax(0,1fr)}
+  .cohorte-lista{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .voces-lista,.dl-lecturas{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:899px){
-  /* en el celular cada cuadrante es una estación (boceto de Juan): el recuadro junto a la placa,
-     el resumen hacia afuera y el cuadrante entero se puede tocar. La placa sigue en el centro exacto. */
+  /* en el celular cada estación es una baldosa (boceto de Juan): el recuadro junto a la placa, el susurro
+     hacia afuera y la baldosa entera se puede tocar. La placa sigue en el centro exacto. Los cuatro
+     tráileres van debajo del centro, apilados. */
   .onfalo{--marco:8px;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto minmax(0,1fr);padding:0}
-  .onfalo .placa{grid-row:2;grid-column:1;justify-self:center;max-width:calc(100% - 2 * var(--marco) - 36px);margin-block:14px}
-  .placa{padding:15px 18px 13px}
-  .wordmark-g{font-size:clamp(44px,12.5vw,62px)}
+  .onfalo .placa{grid-row:2;grid-column:1;justify-self:center;max-width:calc(100% - 2 * var(--marco) - 36px);margin-block:20px}
+  .placa{--wg:clamp(44px,12.5vw,62px);padding:15px 18px 13px}
   .descriptor{letter-spacing:.1em;text-wrap:balance}
+  .placa-estado{font-size:9.5px;letter-spacing:.1em;padding:0 7px}
   .langs a[aria-current]{display:none}
+  .cuadrante{display:block;container-type:normal;height:auto;overflow:visible;padding:0;grid-row:auto;grid-column:auto;align-self:auto;justify-self:auto}
+  .cuadrante > *{display:none}
+  .cuadrante > .q-resumen{display:block;max-width:15em;margin-inline:auto;font:500 15.5px/1.25 var(--display);color:var(--ink-2);text-align:center;text-wrap:balance}
   .estacion{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;width:calc(50% - 1px);min-height:0;padding:18px 12px;text-align:center;background:rgba(185,139,106,.1);transition:background .2s}
   .estacion:active{background:rgba(185,139,106,.2)}
   .estacion:has(.lugar:focus-visible){background:rgba(185,139,106,.2)}
@@ -347,31 +706,26 @@ html.viva:not([data-sala="centro"]) .brujula{transition:opacity .25s,visibility 
   .estacion--laboratorio{padding-right:28px}
   .estacion--medimos{padding-left:28px}
   .estacion--preguntas,.estacion--laboratorio{grid-row:1;justify-content:flex-end;padding-top:62px}
-  .estacion--medimos,.estacion--resultados{grid-row:3;justify-content:flex-start}
+  .estacion--medimos,.estacion--resultados{grid-row:3;justify-content:flex-start;padding-bottom:52px}
   .estacion--preguntas,.estacion--medimos{justify-self:start}
   .estacion--laboratorio,.estacion--resultados{justify-self:end}
-  .estacion--preguntas .rumbo,.estacion--laboratorio .rumbo{order:2}
-  .rumbo,.cuadrante{position:static;grid-row:auto;grid-column:auto;justify-self:auto;align-self:auto;width:auto;margin:0;padding:0;background:none}
-  .rumbo{display:flex;flex-direction:column;align-items:center}
+  .rumbo{position:static;grid-row:auto;grid-column:auto;justify-self:auto;align-self:auto;width:auto;margin:0;padding:0;background:none;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .rumbo--o,.rumbo--e{align-items:center;text-align:center}
+  /* hacia afuera va el titular de cada tráiler (arriba en las baldosas de arriba, abajo en las de abajo);
+     el susurro se guarda: la baldosa es el enlace */
   .rumbo .susurro{display:none}
-  .cuadrante{align-items:center;text-align:center;gap:8px}
-  .cuadrante--so .q-camino{justify-items:center}
+  .estacion--preguntas .rumbo,.estacion--laboratorio .rumbo{order:2}
   .lugar{max-width:100%;min-height:calc(2.4em + 22px);font-size:15.5px;padding:10px 12px;gap:8px;text-wrap:balance}
   .lugar .simbolo{width:22px;height:22px;margin-left:-2px}
-  /* la flecha sale del cuadrante hacia donde queda la estación de verdad */
+  /* la flecha sale de la baldosa hacia donde queda la estación de verdad */
   .lugar-f{display:block;position:absolute;font-size:20px;line-height:1}
   .estacion--preguntas .lugar-f{top:20px;left:50%;transform:translateX(-50%)}
   .estacion--laboratorio .lugar-f{right:7px;top:50%;transform:translateY(-50%)}
   .estacion--medimos .lugar-f{left:7px;top:50%;transform:translateY(-50%)}
   .estacion--resultados .lugar-f{bottom:16px;left:50%;transform:translateX(-50%)}
   .langs a{background:transparent}
-  /* el recuadro se estira sobre todo el cuadrante: se toca en cualquier parte */
+  /* el recuadro se estira sobre toda la baldosa: se toca en cualquier parte */
   .lugar::after{content:"";position:absolute;inset:0}
-  .q-enlace{display:none}
-  .q-titulo{font-size:13.5px}
-  .q-pregunta{font-size:15.5px}
-  .q-texto,.q-puertas,.q-camino{font-size:13.5px}
-  .cuadrante .stamp{padding:4px 8px;font-size:10.5px;letter-spacing:.1em;white-space:normal}
   .lado-in{padding:28px 58px 88px}
   .volver-lado{flex-direction:column;gap:10px;padding:14px 8px}
   .volver-lado .volver-t{writing-mode:vertical-rl}
@@ -391,12 +745,41 @@ html.viva:not([data-sala="centro"]) .brujula{transition:opacity .25s,visibility 
   .escalera{gap:40px}
   .escalera::before{display:none}
   .escalera-cima{position:relative}
+  .apuestas-lista,.definiciones,.temas-lista{grid-template-columns:minmax(0,1fr)}
+
+  /* los cuatro tráileres, uno debajo del otro: preguntas → laboratorio → resultados → método.
+     Una sola columna, centrada en el meridiano; cada uno cuelga de él con su símbolo. */
+  .trailers{display:block;padding:0 var(--gutter) 12px;background:var(--paper)}
+  .trailer{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;max-width:34rem;margin:0 auto;padding:68px 0 48px;text-align:center}
+  .trailer+.trailer{border-top:1px solid var(--line)}
+  .trailer::before{content:"";position:absolute;left:50%;top:0;height:38px;width:1px;background:var(--eje)}
+  .tr-rotulo{flex-direction:column;gap:10px}
+  .tr-rotulo .simbolo{width:30px;height:30px;color:var(--ink)}
+  .tr-titular{font:500 clamp(25px,7vw,31px)/1.1 var(--display);letter-spacing:-.015em;text-wrap:balance}
+  .tr-cuerpo{max-width:38ch;font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+  .tr-muestra{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;margin-top:4px}
+  .tr-gancho{max-width:28ch;font:italic 400 20px/1.35 var(--book);color:var(--ink);text-wrap:balance}
+  .tr-enlace{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:4px 2px;font:italic 400 18.5px/1.3 var(--book);color:var(--red);text-decoration-thickness:1px;text-underline-offset:4px}
+  .tr-muestra .cifras{justify-content:center;text-align:center}
+  .tr-muestra .cifras-lista{justify-content:center}
+  .tr-muestra .rotador{gap:12px}
+  .tr-muestra .fragmento{align-items:center}
+  .tr-muestra .f-cita p{font-size:18px}
+  .tr-muestra .f-cita p::before{float:none;display:block;margin:0 auto -.18em;line-height:.8}
+  .tr-muestra .f-acciones{justify-content:center}
+  .tr-muestra .rot-controles{justify-content:center}
+  .tr-muestra .rot-btn{width:44px;height:44px}
+  .tr-muestra .cohorte-mini li{justify-content:center}
+  .tr-muestra .sellos{justify-self:center}
+  .tr-muestra .ruta{max-width:30rem}
 }
-@media (max-width:899px) and (max-height:760px){
-  .q-pregunta,.q-puertas,.q-camino,.cuadrante--se .q-texto{display:none}
+/* la ruta de los tráileres: con poco ancho, dos y dos */
+@media (max-width:479px){
+  .tr-muestra .ruta{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:12px}
+  .tr-muestra .ruta-fase:nth-child(2)::after{content:none}
 }
 @media (max-width:899px) and (max-height:620px){
-  .q-titulo,.cuadrante .stamp{display:none}
+  .cuadrante > .q-resumen{display:none}
   .estacion--preguntas,.estacion--laboratorio{padding-top:56px}
 }
 @media (max-width:899px) and (hover:hover){.estacion:hover{background:rgba(185,139,106,.2)}}
@@ -406,7 +789,8 @@ html.viva:not([data-sala="centro"]) .brujula{transition:opacity .25s,visibility 
   .estacion--laboratorio{padding-right:28px}
   .estacion--medimos{padding-left:28px}
   .lugar{padding-inline:10px;gap:7px}
-  .cuadrante .stamp{letter-spacing:.06em}
+  .tr-muestra .triptico{grid-template-columns:minmax(0,1fr)}
+  .tr-muestra .tri-nota+.tri-nota{border-left:0;border-top:1px solid var(--line)}
 }
 /* teléfonos de 320 px: todo todavía más ceñido */
 @media (max-width:359px){
@@ -418,6 +802,7 @@ html.viva:not([data-sala="centro"]) .brujula{transition:opacity .25s,visibility 
   .lugar-f{font-size:18px}
   .estacion--laboratorio .lugar-f{right:5px}
   .estacion--medimos .lugar-f{left:5px}
+  .cuadrante > .q-resumen{font-size:14.5px}
 }
 @media (max-width:640px){
   .path{grid-template-columns:minmax(0,1fr);border-top:0;position:relative}
@@ -426,6 +811,15 @@ html.viva:not([data-sala="centro"]) .brujula{transition:opacity .25s,visibility 
   .step::before{top:0;box-shadow:0 0 0 5px var(--paper)}
   .step{background:var(--paper)}
   .path::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--eje)}
+  .cohorte-lista{grid-template-columns:minmax(0,1fr)}
+  /* la ruta de fases se vuelve vertical: un punto por fase, de arriba abajo */
+  .fases-lista{grid-template-columns:minmax(0,1fr);max-width:24rem}
+  .fase{padding:0 0 22px 32px}
+  .fase::after{left:7px;right:auto;top:22px;bottom:4px;width:1px;height:auto}
+  .fase:nth-child(4)::after{content:none}
+  .fase--aparte{margin-top:8px}
+  .dos-lecturas{padding-inline:16px}
+  .lectura{padding:18px 16px 16px}
 }
 @media (max-width:560px){
   body{font-size:16.5px}
@@ -440,14 +834,25 @@ html.viva:not([data-sala="centro"]) .brujula{transition:opacity .25s,visibility 
   .b{width:24px;height:24px}
   .b::before{width:8px;height:8px}
   .b-g{width:22px;height:22px;font-size:14px}
+  .fuente-texto{padding:14px 14px;font-size:16.5px}
+  /* en el celular las tablas se leen enteras: las columnas se estrechan y el texto se parte */
+  .criterios,.ranking-tabla{min-width:0}
+  .criterios th,.criterios td{padding:8px 6px}
+  .ranking-tabla th{padding:10px 4px;font:500 11px/1.3 var(--body);letter-spacing:0;text-transform:none;-webkit-hyphens:auto;hyphens:auto;overflow-wrap:anywhere}
+  .ranking-tabla caption{padding:24px 12px 28px;font-size:17px}
+  .pl-cuerpo{padding:18px 16px 24px}
+  .panel-lectura{width:calc(100vw - 16px);max-height:calc(100dvh - 24px)}
 }
 
 /* ---------- movimiento: un solo momento, los meridianos salen del nombre ---------- */
 @media (prefers-reduced-motion:no-preference){
   .onfalo .placa::before{animation:rayo-h 1.2s cubic-bezier(.2,.7,.2,1) .15s both}
   .onfalo .placa::after{animation:rayo-v 1.2s cubic-bezier(.2,.7,.2,1) .15s both}
+  /* al pasar de fragmento, el nuevo aparece sin prisa: responde a un clic, nunca solo */
+  .rotador--tocado .rot-pila > .fragmento[data-actual]{animation:aparece .28s ease-out both}
 }
 @keyframes rayo-h{from{transform:scaleX(0)}}
 @keyframes rayo-v{from{transform:scaleY(0)}}
+@keyframes aparece{from{opacity:0}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-@media print{.brujula,.rumbos,.volver-lado,.langs{display:none}.fila{height:auto;flex-direction:column}.lado-scroll{overflow:visible}.sala--arriba,.foot{background:#fff;color:#000}}
+@media print{.brujula,.rumbos,.volver-lado,.langs,.panel-lectura,.trailers{display:none}.fila{height:auto;flex-direction:column}.lado-scroll{overflow:visible}.sala--arriba,.foot{background:#fff;color:#000}}

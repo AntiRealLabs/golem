@@ -1,6 +1,6 @@
 # Verificación de la portada
 
-**109 de 109 comprobaciones correctas** · 2026-10-18 02:44 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
+**113 de 113 comprobaciones correctas** · 2026-10-18 05:30 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
 
 Inspección automática. No sustituye pruebas con personas, lectores de pantalla reales, otros navegadores ni la revisión del sitio ya publicado en Cloudflare.
 
@@ -37,10 +37,10 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | [es] imagen para compartir absoluta y existente |  |
 | ✓ | [es] imágenes cargadas y con texto alternativo descriptivo |  |
 | ✓ | [es] el selector marca el idioma actual |  |
-| ✓ | [es] cada estación lleva su símbolo: los cuatro existen, se dibujan y los lectores de pantalla los saltan |  |
+| ✓ | [es] cada estación lleva su símbolo; la mascota va a la izquierda de «Golem» y firma el pie y el laboratorio; los lectores de pantalla los saltan |  |
 | ✓ | [es] enlaces internos válidos y solo los externos previstos |  |
-| ✓ | [es] fase 1: sin nombres de modelos ni corridas en el texto |  |
-| ✓ | [es] fase 1: ninguna cifra del piloto (solo J1–J3, 01–04 y el año) |  |
+| ✓ | [es] ED01: solo se nombran las cuatro configuraciones de la cohorte |  |
+| ✓ | [es] ED01: lo pendiente dice «Pendiente», sin ranking ni notas por frase; dos reglas con una marca; las tres voces con su rótulo; F004 con su nota |  |
 | ✓ | [es] sin restos del otro idioma fuera de lo marcado con lang |  |
 | ✓ | [en] sin errores de consola ni violaciones de la CSP |  |
 | ✓ | [en] las cinco familias de la base cargan desde el propio sitio |  |
@@ -54,20 +54,20 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | [en] imagen para compartir absoluta y existente |  |
 | ✓ | [en] imágenes cargadas y con texto alternativo descriptivo |  |
 | ✓ | [en] el selector marca el idioma actual |  |
-| ✓ | [en] cada estación lleva su símbolo: los cuatro existen, se dibujan y los lectores de pantalla los saltan |  |
+| ✓ | [en] cada estación lleva su símbolo; la mascota va a la izquierda de «Golem» y firma el pie y el laboratorio; los lectores de pantalla los saltan |  |
 | ✓ | [en] enlaces internos válidos y solo los externos previstos |  |
-| ✓ | [en] fase 1: sin nombres de modelos ni corridas en el texto |  |
-| ✓ | [en] fase 1: ninguna cifra del piloto (solo J1–J3, 01–04 y el año) |  |
+| ✓ | [en] ED01: solo se nombran las cuatro configuraciones de la cohorte |  |
+| ✓ | [en] ED01: lo pendiente dice «Pending», sin ranking ni notas por frase; dos reglas con una marca; las tres voces con su rótulo; F004 con su nota |  |
 | ✓ | [en] sin restos del otro idioma fuera de lo marcado con lang |  |
 | ✓ | [404] sin errores de consola ni violaciones de la CSP |  |
 | ✓ | [404] fuentes de la marca cargadas |  |
 | ✓ | [404] todo se sirve desde el mismo origen |  |
 | ✓ | [404] peso total de la página ≤ 700 KB |  |
-| ✓ | Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces |  |
+| ✓ | Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces (sin contar el original español que acompaña a la traducción) |  |
 | ✓ | Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px |  |
 | ✓ | Objetivos táctiles ≥ 24 px en móvil (WCAG 2.5.8) |  |
 | ✓ | Teclado: el primer Tab se queda en el centro, a la vista (selector de idioma) |  |
-| ✓ | Teclado: desde el centro, ES → EN → cada estación con su resumen: ↑, →, ←, ↓ |  |
+| ✓ | Teclado: desde el centro, ES → EN → cada estación con lo de su esquina: ↑, →, ←, ↓ |  |
 | ✓ | Teclado: el foco se ve (contorno de 3 px) |  |
 | ✓ | Cruz [es · escritorio]: se llega al centro (el nombre a la vista, brújula en el centro) |  |
 | ✓ | Cruz [es · escritorio]: la placa del nombre queda en el centro exacto de la pantalla (±3 px) |  |
@@ -76,7 +76,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Cruz [es · escritorio]: ← y → recorren la fila (laboratorio / cómo medimos) |  |
 | ✓ | Cruz [es · escritorio]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [es · escritorio]: las salas laterales miden una pantalla y se recorren por dentro |  |
-| ✓ | Cruz [es · escritorio]: sin vacío entre el centro y los resultados |  |
+| ✓ | Cruz [es · escritorio]: sin vacío entre el centro y lo de abajo (en el celular, los cuatro tráileres; luego, los resultados) |  |
 | ✓ | Cruz [es · escritorio]: los enlaces llevan a cada sala y la brújula lo marca |  |
 | ✓ | Cruz [es · escritorio]: la brújula se esconde en el centro y aparece al alejarse |  |
 | ✓ | Cruz [en · escritorio]: se llega al centro (el nombre a la vista, brújula en el centro) |  |
@@ -86,7 +86,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Cruz [en · escritorio]: ← y → recorren la fila (laboratorio / cómo medimos) |  |
 | ✓ | Cruz [en · escritorio]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [en · escritorio]: las salas laterales miden una pantalla y se recorren por dentro |  |
-| ✓ | Cruz [en · escritorio]: sin vacío entre el centro y los resultados |  |
+| ✓ | Cruz [en · escritorio]: sin vacío entre el centro y lo de abajo (en el celular, los cuatro tráileres; luego, los resultados) |  |
 | ✓ | Cruz [en · escritorio]: los enlaces llevan a cada sala y la brújula lo marca |  |
 | ✓ | Cruz [en · escritorio]: la brújula se esconde en el centro y aparece al alejarse |  |
 | ✓ | Cruz [es · móvil]: se llega al centro (el nombre a la vista, brújula en el centro) |  |
@@ -96,7 +96,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Cruz [es · móvil]: ← y → recorren la fila (laboratorio / cómo medimos) |  |
 | ✓ | Cruz [es · móvil]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [es · móvil]: las salas laterales miden una pantalla y se recorren por dentro |  |
-| ✓ | Cruz [es · móvil]: sin vacío entre el centro y los resultados |  |
+| ✓ | Cruz [es · móvil]: sin vacío entre el centro y lo de abajo (en el celular, los cuatro tráileres; luego, los resultados) |  |
 | ✓ | Cruz [es · móvil]: los enlaces llevan a cada sala y la brújula lo marca |  |
 | ✓ | Cruz [es · móvil]: la brújula se esconde en el centro y aparece al alejarse |  |
 | ✓ | Cruz [en · móvil]: se llega al centro (el nombre a la vista, brújula en el centro) |  |
@@ -106,11 +106,15 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Cruz [en · móvil]: ← y → recorren la fila (laboratorio / cómo medimos) |  |
 | ✓ | Cruz [en · móvil]: el rumbo ← lleva a cómo medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [en · móvil]: las salas laterales miden una pantalla y se recorren por dentro |  |
-| ✓ | Cruz [en · móvil]: sin vacío entre el centro y los resultados |  |
+| ✓ | Cruz [en · móvil]: sin vacío entre el centro y lo de abajo (en el celular, los cuatro tráileres; luego, los resultados) |  |
 | ✓ | Cruz [en · móvil]: los enlaces llevan a cada sala y la brújula lo marca |  |
 | ✓ | Cruz [en · móvil]: la brújula se esconde en el centro y aparece al alejarse |  |
-| ✓ | Centro sin choques: cuadrantes, rumbos, flechas y placa no se tocan en nueve tamaños; en el celular nada se sale de su estación; los cuatro recuadros miden lo mismo y la placa sigue en el centro |  |
+| ✓ | Centro sin choques: tráileres, rumbos, flechas y placa no se tocan en diez tamaños; nada se sale de su esquina ni de su estación; los cuatro recuadros miden lo mismo y la placa sigue en el centro |  |
 | ✓ | Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces |  |
+| ✓ | Sin JavaScript: cada fragmento rotativo queda quieto en GB-ED01-F001, sin controles, y «Leer en contexto» lleva a la ficha completa de su fuente |  |
+| ✓ | Fragmentos: orden barajado de cinco por visita; «siguiente» avanza uno y el foco se queda en el botón; sin avance automático; el inglés conserva el mismo fragmento |  |
+| ✓ | Movimiento reducido: el cambio de fragmento aparece sin animación (con movimiento, un fundido corto) |  |
+| ✓ | Panel de lectura: «Leer en contexto» abre la fuente con la cita marcada a la vista; se cierra con Esc, con su botón o tocando afuera, y el foco vuelve al enlace; si falta la fuente lo dice |  |
 | ✓ | axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (3 páginas × 2 anchos) |  |
 | ✓ | axe-core · buenas prácticas: sin avisos |  |
 | ✓ | Espaciado de texto ampliado (WCAG 1.4.12): no se pierde texto |  |

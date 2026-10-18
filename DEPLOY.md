@@ -9,9 +9,9 @@
 Se publica como proyecto de *direct upload* desde GitHub Actions, igual que
 simioplateado. En el dashboard aparece `No Git connection`: es lo esperado.
 
-**Hoy se publica solo la portada (fase 1):** la carpeta `site/`. El prototipo
-del Lab no está en este repo y **no se publica** (ver `CLAUDE.md`, «Antes de
-publicar el Lab»).
+**Hoy se publica la portada con el primer corte de ED01** (desde el 18 oct 2026,
+con aprobación de Juan): la carpeta `site/`. El prototipo del Lab no está en este
+repo y **no se publica** (ver `CLAUDE.md`, «Antes de publicar el Lab»).
 
 ## Flujo
 
@@ -73,7 +73,9 @@ El token no se pega en chats ni en archivos del repo.
 ## Antes de cada push
 
 ```bash
-python3 -I herramientas/versionar_recursos.py       # si cambiaron portada.css o centro.js
+python3 -I herramientas/construir_ed01.py PAQUETE site   # si llegó un paquete nuevo de ED01
+python3 -I herramientas/cotejar_ed01.py PAQUETE site     # y su cotejo: 0 fallas
+python3 -I herramientas/versionar_recursos.py       # si cambiaron portada.css, centro.js o archivo.js
 python3 -I herramientas/verificar_portada.py        # Playwright + Chromium; todo debe dar correcto
 python3 -I herramientas/comprobar_publicacion.py site
 ```
@@ -91,9 +93,11 @@ python3 -I herramientas/servidor_local.py 8788      # http://127.0.0.1:8788
 - No conectar el proyecto a Git desde el dashboard de Cloudflare: duplicaría los
   despliegues. Si algún día se migra, hacerlo como en simioplateado (prueba,
   comprobar dominios y solo entonces quitar el workflow).
-- No copiar a `site/` datos del piloto ni archivos del prototipo del Lab.
-- No relajar `comprobar_publicacion.py` salvo en el commit que publique el Lab,
-  con la aprobación anotada abajo.
+- No copiar a `site/` datos del piloto IA-01 ni archivos del prototipo del Lab. Lo de
+  ED01 entra solo con `construir_ed01.py`, desde un paquete de coordinación.
+- No relajar `comprobar_publicacion.py` salvo en el commit que publique algo aprobado,
+  con la aprobación anotada abajo. El 18 oct 2026 admitió «IA-01» y «BF-03» para el
+  primer corte ED01 (ver el registro).
 - La CSP de `site/_headers` no admite estilos ni scripts en línea. Cloudflare Web
   Analytics está activo (comprobado el 18 oct 2026): Cloudflare inyecta `beacon.min.js`
   desde `static.cloudflareinsights.com` y envía las mediciones a `/cdn-cgi/rum`. La CSP
@@ -106,3 +110,4 @@ python3 -I herramientas/servidor_local.py 8788      # http://127.0.0.1:8788
 | 2026-10-17 | Portada fase 1, ES/EN, sin datos del piloto | Juan · Anti-Real Labs (en el chat de diseño) |
 | 2026-10-18 | Portada «la cruz»: se llega a la pregunta y se navega hacia los cuatro lados. Lema «Preguntas desde el futuro». ES/EN, sin datos del piloto. CSS y JS con huella de versión | Juan · Anti-Real Labs (en el chat de diseño) |
 | 2026-10-18 | Portada «el mapa en cruz», sobre el boceto de Juan: el nombre en el centro, cuatro rumbos (Preguntas abiertas, Cómo medimos, Laboratorio, Resultados de evaluaciones) y cuatro cuadrantes que invitan a navegar. Sin la pregunta como titular; tarjetas con el lema. ES/EN, sin datos del piloto | Juan · Anti-Real Labs (en el chat de diseño) |
+| 2026-10-18 | Primer corte ED01, del paquete de contenidos v0.1 de coordinación: cuatro tráileres en las esquinas de la cruz y sus salas en profundidad (seis apuestas, cifras, cinco fragmentos con sus fuentes completas, supuesto a examen, cohorte en orden fijo, fases, ranking en preparación sin datos, «Una pregunta. Dos lecturas.», método y límites). Símbolos de las estaciones y baldosas en el celular (rama `estaciones`). La mascota del golem firma el pie y va a la izquierda de «Golem», de su tamaño y a su altura, en la placa, en «Golem Lab» y en las tarjetas para compartir. La puerta admite «IA-01» (nombre de la serie anterior) y «BF-03» (texto literal de una entrega). ES/EN | Juan · Anti-Real Labs (en el chat de diseño: «PUBLICA!! ME ENCANTA!») |

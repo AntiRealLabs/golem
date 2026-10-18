@@ -16,6 +16,7 @@ dibujan con Chromium (Playwright) usando las mismas fuentes que la página.
 Requiere: fonttools, brotli, pillow, playwright.
 """
 import io
+import re
 import sys
 from pathlib import Path
 
@@ -79,8 +80,16 @@ def font_faces():
 
 OG = {
     "es": ("Benchmark de creación filosófica en IA", "Preguntas desde el futuro"),
-    "en": ("Benchmark for philosophical creation in AI", "Questions from the future"),
+    "en": ("A benchmark for philosophical creation in AI", "Questions from the future"),
 }
+
+
+def mascota_svg():
+    """La mascota del sprite de la portada (s-golem), como dibujo suelto para la tarjeta."""
+    html = (SITE / "index.html").read_text(encoding="utf-8")
+    m = re.search(r'<symbol id="s-golem" viewBox="0 0 64 64">(.*?)</symbol>', html, re.S)
+    cuerpo = re.sub(r"<!--.*?-->", "", m.group(1), flags=re.S)
+    return f'<svg class="m" viewBox="10.6 2.9 34.5 53.2" aria-hidden="true">{cuerpo}</svg>'
 
 
 def og_html(lang):
@@ -92,8 +101,9 @@ html,body{{width:1200px;height:630px;overflow:hidden}}
 body{{position:relative;background:{COAL} url('{TALLER.as_uri()}') 82% 40%/auto 100% no-repeat;color:{ON_COAL};font-family:'Archivo',sans-serif}}
 body::before{{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(24,25,21,.96) 0%,rgba(24,25,21,.86) 38%,rgba(24,25,21,.2) 60%,rgba(24,25,21,0) 70%)}}
 .in{{position:absolute;inset:0;padding:58px 72px 54px;display:flex;flex-direction:column;max-width:760px}}
-.eyebrow{{font:400 19px/1.3 'Fragment Mono';letter-spacing:.14em;text-transform:uppercase;color:{TAN}}}
+.eyebrow{{font:400 19px/1.3 'Fragment Mono';letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;color:{TAN}}}
 .mark{{display:flex;align-items:baseline;gap:20px;margin-top:20px}}
+.m{{flex:none;position:relative;top:3px;height:98px;width:auto;aspect-ratio:34.5/53.2;margin-right:-2px;fill:none;stroke:{TAN};stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;color:{TAN};overflow:visible}}
 .g{{font:400 132px/.9 'UnifrakturMaguntia';letter-spacing:-.035em}}
 .b{{font:400 26px/1 'DM Sans';letter-spacing:.34em;color:{ON_COAL_2}}}
 .lema{{font:italic 400 56px/1.1 'Newsreader';color:{ON_COAL};margin-top:34px;max-width:11ch;text-wrap:balance}}
@@ -101,7 +111,7 @@ body::before{{content:"";position:absolute;inset:0;background:linear-gradient(90
 .bar{{position:absolute;left:0;right:0;bottom:0;height:8px;background:{RED}}}
 </style></head><body><div class="in">
 <p class="eyebrow">{eyebrow}</p>
-<p class="mark"><span class="g">Golem</span><span class="b">BENCH</span></p>
+<p class="mark">{mascota_svg()}<span class="g">Golem</span><span class="b">BENCH</span></p>
 <p class="lema">{lema}</p>
 <p class="url">golembench.org</p>
 </div><div class="bar"></div></body></html>"""

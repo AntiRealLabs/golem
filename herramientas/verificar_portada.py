@@ -5,10 +5,11 @@ Uso:  python3 -I herramientas/verificar_portada.py [--sin-capturas]
 
 Levanta herramientas/servidor_local.py (imita Cloudflare Pages con _headers),
 abre las páginas en Chromium (Playwright) y comprueba: puerta de publicación,
-estados HTTP y cabeceras, contenido de la fase 1, paridad ES/EN, enlaces,
-fuentes, CSP sin violaciones, anchos sin desborde, espaciado de texto,
-teclado, objetivos táctiles, símbolos de las estaciones, choques en el centro,
-axe-core (WCAG 2.2 A/AA), peso e imágenes.
+estados HTTP y cabeceras, las reglas del primer corte ED01 (lo pendiente nunca es
+cero, sin ranking ni notas por frase, tres voces separadas), paridad ES/EN, enlaces,
+fuentes, CSP sin violaciones, anchos sin desborde, espaciado de texto, teclado,
+objetivos táctiles, símbolos de las estaciones, choques y desbordes en el centro,
+fragmentos que rotan, panel de lectura, axe-core (WCAG 2.2 A/AA), peso e imágenes.
 Escribe verificacion/portada/informe.md e informe.json; las capturas van a
 verificacion/portada/capturas/ (no se suben al repo).
 
@@ -45,9 +46,13 @@ PAGES = {"es": "/", "en": "/en/", "404": "/esta-ruta-no-existe"}
 WIDTHS = [1440, 1024, 768, 390, 320]
 FAMILIES = ["UnifrakturMaguntia", "Chakra Petch", "Archivo", "Fragment Mono", "DM Sans", "Newsreader"]
 EXTERNAL_OK = {"https://antireallabs.com", "mailto:admin@antireallabs.com"}
-# Fase 1: nada del piloto en la portada (ni nombres de modelos, ni corridas o casos, ni cifras)
-PHASE1_FORBIDDEN = re.compile(r"\b(Claude|GPT|Gemini|Llama|Mistral|Grok|DeepSeek)\b|\b[A-Z]{2}-\d{2}\b", re.I)
-DIGITS_OK = {"1", "2", "3", "01", "02", "03", "04", "2026", "404"}
+# Primer corte ED01: estas son las únicas configuraciones que la portada puede nombrar,
+# y los textos de estado que nunca pueden faltar ni volverse cero.
+COHORTE = ["SmolLM3-3B", "Qwen3-8B", "Claude Opus 5.5", "GPT-6.1-sol"]
+OTROS_MODELOS = re.compile(r"\b(Gemini|Llama|Mistral|Grok|DeepSeek|o3|GPT-4|GPT-5(?!\.\d-sol)|Sonnet|Haiku)\b")
+PENDIENTE = {"es": "Pendiente", "en": "Pending"}
+SIN_RANKING = {"es": "Sin clasificación general publicada", "en": "No overall ranking published"}
+EN_PREPARACION = {"es": "Ranking general en preparación", "en": "Overall ranking in preparation"}
 SPANISH_HINTS = re.compile(r"ñ|ción\b|\b(el|los|las|del|una|que|para|con)\b", re.I)
 ENGLISH_HINTS = re.compile(r"\b(the|and|of|with|what|which|is)\b", re.I)
 
@@ -142,7 +147,8 @@ def main():
     viejas = versionar_recursos.revisar(SITE)
     sirven = [http(base, f"/{r}?v={versionar_recursos.huella(r)}")[0] for r in versionar_recursos.RECURSOS]
     check("CSS y JS llevan la huella de su versión (?v=) en todas las páginas y se sirven con ella",
-          not viejas and sirven == [200, 200], "; ".join(viejas) or f"estados {sirven}")
+          not viejas and len(sirven) == len(versionar_recursos.RECURSOS) and all(x == 200 for x in sirven),
+          "; ".join(viejas) or f"estados {sirven}")
     s, h, b = http(base, "/robots.txt")
     check("robots.txt enlaza el sitemap", s == 200 and b"Sitemap: https://golembench.org/sitemap.xml" in b)
     s, h, b = http(base, "/sitemap.xml")
@@ -208,7 +214,7 @@ def main():
                       canonical: (document.querySelector('link[rel=canonical]')||{}).href||'',
                       alts: [...document.querySelectorAll('link[rel=alternate][hreflang]')].map(l=>l.hreflang+'='+l.href),
                       og: (document.querySelector('meta[property="og:image"]')||{}).content||'',
-                      counts: ['h2','h3','li','p','a'].map(s=>document.querySelectorAll('main '+s+', header '+s+', footer '+s).length),
+                      counts: ['h2','h3','li','p','a'].map(s=>[...document.querySelectorAll('main '+s+', header '+s+', footer '+s)].filter(e=>!e.parentElement.closest('[lang]:not(html)')).length),
                       links: [...document.querySelectorAll('a[href]')].map(a=>a.getAttribute('href')),
                       current: [...document.querySelectorAll('.langs a[aria-current=page]')].map(a=>a.textContent.trim())
                     })"""
@@ -231,13 +237,21 @@ def main():
                       const ruidosos = [...document.querySelectorAll('svg.simbolo, svg.simbolos')].filter(s => s.getAttribute('aria-hidden') !== 'true' || s.getAttribute('focusable') !== 'false').length;
                       const rumbos = [...document.querySelectorAll('.onfalo .rumbo .lugar')].map(a => { const u = a.querySelector('svg.simbolo use'); return a.getAttribute('href') + '>' + (u ? u.getAttribute('href') : ''); });
                       const dibujados = [...document.querySelectorAll('.onfalo .rumbo .lugar svg.simbolo')].every(s => { const r = s.getBoundingClientRect(); return r.width >= 16 && r.height >= 16; });
-                      return {ids: [...ids].sort(), rotos, ruidosos, rumbos, dibujados};
+                      const mascota = ['.foot-brand svg.simbolo--golem', '#laboratorio .lockup svg.marca-golem', '.onfalo .placa svg.placa-golem'].every(s => { const u = document.querySelector(s + ' use'); return u && u.getAttribute('href') === '#s-golem'; })
+                        // en la placa, la mascota va a la izquierda de «Golem», de su mismo alto y a su altura (Juan, 18 oct 2026)
+                        && (() => { const m = document.querySelector('.onfalo .placa-golem').getBoundingClientRect(), w = document.querySelector('.onfalo .wordmark-g'),
+                                          g = w.getBoundingClientRect(), fs = parseFloat(getComputedStyle(w).fontSize);
+                                    // y «Golem» sigue en el eje de la placa
+                                    const p = document.querySelector('.onfalo .placa').getBoundingClientRect();
+                                    return m.right <= g.left && Math.abs(m.height - .74 * fs) < 2 && Math.abs(m.top - g.top) < 3
+                                      && Math.abs((g.left + g.right) / 2 - (p.left + p.right) / 2) < 2; })();
+                      return {ids: [...ids].sort(), rotos, ruidosos, rumbos, dibujados, mascota};
                     }"""
                 )
                 want_r = ["#preguntas>#s-preguntas", "#laboratorio>#s-laboratorio", "#como-medimos>#s-medimos", "#resultados>#s-resultados"]
-                check(f"[{key}] cada estación lleva su símbolo: los cuatro existen, se dibujan y los lectores de pantalla los saltan",
-                      sim["ids"] == ["s-laboratorio", "s-medimos", "s-preguntas", "s-resultados"] and not sim["rotos"]
-                      and not sim["ruidosos"] and sim["rumbos"] == want_r and sim["dibujados"], str(sim))
+                check(f"[{key}] cada estación lleva su símbolo; la mascota va a la izquierda de «Golem» y firma el pie y el laboratorio; los lectores de pantalla los saltan",
+                      sim["ids"] == ["s-golem", "s-laboratorio", "s-medimos", "s-preguntas", "s-resultados"] and not sim["rotos"]
+                      and not sim["ruidosos"] and sim["rumbos"] == want_r and sim["dibujados"] and sim["mascota"], str(sim))
                 bad_links = []
                 for href in info["links"]:
                     if href.startswith("#"):
@@ -253,15 +267,49 @@ def main():
                         bad_links.append(href)
                 check(f"[{key}] enlaces internos válidos y solo los externos previstos", not bad_links, str(bad_links))
                 text = visible_text(page)
-                m = PHASE1_FORBIDDEN.search(text)
-                check(f"[{key}] fase 1: sin nombres de modelos ni corridas en el texto", not m, m.group(0) if m else "")
-                nums = set(re.findall(r"\d+", text)) - DIGITS_OK
-                check(f"[{key}] fase 1: ninguna cifra del piloto (solo J1–J3, 01–04 y el año)", not nums, str(sorted(nums)))
+                m = OTROS_MODELOS.search(text)
+                check(f"[{key}] ED01: solo se nombran las cuatro configuraciones de la cohorte", not m and all(c in text for c in COHORTE),
+                      m.group(0) if m else "falta alguna de la cohorte")
+                ed = page.evaluate(
+                    """([pend, sinRk, prep]) => {
+                      const txt = s => [...document.querySelectorAll(s)].map(e => e.textContent.trim());
+                      const out = [];
+                      // lo pendiente dice «Pendiente»: nunca un cero, un guion o un hueco
+                      const pendientes = [...txt('.ruta-fase:not(.ruta-fase--cerrada) .ruta-e'), ...txt('.fase:not(.fase--cerrada) .fase-e'), ...txt('.criterios .es-pendiente')];
+                      if (!pendientes.length || pendientes.some(t => t !== pend)) out.push('pendiente: ' + [...new Set(pendientes)].join('|'));
+                      // sin ranking publicado: la tabla no tiene filas, dice que no hay clasificación y el sello sigue a la vista
+                      const rk = document.querySelector('#ranking');
+                      if (!rk || rk.querySelectorAll('tbody tr').length) out.push('ranking con filas');
+                      if (rk && rk.querySelector('caption').textContent.trim() !== sinRk) out.push('ranking sin su estado vacío');
+                      if (!txt('.stamp').includes(prep)) out.push('falta «' + prep + '»');
+                      // ningún fragmento lleva nota, medalla, regla ni barra
+                      if (document.querySelector('.fragmento .regla, .fragmento meter, .fragmento progress, meter, progress')) out.push('nota o barra en un fragmento');
+                      // una pregunta, dos lecturas: dos reglas de cinco posiciones con una sola marca cada una
+                      const reglas = [...document.querySelectorAll('.regla')];
+                      if (reglas.length !== 2 || reglas.some(r => r.children.length !== 5 || r.querySelectorAll('.regla-pos--marca').length !== 1)) out.push('reglas');
+                      if (/[→⟶]|promedio|average/i.test(document.querySelector('.dl-lecturas').textContent)) out.push('flecha o promedio entre las lecturas');
+                      // tres voces separadas por rótulo y estructura
+                      for (const q of document.querySelectorAll('[data-voz="modelo"]')) {
+                        const caja = q.closest('figure, .fuente-texto, .panel-contenido');
+                        if (!caja || (!caja.querySelector('.f-voz') && !(q.closest('.panel-contenido') && q.closest('.panel-contenido').querySelector('.fuente-voz .f-voz')))) out.push('texto del modelo sin su rótulo');
+                      }
+                      for (const g of document.querySelectorAll('[data-voz="editorial"]')) if (!/\S/.test((g.querySelector('.capa-rotulo, .f-sub') || {}).textContent || '')) out.push('guía sin rótulo');
+                      for (const j of document.querySelectorAll('[data-voz="juez"]')) if (!j.closest('.lectura-juez') || !j.closest('.lectura-juez').querySelector('.capa-rotulo')) out.push('lectura del juez sin rótulo');
+                      if (document.querySelector('[data-voz] [data-voz]')) out.push('voces anidadas');
+                      // el supuesto a examen nunca viaja sin su nota
+                      for (const f of document.querySelectorAll('[data-fragmento="GB-ED01-F004"]')) if (!f.querySelector('[data-voz="editorial"]')) out.push('F004 sin su nota');
+                      return out;
+                    }""",
+                    [PENDIENTE[key], SIN_RANKING[key], EN_PREPARACION[key]],
+                )
+                check(f"[{key}] ED01: lo pendiente dice «{PENDIENTE[key]}», sin ranking ni notas por frase; dos reglas con una marca; las tres voces con su rótulo; F004 con su nota",
+                      not ed, "; ".join(sorted(set(ed))))
                 other = visible_text(page, exclude_lang="es" if key == "en" else "en")
                 hint = (SPANISH_HINTS if key == "en" else ENGLISH_HINTS).findall(other)
                 check(f"[{key}] sin restos del otro idioma fuera de lo marcado con lang", not hint, str(sorted(set(hint)))[:200])
             page.close()
-        check("Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces", structure.get("es") == structure.get("en"), str(structure))
+        check("Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces (sin contar el original español que acompaña a la traducción)",
+              structure.get("es") == structure.get("en"), str(structure))
         ctx.close()
 
         # ---------- anchos ----------
@@ -286,7 +334,7 @@ def main():
             page.goto(base + path, wait_until="networkidle")
             for a in page.query_selector_all("a[href]"):
                 bb = a.bounding_box()
-                if bb and (bb["width"] < 24 or bb["height"] < 24) and a.evaluate("e=>getComputedStyle(e).position!=='absolute'||e.matches(':focus')"):
+                if bb and (bb["width"] < 24 or bb["height"] < 24) and a.evaluate("e=>e.checkVisibility({visibilityProperty:true})&&(getComputedStyle(e).position!=='absolute'||e.matches(':focus'))"):
                     small.append(f"{key}: {a.inner_text()[:30]} {bb['width']:.0f}×{bb['height']:.0f}")
         check("Objetivos táctiles ≥ 24 px en móvil (WCAG 2.5.8)", not small, str(small))
         ctx.close()
@@ -300,11 +348,27 @@ def main():
         check("Teclado: el primer Tab se queda en el centro, a la vista (selector de idioma)", first == "/" and vis, f"{first} {vis}")
         order = []
         page.goto(base + "/", wait_until="networkidle")
-        for _ in range(10):
+        page.evaluate("document.fonts.ready")
+        for _ in range(24):
             page.keyboard.press("Tab")
-            order.append(page.evaluate("(document.activeElement.className||document.activeElement.textContent.trim().slice(0,12))+' '+document.activeElement.getAttribute('href')"))
-        want_order = ["ES /", "EN /en/"] + [f"{c} #{d}" for d in ("preguntas", "laboratorio", "como-medimos", "resultados") for c in ("lugar", "q-enlace")]
-        check("Teclado: desde el centro, ES → EN → cada estación con su resumen: ↑, →, ←, ↓", order == want_order, str(order))
+            info = page.evaluate("""() => { const a = document.activeElement, e = a.closest('.estacion');
+                return [a.classList.contains('lugar') ? 'lugar ' + a.getAttribute('href') : (a.getAttribute('href') || a.className || a.tagName),
+                        e ? e.className.split('--')[1] : (a.closest('.langs') ? 'idioma' : 'fuera')]; }""")
+            if info[1] == "fuera":
+                break
+            order.append(info)
+        lugares = [o[0] for o in order if o[0].startswith("lugar ")]
+        # lo de cada esquina va justo después de su recuadro, sin mezclarse con otra estación
+        tramos, actual = [], None
+        for o in order[2:]:
+            if o[0].startswith("lugar "):
+                actual = o[1]
+                tramos.append(actual)
+            elif o[1] != actual:
+                tramos.append("¡" + o[1] + "!")
+        check("Teclado: desde el centro, ES → EN → cada estación con lo de su esquina: ↑, →, ←, ↓",
+              [o[0] for o in order[:2]] == ["/", "/en/"] and lugares == ["lugar #preguntas", "lugar #laboratorio", "lugar #como-medimos", "lugar #resultados"]
+              and not any(t.startswith("¡") for t in tramos), str(order))
         outline = page.evaluate("(()=>{document.querySelector('.langs a').focus();const s=getComputedStyle(document.activeElement);return s.outlineStyle+' '+s.outlineWidth})()")
         check("Teclado: el foco se ve (contorno de 3 px)", outline.startswith("solid 3px"), outline)
         ctx.close()
@@ -365,8 +429,12 @@ def main():
                     return {alto: Math.round(p.getBoundingClientRect().height - innerHeight), corre: s.scrollHeight > s.clientHeight, modo: getComputedStyle(s).overflowY}; }""")
                 check(f"Cruz [{key} · {label}]: las salas laterales miden una pantalla y se recorren por dentro",
                       abs(lado["alto"]) <= 2 and lado["corre"] and lado["modo"] == "auto", str(lado))
-                hueco = page.evaluate("Math.round(document.getElementById('resultados').getBoundingClientRect().top - document.getElementById('cruce').getBoundingClientRect().bottom)")
-                check(f"Cruz [{key} · {label}]: sin vacío entre el centro y los resultados", abs(hueco) <= 1, f"{hueco} px")
+                hueco = page.evaluate("""() => { const abajo = document.querySelector('.sala--abajo').getBoundingClientRect(), c = document.getElementById('cruce').getBoundingClientRect(),
+                    tr = document.querySelector('.trailers'), r = document.getElementById('resultados').getBoundingClientRect();
+                    const tramo = tr.getClientRects().length ? tr.getBoundingClientRect() : null;
+                    return [Math.round(abajo.top - c.bottom), Math.round(r.top - (tramo ? tramo.bottom : c.bottom))]; }""")
+                check(f"Cruz [{key} · {label}]: sin vacío entre el centro y lo de abajo (en el celular, los cuatro tráileres; luego, los resultados)",
+                      abs(hueco[0]) <= 1 and abs(hueco[1]) <= 1, f"{hueco} px")
                 page.goto(base + path + "#resultados", wait_until="networkidle")
                 page.wait_for_timeout(400)
                 down = page.evaluate("(document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null")
@@ -401,12 +469,22 @@ def main():
             const t = e.closest('.estacion');
             if (t && t.getClientRects().length && fuera(a, t.getBoundingClientRect())) out.push('fuera de su estación: ' + a.n);
           }
+          // nada se sale de su esquina: lo que no cabe se guarda entero
+          for (const c of vis('.cuadrante')) {
+            if (getComputedStyle(c).containerType !== 'size') continue;
+            const r = c.getBoundingClientRect(), cs = getComputedStyle(c);
+            for (const h of c.children) {
+              if (!h.getClientRects().length) continue;
+              const b = h.getBoundingClientRect();
+              if (b.top < r.top + parseFloat(cs.paddingTop) - 1 || b.bottom > r.bottom - parseFloat(cs.paddingBottom) + 1) out.push('se sale de su esquina: ' + String(h.className).split(' ')[0]);
+            }
+          }
           // los cuatro recuadros miden lo mismo (en el celular caben dos renglones; ninguno pide tres)
           const altos = vis('.onfalo .rumbo .lugar').map(e => Math.round(e.getBoundingClientRect().height));
           if (Math.max(...altos) - Math.min(...altos) > 1) out.push('recuadros desiguales: ' + altos.join('/'));
           return out;
         }"""
-        for vw, vh in ((1920, 1080), (1366, 768), (1280, 720), (1024, 768), (768, 1024), (390, 844), (360, 740), (375, 667), (320, 568)):
+        for vw, vh in ((1920, 1080), (1440, 790), (1366, 768), (1280, 720), (1024, 768), (768, 1024), (390, 844), (360, 740), (375, 667), (320, 568)):
             ctx = browser.new_context(viewport={"width": vw, "height": vh}, reduced_motion="reduce", is_mobile=vw < 600, has_touch=vw < 600)
             page = ctx.new_page()
             for key, path in (("es", "/"), ("en", "/en/")):
@@ -414,13 +492,89 @@ def main():
                 page.evaluate("document.fonts.ready")
                 choques += [f"{key}@{vw}×{vh}: {c}" for c in page.evaluate(CHOQUES_JS)]
             ctx.close()
-        check("Centro sin choques: cuadrantes, rumbos, flechas y placa no se tocan en nueve tamaños; en el celular nada se sale de su estación; los cuatro recuadros miden lo mismo y la placa sigue en el centro",
+        check("Centro sin choques: tráileres, rumbos, flechas y placa no se tocan en diez tamaños; nada se sale de su esquina ni de su estación; los cuatro recuadros miden lo mismo y la placa sigue en el centro",
               not choques, "; ".join(sorted(set(choques)))[:300])
         ctx = browser.new_context(viewport={"width": 1280, "height": 800}, java_script_enabled=False)
         page = ctx.new_page()
         page.goto(base + "/", wait_until="networkidle")
         nojs = page.evaluate("[document.querySelectorAll('h1').length, ['preguntas','cruce','centro','resultados','como-medimos','laboratorio'].every(id => !!document.getElementById(id))]")
         check("Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces", nojs == [1, True], str(nojs))
+        quieto = page.evaluate("""() => [...document.querySelectorAll('[data-rotador]')].map(r => {
+            const vis = [...r.querySelectorAll('.rot-pila > [data-fragmento]')].filter(f => !f.hidden).map(f => f.dataset.fragmento);
+            const ctl = r.querySelector('[data-rot-controles]');
+            return vis.join(',') + (ctl && ctl.hidden ? '' : ' +controles'); })""")
+        fichas = page.evaluate("[...document.querySelectorAll('a[data-panel]')].every(a => { const t = document.getElementById(a.getAttribute('href').slice(1)); return t && t.querySelector('.panel-contenido'); })")
+        check("Sin JavaScript: cada fragmento rotativo queda quieto en GB-ED01-F001, sin controles, y «Leer en contexto» lleva a la ficha completa de su fuente",
+              quieto and all(q == "GB-ED01-F001" for q in quieto) and fichas, f"{quieto} {fichas}")
+        ctx.close()
+
+        # ---------- los fragmentos: se barajan por visita, se avanzan a mano y conservan su lugar al cambiar de idioma ----------
+        ctx = browser.new_context(viewport={"width": 1440, "height": 900}, reduced_motion="no-preference")
+        page = ctx.new_page()
+        page.goto(base + "/", wait_until="networkidle")
+        page.evaluate("document.fonts.ready")
+        ACTUAL = "() => { const r = document.querySelector('.cuadrante [data-rotador]'); const f = r && r.querySelector('[data-actual]'); return [f ? f.dataset.fragmento : null, r ? r.querySelector('.rot-cuenta').textContent.trim() : null]; }"
+        antes = page.evaluate(ACTUAL)
+        orden = page.evaluate("JSON.parse(sessionStorage.getItem('gb-ed01-fragmentos') || 'null')")
+        boton = page.locator(".cuadrante [data-rotador] [data-rot='1']")
+        boton.focus()
+        page.keyboard.press("Enter")
+        page.wait_for_timeout(100)
+        despues = page.evaluate(ACTUAL)
+        foco = page.evaluate("document.activeElement.matches('.cuadrante [data-rot=\"1\"]')")
+        anim = page.evaluate("getComputedStyle(document.querySelector('.cuadrante [data-actual]')).animationName")
+        esperado = orden["orden"][(orden["orden"].index(antes[0]) + 1) % 5] if orden and antes[0] in orden.get("orden", []) else None
+        page.wait_for_timeout(3000)
+        quieto = page.evaluate(ACTUAL)
+        page.goto(base + "/en/", wait_until="networkidle")
+        page.evaluate("document.fonts.ready")
+        en = page.evaluate(ACTUAL)
+        check("Fragmentos: orden barajado de cinco por visita; «siguiente» avanza uno y el foco se queda en el botón; sin avance automático; el inglés conserva el mismo fragmento",
+              orden and sorted(orden["orden"]) == [f"GB-ED01-F00{i}" for i in range(1, 6)] and despues[0] == esperado and foco
+              and quieto == despues and en[0] == despues[0] and despues[1] != antes[1],
+              f"{orden} {antes} {despues} {quieto} {en} foco={foco}")
+        ctx.close()
+        ctx = browser.new_context(viewport={"width": 1440, "height": 900}, reduced_motion="reduce")
+        page = ctx.new_page()
+        page.goto(base + "/", wait_until="networkidle")
+        page.click(".cuadrante [data-rotador] [data-rot='1']")
+        anim_reducido = page.evaluate("getComputedStyle(document.querySelector('.cuadrante [data-actual]')).animationName")
+        check("Movimiento reducido: el cambio de fragmento aparece sin animación (con movimiento, un fundido corto)",
+              anim_reducido == "none" and anim == "aparece", f"{anim_reducido} / {anim}")
+
+        # ---------- el panel de lectura ----------
+        panel = []
+        enlace = page.locator(".cuadrante [data-actual] a[data-panel]")
+        enlace.focus()
+        page.keyboard.press("Enter")
+        page.wait_for_timeout(150)
+        abierto = page.evaluate("""() => { const d = document.getElementById('panel-lectura'), c = d.querySelector('.pl-cuerpo'), m = c.querySelector('mark');
+            const rc = c.getBoundingClientRect(), rm = m ? m.getBoundingClientRect() : null;
+            return {abierto: d.open, foco: d.contains(document.activeElement), titulo: d.querySelector('.pl-titulo').textContent.trim(),
+                    marca: !!m && rm.top >= rc.top - 1 && rm.bottom <= rc.bottom + 1, voz: !!c.querySelector('.fuente-voz .f-voz'), aviso: !!c.querySelector('.fuente-aviso')}; }""")
+        if not (abierto["abierto"] and abierto["foco"] and abierto["marca"] and abierto["voz"] and abierto["aviso"] and abierto["titulo"] not in ("", "Lectura")):
+            panel.append(f"abrir: {abierto}")
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(100)
+        vuelve = page.evaluate("[document.getElementById('panel-lectura').open, document.activeElement.matches('.cuadrante [data-actual] a[data-panel]')]")
+        if vuelve != [False, True]:
+            panel.append(f"Esc y foco de vuelta: {vuelve}")
+        page.click(".cuadrante a[data-panel='que-contamos']")
+        page.wait_for_timeout(100)
+        definiciones = page.evaluate("document.querySelectorAll('#panel-lectura[open] .definiciones dt').length")
+        page.mouse.click(8, 8)   # el fondo oscuro, fuera del panel
+        page.wait_for_timeout(100)
+        if definiciones != 3 or page.evaluate("document.getElementById('panel-lectura').open"):
+            panel.append(f"qué contamos / clic afuera: {definiciones}")
+        page.evaluate("() => { const a = document.createElement('a'); a.href = '#no-existe'; a.dataset.panel = 'no-existe'; a.id = 'prueba-panel'; a.textContent = 'x'; document.querySelector('.foot').append(a); }")
+        page.click("#prueba-panel")
+        page.wait_for_timeout(100)
+        error = page.evaluate("[document.getElementById('panel-lectura').open, !document.querySelector('#panel-lectura .pl-error').hidden]")
+        page.click("#panel-lectura [data-cerrar]")
+        if error != [True, True] or page.evaluate("document.getElementById('panel-lectura').open"):
+            panel.append(f"fuente que no está: {error}")
+        check("Panel de lectura: «Leer en contexto» abre la fuente con la cita marcada a la vista; se cierra con Esc, con su botón o tocando afuera, y el foco vuelve al enlace; si falta la fuente lo dice",
+              not panel, "; ".join(panel))
         ctx.close()
 
         # ---------- axe y espaciado de texto (sin CSP, para poder inyectar) ----------
