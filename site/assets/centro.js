@@ -1,5 +1,5 @@
-/* Golem Bench · la cruz
-   Se llega al centro, a la pregunta, y desde ahí se puede ir hacia todos los lados:
+/* Golem Bench · el centro
+   Se llega al centro, al sello, y desde ahí se puede ir hacia todos los lados:
    arriba, lo que no sabemos; abajo, lo que nos sostiene; a la izquierda, lo que medimos;
    a la derecha, lo que guardamos.
    Sin este archivo la página sigue funcionando: cada sala tiene su enlace. */
@@ -12,7 +12,6 @@
   if (!fila || !pregunta || !centro) return;
 
   var ORDEN = ['medimos', 'pregunta', 'guardamos'];   // orden visual de la fila
-  var top = d.querySelector('.top');
 
   function reducir() {
     return w.matchMedia && w.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -34,7 +33,7 @@
     // la fila mira a la pregunta salvo que el enlace pida una de sus salas laterales
     if (destino !== 'medimos' && destino !== 'guardamos') fila.scrollLeft = pregunta.offsetLeft;
     if (destino || tipoDeLlegada() !== 'navigate') return;
-    var y = centro.getBoundingClientRect().top + w.pageYOffset - (top ? top.offsetHeight : 0);
+    var y = centro.getBoundingClientRect().top + w.pageYOffset;
     w.scrollTo({ top: Math.max(0, y), left: 0, behavior: 'instant' });
   }
   aterrizar();
@@ -91,7 +90,7 @@
   function irA(destino, como) {
     var i = ORDEN.indexOf(destino);
     if (i === -1) return false;
-    var y = centro.getBoundingClientRect().top + w.pageYOffset - (top ? top.offsetHeight : 0);
+    var y = centro.getBoundingClientRect().top + w.pageYOffset;
     w.scrollTo({ top: Math.max(0, y), left: 0, behavior: como });
     fila.scrollTo({ left: i * fila.clientWidth, behavior: como });
     return true;

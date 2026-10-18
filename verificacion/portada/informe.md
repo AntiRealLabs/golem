@@ -1,6 +1,6 @@
 # Verificación de la portada
 
-**86 de 86 comprobaciones correctas** · 2026-10-18 00:36 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
+**90 de 90 comprobaciones correctas** · 2026-10-18 01:10 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
 
 Inspección automática. No sustituye pruebas con personas, lectores de pantalla reales, otros navegadores ni la revisión del sitio ya publicado en Cloudflare.
 
@@ -23,7 +23,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | apple-touch-icon.png mide 180×180 |  |
 | ✓ | og-es.jpg mide 1200×630 |  |
 | ✓ | og-en.jpg mide 1200×630 |  |
-| ✓ | Figura de la portada: arte original a tamaño completo (taller 2172 px, arcilla 1122×1402) |  |
+| ✓ | Figura del centro: recorte del arte original sin reescalar; las fuentes quedan fuera de site/ |  |
 | ✓ | favicon.svg es SVG válido |  |
 | ✓ | [es] sin errores de consola ni violaciones de la CSP |  |
 | ✓ | [es] las cinco familias de la base cargan desde el propio sitio |  |
@@ -64,25 +64,29 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces |  |
 | ✓ | Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px |  |
 | ✓ | Objetivos táctiles ≥ 24 px en móvil (WCAG 2.5.8) |  |
-| ✓ | Teclado: el primer Tab va al salto, visible, y lleva a la pregunta |  |
-| ✓ | Teclado: orden salto → marca → ES → EN → pistas del centro |  |
+| ✓ | Teclado: el primer Tab se queda en el centro, a la vista (selector de idioma) |  |
+| ✓ | Teclado: desde el centro, ES → EN → ↑ → ← → → → ↓ |  |
 | ✓ | Teclado: el foco se ve (contorno de 3 px) |  |
 | ✓ | Cruz [es · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
+| ✓ | Cruz [es · escritorio]: el sello queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [es · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
 | ✓ | Cruz [es · escritorio]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
 | ✓ | Cruz [es · escritorio]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [es · escritorio]: los enlaces llevan a cada sala y la brújula lo marca |  |
 | ✓ | Cruz [en · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
+| ✓ | Cruz [en · escritorio]: el sello queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [en · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
 | ✓ | Cruz [en · escritorio]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
 | ✓ | Cruz [en · escritorio]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [en · escritorio]: los enlaces llevan a cada sala y la brújula lo marca |  |
 | ✓ | Cruz [es · móvil]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
+| ✓ | Cruz [es · móvil]: el sello queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [es · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
 | ✓ | Cruz [es · móvil]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
 | ✓ | Cruz [es · móvil]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [es · móvil]: los enlaces llevan a cada sala y la brújula lo marca |  |
 | ✓ | Cruz [en · móvil]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
+| ✓ | Cruz [en · móvil]: el sello queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [en · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
 | ✓ | Cruz [en · móvil]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
 | ✓ | Cruz [en · móvil]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |

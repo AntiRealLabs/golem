@@ -64,26 +64,33 @@ por qué en el mensaje.
   y regenerar las imágenes si cambian el lema o la marca (`herramientas/generar_imagenes.py`).
 - Cada push a main que toque `site/` se publica solo en golembench.org.
 
-## Estructura: la cruz
+## Estructura: la cruz y el sello
 
 Idea de Juan (18 oct 2026): no todo va de arriba hacia abajo. La portada es una cruz y se llega al
-centro; desde ahí se puede ir hacia todos los lados.
+centro; desde ahí se puede ir hacia todos los lados. Segundo pedido del mismo día: el logo en el
+centro exacto y nada de arquitectura tradicional (sin barra superior ni pie al uso).
 
-- **Centro** (`#pregunta`): la pregunta y la arcilla. Es donde aterriza una visita nueva.
+- **Centro** (`#pregunta`, `.onfalo`): el sello, la G, en el centro exacto de la pantalla. Encima, la
+  cabeza de arcilla; debajo, el nombre, la pregunta, el lema y «Todavía es arcilla». Los cuatro
+  caminos están en los bordes; el idioma, en una esquina. Es donde aterriza una visita nueva.
 - **↑ Arriba** (`#arriba`): lo que no sabemos. Una escalera de preguntas abiertas que se lee de abajo
   hacia arriba (`flex-direction: column-reverse`: el primer elemento del documento es el más cercano
   al centro). Será el lugar del Atlas de preguntas del Lab.
-- **↓ Abajo** (`#abajo`): lo que nos sostiene. El recorrido, los jueces, el pacto y el suelo de barro
-  con el contacto.
+- **↓ Abajo** (`#abajo`): lo que nos sostiene. El mito, el recorrido, los jueces, el pacto y el suelo
+  de barro con el contacto. El pie va debajo, sobre carbón.
 - **← Izquierda** (`#medimos`): lo que medimos. La sala de resultados, vacía a propósito hasta que se
   publique el piloto.
 - **→ Derecha** (`#guardamos`): lo que guardamos. Golem Lab, en el taller.
 
-Cómo está hecho: el centro va primero en el HTML (lectores de pantalla y teclado empiezan en la
-pregunta) y la rejilla de `main` lo pone en medio. La fila del centro es un carrusel horizontal con
-`scroll-snap`. `site/assets/centro.js` (pequeño, sin dependencias) aterriza en el centro en una visita
-nueva, mueve los dos ejes con los enlaces, marca la brújula y atiende ← →. Sin JavaScript todo sigue
-accesible con enlaces. El scroll es el del navegador: nada de secuestrarlo.
+Cómo está hecho: el centro va primero en el HTML (lectores de pantalla y teclado empiezan ahí) y la
+rejilla de `main` lo pone en medio. El centro es una rejilla en cruz de 5×5; las dos filas de aire
+miden lo mismo, así que el sello queda en el centro exacto (la verificación lo mide en varios
+tamaños). Los rayos del sello son el eje de la página: suben por la escalera, bajan por cada sección
+hasta el suelo y, a los lados, llegan a «Volver al centro». La fila del centro es un carrusel
+horizontal con `scroll-snap`; cada sala mide lo que necesita. `site/assets/centro.js` (pequeño, sin
+dependencias) aterriza en el centro en una visita nueva, mueve los dos ejes con los enlaces, marca la
+brújula y atiende ← →. La brújula, un sello pequeño, aparece cuando uno se aleja del centro. Sin
+JavaScript todo sigue accesible con enlaces. El scroll es el del navegador: nada de secuestrarlo.
 
 ## Voz: parresía
 
@@ -117,10 +124,11 @@ Fragment Mono para rótulos y DM Sans para «BENCH». Las fuentes (licencia OFL)
 `site/assets/fonts/`.
 
 Imágenes: vienen de la colección de redes v0.4 (`golem_redes_sociales_v0_4.zip`, arte generado con
-IA y aprobado; se rotula «Imagen generada con IA para Golem Bench»). `taller-*.webp` es la versión
-panorámica del taller (escritorio) y `arcilla-*.webp` la figura vertical (móvil), elegidas con
-`<picture>`. El favicon es la G marfil sobre burdeos, como el perfil rojo de esa colección.
-`herramientas/generar_imagenes.py` rehace el favicon y las tarjetas para compartir.
+IA y aprobado; se rotula «Imagen generada con IA para Golem Bench»). Las fuentes del arte viven en
+`herramientas/fuentes/` y no se publican. La página usa `cabeza-*.webp`, un recorte sin reescalar de
+la figura vertical fundido con el carbón. El sello y el favicon son la G marfil sobre burdeos, como
+el perfil rojo de esa colección. `herramientas/generar_imagenes.py` rehace la cabeza, el favicon y
+las tarjetas para compartir (estas usan la versión panorámica del taller).
 
 El borde discontinuo marca lo que está en el taller. La CSP no admite estilos ni scripts en línea:
 nada de `style=""` ni `<script>` sin archivo.

@@ -158,10 +158,14 @@ def main():
     check("apple-touch-icon.png mide 180×180", Image.open(SITE / "apple-touch-icon.png").size == (180, 180))
     for lang in ("es", "en"):
         check(f"og-{lang}.jpg mide 1200×630", Image.open(SITE / "assets" / f"og-{lang}.jpg").size == (1200, 630))
-    # la figura de la portada tiene que ser el arte original, no una captura reescalada
-    sizes = {f: Image.open(SITE / "assets" / f).size for f in ("taller-2172.webp", "taller-1280.webp", "arcilla-1122.webp", "arcilla-720.webp")}
-    check("Figura de la portada: arte original a tamaño completo (taller 2172 px, arcilla 1122×1402)",
-          sizes["taller-2172.webp"] == (2172, 724) and sizes["arcilla-1122.webp"] == (1122, 1402), str(sizes))
+    # la cabeza del centro sale del arte original sin reescalar; las fuentes del arte no se publican
+    fuentes = ROOT / "herramientas" / "fuentes"
+    sizes = {f: Image.open(SITE / "assets" / f).size for f in ("cabeza-720.webp", "cabeza-480.webp")}
+    srcs = {f: Image.open(fuentes / f).size for f in ("arcilla-1122.webp", "taller-2172.webp")}
+    check("Figura del centro: recorte del arte original sin reescalar; las fuentes quedan fuera de site/",
+          sizes == {"cabeza-720.webp": (720, 900), "cabeza-480.webp": (480, 600)}
+          and srcs == {"arcilla-1122.webp": (1122, 1402), "taller-2172.webp": (2172, 724)}
+          and not any((SITE / "assets" / f).exists() for f in srcs), f"{sizes} {srcs}")
     try:
         ElementTree.fromstring((SITE / "favicon.svg").read_text(encoding="utf-8"))
         check("favicon.svg es SVG válido", True)
@@ -277,18 +281,16 @@ def main():
         page = ctx.new_page()
         page.goto(base + "/", wait_until="networkidle")
         page.keyboard.press("Tab")
-        first = page.evaluate("document.activeElement.className")
+        first = page.evaluate("document.activeElement.getAttribute('href')")
         vis = page.evaluate("(()=>{const r=document.activeElement.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight})()")
-        want = page.evaluate("document.querySelector('.skip').getAttribute('href').slice(1)")
-        page.keyboard.press("Enter")
-        target = page.evaluate("document.activeElement.id")
-        check("Teclado: el primer Tab va al salto, visible, y lleva a la pregunta", first == "skip" and vis and target == want, f"{first} {vis} {target}")
+        check("Teclado: el primer Tab se queda en el centro, a la vista (selector de idioma)", first == "/" and vis, f"{first} {vis}")
         order = []
         page.goto(base + "/", wait_until="networkidle")
         for _ in range(6):
             page.keyboard.press("Tab")
             order.append(page.evaluate("(document.activeElement.className||document.activeElement.textContent.trim().slice(0,12))+' '+document.activeElement.getAttribute('href')"))
-        check("Teclado: orden salto → marca → ES → EN → pistas del centro", order[:4] == ["skip #" + want, "brand /", "ES /", "EN /en/"] and order[4].startswith("pista"), str(order))
+        want_order = ["ES /", "EN /en/", "pista pista--n #arriba", "pista pista--o #medimos", "pista pista--e #guardamos", "pista pista--s #abajo"]
+        check("Teclado: desde el centro, ES → EN → ↑ → ← → → → ↓", order == want_order, str(order))
         outline = page.evaluate("(()=>{document.querySelector('.langs a').focus();const s=getComputedStyle(document.activeElement);return s.outlineStyle+' '+s.outlineWidth})()")
         check("Teclado: el foco se ve (contorno de 3 px)", outline.startswith("solid 3px"), outline)
         ctx.close()
@@ -301,12 +303,15 @@ def main():
                 page.goto(base + path, wait_until="networkidle")
                 page.evaluate("document.fonts.ready")
                 page.wait_for_timeout(250)
-                pos = page.evaluate("""() => { const t=document.querySelector('.top').offsetHeight, c=document.getElementById('centro'),
-                    f=document.getElementById('fila'), p=document.getElementById('pregunta');
-                    return {dy: Math.round(scrollY - (c.getBoundingClientRect().top + scrollY - t)), dx: Math.round(f.scrollLeft - p.offsetLeft),
+                pos = page.evaluate("""() => { const c=document.getElementById('centro'),
+                    f=document.getElementById('fila'), p=document.getElementById('pregunta'), s=document.querySelector('.onfalo .sello').getBoundingClientRect();
+                    return {dy: Math.round(-c.getBoundingClientRect().top), dx: Math.round(f.scrollLeft - p.offsetLeft),
+                            sx: Math.round(s.left + s.width / 2 - innerWidth / 2), sy: Math.round(s.top + s.height / 2 - innerHeight / 2),
                             cur: (document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null}; }""")
                 check(f"Cruz [{key} · {label}]: se llega al centro (pregunta a la vista, brújula en el centro)",
                       abs(pos["dy"]) <= 3 and abs(pos["dx"]) <= 3 and pos["cur"] == "pregunta", str(pos))
+                check(f"Cruz [{key} · {label}]: el sello queda en el centro exacto de la pantalla (±3 px)",
+                      abs(pos["sx"]) <= 3 and abs(pos["sy"]) <= 3, str(pos))
                 order_ok = page.evaluate("""() => { const pie=document.querySelector('.escalera-pie').getBoundingClientRect().top,
                     a=document.querySelector('.peldano').getBoundingClientRect().top,
                     z=document.querySelector('.peldano--ultimo').getBoundingClientRect().top,
@@ -325,9 +330,8 @@ def main():
                 page.wait_for_timeout(200)
                 page.click(".pista--o")
                 page.wait_for_timeout(500)
-                vis = page.evaluate("""() => { const e=document.querySelector('#medimos .eyebrow').getBoundingClientRect(),
-                    t=document.querySelector('.top').getBoundingClientRect().bottom;
-                    return e.top >= t - 1 && e.left >= 0 && e.right <= innerWidth && location.hash === '#medimos'; }""")
+                vis = page.evaluate("""() => { const e=document.querySelector('#medimos .rumbo').getBoundingClientRect();
+                    return e.top >= -1 && e.left >= 0 && e.right <= innerWidth && location.hash === '#medimos'; }""")
                 check(f"Cruz [{key} · {label}]: la pista ← lleva a lo que medimos y se ve desde su primera línea", vis)
                 page.goto(base + path + "#abajo", wait_until="networkidle")
                 page.wait_for_timeout(400)
@@ -371,7 +375,8 @@ def main():
                 page.add_style_tag(content="*{line-height:1.5!important;letter-spacing:.12em!important;word-spacing:.16em!important}p{margin-bottom:2em!important}")
                 page.evaluate("document.fonts.ready")
                 sw = page.evaluate("document.documentElement.scrollWidth")
-                clipped = page.evaluate("""[...document.querySelectorAll('h1,h2,h3,p,a,li')].filter(e=>e.scrollWidth>e.clientWidth+1 && getComputedStyle(e).overflow!=='visible').length""")
+                # los títulos solo para lectores de pantalla (.sr-only) van recortados a propósito
+                clipped = page.evaluate("""[...document.querySelectorAll('h1,h2,h3,p,a,li')].filter(e=>!e.matches('.sr-only') && e.scrollWidth>e.clientWidth+1 && getComputedStyle(e).overflow!=='visible').length""")
                 if sw > w or clipped:
                     spacing.append(f"{key}@{w}: ancho {sw}, recortes {clipped}")
             ctx.close()

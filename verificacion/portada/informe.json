@@ -1,7 +1,7 @@
 {
- "fecha": "2026-10-18 00:36 (UTC−5)",
- "correctas": 86,
- "total": 86,
+ "fecha": "2026-10-18 01:10 (UTC−5)",
+ "correctas": 90,
+ "total": 90,
  "resultados": [
   {
    "comprobacion": "Puerta de publicación: site/ contiene solo la portada",
@@ -89,9 +89,9 @@
    "detalle": ""
   },
   {
-   "comprobacion": "Figura de la portada: arte original a tamaño completo (taller 2172 px, arcilla 1122×1402)",
+   "comprobacion": "Figura del centro: recorte del arte original sin reescalar; las fuentes quedan fuera de site/",
    "ok": true,
-   "detalle": "{'taller-2172.webp': (2172, 724), 'taller-1280.webp': (1280, 427), 'arcilla-1122.webp': (1122, 1402), 'arcilla-720.webp': (720, 900)}"
+   "detalle": "{'cabeza-720.webp': (720, 900), 'cabeza-480.webp': (480, 600)} {'arcilla-1122.webp': (1122, 1402), 'taller-2172.webp': (2172, 724)}"
   },
   {
    "comprobacion": "favicon.svg es SVG válido",
@@ -111,12 +111,12 @@
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:37427'}"
+   "detalle": "{'127.0.0.1:38297'}"
   },
   {
    "comprobacion": "[es] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "222080 bytes"
+   "detalle": "194288 bytes"
   },
   {
    "comprobacion": "[es] idioma del documento declarado",
@@ -151,7 +151,7 @@
   {
    "comprobacion": "[es] imágenes cargadas y con texto alternativo descriptivo",
    "ok": true,
-   "detalle": "[[175, True]]"
+   "detalle": "[[107, True]]"
   },
   {
    "comprobacion": "[es] el selector marca el idioma actual",
@@ -191,12 +191,12 @@
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:37427'}"
+   "detalle": "{'127.0.0.1:38297'}"
   },
   {
    "comprobacion": "[en] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "221854 bytes"
+   "detalle": "194065 bytes"
   },
   {
    "comprobacion": "[en] idioma del documento declarado",
@@ -231,7 +231,7 @@
   {
    "comprobacion": "[en] imágenes cargadas y con texto alternativo descriptivo",
    "ok": true,
-   "detalle": "[[148, True]]"
+   "detalle": "[[89, True]]"
   },
   {
    "comprobacion": "[en] el selector marca el idioma actual",
@@ -271,17 +271,17 @@
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:37427'}"
+   "detalle": "{'127.0.0.1:38297'}"
   },
   {
    "comprobacion": "[404] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "118301 bytes"
+   "detalle": "118384 bytes"
   },
   {
    "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces",
    "ok": true,
-   "detalle": "{'es': [7, 14, 25, 46, 13], 'en': [7, 14, 25, 46, 13]}"
+   "detalle": "{'es': [8, 14, 26, 45, 13], 'en': [8, 14, 26, 45, 13]}"
   },
   {
    "comprobacion": "Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px",
@@ -294,14 +294,14 @@
    "detalle": "[]"
   },
   {
-   "comprobacion": "Teclado: el primer Tab va al salto, visible, y lleva a la pregunta",
+   "comprobacion": "Teclado: el primer Tab se queda en el centro, a la vista (selector de idioma)",
    "ok": true,
-   "detalle": "skip True pregunta"
+   "detalle": "/ True"
   },
   {
-   "comprobacion": "Teclado: orden salto → marca → ES → EN → pistas del centro",
+   "comprobacion": "Teclado: desde el centro, ES → EN → ↑ → ← → → → ↓",
    "ok": true,
-   "detalle": "['skip #pregunta', 'brand /', 'ES /', 'EN /en/', 'pista pista--n #arriba', 'pista pista--o #medimos']"
+   "detalle": "['ES /', 'EN /en/', 'pista pista--n #arriba', 'pista pista--o #medimos', 'pista pista--e #guardamos', 'pista pista--s #abajo']"
   },
   {
    "comprobacion": "Teclado: el foco se ve (contorno de 3 px)",
@@ -311,7 +311,12 @@
   {
    "comprobacion": "Cruz [es · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'cur': 'pregunta'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'cur': 'pregunta'}"
+  },
+  {
+   "comprobacion": "Cruz [es · escritorio]: el sello queda en el centro exacto de la pantalla (±3 px)",
+   "ok": true,
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'cur': 'pregunta'}"
   },
   {
    "comprobacion": "Cruz [es · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -336,7 +341,12 @@
   {
    "comprobacion": "Cruz [en · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'cur': 'pregunta'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'cur': 'pregunta'}"
+  },
+  {
+   "comprobacion": "Cruz [en · escritorio]: el sello queda en el centro exacto de la pantalla (±3 px)",
+   "ok": true,
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'cur': 'pregunta'}"
   },
   {
    "comprobacion": "Cruz [en · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -361,7 +371,12 @@
   {
    "comprobacion": "Cruz [es · móvil]: se llega al centro (pregunta a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'cur': 'pregunta'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'cur': 'pregunta'}"
+  },
+  {
+   "comprobacion": "Cruz [es · móvil]: el sello queda en el centro exacto de la pantalla (±3 px)",
+   "ok": true,
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'cur': 'pregunta'}"
   },
   {
    "comprobacion": "Cruz [es · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -386,7 +401,12 @@
   {
    "comprobacion": "Cruz [en · móvil]: se llega al centro (pregunta a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'cur': 'pregunta'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': -0.0, 'sy': 0, 'cur': 'pregunta'}"
+  },
+  {
+   "comprobacion": "Cruz [en · móvil]: el sello queda en el centro exacto de la pantalla (±3 px)",
+   "ok": true,
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': -0.0, 'sy': 0, 'cur': 'pregunta'}"
   },
   {
    "comprobacion": "Cruz [en · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",

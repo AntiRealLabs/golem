@@ -1,33 +1,59 @@
 #!/usr/bin/env python3
-"""Genera el favicon y las imágenes para compartir de la portada.
+"""Genera el favicon, la cabeza del centro y las imágenes para compartir de la portada.
 
-Uso:  python3 -I herramientas/generar_imagenes.py [RAIZ_DEL_REPO]
+Uso:  python3 -I herramientas/generar_imagenes.py [--solo-cabeza] [RAIZ_DEL_REPO]
 
 Escribe en site/:
   favicon.svg, favicon.ico (16/32/48), apple-touch-icon.png (180)
+  assets/cabeza-720.webp, assets/cabeza-480.webp (la figura del centro, 4:5)
   assets/og-es.jpg, assets/og-en.jpg (1200×630)
 
+Las fuentes del arte (colección de redes v0.4, generada con IA y aprobada) viven
+en herramientas/fuentes/ y no se publican: la página solo usa los recortes.
 La G sale del contorno de UnifrakturMaguntia (licencia OFL; una imagen hecha
-con la fuente no queda sujeta a la licencia). Las imágenes se dibujan con
-Chromium (Playwright) usando las mismas fuentes que la página.
-Requiere: fonttools, brotli, pillow, playwright.
+con la fuente no queda sujeta a la licencia). Las imágenes para compartir se
+dibujan con Chromium (Playwright) usando las mismas fuentes que la página.
+Requiere: fonttools, brotli, pillow, numpy, playwright.
 """
 import io
 import sys
 from pathlib import Path
 
+import numpy as np
 from fontTools.pens.boundsPen import BoundsPen
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.ttLib import TTFont
 from PIL import Image
 from playwright.sync_api import sync_playwright
 
-ROOT = Path(sys.argv[1] if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]).resolve()
+ARGS = [a for a in sys.argv[1:] if not a.startswith("--")]
+ROOT = Path(ARGS[0] if ARGS else Path(__file__).resolve().parents[1]).resolve()
 SITE = ROOT / "site"
 FONTS = SITE / "assets" / "fonts"
+FUENTES = ROOT / "herramientas" / "fuentes"
 
 COAL, ON_COAL, ON_COAL_2, TAN, LINE, RED, IVORY = "#1c1d1a", "#ece6d8", "#bdb9a9", "#d1b698", "#45463e", "#803a39", "#f4ede0"
-TALLER = SITE / "assets" / "taller-2172.webp"   # figura panorámica de la colección de redes v0.4
+TALLER = FUENTES / "taller-2172.webp"    # versión panorámica del taller (2172×724)
+FIGURA = FUENTES / "arcilla-1122.webp"   # figura vertical original (1122×1402)
+
+
+def cabeza():
+    """Recorta la cabeza y el borde del pedestal (720×900, sin reescalar) y la funde
+    con el carbón de la página, para que salga de la oscuridad encima del sello."""
+    im = Image.open(FIGURA).convert("RGB")
+    crop = im.crop((301, 150, 1021, 1050))                     # 720×900, la cabeza al centro
+    w, h = crop.size
+    y, x = np.mgrid[0:h, 0:w].astype(np.float32)
+    # elipse un poco más alta que ancha, centrada algo arriba (la cara), que se apaga hacia los bordes
+    d = np.sqrt(((x - w / 2) / (w * .5)) ** 2 + ((y - h * .47) / (h * .53)) ** 2)
+    a = np.clip((1.0 - d) / .34, 0, 1)
+    a = a * a * (3 - 2 * a)                                     # suavizado (smoothstep)
+    src = np.asarray(crop, dtype=np.float32)
+    coal = np.array([0x1c, 0x1d, 0x1a], dtype=np.float32)
+    out = src * a[..., None] + coal * (1 - a[..., None])
+    img = Image.fromarray(np.clip(out + .5, 0, 255).astype(np.uint8))
+    img.save(SITE / "assets" / "cabeza-720.webp", quality=84, method=6)
+    img.resize((480, 600), Image.LANCZOS).save(SITE / "assets" / "cabeza-480.webp", quality=84, method=6)
 
 
 def glyph_g():
@@ -103,6 +129,11 @@ body::before{{content:"";position:absolute;inset:0;background:linear-gradient(90
 
 
 def main():
+    cabeza()
+    if "--solo-cabeza" in sys.argv:
+        for f in ["assets/cabeza-720.webp", "assets/cabeza-480.webp"]:
+            print(f"{f}: {(SITE / f).stat().st_size} bytes")
+        return
     svg = favicon_svg()
     (SITE / "favicon.svg").write_text(svg, encoding="utf-8")
     tmp = ROOT / ".tmp-imagenes"
@@ -144,7 +175,8 @@ def main():
         for f in tmp.glob("*"):
             f.unlink()
         tmp.rmdir()
-    for f in ["favicon.svg", "favicon.ico", "apple-touch-icon.png", "assets/og-es.jpg", "assets/og-en.jpg"]:
+    for f in ["favicon.svg", "favicon.ico", "apple-touch-icon.png", "assets/cabeza-720.webp", "assets/cabeza-480.webp",
+              "assets/og-es.jpg", "assets/og-en.jpg"]:
         print(f"{f}: {(SITE / f).stat().st_size} bytes")
 
 
