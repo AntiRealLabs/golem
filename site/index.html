@@ -29,8 +29,8 @@
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 </head>
-<body>
-<a class="skip" href="#contenido">Saltar al contenido</a>
+<body class="cruz">
+<a class="skip" href="#pregunta">Saltar a la pregunta</a>
 
 <header class="top">
   <div class="wrap top-in">
@@ -42,111 +42,175 @@
   </div>
 </header>
 
-<main id="contenido" tabindex="-1">
+<!-- Una cruz: se llega al centro. Arriba, lo que no sabemos; abajo, lo que nos sostiene;
+     a la izquierda, lo que medimos; a la derecha, lo que guardamos.
+     El centro va primero en el documento: lectores de pantalla y teclado empiezan en la pregunta. -->
+<main class="mundo">
 
-  <section class="hero" aria-labelledby="titulo">
-    <div class="hero-copy">
-      <p class="eyebrow">Benchmark de creación filosófica en IA</p>
-      <p class="wordmark"><span class="wordmark-g">Golem</span> <span class="wordmark-s">Bench</span></p>
-      <h1 class="question" id="titulo">¿Hasta dónde puede filosofar una máquina?</h1>
-      <p class="lema">Preguntas desde el futuro</p>
-      <p class="myth">Un golem es barro que una palabra pone a andar. A las máquinas de hoy les sobran palabras. Queremos saber si les alcanzan para pensar.</p>
-      <div class="status-row">
-        <p class="stamp">Todavía es arcilla</p>
-        <p class="status">La primera edición se está modelando. Sale cuando termine el piloto y pase la revisión final; ni un día antes.</p>
-      </div>
-      <p class="updated">Actualizado en octubre de 2026</p>
-    </div>
-    <figure class="hero-fig">
-      <picture>
-        <source media="(max-width: 960px)" srcset="/assets/arcilla-720.webp 720w, /assets/arcilla-1122.webp 1122w" sizes="100vw" width="1122" height="1402">
-        <img src="/assets/taller-2172.webp" srcset="/assets/taller-1280.webp 1280w, /assets/taller-2172.webp 2172w" sizes="100vw" width="2172" height="724" fetchpriority="high" alt="Una cabeza de arcilla sin terminar, con los ojos cerrados y la coronilla rota, sobre un pedestal de piedra en un taller en penumbra; al lado, un pergamino y tipos de imprenta.">
-      </picture>
-      <figcaption><span>Fig. 01 — La forma de una pregunta</span><span>Imagen generada con IA para Golem Bench</span></figcaption>
-    </figure>
-  </section>
+  <div class="sala sala--centro" id="centro">
+    <div class="fila" id="fila">
 
-  <section class="sec" aria-labelledby="recorrido">
-    <div class="wrap">
-      <p class="eyebrow">El recorrido</p>
-      <h2 id="recorrido">Una pregunta se gana su lugar.</h2>
-      <p class="sec-lead">Cada máquina hace el mismo camino, y en cada paso tiene que sostener lo que dijo.</p>
-      <ol class="path" role="list">
-        <li class="step"><span class="step-n" aria-hidden="true">01</span><h3>Una buena pregunta</h3><p>Plantea su propio problema. A veces la mejor pregunta muestra que el problema estaba mal planteado.</p></li>
-        <li class="step"><span class="step-n" aria-hidden="true">02</span><h3>Una propuesta</h3><p>Responde con una propuesta propia y la defiende con razones.</p></li>
-        <li class="step"><span class="step-n" aria-hidden="true">03</span><h3>Dos críticas</h3><p>Recibe dos objeciones, cada una por separado, y decide qué conserva y qué cambia.</p></li>
-        <li class="step"><span class="step-n" aria-hidden="true">04</span><h3>Un caso nuevo</h3><p>Lleva su idea a un caso nuevo y explica qué cambia al trasladarla.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="sec sec--judges" aria-labelledby="jueces">
-    <div class="wrap">
-      <p class="eyebrow">Los tres jueces</p>
-      <h2 id="jueces">Del número al argumento.</h2>
-      <p class="sec-lead">Tres jueces —también máquinas— leen cada paso. Ninguna nota llega sin sus razones.</p>
-      <ul class="cards" role="list">
-        <li class="card">
-          <div class="card-top"><span class="seal"><span class="sr-only">Juez </span>J1</span><span class="card-label">Comprender</span></div>
-          <h3>¿Entendió?</h3>
-          <p>Distinciones precisas, argumentos reconstruidos con justicia y fuentes usadas con autonomía.</p>
-        </li>
-        <li class="card">
-          <div class="card-top"><span class="seal"><span class="sr-only">Juez </span>J2</span><span class="card-label">Crear con fundamento</span></div>
-          <h3>¿Aportó algo?</h3>
-          <p>Aportes y preguntas fecundas, con razones. La originalidad se examina respecto del corpus disponible.</p>
-        </li>
-        <li class="card">
-          <div class="card-top"><span class="seal"><span class="sr-only">Juez </span>J3</span><span class="card-label">Revisar y trasladar</span></div>
-          <h3>¿Resiste?</h3>
-          <p>Responder a objeciones, decidir qué conservar y explicar qué cambia al llevar la idea a otro caso.</p>
-        </li>
-      </ul>
-      <figure class="pull">
-        <blockquote><p>El acuerdo con una doctrina no da puntos.</p></blockquote>
-        <figcaption class="pull-note">Cada dictamen guarda una razón, una lectura alternativa y la evidencia que cambiaría la nota.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="sec" aria-labelledby="lab">
-    <div class="wrap">
-      <div class="lab-panel">
-        <div class="lab-head">
-          <h2 class="lockup" id="lab"><span class="lockup-g">Golem</span> <span class="lockup-lab">Lab</span></h2>
-          <p class="stamp">En el taller</p>
-          <p class="lab-sub">Ciberlaboratorio de investigación filosófica</p>
+      <section class="panel panel--pregunta hero" id="pregunta" aria-labelledby="titulo" tabindex="-1">
+        <div class="hero-copy">
+          <p class="eyebrow">Benchmark de creación filosófica en IA</p>
+          <p class="wordmark"><span class="wordmark-g">Golem</span> <span class="wordmark-s">Bench</span></p>
+          <h1 class="question" id="titulo">¿Hasta dónde puede filosofar una máquina?</h1>
+          <p class="lema">Preguntas desde el futuro</p>
+          <p class="myth">Un golem es barro que una palabra pone a andar. A las máquinas de hoy les sobran palabras. Queremos saber si les alcanzan para pensar.</p>
+          <div class="status-row">
+            <p class="stamp">Todavía es arcilla</p>
+            <p class="status">La primera edición se está modelando. Sale cuando termine el piloto y pase la revisión final; ni un día antes.</p>
+          </div>
         </div>
-        <p class="lab-text">Un archivo vivo de lo que pasa cuando ponemos a pensar a una máquina: las preguntas que se atreve a hacer, las objeciones que recibe y lo que merece seguir investigándose.</p>
-        <ul class="doors" role="list">
-          <li class="door"><h3>Atlas de preguntas</h3><p>Entra por un problema, un concepto o un autor y llega al texto exacto que lo produjo.</p></li>
-          <li class="door"><h3>Mesa de controversias</h3><p>Qué propuso, qué le objetaron, qué sostuvo y qué tuvo que soltar.</p></li>
-          <li class="door"><h3>Cuaderno Golem</h3><p>Una selección comentada, con fecha de corte: lo que vale la pena leer y lo que sigue abierto.</p></li>
-        </ul>
+        <figure class="hero-fig">
+          <picture>
+            <source media="(max-width: 960px)" srcset="/assets/arcilla-720.webp 720w, /assets/arcilla-1122.webp 1122w" sizes="100vw" width="1122" height="1402">
+            <img src="/assets/taller-2172.webp" srcset="/assets/taller-1280.webp 1280w, /assets/taller-2172.webp 2172w" sizes="100vw" width="2172" height="724" fetchpriority="high" alt="Una cabeza de arcilla sin terminar, con los ojos cerrados y la coronilla rota, sobre un pedestal de piedra en un taller en penumbra; al lado, un pergamino y tipos de imprenta.">
+          </picture>
+          <figcaption><span>Fig. 01 — La forma de una pregunta</span><span>Imagen generada con IA para Golem Bench</span></figcaption>
+        </figure>
+        <nav class="pistas" aria-label="Desde el centro">
+          <a class="pista pista--n" href="#arriba"><span aria-hidden="true">↑</span> Lo que no sabemos</a>
+          <a class="pista pista--o" href="#medimos"><span aria-hidden="true">←</span> <span class="pista-t">Lo que medimos</span></a>
+          <a class="pista pista--e" href="#guardamos"><span class="pista-t">Lo que guardamos</span> <span aria-hidden="true">→</span></a>
+          <a class="pista pista--s" href="#abajo">Lo que nos sostiene <span aria-hidden="true">↓</span></a>
+        </nav>
+      </section>
+
+      <section class="panel panel--medimos" id="medimos" aria-labelledby="t-medimos" tabindex="-1">
+        <div class="panel-in">
+          <p class="eyebrow"><span aria-hidden="true">←</span> Lo que medimos</p>
+          <h2 id="t-medimos">La sala de resultados está vacía. A propósito.</h2>
+          <p class="panel-text">Los números de Golem Bench llegan cuando termine el piloto y pase la revisión final. Preferimos una sala vacía a un ranking de relleno.</p>
+          <figure class="vacio">
+            <svg viewBox="0 0 320 280" role="img" aria-labelledby="vacio-t">
+              <title id="vacio-t">Un gráfico de tres ejes, uno por juez, sin ningún dato dibujado.</title>
+              <g class="vacio-ejes">
+                <line x1="160" y1="150" x2="160" y2="30"/>
+                <line x1="160" y1="150" x2="56" y2="210"/>
+                <line x1="160" y1="150" x2="264" y2="210"/>
+                <polygon points="160,30 56,210 264,210"/>
+                <polygon points="160,70 91,190 229,190"/>
+                <polygon points="160,110 125,170 195,170"/>
+              </g>
+              <g class="vacio-rotulos">
+                <text x="160" y="18">J1 · Comprender</text>
+                <text x="40" y="236">J2 · Crear</text>
+                <text x="280" y="236">J3 · Revisar</text>
+              </g>
+              <text class="vacio-nada" x="160" y="268">Ningún punto dibujado todavía</text>
+            </svg>
+          </figure>
+          <p class="panel-note">Cuando lleguen, cada cifra dirá qué contó, sobre cuántos casos y hasta qué fecha.</p>
+          <a class="volver" href="#pregunta">Volver al centro <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <section class="panel panel--guardamos" id="guardamos" aria-labelledby="t-guardamos" tabindex="-1">
+        <div class="panel-in">
+          <p class="eyebrow">Lo que guardamos <span aria-hidden="true">→</span></p>
+          <div class="lab-head">
+            <h2 class="lockup" id="t-guardamos"><span class="lockup-g">Golem</span> <span class="lockup-lab">Lab</span></h2>
+            <p class="stamp">En el taller</p>
+            <p class="lab-sub">Ciberlaboratorio de investigación filosófica</p>
+          </div>
+          <p class="lab-text">Un archivo vivo de lo que pasa cuando ponemos a pensar a una máquina: las preguntas que se atreve a hacer, las objeciones que recibe y lo que merece seguir investigándose.</p>
+          <ul class="doors" role="list">
+            <li class="door"><h3>Atlas de preguntas</h3><p>Entra por un problema, un concepto o un autor y llega al texto exacto que lo produjo.</p></li>
+            <li class="door"><h3>Mesa de controversias</h3><p>Qué propuso, qué le objetaron, qué sostuvo y qué tuvo que soltar.</p></li>
+            <li class="door"><h3>Cuaderno Golem</h3><p>Una selección comentada, con fecha de corte: lo que vale la pena leer y lo que sigue abierto.</p></li>
+          </ul>
+          <a class="volver" href="#pregunta"><span aria-hidden="true">←</span> Volver al centro</a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <section class="sala sala--arriba" aria-labelledby="t-arriba">
+    <!-- Se lee de abajo hacia arriba: el primer elemento del documento es el más cercano al centro. -->
+    <ol class="escalera" role="list">
+      <li class="escalera-pie" id="arriba"><h2 id="t-arriba"><span aria-hidden="true">↑</span> Lo que no sabemos</h2><p>Estas preguntas se leen de abajo hacia arriba. Mientras más subes, más lejos llegan.</p></li>
+      <li class="peldano"><p>¿Puede una máquina hacer una buena pregunta, o solo responder bien?</p></li>
+      <li class="peldano"><p>¿Sabe reconocer cuándo su propia pregunta estaba mal planteada?</p></li>
+      <li class="peldano"><p>Cuando cambia de opinión ante una crítica, ¿lo hace por una razón o por complacer?</p></li>
+      <li class="peldano"><p>¿Puede llevar una idea a un caso que nunca vio sin repetir lo que ya dijo?</p></li>
+      <li class="peldano"><p>¿Qué cuenta como aportar algo nuevo, si lo ha leído casi todo?</p></li>
+      <li class="peldano"><p>Si los jueces también son máquinas, ¿quién examina al examen?</p></li>
+      <li class="peldano peldano--ultimo"><p>¿Qué nos preguntará el día que no sepamos responderle?</p></li>
+      <li class="escalera-cima"><p>Aquí arriba empieza lo que todavía no sabemos preguntar.</p><p class="lema">Preguntas desde el futuro</p></li>
+    </ol>
+  </section>
+
+  <div class="sala sala--abajo" id="abajo">
+
+    <section class="sec sec--sostiene" aria-labelledby="recorrido">
+      <div class="wrap">
+        <p class="eyebrow">Lo que nos sostiene <span aria-hidden="true">↓</span></p>
+        <h2 id="recorrido">Una pregunta se gana su lugar.</h2>
+        <p class="sec-lead">Cada máquina hace el mismo camino, y en cada paso tiene que sostener lo que dijo.</p>
+        <ol class="path" role="list">
+          <li class="step"><span class="step-n" aria-hidden="true">01</span><h3>Una buena pregunta</h3><p>Plantea su propio problema. A veces la mejor pregunta muestra que el problema estaba mal planteado.</p></li>
+          <li class="step"><span class="step-n" aria-hidden="true">02</span><h3>Una propuesta</h3><p>Responde con una propuesta propia y la defiende con razones.</p></li>
+          <li class="step"><span class="step-n" aria-hidden="true">03</span><h3>Dos críticas</h3><p>Recibe dos objeciones, cada una por separado, y decide qué conserva y qué cambia.</p></li>
+          <li class="step"><span class="step-n" aria-hidden="true">04</span><h3>Un caso nuevo</h3><p>Lleva su idea a un caso nuevo y explica qué cambia al trasladarla.</p></li>
+        </ol>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="sec" aria-labelledby="pacto">
-    <div class="wrap">
-      <p class="eyebrow">Nuestro pacto</p>
-      <h2 id="pacto">Lo que no vas a encontrar aquí.</h2>
-      <ol class="rules" role="list">
-        <li class="rule"><span class="rule-n" aria-hidden="true">01</span><h3>Voces revueltas.</h3><p>El modelo, el juez y la guía hablan cada uno con su nombre.</p></li>
-        <li class="rule"><span class="rule-n" aria-hidden="true">02</span><h3>Máquinas disfrazadas de personas.</h3><p>Si lo revisó una IA, lo decimos. Una revisión automática nunca pasa por validación humana.</p></li>
-        <li class="rule"><span class="rule-n" aria-hidden="true">03</span><h3>Ceros inventados.</h3><p>Lo pendiente no se convierte en cero. Cada cifra dice qué contó, sobre cuántos casos y hasta qué fecha.</p></li>
-        <li class="rule"><span class="rule-n" aria-hidden="true">04</span><h3>Notas retocadas.</h3><p>Los textos y los dictámenes se quedan como se escribieron. Cada evaluación conserva su versión.</p></li>
-      </ol>
-    </div>
-  </section>
+    <section class="sec sec--judges" aria-labelledby="jueces">
+      <div class="wrap">
+        <p class="eyebrow">Los tres jueces</p>
+        <h2 id="jueces">Del número al argumento.</h2>
+        <p class="sec-lead">Tres jueces —también máquinas— leen cada paso. Ninguna nota llega sin sus razones.</p>
+        <ul class="cards" role="list">
+          <li class="card">
+            <div class="card-top"><span class="seal"><span class="sr-only">Juez </span>J1</span><span class="card-label">Comprender</span></div>
+            <h3>¿Entendió?</h3>
+            <p>Distinciones precisas, argumentos reconstruidos con justicia y fuentes usadas con autonomía.</p>
+          </li>
+          <li class="card">
+            <div class="card-top"><span class="seal"><span class="sr-only">Juez </span>J2</span><span class="card-label">Crear con fundamento</span></div>
+            <h3>¿Aportó algo?</h3>
+            <p>Aportes y preguntas fecundas, con razones. La originalidad se examina respecto del corpus disponible.</p>
+          </li>
+          <li class="card">
+            <div class="card-top"><span class="seal"><span class="sr-only">Juez </span>J3</span><span class="card-label">Revisar y trasladar</span></div>
+            <h3>¿Resiste?</h3>
+            <p>Responder a objeciones, decidir qué conservar y explicar qué cambia al llevar la idea a otro caso.</p>
+          </li>
+        </ul>
+        <figure class="pull">
+          <blockquote><p>El acuerdo con una doctrina no da puntos.</p></blockquote>
+          <figcaption class="pull-note">Cada dictamen guarda una razón, una lectura alternativa y la evidencia que cambiaría la nota.</figcaption>
+        </figure>
+      </div>
+    </section>
 
-  <section class="closing" aria-labelledby="cierre">
-    <div class="wrap closing-in">
-      <div class="closing-text"><h2 id="cierre">El golem todavía tiene los ojos cerrados.</h2><p>Si quieres estar cuando los abra, escríbenos.</p></div>
-      <a class="btn" href="mailto:admin@antireallabs.com?subject=Av%C3%ADsenme%20cuando%20el%20golem%20despierte">Avísenme cuando despierte</a>
-    </div>
-  </section>
+    <section class="sec" aria-labelledby="pacto">
+      <div class="wrap">
+        <p class="eyebrow">Nuestro pacto</p>
+        <h2 id="pacto">Lo que no vas a encontrar aquí.</h2>
+        <ol class="rules" role="list">
+          <li class="rule"><span class="rule-n" aria-hidden="true">01</span><h3>Voces revueltas.</h3><p>El modelo, el juez y la guía hablan cada uno con su nombre.</p></li>
+          <li class="rule"><span class="rule-n" aria-hidden="true">02</span><h3>Máquinas disfrazadas de personas.</h3><p>Si lo revisó una IA, lo decimos. Una revisión automática nunca pasa por validación humana.</p></li>
+          <li class="rule"><span class="rule-n" aria-hidden="true">03</span><h3>Ceros inventados.</h3><p>Lo pendiente no se convierte en cero. Cada cifra dice qué contó, sobre cuántos casos y hasta qué fecha.</p></li>
+          <li class="rule"><span class="rule-n" aria-hidden="true">04</span><h3>Notas retocadas.</h3><p>Los textos y los dictámenes se quedan como se escribieron. Cada evaluación conserva su versión.</p></li>
+        </ol>
+      </div>
+    </section>
 
+    <section class="suelo" aria-labelledby="cierre">
+      <div class="wrap suelo-in">
+        <p class="eyebrow">El suelo</p>
+        <div class="suelo-texto"><h2 id="cierre">Aquí abajo está el barro. El golem todavía tiene los ojos cerrados.</h2><p>Si quieres estar cuando los abra, escríbenos.</p></div>
+        <a class="btn btn--carbon" href="mailto:admin@antireallabs.com?subject=Av%C3%ADsenme%20cuando%20el%20golem%20despierte">Avísenme cuando despierte</a>
+        <a class="volver volver--suelo" href="#pregunta"><span aria-hidden="true">↑</span> Volver al centro</a>
+      </div>
+    </section>
+
+
+  </div>
 </main>
 
 <footer class="foot">
@@ -156,8 +220,18 @@
       <li><a href="https://antireallabs.com">Un proyecto de Anti-Real Labs</a></li>
       <li><a href="mailto:admin@antireallabs.com">admin@antireallabs.com</a></li>
     </ul>
-    <p class="foot-legal">© 2026 Anti-Real Labs S.A.S.</p>
+    <p class="foot-legal">© 2026 Anti-Real Labs S.A.S. · Actualizado en octubre de 2026</p>
   </div>
 </footer>
+
+<nav class="brujula" aria-label="Brújula">
+  <a class="b b--n" href="#arriba" data-sala="arriba"><span class="b-label">Lo que no sabemos</span></a>
+  <a class="b b--o" href="#medimos" data-sala="medimos"><span class="b-label">Lo que medimos</span></a>
+  <a class="b b--c" href="#pregunta" data-sala="pregunta"><span class="b-label">El centro</span></a>
+  <a class="b b--e" href="#guardamos" data-sala="guardamos"><span class="b-label">Lo que guardamos</span></a>
+  <a class="b b--s" href="#abajo" data-sala="abajo"><span class="b-label">Lo que nos sostiene</span></a>
+</nav>
+
+<script src="/assets/centro.js"></script>
 </body>
 </html>

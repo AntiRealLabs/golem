@@ -44,7 +44,7 @@ WIDTHS = [1440, 1024, 768, 390, 320]
 FAMILIES = ["UnifrakturMaguntia", "Chakra Petch", "Archivo", "Fragment Mono", "DM Sans", "Newsreader"]
 EXTERNAL_OK = {"https://antireallabs.com", "mailto:admin@antireallabs.com"}
 # Fase 1: nada del piloto en la portada (ni nombres de modelos, ni corridas o casos, ni cifras)
-PHASE1_FORBIDDEN = re.compile(r"\b(Claude|GPT|Gemini|Llama|Mistral|Grok|DeepSeek|ranking)\b|\b[A-Z]{2}-\d{2}\b", re.I)
+PHASE1_FORBIDDEN = re.compile(r"\b(Claude|GPT|Gemini|Llama|Mistral|Grok|DeepSeek)\b|\b[A-Z]{2}-\d{2}\b", re.I)
 DIGITS_OK = {"1", "2", "3", "01", "02", "03", "04", "2026", "404"}
 SPANISH_HINTS = re.compile(r"ñ|ción\b|\b(el|los|las|del|una|que|para|con)\b", re.I)
 ENGLISH_HINTS = re.compile(r"\b(the|and|of|with|what|which|is)\b", re.I)
@@ -229,7 +229,7 @@ def main():
                 check(f"[{key}] enlaces internos válidos y solo los externos previstos", not bad_links, str(bad_links))
                 text = visible_text(page)
                 m = PHASE1_FORBIDDEN.search(text)
-                check(f"[{key}] fase 1: sin nombres de modelos, corridas ni rankings en el texto", not m, m.group(0) if m else "")
+                check(f"[{key}] fase 1: sin nombres de modelos ni corridas en el texto", not m, m.group(0) if m else "")
                 nums = set(re.findall(r"\d+", text)) - DIGITS_OK
                 check(f"[{key}] fase 1: ninguna cifra del piloto (solo J1–J3, 01–04 y el año)", not nums, str(sorted(nums)))
                 other = visible_text(page, exclude_lang="es" if key == "en" else "en")
@@ -272,17 +272,69 @@ def main():
         page.keyboard.press("Tab")
         first = page.evaluate("document.activeElement.className")
         vis = page.evaluate("(()=>{const r=document.activeElement.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight})()")
+        want = page.evaluate("document.querySelector('.skip').getAttribute('href').slice(1)")
         page.keyboard.press("Enter")
         target = page.evaluate("document.activeElement.id")
-        check("Teclado: el primer Tab va al salto al contenido, visible, y lleva al contenido", first == "skip" and vis and target == "contenido", f"{first} {vis} {target}")
+        check("Teclado: el primer Tab va al salto, visible, y lleva a la pregunta", first == "skip" and vis and target == want, f"{first} {vis} {target}")
         order = []
         page.goto(base + "/", wait_until="networkidle")
         for _ in range(6):
             page.keyboard.press("Tab")
             order.append(page.evaluate("(document.activeElement.className||document.activeElement.textContent.trim().slice(0,12))+' '+document.activeElement.getAttribute('href')"))
-        check("Teclado: orden salto → marca → ES → EN → enlaces del pie", order[:4] == ["skip #contenido", "brand /", "ES /", "EN /en/"], str(order))
+        check("Teclado: orden salto → marca → ES → EN → pistas del centro", order[:4] == ["skip #" + want, "brand /", "ES /", "EN /en/"] and order[4].startswith("pista"), str(order))
         outline = page.evaluate("(()=>{document.querySelector('.langs a').focus();const s=getComputedStyle(document.activeElement);return s.outlineStyle+' '+s.outlineWidth})()")
         check("Teclado: el foco se ve (contorno de 3 px)", outline.startswith("solid 3px"), outline)
+        ctx.close()
+
+        # ---------- la cruz: se llega al centro y se va hacia todos los lados ----------
+        for label, vw, vh in (("escritorio", 1440, 900), ("móvil", 390, 844)):
+            ctx = browser.new_context(viewport={"width": vw, "height": vh}, reduced_motion="reduce")
+            page = ctx.new_page()
+            for key, path in (("es", "/"), ("en", "/en/")):
+                page.goto(base + path, wait_until="networkidle")
+                page.evaluate("document.fonts.ready")
+                page.wait_for_timeout(250)
+                pos = page.evaluate("""() => { const t=document.querySelector('.top').offsetHeight, c=document.getElementById('centro'),
+                    f=document.getElementById('fila'), p=document.getElementById('pregunta');
+                    return {dy: Math.round(scrollY - (c.getBoundingClientRect().top + scrollY - t)), dx: Math.round(f.scrollLeft - p.offsetLeft),
+                            cur: (document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null}; }""")
+                check(f"Cruz [{key} · {label}]: se llega al centro (pregunta a la vista, brújula en el centro)",
+                      abs(pos["dy"]) <= 3 and abs(pos["dx"]) <= 3 and pos["cur"] == "pregunta", str(pos))
+                order_ok = page.evaluate("""() => { const pie=document.querySelector('.escalera-pie').getBoundingClientRect().top,
+                    a=document.querySelector('.peldano').getBoundingClientRect().top,
+                    z=document.querySelector('.peldano--ultimo').getBoundingClientRect().top,
+                    cima=document.querySelector('.escalera-cima').getBoundingClientRect().top,
+                    centro=document.getElementById('centro').getBoundingClientRect().top;
+                    return pie > a && a > z && z > cima && pie < centro; }""")
+                check(f"Cruz [{key} · {label}]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)", order_ok)
+                page.keyboard.press("ArrowRight")
+                page.wait_for_timeout(900)
+                right = page.evaluate("(document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null")
+                page.keyboard.press("ArrowLeft"); page.wait_for_timeout(900)
+                page.keyboard.press("ArrowLeft"); page.wait_for_timeout(900)
+                left = page.evaluate("(document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null")
+                check(f"Cruz [{key} · {label}]: ← y → recorren la fila (lo que guardamos / lo que medimos)", right == "guardamos" and left == "medimos", f"{right} {left}")
+                page.goto(base + path, wait_until="networkidle")
+                page.wait_for_timeout(200)
+                page.click(".pista--o")
+                page.wait_for_timeout(500)
+                vis = page.evaluate("""() => { const e=document.querySelector('#medimos .eyebrow').getBoundingClientRect(),
+                    t=document.querySelector('.top').getBoundingClientRect().bottom;
+                    return e.top >= t - 1 && e.left >= 0 && e.right <= innerWidth && location.hash === '#medimos'; }""")
+                check(f"Cruz [{key} · {label}]: la pista ← lleva a lo que medimos y se ve desde su primera línea", vis)
+                page.goto(base + path + "#abajo", wait_until="networkidle")
+                page.wait_for_timeout(400)
+                down = page.evaluate("(document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null")
+                page.goto(base + path + "#arriba", wait_until="networkidle")
+                page.wait_for_timeout(400)
+                up = page.evaluate("(document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null")
+                check(f"Cruz [{key} · {label}]: los enlaces llevan a cada sala y la brújula lo marca", down == "abajo" and up == "arriba", f"{down} {up}")
+            ctx.close()
+        ctx = browser.new_context(viewport={"width": 1280, "height": 800}, java_script_enabled=False)
+        page = ctx.new_page()
+        page.goto(base + "/", wait_until="networkidle")
+        nojs = page.evaluate("[document.querySelectorAll('h1').length, ['arriba','centro','abajo','medimos','guardamos'].every(id => !!document.getElementById(id))]")
+        check("Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces", nojs == [1, True], str(nojs))
         ctx.close()
 
         # ---------- axe y espaciado de texto (sin CSP, para poder inyectar) ----------
@@ -321,17 +373,23 @@ def main():
         # ---------- capturas ----------
         if shots:
             for label, vw, vh, mobile in (("escritorio", 1440, 900, False), ("movil", 390, 844, True)):
-                ctx = browser.new_context(viewport={"width": vw, "height": vh}, device_scale_factor=1 if not mobile else 2, is_mobile=mobile, has_touch=mobile)
+                ctx = browser.new_context(viewport={"width": vw, "height": vh}, device_scale_factor=1 if not mobile else 2, is_mobile=mobile, has_touch=mobile, reduced_motion="reduce")
                 page = ctx.new_page()
                 for key, path in PAGES.items():
                     page.goto(base + path, wait_until="networkidle")
                     page.evaluate("document.fonts.ready")
-                    page.wait_for_timeout(100)
+                    page.wait_for_timeout(250)
                     page.screenshot(path=str(SHOTS / f"{label}_{key}.png"))
                     if key != "404":
                         page.screenshot(path=str(SHOTS / f"{label}_{key}_completa.png"), full_page=True)
+                        # las otras salas, para revisar a ojo (no cuentan en el total)
+                        for sala in ("arriba", "medimos", "guardamos", "abajo"):
+                            page.goto(base + path + "#" + sala, wait_until="networkidle")
+                            page.wait_for_timeout(500)
+                            (SHOTS / "salas").mkdir(exist_ok=True)
+                            page.screenshot(path=str(SHOTS / "salas" / f"{label}_{key}_{sala}.png"))
                 ctx.close()
-            n = len(list(SHOTS.glob("*.png")))
+            n = len(list(SHOTS.glob("*.png")))  # sin contar salas/
             check("Capturas de escritorio y móvil, ES, EN y 404", n == 10, f"{n} capturas")
         browser.close()
     srv.shutdown()

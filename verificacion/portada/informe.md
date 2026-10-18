@@ -1,6 +1,6 @@
 # Verificación de la portada
 
-**64 de 64 comprobaciones correctas** · 2026-10-17 23:52 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
+**85 de 85 comprobaciones correctas** · 2026-10-18 00:14 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
 
 Inspección automática. No sustituye pruebas con personas, lectores de pantalla reales, otros navegadores ni la revisión del sitio ya publicado en Cloudflare.
 
@@ -37,7 +37,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | [es] imágenes cargadas y con texto alternativo descriptivo |  |
 | ✓ | [es] el selector marca el idioma actual |  |
 | ✓ | [es] enlaces internos válidos y solo los externos previstos |  |
-| ✓ | [es] fase 1: sin nombres de modelos, corridas ni rankings en el texto |  |
+| ✓ | [es] fase 1: sin nombres de modelos ni corridas en el texto |  |
 | ✓ | [es] fase 1: ninguna cifra del piloto (solo J1–J3, 01–04 y el año) |  |
 | ✓ | [es] sin restos del otro idioma fuera de lo marcado con lang |  |
 | ✓ | [en] sin errores de consola ni violaciones de la CSP |  |
@@ -53,7 +53,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | [en] imágenes cargadas y con texto alternativo descriptivo |  |
 | ✓ | [en] el selector marca el idioma actual |  |
 | ✓ | [en] enlaces internos válidos y solo los externos previstos |  |
-| ✓ | [en] fase 1: sin nombres de modelos, corridas ni rankings en el texto |  |
+| ✓ | [en] fase 1: sin nombres de modelos ni corridas en el texto |  |
 | ✓ | [en] fase 1: ninguna cifra del piloto (solo J1–J3, 01–04 y el año) |  |
 | ✓ | [en] sin restos del otro idioma fuera de lo marcado con lang |  |
 | ✓ | [404] sin errores de consola ni violaciones de la CSP |  |
@@ -63,9 +63,30 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces |  |
 | ✓ | Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px |  |
 | ✓ | Objetivos táctiles ≥ 24 px en móvil (WCAG 2.5.8) |  |
-| ✓ | Teclado: el primer Tab va al salto al contenido, visible, y lleva al contenido |  |
-| ✓ | Teclado: orden salto → marca → ES → EN → enlaces del pie |  |
+| ✓ | Teclado: el primer Tab va al salto, visible, y lleva a la pregunta |  |
+| ✓ | Teclado: orden salto → marca → ES → EN → pistas del centro |  |
 | ✓ | Teclado: el foco se ve (contorno de 3 px) |  |
+| ✓ | Cruz [es · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
+| ✓ | Cruz [es · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
+| ✓ | Cruz [es · escritorio]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
+| ✓ | Cruz [es · escritorio]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
+| ✓ | Cruz [es · escritorio]: los enlaces llevan a cada sala y la brújula lo marca |  |
+| ✓ | Cruz [en · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
+| ✓ | Cruz [en · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
+| ✓ | Cruz [en · escritorio]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
+| ✓ | Cruz [en · escritorio]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
+| ✓ | Cruz [en · escritorio]: los enlaces llevan a cada sala y la brújula lo marca |  |
+| ✓ | Cruz [es · móvil]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
+| ✓ | Cruz [es · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
+| ✓ | Cruz [es · móvil]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
+| ✓ | Cruz [es · móvil]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
+| ✓ | Cruz [es · móvil]: los enlaces llevan a cada sala y la brújula lo marca |  |
+| ✓ | Cruz [en · móvil]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
+| ✓ | Cruz [en · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
+| ✓ | Cruz [en · móvil]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
+| ✓ | Cruz [en · móvil]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
+| ✓ | Cruz [en · móvil]: los enlaces llevan a cada sala y la brújula lo marca |  |
+| ✓ | Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces |  |
 | ✓ | axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (3 páginas × 2 anchos) |  |
 | ✓ | axe-core · buenas prácticas: sin avisos |  |
 | ✓ | Espaciado de texto ampliado (WCAG 1.4.12): no se pierde texto |  |

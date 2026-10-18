@@ -14,7 +14,7 @@ import re
 import sys
 from pathlib import Path
 
-ALLOWED_SUFFIXES = {".html", ".css", ".woff2", ".png", ".jpg", ".webp", ".svg", ".ico", ".txt", ".xml"}
+ALLOWED_SUFFIXES = {".html", ".css", ".js", ".woff2", ".png", ".jpg", ".webp", ".svg", ".ico", ".txt", ".xml"}
 ALLOWED_NAMES = {"_headers", "_redirects"}
 MAX_BYTES = 2_000_000
 
@@ -33,7 +33,7 @@ FORBIDDEN_TEXT = [
     (re.compile(r"\b[A-Z]{2}-\d{2}\b"), "identificador de corrida o de caso"),
     (re.compile(r"window\.GOLEM_"), "datos empaquetados del prototipo"),
 ]
-TEXT_SUFFIXES = {".html", ".css", ".txt", ".xml", ".svg", ""}
+TEXT_SUFFIXES = {".html", ".css", ".js", ".txt", ".xml", ".svg", ""}
 
 
 def check(folder: Path):

@@ -1,7 +1,7 @@
 {
- "fecha": "2026-10-17 23:52 (UTC−5)",
- "correctas": 64,
- "total": 64,
+ "fecha": "2026-10-18 00:14 (UTC−5)",
+ "correctas": 85,
+ "total": 85,
  "resultados": [
   {
    "comprobacion": "Puerta de publicación: site/ contiene solo la portada",
@@ -106,12 +106,12 @@
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:36713'}"
+   "detalle": "{'127.0.0.1:42337'}"
   },
   {
    "comprobacion": "[es] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "199641 bytes"
+   "detalle": "222054 bytes"
   },
   {
    "comprobacion": "[es] idioma del documento declarado",
@@ -159,7 +159,7 @@
    "detalle": "[]"
   },
   {
-   "comprobacion": "[es] fase 1: sin nombres de modelos, corridas ni rankings en el texto",
+   "comprobacion": "[es] fase 1: sin nombres de modelos ni corridas en el texto",
    "ok": true,
    "detalle": ""
   },
@@ -186,12 +186,12 @@
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:36713'}"
+   "detalle": "{'127.0.0.1:42337'}"
   },
   {
    "comprobacion": "[en] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "199503 bytes"
+   "detalle": "221828 bytes"
   },
   {
    "comprobacion": "[en] idioma del documento declarado",
@@ -239,7 +239,7 @@
    "detalle": "[]"
   },
   {
-   "comprobacion": "[en] fase 1: sin nombres de modelos, corridas ni rankings en el texto",
+   "comprobacion": "[en] fase 1: sin nombres de modelos ni corridas en el texto",
    "ok": true,
    "detalle": ""
   },
@@ -266,17 +266,17 @@
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:36713'}"
+   "detalle": "{'127.0.0.1:42337'}"
   },
   {
    "comprobacion": "[404] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "107303 bytes"
+   "detalle": "118288 bytes"
   },
   {
    "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces",
    "ok": true,
-   "detalle": "{'es': [5, 14, 16, 32, 6], 'en': [5, 14, 16, 32, 6]}"
+   "detalle": "{'es': [7, 14, 25, 46, 13], 'en': [7, 14, 25, 46, 13]}"
   },
   {
    "comprobacion": "Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px",
@@ -289,19 +289,124 @@
    "detalle": "[]"
   },
   {
-   "comprobacion": "Teclado: el primer Tab va al salto al contenido, visible, y lleva al contenido",
+   "comprobacion": "Teclado: el primer Tab va al salto, visible, y lleva a la pregunta",
    "ok": true,
-   "detalle": "skip True contenido"
+   "detalle": "skip True pregunta"
   },
   {
-   "comprobacion": "Teclado: orden salto → marca → ES → EN → enlaces del pie",
+   "comprobacion": "Teclado: orden salto → marca → ES → EN → pistas del centro",
    "ok": true,
-   "detalle": "['skip #contenido', 'brand /', 'ES /', 'EN /en/', 'btn mailto:admin@antireallabs.com?subject=Av%C3%ADsenme%20cuando%20el%20golem%20despierte', 'Un proyecto  https://antireallabs.com']"
+   "detalle": "['skip #pregunta', 'brand /', 'ES /', 'EN /en/', 'pista pista--n #arriba', 'pista pista--o #medimos']"
   },
   {
    "comprobacion": "Teclado: el foco se ve (contorno de 3 px)",
    "ok": true,
    "detalle": "solid 3px"
+  },
+  {
+   "comprobacion": "Cruz [es · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro)",
+   "ok": true,
+   "detalle": "{'dy': -0.0, 'dx': 0, 'cur': 'pregunta'}"
+  },
+  {
+   "comprobacion": "Cruz [es · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "Cruz [es · escritorio]: ← y → recorren la fila (lo que guardamos / lo que medimos)",
+   "ok": true,
+   "detalle": "guardamos medimos"
+  },
+  {
+   "comprobacion": "Cruz [es · escritorio]: la pista ← lleva a lo que medimos y se ve desde su primera línea",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "Cruz [es · escritorio]: los enlaces llevan a cada sala y la brújula lo marca",
+   "ok": true,
+   "detalle": "abajo arriba"
+  },
+  {
+   "comprobacion": "Cruz [en · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro)",
+   "ok": true,
+   "detalle": "{'dy': -0.0, 'dx': 0, 'cur': 'pregunta'}"
+  },
+  {
+   "comprobacion": "Cruz [en · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "Cruz [en · escritorio]: ← y → recorren la fila (lo que guardamos / lo que medimos)",
+   "ok": true,
+   "detalle": "guardamos medimos"
+  },
+  {
+   "comprobacion": "Cruz [en · escritorio]: la pista ← lleva a lo que medimos y se ve desde su primera línea",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "Cruz [en · escritorio]: los enlaces llevan a cada sala y la brújula lo marca",
+   "ok": true,
+   "detalle": "abajo arriba"
+  },
+  {
+   "comprobacion": "Cruz [es · móvil]: se llega al centro (pregunta a la vista, brújula en el centro)",
+   "ok": true,
+   "detalle": "{'dy': -0.0, 'dx': 0, 'cur': 'pregunta'}"
+  },
+  {
+   "comprobacion": "Cruz [es · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "Cruz [es · móvil]: ← y → recorren la fila (lo que guardamos / lo que medimos)",
+   "ok": true,
+   "detalle": "guardamos medimos"
+  },
+  {
+   "comprobacion": "Cruz [es · móvil]: la pista ← lleva a lo que medimos y se ve desde su primera línea",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "Cruz [es · móvil]: los enlaces llevan a cada sala y la brújula lo marca",
+   "ok": true,
+   "detalle": "abajo arriba"
+  },
+  {
+   "comprobacion": "Cruz [en · móvil]: se llega al centro (pregunta a la vista, brújula en el centro)",
+   "ok": true,
+   "detalle": "{'dy': 0, 'dx': 0, 'cur': 'pregunta'}"
+  },
+  {
+   "comprobacion": "Cruz [en · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "Cruz [en · móvil]: ← y → recorren la fila (lo que guardamos / lo que medimos)",
+   "ok": true,
+   "detalle": "guardamos medimos"
+  },
+  {
+   "comprobacion": "Cruz [en · móvil]: la pista ← lleva a lo que medimos y se ve desde su primera línea",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "Cruz [en · móvil]: los enlaces llevan a cada sala y la brújula lo marca",
+   "ok": true,
+   "detalle": "abajo arriba"
+  },
+  {
+   "comprobacion": "Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces",
+   "ok": true,
+   "detalle": "[1, True]"
   },
   {
    "comprobacion": "axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (3 páginas × 2 anchos)",

@@ -4,8 +4,8 @@ Idioma de trabajo: español. Todo contenido público va en español y en inglés
 
 ## Qué hay en este repo
 
-- `site/`: lo único que se publica. Portada de la fase 1: HTML y CSS estáticos, sin
-  JavaScript y sin recursos externos. `index.html` (ES), `en/index.html` (EN), `404.html`,
+- `site/`: lo único que se publica. Portada de la fase 1: HTML y CSS estáticos, un script propio
+  pequeño (`assets/centro.js`) y ningún recurso externo. `index.html` (ES), `en/index.html` (EN), `404.html`,
   `_headers`, `robots.txt`, `sitemap.xml`, fuentes e imágenes.
 - `herramientas/`: puerta de publicación, servidor local que imita Pages, verificación de la
   portada y generador del favicon y de las imágenes para compartir.
@@ -59,6 +59,27 @@ por qué en el mensaje.
   `site/en/index.html`, actualizar `lastmod` en `site/sitemap.xml` y la línea «Actualizado en…»,
   y regenerar las imágenes si cambian el lema o la marca (`herramientas/generar_imagenes.py`).
 - Cada push a main que toque `site/` se publica solo en golembench.org.
+
+## Estructura: la cruz
+
+Idea de Juan (18 oct 2026): no todo va de arriba hacia abajo. La portada es una cruz y se llega al
+centro; desde ahí se puede ir hacia todos los lados.
+
+- **Centro** (`#pregunta`): la pregunta y la arcilla. Es donde aterriza una visita nueva.
+- **↑ Arriba** (`#arriba`): lo que no sabemos. Una escalera de preguntas abiertas que se lee de abajo
+  hacia arriba (`flex-direction: column-reverse`: el primer elemento del documento es el más cercano
+  al centro). Será el lugar del Atlas de preguntas del Lab.
+- **↓ Abajo** (`#abajo`): lo que nos sostiene. El recorrido, los jueces, el pacto y el suelo de barro
+  con el contacto.
+- **← Izquierda** (`#medimos`): lo que medimos. La sala de resultados, vacía a propósito hasta que se
+  publique el piloto.
+- **→ Derecha** (`#guardamos`): lo que guardamos. Golem Lab, en el taller.
+
+Cómo está hecho: el centro va primero en el HTML (lectores de pantalla y teclado empiezan en la
+pregunta) y la rejilla de `main` lo pone en medio. La fila del centro es un carrusel horizontal con
+`scroll-snap`. `site/assets/centro.js` (pequeño, sin dependencias) aterriza en el centro en una visita
+nueva, mueve los dos ejes con los enlaces, marca la brújula y atiende ← →. Sin JavaScript todo sigue
+accesible con enlaces. El scroll es el del navegador: nada de secuestrarlo.
 
 ## Voz: parresía
 
