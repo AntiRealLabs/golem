@@ -1,7 +1,7 @@
 {
- "fecha": "2026-10-18 01:10 (UTC−5)",
- "correctas": 90,
- "total": 90,
+ "fecha": "2026-10-18 01:14 (UTC−5)",
+ "correctas": 94,
+ "total": 94,
  "resultados": [
   {
    "comprobacion": "Puerta de publicación: site/ contiene solo la portada",
@@ -111,12 +111,12 @@
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:38297'}"
+   "detalle": "{'127.0.0.1:33609'}"
   },
   {
    "comprobacion": "[es] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "194288 bytes"
+   "detalle": "194681 bytes"
   },
   {
    "comprobacion": "[es] idioma del documento declarado",
@@ -191,12 +191,12 @@
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:38297'}"
+   "detalle": "{'127.0.0.1:33609'}"
   },
   {
    "comprobacion": "[en] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "194065 bytes"
+   "detalle": "194458 bytes"
   },
   {
    "comprobacion": "[en] idioma del documento declarado",
@@ -271,12 +271,12 @@
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:38297'}"
+   "detalle": "{'127.0.0.1:33609'}"
   },
   {
    "comprobacion": "[404] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "118384 bytes"
+   "detalle": "118500 bytes"
   },
   {
    "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces",
@@ -311,12 +311,12 @@
   {
    "comprobacion": "Cruz [es · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'cur': 'pregunta'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'brj': 'hidden', 'cur': 'pregunta'}"
   },
   {
    "comprobacion": "Cruz [es · escritorio]: el sello queda en el centro exacto de la pantalla (±3 px)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'cur': 'pregunta'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'brj': 'hidden', 'cur': 'pregunta'}"
   },
   {
    "comprobacion": "Cruz [es · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -339,14 +339,19 @@
    "detalle": "abajo arriba"
   },
   {
+   "comprobacion": "Cruz [es · escritorio]: la brújula se esconde en el centro y aparece al alejarse",
+   "ok": true,
+   "detalle": "hidden visible"
+  },
+  {
    "comprobacion": "Cruz [en · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'cur': 'pregunta'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'brj': 'hidden', 'cur': 'pregunta'}"
   },
   {
    "comprobacion": "Cruz [en · escritorio]: el sello queda en el centro exacto de la pantalla (±3 px)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'cur': 'pregunta'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': 0, 'sy': 0, 'brj': 'hidden', 'cur': 'pregunta'}"
   },
   {
    "comprobacion": "Cruz [en · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -369,14 +374,19 @@
    "detalle": "abajo arriba"
   },
   {
+   "comprobacion": "Cruz [en · escritorio]: la brújula se esconde en el centro y aparece al alejarse",
+   "ok": true,
+   "detalle": "hidden visible"
+  },
+  {
    "comprobacion": "Cruz [es · móvil]: se llega al centro (pregunta a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'cur': 'pregunta'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'pregunta'}"
   },
   {
    "comprobacion": "Cruz [es · móvil]: el sello queda en el centro exacto de la pantalla (±3 px)",
    "ok": true,
-   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'cur': 'pregunta'}"
+   "detalle": "{'dy': 0, 'dx': 0, 'sx': -0.0, 'sy': -0.0, 'brj': 'hidden', 'cur': 'pregunta'}"
   },
   {
    "comprobacion": "Cruz [es · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -399,14 +409,19 @@
    "detalle": "abajo arriba"
   },
   {
+   "comprobacion": "Cruz [es · móvil]: la brújula se esconde en el centro y aparece al alejarse",
+   "ok": true,
+   "detalle": "hidden visible"
+  },
+  {
    "comprobacion": "Cruz [en · móvil]: se llega al centro (pregunta a la vista, brújula en el centro)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': -0.0, 'sy': 0, 'cur': 'pregunta'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': -0.0, 'sy': 0, 'brj': 'hidden', 'cur': 'pregunta'}"
   },
   {
    "comprobacion": "Cruz [en · móvil]: el sello queda en el centro exacto de la pantalla (±3 px)",
    "ok": true,
-   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': -0.0, 'sy': 0, 'cur': 'pregunta'}"
+   "detalle": "{'dy': -0.0, 'dx': 0, 'sx': -0.0, 'sy': 0, 'brj': 'hidden', 'cur': 'pregunta'}"
   },
   {
    "comprobacion": "Cruz [en · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro)",
@@ -427,6 +442,11 @@
    "comprobacion": "Cruz [en · móvil]: los enlaces llevan a cada sala y la brújula lo marca",
    "ok": true,
    "detalle": "abajo arriba"
+  },
+  {
+   "comprobacion": "Cruz [en · móvil]: la brújula se esconde en el centro y aparece al alejarse",
+   "ok": true,
+   "detalle": "hidden visible"
   },
   {
    "comprobacion": "Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces",

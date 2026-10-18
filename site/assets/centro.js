@@ -71,6 +71,9 @@
   w.addEventListener('scroll', pedir, { passive: true });
   fila.addEventListener('scroll', pedir, { passive: true });
   marcar();
+  // en el centro la brújula se esconde; sus transiciones empiezan después de la primera pintura,
+  // para que no se la vea desvanecerse al llegar
+  w.requestAnimationFrame(function () { w.requestAnimationFrame(function () { d.documentElement.classList.add('viva'); }); });
 
   // si cambia el tamaño de la ventana (girar el teléfono), la fila se queda en la misma sala
   var salaFila = indiceFila(), anchoFila = fila.clientWidth;

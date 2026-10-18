@@ -259,8 +259,10 @@ img{display:block;max-width:100%}
 .foot-legal{font:400 12.5px/1.5 var(--mono);letter-spacing:.04em;color:var(--on-coal-2)}
 
 /* ---------- la brújula: un sello pequeño que aparece cuando te alejas del centro ---------- */
-.brujula{position:fixed;z-index:50;right:16px;bottom:16px;display:grid;grid-template-columns:repeat(3,30px);grid-template-rows:repeat(3,30px);padding:8px;border-radius:50%;background:rgba(20,21,17,.86);border:1px solid var(--coal-line-2);transition:opacity .25s,visibility .25s}
+.brujula{position:fixed;z-index:50;right:16px;bottom:16px;display:grid;grid-template-columns:repeat(3,30px);grid-template-rows:repeat(3,30px);padding:8px;border-radius:50%;background:rgba(20,21,17,.86);border:1px solid var(--coal-line-2)}
 html[data-sala="pregunta"] .brujula{opacity:0;visibility:hidden}
+html.viva .brujula{transition:opacity .25s,visibility 0s linear .25s}
+html.viva:not([data-sala="pregunta"]) .brujula{transition:opacity .25s,visibility 0s}
 .b{position:relative;display:grid;place-items:center;width:30px;height:30px;text-decoration:none}
 .b::before{content:"";width:9px;height:9px;border-radius:50%;border:1.5px solid var(--on-coal-2);transition:background .2s,transform .2s}
 .b:hover::before,.b:focus-visible::before{border-color:var(--on-coal);transform:scale(1.25)}

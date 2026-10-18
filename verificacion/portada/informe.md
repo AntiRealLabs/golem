@@ -1,6 +1,6 @@
 # Verificación de la portada
 
-**90 de 90 comprobaciones correctas** · 2026-10-18 01:10 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
+**94 de 94 comprobaciones correctas** · 2026-10-18 01:14 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
 
 Inspección automática. No sustituye pruebas con personas, lectores de pantalla reales, otros navegadores ni la revisión del sitio ya publicado en Cloudflare.
 
@@ -73,24 +73,28 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Cruz [es · escritorio]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
 | ✓ | Cruz [es · escritorio]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [es · escritorio]: los enlaces llevan a cada sala y la brújula lo marca |  |
+| ✓ | Cruz [es · escritorio]: la brújula se esconde en el centro y aparece al alejarse |  |
 | ✓ | Cruz [en · escritorio]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
 | ✓ | Cruz [en · escritorio]: el sello queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [en · escritorio]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
 | ✓ | Cruz [en · escritorio]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
 | ✓ | Cruz [en · escritorio]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [en · escritorio]: los enlaces llevan a cada sala y la brújula lo marca |  |
+| ✓ | Cruz [en · escritorio]: la brújula se esconde en el centro y aparece al alejarse |  |
 | ✓ | Cruz [es · móvil]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
 | ✓ | Cruz [es · móvil]: el sello queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [es · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
 | ✓ | Cruz [es · móvil]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
 | ✓ | Cruz [es · móvil]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [es · móvil]: los enlaces llevan a cada sala y la brújula lo marca |  |
+| ✓ | Cruz [es · móvil]: la brújula se esconde en el centro y aparece al alejarse |  |
 | ✓ | Cruz [en · móvil]: se llega al centro (pregunta a la vista, brújula en el centro) |  |
 | ✓ | Cruz [en · móvil]: el sello queda en el centro exacto de la pantalla (±3 px) |  |
 | ✓ | Cruz [en · móvil]: arriba se lee de abajo hacia arriba (la primera pregunta queda junto al centro) |  |
 | ✓ | Cruz [en · móvil]: ← y → recorren la fila (lo que guardamos / lo que medimos) |  |
 | ✓ | Cruz [en · móvil]: la pista ← lleva a lo que medimos y se ve desde su primera línea |  |
 | ✓ | Cruz [en · móvil]: los enlaces llevan a cada sala y la brújula lo marca |  |
+| ✓ | Cruz [en · móvil]: la brújula se esconde en el centro y aparece al alejarse |  |
 | ✓ | Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces |  |
 | ✓ | axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (3 páginas × 2 anchos) |  |
 | ✓ | axe-core · buenas prácticas: sin avisos |  |

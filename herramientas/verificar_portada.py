@@ -306,7 +306,8 @@ def main():
                 pos = page.evaluate("""() => { const c=document.getElementById('centro'),
                     f=document.getElementById('fila'), p=document.getElementById('pregunta'), s=document.querySelector('.onfalo .sello').getBoundingClientRect();
                     return {dy: Math.round(-c.getBoundingClientRect().top), dx: Math.round(f.scrollLeft - p.offsetLeft),
-                            sx: Math.round(s.left + s.width / 2 - innerWidth / 2), sy: Math.round(s.top + s.height / 2 - innerHeight / 2),
+                            sx: Math.round(s.left + s.width / 2 - document.documentElement.clientWidth / 2), sy: Math.round(s.top + s.height / 2 - innerHeight / 2),
+                            brj: getComputedStyle(document.querySelector('.brujula')).visibility,
                             cur: (document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null}; }""")
                 check(f"Cruz [{key} · {label}]: se llega al centro (pregunta a la vista, brújula en el centro)",
                       abs(pos["dy"]) <= 3 and abs(pos["dx"]) <= 3 and pos["cur"] == "pregunta", str(pos))
@@ -336,10 +337,13 @@ def main():
                 page.goto(base + path + "#abajo", wait_until="networkidle")
                 page.wait_for_timeout(400)
                 down = page.evaluate("(document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null")
+                brj_abajo = page.evaluate("getComputedStyle(document.querySelector('.brujula')).visibility")
                 page.goto(base + path + "#arriba", wait_until="networkidle")
                 page.wait_for_timeout(400)
                 up = page.evaluate("(document.querySelector('.brujula [aria-current]')||{}).dataset?.sala || null")
                 check(f"Cruz [{key} · {label}]: los enlaces llevan a cada sala y la brújula lo marca", down == "abajo" and up == "arriba", f"{down} {up}")
+                check(f"Cruz [{key} · {label}]: la brújula se esconde en el centro y aparece al alejarse",
+                      pos["brj"] == "hidden" and brj_abajo == "visible", f"{pos['brj']} {brj_abajo}")
             ctx.close()
         ctx = browser.new_context(viewport={"width": 1280, "height": 800}, java_script_enabled=False)
         page = ctx.new_page()
