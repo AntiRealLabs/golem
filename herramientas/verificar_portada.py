@@ -6,7 +6,10 @@ Uso:  python3 -I herramientas/verificar_portada.py [--sin-capturas]
 Levanta herramientas/servidor_local.py (imita Cloudflare Pages con _headers),
 abre las páginas en Chromium (Playwright) y comprueba: puerta de publicación,
 estados HTTP y cabeceras, las reglas del primer corte ED01 (lo pendiente nunca es
-cero, sin ranking ni notas por frase, tres voces separadas), paridad ES/EN, enlaces,
+cero, sin ranking ni notas por frase, tres voces separadas), las de ED02-X1 (la etiqueta
+del piloto a la vista, el orden condicional con los dos motores, los avisos también en el
+celular, cada pasaje abre su fuente, las voces sin mezclarse al cambiar de idioma), las
+páginas de los recorridos, paridad ES/EN, enlaces,
 fuentes, CSP sin violaciones, anchos sin desborde, espaciado de texto, teclado,
 objetivos táctiles, símbolos de las estaciones, choques y desbordes en el centro,
 fragmentos que rotan, panel de lectura, axe-core (WCAG 2.2 A/AA), peso e imágenes.
@@ -43,11 +46,15 @@ import versionar_recursos  # noqa: E402
 
 AXE = (ROOT / "herramientas" / "vendor" / "axe.min.js").read_text(encoding="utf-8")
 PAGES = {"es": "/", "en": "/en/", "404": "/esta-ruta-no-existe"}
+# ED02-X1: páginas de lectura que se revisan con el mismo cuidado (la de 351 palabras, otra de GPT y el método)
+LECTURAS = {"rc-es": "/ed02-x1/m03-c02-r1/", "rc-en": "/en/ed02-x1/m03-c02-r1/", "rc-gpt": "/ed02-x1/m04-c01-r1/",
+            "metodo-es": "/ed02-x1/metodo/", "metodo-en": "/en/ed02-x1/metodo/"}
+BADGE = {"es": "Piloto exploratorio · ED02-X1", "en": "Exploratory pilot · ED02-X1"}
 WIDTHS = [1440, 1024, 768, 390, 320]
 FAMILIES = ["UnifrakturMaguntia", "Chakra Petch", "Archivo", "Fragment Mono", "DM Sans", "Newsreader"]
 EXTERNAL_OK = {"https://antireallabs.com", "mailto:admin@antireallabs.com"}
-# Primer corte ED01: estas son las únicas configuraciones que la portada puede nombrar,
-# y los textos de estado que nunca pueden faltar ni volverse cero.
+# Primer corte ED01: estas son las únicas configuraciones que la portada puede nombrar (ED02-X1 nombra además
+# a Gemini, solo como pendiente, fuera de su índice), y los textos de estado que nunca pueden faltar ni volverse cero.
 COHORTE = ["SmolLM3-3B", "Qwen3-8B", "Claude Opus 5.5", "GPT-6.1-sol"]
 OTROS_MODELOS = re.compile(r"\b(Gemini|Llama|Mistral|Grok|DeepSeek|o3|GPT-4|GPT-5(?!\.\d-sol)|Sonnet|Haiku)\b")
 PENDIENTE = {"es": "Pendiente", "en": "Pending"}
@@ -157,7 +164,10 @@ def main():
         okxml = True
     except ElementTree.ParseError:
         okxml = False
-    check("sitemap.xml es XML válido con las dos páginas", s == 200 and okxml and b.count(b"<loc>") == 2)
+    check("sitemap.xml es XML válido con las dos portadas y las 26 páginas de ED02-X1", s == 200 and okxml and b.count(b"<loc>") == 28, f"{b.count(b'<loc>')} direcciones")
+    for nombre, ruta in LECTURAS.items():
+        st, hh, bb = http(base, ruta)
+        check(f"HTTP: {ruta} responde 200 con HTML", st == 200 and hh.get("Content-Type", "").startswith("text/html"), str(st))
 
     # ---------- imágenes ----------
     ico = Image.open(SITE / "favicon.ico")
@@ -266,7 +276,8 @@ def main():
                     elif href.split("?")[0] not in EXTERNAL_OK:
                         bad_links.append(href)
                 check(f"[{key}] enlaces internos válidos y solo los externos previstos", not bad_links, str(bad_links))
-                text = visible_text(page)
+                text = page.evaluate("""() => { const c = document.body.cloneNode(true); c.querySelectorAll('.x1-fuera-lista, script, style, template').forEach(e => e.remove());
+                    return c.textContent.replace(/\\s+/g, ' '); }""")
                 m = OTROS_MODELOS.search(text)
                 check(f"[{key}] ED01: solo se nombran las cuatro configuraciones de la cohorte", not m and all(c in text for c in COHORTE),
                       m.group(0) if m else "falta alguna de la cohorte")
@@ -293,7 +304,7 @@ def main():
                         const caja = q.closest('figure, .fuente-texto, .panel-contenido');
                         if (!caja || (!caja.querySelector('.f-voz') && !(q.closest('.panel-contenido') && q.closest('.panel-contenido').querySelector('.fuente-voz .f-voz')))) out.push('texto del modelo sin su rótulo');
                       }
-                      for (const g of document.querySelectorAll('[data-voz="editorial"]')) if (!/\S/.test((g.querySelector('.capa-rotulo, .f-sub') || {}).textContent || '')) out.push('guía sin rótulo');
+                      for (const g of document.querySelectorAll('[data-voz="editorial"]')) if (!/\\S/.test((g.querySelector('.capa-rotulo, .f-sub') || {}).textContent || '')) out.push('guía sin rótulo');
                       for (const j of document.querySelectorAll('[data-voz="juez"]')) if (!j.closest('.lectura-juez') || !j.closest('.lectura-juez').querySelector('.capa-rotulo')) out.push('lectura del juez sin rótulo');
                       if (document.querySelector('[data-voz] [data-voz]')) out.push('voces anidadas');
                       // el supuesto a examen nunca viaja sin su nota
@@ -304,6 +315,48 @@ def main():
                 )
                 check(f"[{key}] ED01: lo pendiente dice «{PENDIENTE[key]}», sin ranking ni notas por frase; dos reglas con una marca; las tres voces con su rótulo; F004 con su nota",
                       not ed, "; ".join(sorted(set(ed))))
+                x1 = page.evaluate(
+                    """(badge) => {
+                      const out = [], vis = e => !!e && e.checkVisibility({visibilityProperty: true});
+                      // la etiqueta del piloto: en la cartela de la placa, a la vista al llegar, y encima de los resultados
+                      const cart = document.querySelector('.onfalo .placa-estado');
+                      if (!cart || cart.textContent.trim() !== badge || !vis(cart)) out.push('cartela');
+                      const res = document.querySelector('#resultados .x1-badge');
+                      if (!res || res.textContent.trim() !== badge) out.push('etiqueta en resultados');
+                      // el orden condicional: dos filas y, al lado, los dos motores, cada uno con su primero marcado
+                      const filas = [...document.querySelectorAll('.x1-tabla tbody tr')];
+                      if (filas.length !== 2 || filas.some(f => f.querySelectorAll('.x1-num').length !== 3)) out.push('tabla');
+                      if (document.querySelectorAll('.x1-tabla .x1-num--primero').length !== 2) out.push('el primero de cada motor');
+                      if (filas.length === 2 && filas[0].querySelector('.x1-num--primero') === filas[1].querySelector('.x1-num--primero')) out.push('primeros');
+                      // ninguna cifra del índice como porcentaje, ni ganadores
+                      const t = document.querySelector('#resultados').textContent;
+                      if (/\\d[.,]\\d\\s*%/.test(t) || /ganador|winner|campeón|champion/i.test(t)) out.push('porcentaje o ganador');
+                      // los 42 escenarios: 21 y 21, cada rejilla de un solo color: el motor decide
+                      const rej = [...document.querySelectorAll('.esc-rejilla')].map(r => [...r.children].map(c => c.className.split('--')[1]));
+                      if (rej.length !== 2 || rej.some(r => r.length !== 21 || new Set(r).size !== 1) || rej[0][0] === rej[1][0]) out.push('escenarios');
+                      // fuera del índice: sin cifra y sin puesto; Gemini, pendiente
+                      const fuera = document.querySelector('.x1-fuera-lista');
+                      if (!fuera || !/Gemini/.test(fuera.textContent) || /\\d[.,]\\d/.test(fuera.textContent) || fuera.querySelectorAll('li').length !== 3) out.push('fuera del índice');
+                      // el aviso de las 351 palabras, con la nota completa a un clic
+                      const aviso = document.querySelector('#resultados .aviso-x1');
+                      if (!aviso || !/351/.test(aviso.textContent) || !/59/.test(aviso.textContent) || !aviso.querySelector('a[data-panel="x1-incidencias"]')) out.push('aviso');
+                      if (!document.querySelector('#x1-incidencias .panel-contenido[data-voz="editorial"] .capa-rotulo')) out.push('nota completa');
+                      // las cuatro unidades del laboratorio, cada una con lo que cuenta
+                      if (document.querySelectorAll('.cifras--x1 .cifras-lista li').length !== 4 || document.querySelectorAll('.definiciones--x1 > div').length < 4) out.push('unidades');
+                      // los doce recorridos, enlazados
+                      if (document.querySelectorAll('#x1-recorridos a.x1-rec-a').length !== 12) out.push('recorridos');
+                      // ED02-X1 no se mezcla con ED01: cada serie en su lugar
+                      for (const sel of ['#resultados', '#x1-laboratorio', '#x1-medimos']) {
+                        const e = document.querySelector(sel);
+                        if (!e || /ED01|IA-01/.test(e.textContent)) out.push('mezcla en ' + sel);
+                      }
+                      if (document.querySelectorAll('.edicion-aparte').length !== 3) out.push('separadores de ED01');
+                      return out;
+                    }""",
+                    BADGE[key],
+                )
+                check(f"[{key}] ED02-X1: «{BADGE[key]}» en la placa y en resultados; orden condicional con los dos motores; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; doce recorridos; ED01 aparte",
+                      not x1, "; ".join(sorted(set(x1))))
                 other = visible_text(page, exclude_lang="es" if key == "en" else "en")
                 hint = (SPANISH_HINTS if key == "en" else ENGLISH_HINTS).findall(other)
                 check(f"[{key}] sin restos del otro idioma fuera de lo marcado con lang", not hint, str(sorted(set(hint)))[:200])
@@ -317,20 +370,20 @@ def main():
         for w in WIDTHS:
             ctx = browser.new_context(viewport={"width": w, "height": 900})
             page = ctx.new_page()
-            for key, path in PAGES.items():
+            for key, path in list(PAGES.items()) + list(LECTURAS.items()):
                 page.goto(base + path, wait_until="networkidle")
                 page.evaluate("document.fonts.ready")
                 sw = page.evaluate("document.documentElement.scrollWidth")
                 if sw > w:
                     overflow.append(f"{key}@{w}: {sw}")
             ctx.close()
-        check("Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px", not overflow, str(overflow))
+        check("Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px (portadas, 404, recorridos y método)", not overflow, str(overflow))
 
         # ---------- objetivos táctiles, teclado ----------
         ctx = browser.new_context(viewport={"width": 390, "height": 844}, has_touch=True, is_mobile=True)
         page = ctx.new_page()
         small = []
-        for key, path in PAGES.items():
+        for key, path in list(PAGES.items()) + list(LECTURAS.items()):
             page.goto(base + path, wait_until="networkidle")
             for a in page.query_selector_all("a[href]"):
                 bb = a.bounding_box()
@@ -499,13 +552,21 @@ def main():
         page.goto(base + "/", wait_until="networkidle")
         nojs = page.evaluate("[document.querySelectorAll('h1').length, ['preguntas','cruce','centro','resultados','como-medimos','laboratorio'].every(id => !!document.getElementById(id))]")
         check("Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces", nojs == [1, True], str(nojs))
-        quieto = page.evaluate("""() => [...document.querySelectorAll('[data-rotador]')].map(r => {
-            const vis = [...r.querySelectorAll('.rot-pila > [data-fragmento]')].filter(f => !f.hidden).map(f => f.dataset.fragmento);
-            const ctl = r.querySelector('[data-rot-controles]');
-            return vis.join(',') + (ctl && ctl.hidden ? '' : ' +controles'); })""")
+        quieto = page.evaluate("""() => { const t = document.getElementById('x1-pasajes'), primero = t && t.content.firstElementChild;
+            return {primero: primero ? primero.dataset.fragmento : null, rotadores: [...document.querySelectorAll('[data-rotador]')].map(r => {
+              const vis = [...r.querySelectorAll('.rot-pila > [data-fragmento]')].filter(f => !f.hidden).map(f => f.dataset.fragmento);
+              const ctl = r.querySelector('[data-rot-controles]');
+              return vis.join(',') + (ctl && ctl.hidden ? '' : ' +controles'); }),
+              enlaces: [...document.querySelectorAll('[data-rotador] a[data-x1-pasaje]')].map(a => a.getAttribute('href'))}; }""")
+        destinos = []
+        for href in set(quieto["enlaces"]):
+            ruta, ancla = href.split("#")
+            st, _, cuerpo = http(base, ruta)
+            destinos.append(st == 200 and f'id="{ancla}"' in cuerpo.decode())
         fichas = page.evaluate("[...document.querySelectorAll('a[data-panel]')].every(a => { const t = document.getElementById(a.getAttribute('href').slice(1)); return t && t.querySelector('.panel-contenido'); })")
-        check("Sin JavaScript: cada fragmento rotativo queda quieto en GB-ED01-F001, sin controles, y «Leer en contexto» lleva a la ficha completa de su fuente",
-              quieto and all(q == "GB-ED01-F001" for q in quieto) and fichas, f"{quieto} {fichas}")
+        check("Sin JavaScript: cada carrusel de ED02-X1 queda quieto en su primer pasaje, sin controles; «Leer en contexto» lleva al pasaje en la página de su recorrido y cada ficha está en la página",
+              quieto["primero"] and quieto["rotadores"] and all(q == quieto["primero"] for q in quieto["rotadores"]) and destinos and all(destinos) and fichas,
+              f"{quieto} {destinos} {fichas}")
         ctx.close()
 
         # ---------- los fragmentos: se barajan por visita, se avanzan a mano y conservan su lugar al cambiar de idioma ----------
@@ -515,7 +576,8 @@ def main():
         page.evaluate("document.fonts.ready")
         ACTUAL = "() => { const r = document.querySelector('.cuadrante [data-rotador]'); const f = r && r.querySelector('[data-actual]'); return [f ? f.dataset.fragmento : null, r ? r.querySelector('.rot-cuenta').textContent.trim() : null]; }"
         antes = page.evaluate(ACTUAL)
-        orden = page.evaluate("JSON.parse(sessionStorage.getItem('gb-ed01-fragmentos') || 'null')")
+        orden = page.evaluate("JSON.parse(sessionStorage.getItem('gb-x1-pasajes') || 'null')")
+        plantilla = page.evaluate("[...document.getElementById('x1-pasajes').content.children].map(c => c.dataset.fragmento)")
         boton = page.locator(".cuadrante [data-rotador] [data-rot='1']")
         boton.focus()
         page.keyboard.press("Enter")
@@ -523,14 +585,14 @@ def main():
         despues = page.evaluate(ACTUAL)
         foco = page.evaluate("document.activeElement.matches('.cuadrante [data-rot=\"1\"]')")
         anim = page.evaluate("getComputedStyle(document.querySelector('.cuadrante [data-actual]')).animationName")
-        esperado = orden["orden"][(orden["orden"].index(antes[0]) + 1) % 5] if orden and antes[0] in orden.get("orden", []) else None
+        esperado = orden["orden"][(orden["orden"].index(antes[0]) + 1) % 60] if orden and antes[0] in orden.get("orden", []) else None
         page.wait_for_timeout(3000)
         quieto = page.evaluate(ACTUAL)
         page.goto(base + "/en/", wait_until="networkidle")
         page.evaluate("document.fonts.ready")
         en = page.evaluate(ACTUAL)
-        check("Fragmentos: orden barajado de cinco por visita; «siguiente» avanza uno y el foco se queda en el botón; sin avance automático; el inglés conserva el mismo fragmento",
-              orden and sorted(orden["orden"]) == [f"GB-ED01-F00{i}" for i in range(1, 6)] and despues[0] == esperado and foco
+        check("Pasajes de ED02-X1: los 60 de la plantilla, barajados una vez por visita; «siguiente» avanza uno y el foco se queda en el botón; sin avance automático; el inglés conserva el mismo pasaje",
+              orden and len(plantilla) == 60 and sorted(orden["orden"]) == sorted(plantilla) and despues[0] == esperado and foco
               and quieto == despues and en[0] == despues[0] and despues[1] != antes[1],
               f"{orden} {antes} {despues} {quieto} {en} foco={foco}")
         ctx.close()
@@ -539,42 +601,147 @@ def main():
         page.goto(base + "/", wait_until="networkidle")
         page.click(".cuadrante [data-rotador] [data-rot='1']")
         anim_reducido = page.evaluate("getComputedStyle(document.querySelector('.cuadrante [data-actual]')).animationName")
-        check("Movimiento reducido: el cambio de fragmento aparece sin animación (con movimiento, un fundido corto)",
+        check("Movimiento reducido: el cambio de pasaje aparece sin animación (con movimiento, un fundido corto)",
               anim_reducido == "none" and anim == "aparece", f"{anim_reducido} / {anim}")
 
         # ---------- el panel de lectura ----------
         panel = []
-        enlace = page.locator(".cuadrante [data-actual] a[data-panel]")
+        enlace = page.locator(".cuadrante [data-actual] a[data-x1-pasaje]")
+        href = enlace.get_attribute("href")
         enlace.focus()
         page.keyboard.press("Enter")
-        page.wait_for_timeout(150)
-        abierto = page.evaluate("""() => { const d = document.getElementById('panel-lectura'), c = d.querySelector('.pl-cuerpo'), m = c.querySelector('mark');
-            const rc = c.getBoundingClientRect(), rm = m ? m.getBoundingClientRect() : null;
+        page.wait_for_function("() => { const d = document.getElementById('panel-lectura'); return d.open && !d.hasAttribute('aria-busy'); }", timeout=8000)
+        abierto = page.evaluate("""(href) => { const d = document.getElementById('panel-lectura'), c = d.querySelector('.pl-cuerpo');
+            const caja = c.querySelector('.px1-caja'), marca = caja && caja.querySelector('.cita.activa');
+            const rc = caja ? caja.getBoundingClientRect() : null, rm = marca ? marca.getBoundingClientRect() : null;
+            const jueces = [...c.querySelectorAll('.px1-jueces .juicio')];
             return {abierto: d.open, foco: d.contains(document.activeElement), titulo: d.querySelector('.pl-titulo').textContent.trim(),
-                    marca: !!m && rm.top >= rc.top - 1 && rm.bottom <= rc.bottom + 1, voz: !!c.querySelector('.fuente-voz .f-voz'), aviso: !!c.querySelector('.fuente-aviso')}; }""")
-        if not (abierto["abierto"] and abierto["foco"] and abierto["marca"] and abierto["voz"] and abierto["aviso"] and abierto["titulo"] not in ("", "Lectura")):
+                    marca: !!marca && rm.top >= rc.top - 1 && rm.bottom <= rc.bottom + 1, modelo: !!c.querySelector('.px1-caja .rc-texto[data-voz="modelo"][lang="es"]'),
+                    jueces: jueces.length, completos: jueces.every(j => j.querySelector('.capa-rotulo') && j.querySelector('.regla .regla-pos--marca') && j.querySelectorAll('.juicio-cuerpo .j-campo').length === 2),
+                    etapa: (c.querySelector('.px1-meta') || {}).textContent || '', abrir: (c.querySelector('.px1-abrir') || {}).getAttribute ? c.querySelector('.px1-abrir').getAttribute('href') === href : false,
+                    ids: c.querySelectorAll('[id]').length}; }""", href)
+        if not (abierto["abierto"] and abierto["foco"] and abierto["marca"] and abierto["modelo"] and abierto["jueces"] >= 1 and abierto["completos"]
+                and abierto["abrir"] and abierto["ids"] == 0 and abierto["titulo"] not in ("", "Lectura") and "ED02-" in abierto["etapa"]):
             panel.append(f"abrir: {abierto}")
         page.keyboard.press("Escape")
         page.wait_for_timeout(100)
-        vuelve = page.evaluate("[document.getElementById('panel-lectura').open, document.activeElement.matches('.cuadrante [data-actual] a[data-panel]')]")
+        vuelve = page.evaluate("[document.getElementById('panel-lectura').open, document.activeElement.matches('.cuadrante [data-actual] a[data-x1-pasaje]')]")
         if vuelve != [False, True]:
             panel.append(f"Esc y foco de vuelta: {vuelve}")
-        page.click(".cuadrante a[data-panel='que-contamos']")
+        # la nota completa de incidencias, desde el aviso de resultados; se cierra tocando afuera
+        page.evaluate("document.querySelector('#resultados .aviso-x1 a[data-panel]').click()")
         page.wait_for_timeout(100)
-        definiciones = page.evaluate("document.querySelectorAll('#panel-lectura[open] .definiciones dt').length")
+        nota = page.evaluate("[document.getElementById('panel-lectura').open, /351/.test(document.querySelector('#panel-lectura .pl-cuerpo').textContent), document.querySelector('#panel-lectura .pl-titulo').textContent.trim()]")
         page.mouse.click(8, 8)   # el fondo oscuro, fuera del panel
         page.wait_for_timeout(100)
-        if definiciones != 3 or page.evaluate("document.getElementById('panel-lectura').open"):
-            panel.append(f"qué contamos / clic afuera: {definiciones}")
-        page.evaluate("() => { const a = document.createElement('a'); a.href = '#no-existe'; a.dataset.panel = 'no-existe'; a.id = 'prueba-panel'; a.textContent = 'x'; document.querySelector('.foot').append(a); }")
+        if not (nota[0] and nota[1]) or page.evaluate("document.getElementById('panel-lectura').open"):
+            panel.append(f"nota de incidencias / clic afuera: {nota}")
+        # si falta la ficha o el recorrido, el panel lo dice (y deja el enlace)
+        page.evaluate("""() => { for (const [id, attr, h] of [['prueba-panel', 'panel', 'no-existe'], ['prueba-x1', 'x1Pasaje', '/ed02-x1/no-existe/#p-a-1-2']]) {
+            const a = document.createElement('a'); a.href = attr === 'panel' ? '#' + h : h; a.dataset[attr] = h; a.id = id; a.textContent = 'x'; document.querySelector('.foot').append(a); } }""")
         page.click("#prueba-panel")
         page.wait_for_timeout(100)
         error = page.evaluate("[document.getElementById('panel-lectura').open, !document.querySelector('#panel-lectura .pl-error').hidden]")
         page.click("#panel-lectura [data-cerrar]")
         if error != [True, True] or page.evaluate("document.getElementById('panel-lectura').open"):
-            panel.append(f"fuente que no está: {error}")
-        check("Panel de lectura: «Leer en contexto» abre la fuente con la cita marcada a la vista; se cierra con Esc, con su botón o tocando afuera, y el foco vuelve al enlace; si falta la fuente lo dice",
+            panel.append(f"ficha que no está: {error}")
+        page.click("#prueba-x1")
+        page.wait_for_function("() => !document.getElementById('panel-lectura').hasAttribute('aria-busy')", timeout=8000)
+        error_x1 = page.evaluate("[document.getElementById('panel-lectura').open, !!document.querySelector('#panel-lectura .pl-cuerpo .pl-error a[href]')]")
+        page.click("#panel-lectura [data-cerrar]")
+        if error_x1 != [True, True]:
+            panel.append(f"recorrido que no está: {error_x1}")
+        check("Panel de lectura: «Leer en contexto» abre el pasaje marcado a la vista en su texto original y las lecturas que lo citan (rótulo, nivel, justificación y límite), con el enlace a su recorrido; la nota de incidencias se abre igual; se cierra con Esc, con su botón o tocando afuera, el foco vuelve al enlace y, si algo falta, lo dice",
               not panel, "; ".join(panel))
+        ctx.close()
+
+        # ---------- ED02-X1: las páginas de los recorridos y la de método ----------
+        ctx = browser.new_context(viewport={"width": 1440, "height": 900}, reduced_motion="reduce")
+        ctx.add_init_script("window.__csp=[];document.addEventListener('securitypolicyviolation',e=>window.__csp.push(e.violatedDirective+' '+e.blockedURI));")
+        for key, path in LECTURAS.items():
+            page = ctx.new_page()
+            errors = []
+            page.on("console", lambda m, errors=errors: errors.append(m.text) if m.type == "error" else None)
+            page.on("pageerror", lambda e, errors=errors: errors.append(str(e)))
+            page.goto(base + path, wait_until="networkidle")
+            page.evaluate("document.fonts.ready")
+            lang = "en" if key.endswith("-en") else "es"
+            info = page.evaluate("""(lang) => {
+                const out = [];
+                if (document.documentElement.lang !== lang) out.push('idioma');
+                if (document.querySelectorAll('h1').length !== 1) out.push('h1');
+                const can = (document.querySelector('link[rel=canonical]') || {}).href || '';
+                if (!can.startsWith('https://golembench.org/') || !can.endsWith(location.pathname)) out.push('canónica ' + can);
+                if ([...document.querySelectorAll('link[rel=alternate][hreflang]')].map(l => l.hreflang).sort().join() !== 'en,es') out.push('hreflang');
+                if (!document.querySelector('.stamp') || !/ED02-X1/.test(document.querySelector('.stamp').textContent)) out.push('etiqueta del piloto');
+                // las voces, cada una con su rótulo y su forma, sin anidarse
+                for (const j of document.querySelectorAll('.juicio[data-voz="juez"]')) if (!j.firstElementChild.matches('.capa-rotulo')) out.push('juez sin rótulo');
+                for (const t of document.querySelectorAll('.rc-texto[data-voz="modelo"]')) if (!t.closest('.rc-texto-caja') || !t.closest('.rc-texto-caja').querySelector('.capa-rotulo')) out.push('modelo sin rótulo');
+                for (const c of document.querySelectorAll('[data-voz="critica"], [data-voz="editorial"]')) if (!c.querySelector('.capa-rotulo')) out.push(c.dataset.voz + ' sin rótulo');
+                if (document.querySelector('[data-voz] [data-voz]')) out.push('voces anidadas');
+                // en inglés cambia la interfaz; los cuerpos del modelo, de las críticas y de los jueces siguen en español
+                for (const e of document.querySelectorAll('.rc-texto, .rc-critica-texto, .rc-material-texto, .j-campo > p:not(.j-rot):not(.j-vacio):not(.j-sub), .j-sub > span:not(.j-rot-in), .juicio-ancla span:not(.j-rot-in), .ref-cita q, .ref-otra q, .j-proc > li > p:not(.j-sub), .j-alertas > li > p:not(:has(.j-alerta)), .j-alerta'))
+                  if (e.closest('[lang]').getAttribute('lang') !== 'es') { out.push('cuerpo sin lang=es: ' + e.className + ' ' + e.textContent.slice(0, 40)); break; }
+                if (lang === 'en' && document.querySelector('.rc-texto') && !/Spanish original/.test(document.body.textContent)) out.push('sin aviso de original');
+                // enlaces de la página: cada ancla existe
+                for (const a of document.querySelectorAll('a[href^="#"]')) if (!document.getElementById(a.getAttribute('href').slice(1))) { out.push('ancla rota ' + a.getAttribute('href')); break; }
+                return out; }""", lang)
+            csp = page.evaluate("window.__csp")
+            rotos = []
+            for href in set(page.evaluate("[...document.querySelectorAll('a[href^=\"/\"]')].map(a => a.getAttribute('href'))")):
+                st, hh, _ = http(base, href.split("#")[0])
+                if st == 308:
+                    st, _, _ = http(base, hh.get("Location", ""))
+                if st != 200:
+                    rotos.append(f"{href} → {st}")
+            check(f"[{key}] ED02-X1: sin errores ni violaciones de la CSP; idioma, h1, canónica y hreflang; la etiqueta del piloto; cada voz con su rótulo y los cuerpos en español; enlaces que llegan",
+                  not errors and not csp and not info and not rotos, f"{errors} {csp} {info} {rotos}")
+            if key.startswith("rc-"):
+                rc = page.evaluate("""() => ({lecturas: document.querySelectorAll('.juicio').length, textos: document.querySelectorAll('.rc-texto[data-voz="modelo"]').length,
+                    criticas: document.querySelectorAll('.rc-critica').length, pasajes: document.querySelectorAll('.p-a').length,
+                    niveles: [...document.querySelectorAll('.juicio .regla')].every(r => r.children.length === 5 && r.querySelectorAll('.regla-pos--marca').length === 1),
+                    aviso: !!document.querySelector('#etapa-e .aviso-x1'), palabras351: /351 (palabras|words)/.test(document.querySelector('#etapa-e .rc-meta').textContent)})""")
+                es351 = key in ("rc-es", "rc-en")
+                check(f"[{key}] ED02-X1: el recorrido trae 5 textos, 2 críticas y 32 lecturas, cada una con una sola marca en su regla de 0 a 4"
+                      + ("; la transferencia de 351 palabras lleva su aviso" if es351 else ""),
+                      rc["lecturas"] == 32 and rc["textos"] == 5 and rc["criticas"] == 2 and rc["pasajes"] > 0 and rc["niveles"] and (rc["aviso"] == es351 == rc["palabras351"]), str(rc))
+                # seguir un pasaje: se ilumina entero, aunque esté partido en tramos, y queda a la vista bajo la barra y la ruta
+                pid = page.evaluate("[...document.querySelectorAll('.p-a')].find(a => document.querySelectorAll('.cita[data-p~=\"' + a.id + '\"]').length > 1).id")
+                page.goto(base + path + "#" + pid, wait_until="networkidle")
+                page.wait_for_timeout(300)
+                seguido = page.evaluate("""(pid) => { const tramos = [...document.querySelectorAll('.cita[data-p~="' + pid + '"]')];
+                    const r = document.getElementById(pid).getBoundingClientRect(), ruta = document.querySelector('.rc-ruta').getBoundingClientRect();
+                    return {tramos: tramos.length, activos: tramos.filter(t => t.classList.contains('activa')).length,
+                            otros: document.querySelectorAll('.cita.activa').length, visible: r.top >= ruta.bottom - 2 && r.top < innerHeight}; }""", pid)
+                check(f"[{key}] ED02-X1: seguir un pasaje lo ilumina entero (todos sus tramos, ninguno más) y lo deja a la vista bajo la ruta",
+                      seguido["tramos"] > 1 and seguido["activos"] == seguido["tramos"] and seguido["otros"] == seguido["tramos"] and seguido["visible"], str(seguido))
+            page.close()
+        ctx.close()
+        # en el celular, los avisos siguen a la vista: la etiqueta, el orden condicional, los escenarios y las 351 palabras
+        ctx = browser.new_context(viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True, reduced_motion="reduce")
+        page = ctx.new_page()
+        movil = []
+        for key, path in (("es", "/"), ("en", "/en/")):
+            page.goto(base + path, wait_until="networkidle")
+            page.evaluate("document.fonts.ready")
+            r = page.evaluate("""(badge) => { const vis = e => !!e && e.checkVisibility({visibilityProperty: true}) && e.getBoundingClientRect().width > 40;
+                const cart = document.querySelector('.onfalo .placa-estado'), rc = cart.getBoundingClientRect();
+                const tr = document.querySelector('.trailer--resultados');
+                return {cartela: vis(cart) && rc.top >= 0 && rc.bottom <= innerHeight && cart.textContent.trim() === badge,
+                        trailer: vis(tr) && vis(tr.querySelector('.stamp')) && tr.querySelectorAll('.tr-aviso').length === 2 && [...tr.querySelectorAll('.tr-aviso')].every(vis) && vis(tr.querySelector('.x1-mini')),
+                        sala: ['.x1-orden .x1-nota', '.x1-tabla', '.x1-sensibilidad .x1-nota', '.x1-nota--sesgo', '#resultados .aviso-x1', '.x1-fuera-lista', '.x1-limites .limites-lista'].map(s => vis(document.querySelector(s))),
+                        tabla: document.querySelector('.x1-tabla-caja').scrollWidth <= document.querySelector('.x1-tabla-caja').clientWidth + 1}; }""", BADGE[key])
+            if not (r["cartela"] and r["trailer"] and all(r["sala"]) and r["tabla"]):
+                movil.append(f"{key}: {r}")
+        check("En el celular la etiqueta del piloto queda a la vista al llegar; el tráiler de resultados y su sala conservan las advertencias (orden condicional, escenarios, sesgo, 351 palabras, fuera del índice, límites) y la tabla cabe sin desplazarse",
+              not movil, "; ".join(movil))
+        # el cambio de idioma no mezcla voces: el mismo pasaje sigue en español y con el mismo destino
+        page.goto(base + "/", wait_until="networkidle")
+        es_ = page.evaluate("(() => { const f = document.querySelector('.trailers [data-actual]'); return [f.dataset.fragmento, f.querySelector('.f-cita').textContent.trim(), f.querySelector('.f-cita').lang]; })()")
+        page.goto(base + "/en/", wait_until="networkidle")
+        en_ = page.evaluate("(() => { const f = document.querySelector('.trailers [data-actual]'); return [f.dataset.fragmento, f.querySelector('.f-cita').textContent.trim(), f.querySelector('.f-cita').lang, !!f.querySelector('.f-traduccion')]; })()")
+        check("Cambio de idioma: el mismo pasaje, palabra por palabra, sigue en español original (lang=es) y avisa que no está traducido; la interfaz cambia, la voz del modelo no",
+              es_[0] == en_[0] and es_[1] == en_[1] and es_[2] == en_[2] == "es" and en_[3], f"{es_} {en_}")
         ctx.close()
 
         # ---------- axe y espaciado de texto (sin CSP, para poder inyectar) ----------
@@ -582,7 +749,7 @@ def main():
         for w in (1440, 390):
             ctx = browser.new_context(viewport={"width": w, "height": 900}, bypass_csp=True)
             page = ctx.new_page()
-            for key, path in PAGES.items():
+            for key, path in list(PAGES.items()) + list(LECTURAS.items()):
                 page.goto(base + path, wait_until="networkidle")
                 page.evaluate(AXE)
                 r = page.evaluate("axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']}})")
@@ -592,14 +759,14 @@ def main():
                 for v in r["violations"]:
                     axe_bp.append(f"{key}@{w}: {v['id']}")
             ctx.close()
-        check("axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (3 páginas × 2 anchos)", not axe_fail, str(axe_fail))
+        check("axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (8 páginas × 2 anchos: portadas, 404, recorridos y método)", not axe_fail, str(axe_fail))
         check("axe-core · buenas prácticas: sin avisos", not axe_bp, str(sorted(set(axe_bp))))
 
         spacing = []
         for w in (1280, 390):
             ctx = browser.new_context(viewport={"width": w, "height": 900}, bypass_csp=True)
             page = ctx.new_page()
-            for key, path in PAGES.items():
+            for key, path in list(PAGES.items()) + list(LECTURAS.items()):
                 page.goto(base + path, wait_until="networkidle")
                 page.add_style_tag(content="*{line-height:1.5!important;letter-spacing:.12em!important;word-spacing:.16em!important}p{margin-bottom:2em!important}")
                 page.evaluate("document.fonts.ready")

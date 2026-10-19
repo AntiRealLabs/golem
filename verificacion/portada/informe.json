@@ -1,7 +1,7 @@
 {
- "fecha": "2026-10-18 05:30 (UTC−5)",
- "correctas": 113,
- "total": 113,
+ "fecha": "2026-10-20 01:12 (UTC−5)",
+ "correctas": 133,
+ "total": 133,
  "resultados": [
   {
    "comprobacion": "Puerta de publicación: site/ contiene solo la portada",
@@ -64,9 +64,34 @@
    "detalle": ""
   },
   {
-   "comprobacion": "sitemap.xml es XML válido con las dos páginas",
+   "comprobacion": "sitemap.xml es XML válido con las dos portadas y las 26 páginas de ED02-X1",
    "ok": true,
-   "detalle": ""
+   "detalle": "28 direcciones"
+  },
+  {
+   "comprobacion": "HTTP: /ed02-x1/m03-c02-r1/ responde 200 con HTML",
+   "ok": true,
+   "detalle": "200"
+  },
+  {
+   "comprobacion": "HTTP: /en/ed02-x1/m03-c02-r1/ responde 200 con HTML",
+   "ok": true,
+   "detalle": "200"
+  },
+  {
+   "comprobacion": "HTTP: /ed02-x1/m04-c01-r1/ responde 200 con HTML",
+   "ok": true,
+   "detalle": "200"
+  },
+  {
+   "comprobacion": "HTTP: /ed02-x1/metodo/ responde 200 con HTML",
+   "ok": true,
+   "detalle": "200"
+  },
+  {
+   "comprobacion": "HTTP: /en/ed02-x1/metodo/ responde 200 con HTML",
+   "ok": true,
+   "detalle": "200"
   },
   {
    "comprobacion": "favicon.ico trae 16, 32 y 48 px",
@@ -111,12 +136,12 @@
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:41557'}"
+   "detalle": "{'127.0.0.1:34407'}"
   },
   {
    "comprobacion": "[es] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "366466 bytes"
+   "detalle": "468878 bytes"
   },
   {
    "comprobacion": "[es] idioma del documento declarado",
@@ -179,6 +204,11 @@
    "detalle": ""
   },
   {
+   "comprobacion": "[es] ED02-X1: «Piloto exploratorio · ED02-X1» en la placa y en resultados; orden condicional con los dos motores; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; doce recorridos; ED01 aparte",
+   "ok": true,
+   "detalle": ""
+  },
+  {
    "comprobacion": "[es] sin restos del otro idioma fuera de lo marcado con lang",
    "ok": true,
    "detalle": "[]"
@@ -196,12 +226,12 @@
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:41557'}"
+   "detalle": "{'127.0.0.1:34407'}"
   },
   {
    "comprobacion": "[en] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "375903 bytes"
+   "detalle": "482482 bytes"
   },
   {
    "comprobacion": "[en] idioma del documento declarado",
@@ -264,6 +294,11 @@
    "detalle": ""
   },
   {
+   "comprobacion": "[en] ED02-X1: «Exploratory pilot · ED02-X1» en la placa y en resultados; orden condicional con los dos motores; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; doce recorridos; ED01 aparte",
+   "ok": true,
+   "detalle": ""
+  },
+  {
    "comprobacion": "[en] sin restos del otro idioma fuera de lo marcado con lang",
    "ok": true,
    "detalle": "[]"
@@ -281,20 +316,20 @@
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:41557'}"
+   "detalle": "{'127.0.0.1:34407'}"
   },
   {
    "comprobacion": "[404] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "185602 bytes"
+   "detalle": "207566 bytes"
   },
   {
    "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces (sin contar el original español que acompaña a la traducción)",
    "ok": true,
-   "detalle": "{'es': [9, 19, 90, 276, 46], 'en': [9, 19, 90, 276, 46]}"
+   "detalle": "{'es': [10, 22, 166, 481, 230], 'en': [10, 22, 166, 481, 230]}"
   },
   {
-   "comprobacion": "Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px",
+   "comprobacion": "Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px (portadas, 404, recorridos y método)",
    "ok": true,
    "detalle": "[]"
   },
@@ -311,7 +346,7 @@
   {
    "comprobacion": "Teclado: desde el centro, ES → EN → cada estación con lo de su esquina: ↑, →, ←, ↓",
    "ok": true,
-   "detalle": "[['/', 'idioma'], ['/en/', 'idioma'], ['lugar #preguntas', 'preguntas'], ['#apuestas', 'preguntas'], ['lugar #laboratorio', 'laboratorio'], ['#que-contamos', 'laboratorio'], ['#laboratorio', 'laboratorio'], ['lugar #como-medimos', 'medimos'], ['#como-medimos', 'medimos'], ['lugar #resultados', 'resultados'], ['#resultados', 'resultados']]"
+   "detalle": "[['/', 'idioma'], ['/en/', 'idioma'], ['lugar #preguntas', 'preguntas'], ['#apuestas', 'preguntas'], ['lugar #laboratorio', 'laboratorio'], ['#laboratorio', 'laboratorio'], ['lugar #como-medimos', 'medimos'], ['#como-medimos', 'medimos'], ['lugar #resultados', 'resultados'], ['#resultados', 'resultados']]"
   },
   {
    "comprobacion": "Teclado: el foco se ve (contorno de 3 px)",
@@ -529,27 +564,92 @@
    "detalle": "[1, True]"
   },
   {
-   "comprobacion": "Sin JavaScript: cada fragmento rotativo queda quieto en GB-ED01-F001, sin controles, y «Leer en contexto» lleva a la ficha completa de su fuente",
+   "comprobacion": "Sin JavaScript: cada carrusel de ED02-X1 queda quieto en su primer pasaje, sin controles; «Leer en contexto» lleva al pasaje en la página de su recorrido y cada ficha está en la página",
    "ok": true,
-   "detalle": "['GB-ED01-F001', 'GB-ED01-F001'] True"
+   "detalle": "{'primero': 'm03-c01-r1:p-a-38-228', 'rotadores': ['m03-c01-r1:p-a-38-228', 'm03-c01-r1:p-a-38-228', 'm03-c01-r1:p-a-38-228'], 'enlaces': ['/ed02-x1/m03-c01-r1/#p-a-38-228', '/ed02-x1/m03-c01-r1/#p-a-38-228', '/ed02-x1/m03-c01-r1/#p-a-38-228']} [True] True"
   },
   {
-   "comprobacion": "Fragmentos: orden barajado de cinco por visita; «siguiente» avanza uno y el foco se queda en el botón; sin avance automático; el inglés conserva el mismo fragmento",
+   "comprobacion": "Pasajes de ED02-X1: los 60 de la plantilla, barajados una vez por visita; «siguiente» avanza uno y el foco se queda en el botón; sin avance automático; el inglés conserva el mismo pasaje",
    "ok": true,
-   "detalle": "{'orden': ['GB-ED01-F002', 'GB-ED01-F005', 'GB-ED01-F001', 'GB-ED01-F003', 'GB-ED01-F004'], 'actual': 'GB-ED01-F002'} ['GB-ED01-F002', 'Fragmento 1 de 5'] ['GB-ED01-F005', 'Fragmento 2 de 5'] ['GB-ED01-F005', 'Fragmento 2 de 5'] ['GB-ED01-F005', 'Excerpt 2 of 5'] foco=True"
+   "detalle": "{'orden': ['m03-c02-r2:p-e-103-294', 'm03-c02-r2:p-r2-13-112', 'm04-c02-r2:p-b-49-268', 'm03-c02-r1:p-e-22-187', 'm03-c01-r2:p-a-2-186', 'm03-c01-r2:p-r2-32-163', 'm03-c01-r2:p-e-107-211', 'm04-c01-r1:p-a-2-161', 'm04-c03-r2:p-r2-0-104', 'm04-c02-r1:p-r1-346-498', 'm03-c03-r2:p-b-21-171', 'm03-c02-r1:p-b-11-100', 'm03-c01-r2:p-b-326-407', 'm04-c02-r2:p-r1-0-183', 'm03-c02-r2:p-a-14-210', 'm03-c02-r1:p-r2-13-90', 'm04-c03-r1:p-e-0-101', 'm03-c03-r1:p-b-11-172', 'm04-c03-r2:p-e-126-295', 'm04-c02-r1:p-e-52-141', 'm04-c03-r2:p-r1-0-82', 'm03-c02-r1:p-a-14-128', 'm04-c01-r1:p-r2-540-779', 'm04-c02-r1:p-b-40-154', 'm03-c01-r1:p-r1-203-299', 'm03-c03-r2:p-r2-13-89', 'm04-c02-r2:p-r2-0-118', 'm04-c03-r2:p-a-2-133', 'm03-c03-r1:p-r2-73-139', 'm03-c01-r1:p-e-59-302', 'm03-c01-r1:p-r2-45-163', 'm04-c01-r1:p-r1-0-181', 'm04-c03-r2:p-b-231-377', 'm04-c03-r1:p-r2-176-301', 'm04-c03-r1:p-a-0-154', 'm03-c03-r1:p-a-14-158', 'm03-c01-r1:p-b-247-388', 'm03-c03-r2:p-a-2-170', 'm03-c02-r2:p-r1-13-99', 'm04-c01-r2:p-r2-474-686', 'm03-c01-r2:p-r1-136-276', 'm04-c02-r1:p-r2-168-290', 'm04-c01-r2:p-r1-32-148', 'm04-c02-r2:p-e-163-324', 'm04-c02-r1:p-a-2-153', 'm04-c02-r2:p-a-0-204', 'm03-c03-r2:p-r1-517-675', 'm04-c03-r1:p-b-174-330', 'm03-c03-r1:p-r1-174-390', 'm04-c01-r1:p-e-2-79', 'm03-c03-r1:p-e-28-155', 'm03-c03-r2:p-e-279-366', 'm04-c01-r2:p-e-104-216', 'm04-c01-r2:p-a-36-250', 'm04-c01-r2:p-b-170-306', 'm04-c03-r1:p-r1-217-331', 'm03-c01-r1:p-a-38-228', 'm03-c02-r1:p-r1-55-193', 'm04-c01-r1:p-b-150-345', 'm03-c02-r2:p-b-105-248'], 'actual': 'm03-c02-r2:p-e-103-294'} ['m03-c02-r2:p-e-103-294', 'Pasaje 1 de 60'] ['m03-c02-r2:p-r2-13-112', 'Pasaje 2 de 60'] ['m03-c02-r2:p-r2-13-112', 'Pasaje 2 de 60'] ['m03-c02-r2:p-r2-13-112', 'Passage 2 of 60'] foco=True"
   },
   {
-   "comprobacion": "Movimiento reducido: el cambio de fragmento aparece sin animación (con movimiento, un fundido corto)",
+   "comprobacion": "Movimiento reducido: el cambio de pasaje aparece sin animación (con movimiento, un fundido corto)",
    "ok": true,
    "detalle": "none / aparece"
   },
   {
-   "comprobacion": "Panel de lectura: «Leer en contexto» abre la fuente con la cita marcada a la vista; se cierra con Esc, con su botón o tocando afuera, y el foco vuelve al enlace; si falta la fuente lo dice",
+   "comprobacion": "Panel de lectura: «Leer en contexto» abre el pasaje marcado a la vista en su texto original y las lecturas que lo citan (rótulo, nivel, justificación y límite), con el enlace a su recorrido; la nota de incidencias se abre igual; se cierra con Esc, con su botón o tocando afuera, el foco vuelve al enlace y, si algo falta, lo dice",
    "ok": true,
    "detalle": ""
   },
   {
-   "comprobacion": "axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (3 páginas × 2 anchos)",
+   "comprobacion": "[rc-es] ED02-X1: sin errores ni violaciones de la CSP; idioma, h1, canónica y hreflang; la etiqueta del piloto; cada voz con su rótulo y los cuerpos en español; enlaces que llegan",
+   "ok": true,
+   "detalle": "[] [] [] []"
+  },
+  {
+   "comprobacion": "[rc-es] ED02-X1: el recorrido trae 5 textos, 2 críticas y 32 lecturas, cada una con una sola marca en su regla de 0 a 4; la transferencia de 351 palabras lleva su aviso",
+   "ok": true,
+   "detalle": "{'lecturas': 32, 'textos': 5, 'criticas': 2, 'pasajes': 95, 'niveles': True, 'aviso': True, 'palabras351': True}"
+  },
+  {
+   "comprobacion": "[rc-es] ED02-X1: seguir un pasaje lo ilumina entero (todos sus tramos, ninguno más) y lo deja a la vista bajo la ruta",
+   "ok": true,
+   "detalle": "{'tramos': 3, 'activos': 3, 'otros': 3, 'visible': True}"
+  },
+  {
+   "comprobacion": "[rc-en] ED02-X1: sin errores ni violaciones de la CSP; idioma, h1, canónica y hreflang; la etiqueta del piloto; cada voz con su rótulo y los cuerpos en español; enlaces que llegan",
+   "ok": true,
+   "detalle": "[] [] [] []"
+  },
+  {
+   "comprobacion": "[rc-en] ED02-X1: el recorrido trae 5 textos, 2 críticas y 32 lecturas, cada una con una sola marca en su regla de 0 a 4; la transferencia de 351 palabras lleva su aviso",
+   "ok": true,
+   "detalle": "{'lecturas': 32, 'textos': 5, 'criticas': 2, 'pasajes': 95, 'niveles': True, 'aviso': True, 'palabras351': True}"
+  },
+  {
+   "comprobacion": "[rc-en] ED02-X1: seguir un pasaje lo ilumina entero (todos sus tramos, ninguno más) y lo deja a la vista bajo la ruta",
+   "ok": true,
+   "detalle": "{'tramos': 3, 'activos': 3, 'otros': 3, 'visible': True}"
+  },
+  {
+   "comprobacion": "[rc-gpt] ED02-X1: sin errores ni violaciones de la CSP; idioma, h1, canónica y hreflang; la etiqueta del piloto; cada voz con su rótulo y los cuerpos en español; enlaces que llegan",
+   "ok": true,
+   "detalle": "[] [] [] []"
+  },
+  {
+   "comprobacion": "[rc-gpt] ED02-X1: el recorrido trae 5 textos, 2 críticas y 32 lecturas, cada una con una sola marca en su regla de 0 a 4",
+   "ok": true,
+   "detalle": "{'lecturas': 32, 'textos': 5, 'criticas': 2, 'pasajes': 107, 'niveles': True, 'aviso': False, 'palabras351': False}"
+  },
+  {
+   "comprobacion": "[rc-gpt] ED02-X1: seguir un pasaje lo ilumina entero (todos sus tramos, ninguno más) y lo deja a la vista bajo la ruta",
+   "ok": true,
+   "detalle": "{'tramos': 3, 'activos': 3, 'otros': 3, 'visible': True}"
+  },
+  {
+   "comprobacion": "[metodo-es] ED02-X1: sin errores ni violaciones de la CSP; idioma, h1, canónica y hreflang; la etiqueta del piloto; cada voz con su rótulo y los cuerpos en español; enlaces que llegan",
+   "ok": true,
+   "detalle": "[] [] [] []"
+  },
+  {
+   "comprobacion": "[metodo-en] ED02-X1: sin errores ni violaciones de la CSP; idioma, h1, canónica y hreflang; la etiqueta del piloto; cada voz con su rótulo y los cuerpos en español; enlaces que llegan",
+   "ok": true,
+   "detalle": "[] [] [] []"
+  },
+  {
+   "comprobacion": "En el celular la etiqueta del piloto queda a la vista al llegar; el tráiler de resultados y su sala conservan las advertencias (orden condicional, escenarios, sesgo, 351 palabras, fuera del índice, límites) y la tabla cabe sin desplazarse",
+   "ok": true,
+   "detalle": ""
+  },
+  {
+   "comprobacion": "Cambio de idioma: el mismo pasaje, palabra por palabra, sigue en español original (lang=es) y avisa que no está traducido; la interfaz cambia, la voz del modelo no",
+   "ok": true,
+   "detalle": "['m03-c02-r1:p-r2-13-90', 'La crítica alcanza B, §4, no la pregunta de A ni la tesis identitaria de B.', 'es'] ['m03-c02-r1:p-r2-13-90', 'La crítica alcanza B, §4, no la pregunta de A ni la tesis identitaria de B.', 'es', True]"
+  },
+  {
+   "comprobacion": "axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (8 páginas × 2 anchos: portadas, 404, recorridos y método)",
    "ok": true,
    "detalle": "[]"
   },

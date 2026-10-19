@@ -5,12 +5,15 @@ Idioma de trabajo: español. Todo contenido público va en español y en inglés
 ## Qué hay en este repo
 
 - `site/`: lo único que se publica. La portada: HTML y CSS estáticos, dos scripts propios pequeños
-  (`assets/centro.js`, la cruz; `assets/archivo.js`, los fragmentos, el panel de lectura y el ajuste
-  de las esquinas) y ningún recurso externo. `index.html` (ES), `en/index.html` (EN), `404.html`,
-  `_headers`, `robots.txt`, `sitemap.xml`, fuentes e imágenes.
+  (`assets/centro.js`, la cruz; `assets/archivo.js`, los carruseles de pasajes, el panel de lectura,
+  el ajuste de las esquinas y las páginas de lectura) y ningún recurso externo. `index.html` (ES),
+  `en/index.html` (EN), `404.html`, `_headers`, `robots.txt`, `sitemap.xml`, fuentes e imágenes.
+  Además, las páginas de lectura de ED02-X1: `ed02-x1/<recorrido>/` (doce) y `ed02-x1/metodo/`, con su
+  par en `en/ed02-x1/`.
 - `herramientas/`: puerta de publicación, servidor local que imita Pages, verificación de la
   portada, huellas de versión de CSS y JS, generador del favicon y de las imágenes para compartir,
-  y el constructor del primer corte ED01 (`construir_ed01.py`) con su cotejo (`cotejar_ed01.py`).
+  el constructor del primer corte ED01 (`construir_ed01.py`) con su cotejo (`cotejar_ed01.py`) y el
+  de ED02-X1 (`construir_ed02x1.py`) con el suyo (`cotejar_ed02x1.py`).
 - `DEPLOY.md`: cómo se despliega y registro de publicaciones.
 
 El prototipo de Golem Lab (propuesta v0.1) no está en este repo: contiene materiales del piloto
@@ -74,6 +77,46 @@ otro pide lo mismo: aprobación de Juan, el cambio de la puerta en el mismo comm
 - El nivel de J1.1 es de toda la entrega A, nunca de la cita: dos reglas de cinco posiciones con una
   marca cada una, sin flecha entre 4 y 3 ni promedio.
 - IA-01, la app y ED01 son series distintas: la nota de IA-01 va aparte y no suma a las cifras.
+- Desde ED02-X1 (20 oct 2026) las esquinas, la cartela de la placa y los tráileres del celular son de
+  ED02-X1. ED01 sigue en sus salas, debajo de ED02-X1, detrás de un separador que dice que es otra serie y que
+  sus cifras no se suman. `cotejar_ed01.py` coteja lo que ED01 sigue publicando.
+
+## ED02-X1 (publicado el 20 oct 2026)
+
+El paquete público de coordinación (`Golem_Bench_ED02_X1_publico_para_Claude`, 18 oct 2026) está integrado en
+la portada y publicado desde el 20 oct 2026, con la aprobación de Juan anotada en `DEPLOY.md`. La puerta lo dejó
+pasar sin cambios: no trae identificadores bloqueados ni archivos fuera de lo previsto. Las decisiones ✎ de
+abajo salieron con esa aprobación; si coordinación pide cambiar alguna, se cambia en `construir_ed02x1.py` y se
+reconstruye.
+
+Un paquete nuevo se integra en una rama local que no se sube hasta que Juan apruebe: el repo es público y
+cualquier rama que toque `site/` se publica como vista previa en `<rama>.golembench.pages.dev`.
+
+- `construir_ed02x1.py PAQUETE site` comprueba la huella de cada archivo contra el manifiesto, escribe los
+  bloques `<!-- x1:… -->` de las dos portadas, las 26 páginas de lectura y su parte del `sitemap.xml`.
+  `cotejar_ed02x1.py PAQUETE site` lo revisa sin usar ese código (0 fallas).
+- Es un piloto exploratorio con desviaciones, no un cierre de ED02 estricto. La etiqueta «Piloto exploratorio
+  · ED02-X1» va en la cartela de la placa y encima de cada parte con cifras.
+- El índice combinado es un orden condicional, nunca un ganador ni un porcentaje: la tabla lleva al lado los
+  dos motores, cada uno con su primero marcado, y los valores exactos. Los 42 escenarios van en dos rejillas de
+  7 × 3, una por motor (✎ lectura de Claude: ningún peso ni conversión cambia el orden; lo cambia el motor).
+- El aviso de las 351 palabras va con la nota completa de incidencias (en Cómo medimos y en el panel). Los 60
+  textos son 59 admitidos en ED02 más 1 de X1: nunca 60 admisiones estrictas. Las desviaciones de las críticas
+  quedan en el método. Las dos configuraciones no admitidas no tienen cero ni puesto; Gemini dice «Pendiente».
+- 12 recorridos, 60 textos, 24 críticas y 144 lecturas son unidades distintas, cada una con lo que cuenta.
+  Tres especialidades puntuadas por dos motores, no tres jueces.
+- Los pasajes son citas verificadas que usó un juez, no una selección de ideas. Un pasaje es una frase visible
+  en su fuente y etapa (la misma citada con o sin sus «**» cuenta una vez): 2.282 registros, 1.222 pasajes. Cada
+  uno conserva todos sus vínculos de juez y criterio. Las 488 referencias no promovidas se muestran dentro del
+  dictamen, nunca se destacan. Carrusel (✎): de cada texto, el primer pasaje citado entre los de 60 a 240
+  caracteres; 60 en una plantilla, barajados por visita.
+- Cada recorrido trae sus cinco textos, las dos críticas, el contraste T, el caso y las 32 lecturas lado a lado
+  por motor: nivel en su regla («vale para la etapa, no para una frase»), justificación y límite a la vista; el
+  resto del dictamen, desplegable. Siete dictámenes de nivel 4 no registran límite: la página lo dice.
+- En inglés cambian la interfaz y lo editorial del paquete; los cuerpos del modelo, de las críticas y de los
+  jueces siguen en español original con `lang="es"` y el aviso de que no están traducidos. Los nombres de
+  criterio en inglés son traducción editorial (✎) y van con el original al lado. La novedad se juzga
+  respecto del corpus, no de toda la historia. No hay validación humana.
 
 ## Antes de cada push a main
 
@@ -83,6 +126,8 @@ otro pide lo mismo: aprobación de Juan, el cambio de la puerta en el mismo comm
   workflows fallan si una huella quedó vieja.
 - Si llega un paquete nuevo de ED01: `python3 -I herramientas/construir_ed01.py PAQUETE site`, luego
   `python3 -I herramientas/cotejar_ed01.py PAQUETE site` (0 fallas) y las huellas.
+- Si llega un paquete nuevo de ED02-X1: `python3 -I herramientas/construir_ed02x1.py PAQUETE site`, luego
+  `python3 -I herramientas/cotejar_ed02x1.py PAQUETE site` (0 fallas) y las huellas.
 - `python3 -I herramientas/verificar_portada.py` debe dar todo correcto.
 - `python3 -I herramientas/comprobar_publicacion.py site`.
 - Si cambian textos de la portada: mantener la paridad entre `site/index.html` y
@@ -98,12 +143,15 @@ centro, cuatro rumbos alrededor, nada de arquitectura tradicional (sin barra sup
 
 - **Centro** (`#centro`, `.onfalo`): la placa del nombre en el centro exacto, sobre papel: el
   descriptor, «Golem» centrado con la mascota a su izquierda, «Bench» debajo y el lema. El estado de la
-  edición («Edición experimental · Primeras lecturas») va inscrito en el marco de abajo, como una
-  cartela: no agranda la placa. Alrededor, cuatro rumbos: el nombre llano en un recuadro (`.lugar`) y, en cursiva, un susurro
+  edición va inscrito en el marco de abajo, como una cartela: no agranda la placa (hoy, «Piloto
+  exploratorio · ED02-X1»; con ED01 decía «Edición experimental · Primeras lecturas»).
+  Alrededor, cuatro rumbos: el nombre llano en un recuadro (`.lugar`) y, en cursiva, un susurro
   de lo que hay allá (`.susurro`; a los lados va debajo del recuadro). En los cuatro cuadrantes que forma
   la cruz, un tráiler de su sala en rueda de molino: noroeste → preguntas, noreste → laboratorio,
   sureste → resultados, suroeste → cómo medimos. Cada tráiler dice lo mismo en el mismo orden: rótulo,
-  titular, una muestra concreta y una invitación. En el HTML cada rumbo y su cuadrante van juntos en
+  titular, una muestra concreta y una invitación. Son de ED02-X1: el 30 % de las preguntas
+  (J1.1, J2.1 y J3.1, cada uno con «peso 30»: sin la palabra, el número se leería como una nota), un pasaje citado por un juez, el orden condicional con los dos motores y las tres
+  especialidades; la etiqueta del piloto y la cifra con su advertencia son lo último que se guarda. En el HTML cada rumbo y su cuadrante van juntos en
   una estación (`.estacion--preguntas`, `--laboratorio`, `--medimos`, `--resultados`; en escritorio son
   `display:contents`). Es donde aterriza una visita nueva.
 - **Las esquinas** (✎ propuesta de Claude, 18 oct 2026): los tráileres de arriba cuelgan del borde
@@ -130,19 +178,28 @@ centro, cuatro rumbos alrededor, nada de arquitectura tradicional (sin barra sup
   peldaño: la sala es una columna invertida, así que queda abajo, y la línea de la escalera termina
   16 px antes del signo, mida lo que mida el pie. En el celular la línea termina en el punto de la
   primera pregunta. La verificación comprueba que ninguna línea toque el signo.
-- **← Cómo medimos** (`#como-medimos`): el recorrido de cuatro pasos, las tres especialidades (J1, J2 y
-  J3 no son modelos: GPT y Claude son motores que hacen lecturas), su alcance en este corte, y en
-  desplegables los criterios y pesos, los referentes, la escala, el índice candidato y las razones y
-  límites. Cierra la cita.
+- **← Cómo medimos** (`#como-medimos`): el recorrido de cuatro pasos; después, ED02-X1
+  (`#x1-medimos`: tres especialidades puntuadas por dos motores, cada una con sus criterios; la escala, la
+  sensibilidad, el orden de lectura, la nota completa de incidencias `#x1-incidencias` y los límites; el
+  enlace a la rúbrica y los materiales) y, aparte, ED01: las tres especialidades (J1, J2 y J3 no son
+  modelos: GPT y Claude son motores que hacen lecturas), su alcance en ese corte, y en desplegables los
+  criterios y pesos, los referentes, la escala, el índice candidato y las razones y límites. Cierra la cita.
 - **→ Laboratorio** (`#laboratorio`): Golem Lab y sus tres puertas, en el taller (borde discontinuo:
-  cada puerta dice que no está construida y qué existe mientras tanto). Debajo, con borde firme, lo que
-  ya hay de ED01: las cifras con lo que cuentan, los fragmentos («Una voz del archivo»), el supuesto a
-  examen, los temas del lote, las cinco fuentes completas y la nota de IA-01, aparte.
-- **↓ Resultados de evaluaciones** (`#resultados`): el primer corte ED01 (las cuatro configuraciones
-  en orden fijo de cohorte, las 10 entregas dentro del límite y las 2 fuera de comparación, las fases
-  cerradas y pendientes, el ranking en preparación, «Una pregunta. Dos lecturas.» y los límites), el
-  pacto y el suelo de barro con el golem que entreabre los ojos y el contacto. El pie va debajo, sobre
-  carbón.
+  cada puerta dice que no está construida y qué existe mientras tanto). Después, ED02-X1
+  (`#x1-laboratorio`: las cuatro unidades, el carrusel de pasajes citados y los tres casos con sus doce
+  recorridos, `#x1-recorridos`). Debajo, con borde firme y aparte, lo que hay de ED01: las cifras con lo
+  que cuentan, los fragmentos («Una voz del archivo»), el supuesto a examen, los temas del lote, las cinco
+  fuentes completas y la nota de IA-01, aparte.
+- **↓ Resultados de evaluaciones** (`#resultados`): primero ED02-X1 (el orden condicional
+  con los dos motores, los 42 escenarios, el aviso de 351 palabras, lo que queda fuera del índice, los
+  límites y los perfiles); después, aparte, el primer corte ED01 (`#ed01-resultados`: las cuatro
+  configuraciones en orden fijo de cohorte, las 10 entregas dentro del límite y las 2 fuera de
+  comparación, las fases cerradas y pendientes, el ranking en preparación, «Una pregunta. Dos lecturas.» y
+  los límites), el pacto y el suelo de barro con el golem que entreabre los ojos y el contacto. El pie va
+  debajo, sobre carbón.
+- **Las páginas de lectura de ED02-X1** (`/ed02-x1/<recorrido>/`, `/ed02-x1/metodo/` y su par en `/en/`):
+  una barra con la vuelta al laboratorio, la marca y el idioma; la ruta de etapas fija arriba; cada texto
+  con sus pasajes subrayados con puntos y, debajo, las lecturas de los dos motores, criterio por criterio.
 
 Cómo está hecho: el centro va primero en el HTML (lectores de pantalla y teclado empiezan ahí) y la
 rejilla de `main` lo pone en medio. El centro es una rejilla en cruz de 5×5; las dos filas de aire
@@ -153,10 +210,14 @@ salas laterales se recorren por dentro, así no queda vacío entre el centro y l
 `site/assets/centro.js` (pequeño, sin dependencias) aterriza en el centro en una visita nueva, mueve
 los dos ejes con los enlaces, marca la brújula y atiende ← →. La brújula, un sello pequeño, aparece
 cuando uno se aleja del centro. Sin JavaScript todo sigue accesible con enlaces. El scroll es el del
-navegador: nada de secuestrarlo. `site/assets/archivo.js` baraja los cinco fragmentos una vez por visita
-(se avanzan a mano, sin avance automático; el cambio de idioma conserva el fragmento), abre el panel de
-lectura (`<dialog>`: se cierra con Esc, su botón o tocando afuera, y devuelve el foco) y ajusta las
-esquinas. Sin él queda GB-ED01-F001 quieto y «Leer en contexto» lleva a la ficha de su fuente.
+navegador: nada de secuestrarlo. Un ancla dentro de una sala lateral (`#x1-recorridos`, `#fuentes`) desliza
+la fila hasta esa sala y la baja por dentro hasta el lugar. `site/assets/archivo.js` baraja cada colección
+de pasajes una vez por visita (se avanzan a mano, sin avance automático; el cambio de idioma conserva el
+pasaje; los 60 de ED02-X1 salen de la plantilla `#x1-pasajes`), abre el panel de lectura (`<dialog>`: se
+cierra con Esc, su botón o tocando afuera, y devuelve el foco; para un pasaje de ED02-X1 trae de la página
+de su recorrido el texto con el pasaje marcado y las lecturas que lo citan), ajusta las esquinas y, en las
+páginas de lectura, ilumina entero el pasaje que se sigue. Sin él queda quieto el primer pasaje y «Leer en
+contexto» lleva al pasaje en la página de su recorrido.
 
 ## Voz: parresía
 
@@ -191,7 +252,9 @@ Tokens y letras de la base visual (`site/assets/portada.css`): carbón `#1c1d1a`
 burdeos `#803a39`, tostado `#d1b698`, arcilla `#b98b6a`. UnifrakturMaguntia para la marca, Chakra Petch
 para titulares, Archivo para el texto, Newsreader (cursiva) para las frases con voz literaria,
 Fragment Mono para rótulos y DM Sans para «BENCH». Las fuentes (licencia OFL) se sirven desde
-`site/assets/fonts/`.
+`site/assets/fonts/`. El texto del modelo va en Newsreader recta, y lo que el modelo escribió en negrita
+o como título va en Newsreader 600, en su propia letra: en la letra de la interfaz, un
+título suyo se leería como un rótulo nuestro.
 
 El suelo de la portada es el papel (marfil); arriba, la noche de las preguntas; abajo, la arcilla.
 

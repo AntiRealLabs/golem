@@ -9,9 +9,10 @@
 Se publica como proyecto de *direct upload* desde GitHub Actions, igual que
 simioplateado. En el dashboard aparece `No Git connection`: es lo esperado.
 
-**Hoy se publica la portada con el primer corte de ED01** (desde el 18 oct 2026,
-con aprobación de Juan): la carpeta `site/`. El prototipo del Lab no está en este
-repo y **no se publica** (ver `CLAUDE.md`, «Antes de publicar el Lab»).
+**Hoy se publica la portada con ED02-X1 y, aparte, el primer corte de ED01**
+(ED01 desde el 18 oct 2026; ED02-X1 desde el 20 oct 2026, con sus 26 páginas de
+lectura; las dos con aprobación de Juan): la carpeta `site/`. El prototipo del Lab
+no está en este repo y **no se publica** (ver `CLAUDE.md`, «Antes de publicar el Lab»).
 
 ## Flujo
 
@@ -75,6 +76,8 @@ El token no se pega en chats ni en archivos del repo.
 ```bash
 python3 -I herramientas/construir_ed01.py PAQUETE site   # si llegó un paquete nuevo de ED01
 python3 -I herramientas/cotejar_ed01.py PAQUETE site     # y su cotejo: 0 fallas
+python3 -I herramientas/construir_ed02x1.py PAQUETE site # si llegó un paquete nuevo de ED02-X1
+python3 -I herramientas/cotejar_ed02x1.py PAQUETE site   # y su cotejo: 0 fallas
 python3 -I herramientas/versionar_recursos.py       # si cambiaron portada.css, centro.js o archivo.js
 python3 -I herramientas/verificar_portada.py        # Playwright + Chromium; todo debe dar correcto
 python3 -I herramientas/comprobar_publicacion.py site
@@ -94,7 +97,10 @@ python3 -I herramientas/servidor_local.py 8788      # http://127.0.0.1:8788
   despliegues. Si algún día se migra, hacerlo como en simioplateado (prueba,
   comprobar dominios y solo entonces quitar el workflow).
 - No copiar a `site/` datos del piloto IA-01 ni archivos del prototipo del Lab. Lo de
-  ED01 entra solo con `construir_ed01.py`, desde un paquete de coordinación.
+  ED01 entra solo con `construir_ed01.py`, desde un paquete de coordinación; lo de ED02-X1,
+  solo con `construir_ed02x1.py`, desde su paquete público. Un paquete nuevo se integra en
+  una rama local y no se sube hasta que Juan lo apruebe y quede anotado abajo: cualquier rama
+  que toque `site/` sale como vista previa pública.
 - No relajar `comprobar_publicacion.py` salvo en el commit que publique algo aprobado,
   con la aprobación anotada abajo. El 18 oct 2026 admitió «IA-01» y «BF-03» para el
   primer corte ED01 (ver el registro).
@@ -111,3 +117,4 @@ python3 -I herramientas/servidor_local.py 8788      # http://127.0.0.1:8788
 | 2026-10-18 | Portada «la cruz»: se llega a la pregunta y se navega hacia los cuatro lados. Lema «Preguntas desde el futuro». ES/EN, sin datos del piloto. CSS y JS con huella de versión | Juan · Anti-Real Labs (en el chat de diseño) |
 | 2026-10-18 | Portada «el mapa en cruz», sobre el boceto de Juan: el nombre en el centro, cuatro rumbos (Preguntas abiertas, Cómo medimos, Laboratorio, Resultados de evaluaciones) y cuatro cuadrantes que invitan a navegar. Sin la pregunta como titular; tarjetas con el lema. ES/EN, sin datos del piloto | Juan · Anti-Real Labs (en el chat de diseño) |
 | 2026-10-18 | Primer corte ED01, del paquete de contenidos v0.1 de coordinación: cuatro tráileres en las esquinas de la cruz y sus salas en profundidad (seis apuestas, cifras, cinco fragmentos con sus fuentes completas, supuesto a examen, cohorte en orden fijo, fases, ranking en preparación sin datos, «Una pregunta. Dos lecturas.», método y límites). Símbolos de las estaciones y baldosas en el celular (rama `estaciones`). La mascota del golem firma el pie y va a la izquierda de «Golem», de su tamaño y a su altura, en la placa, en «Golem Lab» y en las tarjetas para compartir. La puerta admite «IA-01» (nombre de la serie anterior) y «BF-03» (texto literal de una entrega). ES/EN | Juan · Anti-Real Labs (en el chat de diseño: «PUBLICA!! ME ENCANTA!») |
+| 2026-10-20 | ED02-X1, piloto exploratorio, del paquete público de coordinación (18 oct 2026). En la portada: la cartela «Piloto exploratorio · ED02-X1», las cuatro esquinas y los tráileres del celular; en Resultados, el orden condicional (GPT-6.1-sol 86,2 · Claude Opus 5.5 82,7) con los dos motores al lado, los 42 escenarios partidos por motor, el aviso de 351 palabras con la nota de incidencias y lo que queda fuera del índice, sin cero ni puesto (Gemini, pendiente); en el Laboratorio, las cuatro unidades, el carrusel de 60 pasajes citados por los jueces y los doce recorridos; en Cómo medimos, tres especialidades puntuadas por dos motores. 26 páginas de lectura (12 recorridos y el método, ES/EN) con 1.222 pasajes y las 144 lecturas. ED01 sigue debajo y aparte; su tríptico de la esquina sale. En inglés, interfaz y editorial; los cuerpos siguen en español original. Newsreader 600 para lo que el modelo escribió en negrita o como título. Las decisiones ✎ de Claude salen con esta aprobación. La puerta no cambia | Juan · Anti-Real Labs (en el chat de diseño: «PUBLICA PORFA!») |

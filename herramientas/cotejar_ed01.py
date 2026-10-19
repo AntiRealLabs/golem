@@ -5,6 +5,8 @@ las cifras son las del paquete y no se cuela nada de las instrucciones ni de los
 
 Uso:  python3 -I herramientas/cotejar_ed01.py CARPETA_DEL_PAQUETE site
 Sale con código 1 si algo no coincide. El paquete no vive en este repo.
+Desde ED02-X1 (19 oct 2026) las esquinas, la cartela y los tráileres son de ED02-X1: aquí se coteja lo que
+ED01 sigue publicando en sus salas.
 """
 import hashlib, html, json, re, sys
 from pathlib import Path
@@ -41,16 +43,13 @@ for k in ("cutoff", "status", "scope", "pending", "source_label", "editorial_lab
     biling(sh[k], f"shared.{k}")
 debe("en", sh["translation_label"]["en"], "shared.translation_label"); debe("en", sh["original_action"]["en"], "shared.original_action (solo junto a la traducción)")
 biling(P["brand"]["tagline"], "brand.tagline"); biling(P["brand"]["descriptor"], "brand.descriptor")
+# lo que ED01 sigue publicando de cada cuadrante, ahora en sus salas (las esquinas son de ED02-X1)
+EN_SALAS = {"laboratorio": ("headline", "body", "hook", "metric_scope", "quote_caption", "quote_cta"),
+            "resultados": ("headline", "body", "scope", "status_badge"),
+            "como-medimos": ("current_scope", "hook")}
 for q in P["quadrants"]:
-    for k in ("eyebrow", "headline", "body", "hook", "cta", "metric_scope", "quote_caption", "quote_cta", "status_badge", "scope", "current_scope"):
+    for k in EN_SALAS.get(q["id"], ()):
         if k in q: biling(q[k], f"{q['id']}.{k}")
-    for v in q.get("visual_items", []):
-        biling(v["label"], f"tríptico {v['id']}"); biling(v["line"], f"tríptico {v['id']} línea")
-    if "quote_controls" in q:
-        for k in ("previous", "next"):
-            for lang in ("es", "en"):
-                cuenta += 1
-                if f'aria-label="{html.escape(q["quote_controls"][k][lang])}"' not in PAG[lang]: fallas.append(f"[{lang}] control {k}")
     if "future_ranking" in q:
         for lang in ("es", "en"):
             for c in q["future_ranking"]["columns"][lang]: debe(lang, c, "columna del ranking")

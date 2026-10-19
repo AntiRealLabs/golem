@@ -3,7 +3,7 @@
    arriba, las preguntas abiertas (un cielo nocturno que se lee hacia arriba);
    abajo, los resultados, hasta el barro donde el golem entreabre los ojos;
    a la izquierda, cómo medimos; a la derecha, el laboratorio.
-   En las cuatro esquinas del centro, cuatro tráileres: una idea, una muestra concreta y una invitación.
+   En las cuatro esquinas del centro, cuatro tráileres de ED02-X1: una idea, una muestra concreta y una invitación.
    Tokens y letras de la base visual; la figura de arcilla de la colección v0.4.
    Sin recursos externos: todo se sirve desde aquí. */
 
@@ -15,6 +15,7 @@
 @font-face{font-family:'DM Sans';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/dm-sans-latin-400-normal.woff2') format('woff2')}
 @font-face{font-family:'Newsreader';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/newsreader-latin-400-normal.woff2') format('woff2')}
 @font-face{font-family:'Newsreader';font-style:italic;font-weight:400;font-display:swap;src:url('fonts/newsreader-latin-400-italic.woff2') format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/newsreader-latin-600-normal.woff2') format('woff2')}
 
 :root{
   --coal:#1c1d1a;--coal-3:#33362c;--coal-line:#45463e;--coal-line-2:#686b5a;
@@ -37,7 +38,7 @@
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-h1,h2,h3,h4,p,ul,ol,dl,dd,figure,blockquote{margin:0}
+h1,h2,h3,h4,h5,h6,p,ul,ol,dl,dd,figure,blockquote{margin:0}
 a{color:inherit}
 img{display:block;max-width:100%}
 button{font:inherit;color:inherit}
@@ -126,11 +127,10 @@ html[lang="en"] .f-cita p::before{content:"“"}
 .f-sub{margin-right:6px;font:400 10.5px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
 .f-guia,.lectura-guia{display:grid;gap:7px;padding:2px 0 2px 14px;border-left:2px solid var(--clay);text-align:left}
 .f-guia p:not(.capa-rotulo),.lectura-guia p:not(.capa-rotulo){font:400 15px/1.55 var(--body);color:var(--ink-2)}
-.f-nota{max-width:34em;padding-left:10px;border-left:2px solid var(--clay);font:400 13.5px/1.45 var(--body);color:var(--ink-2);text-align:left}
 .f-acciones{display:flex;align-items:center;min-height:32px}
 .f-sep{margin:0 2px;color:var(--clay)}
 .f-autoria .f-leer{font-size:15px;white-space:nowrap}
-.f-leer,.door-estado a,.cifras-que{padding-block:5px}
+.f-leer,.door-estado a{padding-block:5px}
 .f-leer{font:italic 400 16px/1.3 var(--book);color:var(--red);text-decoration-thickness:1px;text-underline-offset:3px}
 .f-leer:hover{color:var(--red-2)}
 
@@ -222,10 +222,8 @@ html[lang="en"] .f-cita p::before{content:"“"}
 .q-rotulo .simbolo{width:17px;height:17px;color:var(--ink)}
 .q-titular{font:500 clamp(19px,1.45vw,23px)/1.14 var(--display);letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
 .q-muestra{position:relative;display:flex;flex-direction:column;align-items:inherit;gap:9px;width:100%}
-.q-gancho{font:italic 400 17px/1.35 var(--book);color:var(--ink-2);text-wrap:balance}
 .q-enlace{display:inline-block;padding:3px 0;font:italic 400 17.5px/1.3 var(--book);color:var(--red);text-decoration-thickness:1px;text-underline-offset:4px}
 .q-enlace:hover{color:var(--red-2)}
-.q-alcance{max-width:34em;font:400 13.5px/1.45 var(--body);color:var(--muted)}
 /* en la esquina, los controles del fragmento van arriba a la derecha, en el renglón del tipo de selección:
    no se mueven de un fragmento a otro */
 .q-muestra .rot-controles{position:absolute;right:0;top:0}
@@ -246,24 +244,7 @@ html[lang="en"] .f-cita p::before{content:"“"}
 .cifras-lista{list-style:none;padding:0;display:flex;flex-wrap:wrap;justify-content:inherit;gap:2px 16px}
 .cifras-lista li{display:inline-flex;align-items:baseline;gap:6px;white-space:nowrap}
 .cifra-l{font:400 14px/1.3 var(--body);color:var(--ink-2)}
-.cifras-que{padding:2px 0;font:italic 400 15.5px/1.3 var(--book);color:var(--red);text-underline-offset:3px;white-space:nowrap}
 
-/* los resultados, en miniatura: las cuatro configuraciones con el mismo peso, y la ruta */
-.cohorte-mini{list-style:none;padding:0;display:grid;gap:2px;width:100%}
-.cohorte-mini li{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:inherit;gap:0 9px}
-.c-nombre{font:500 15px/1.3 var(--display);color:var(--ink)}
-.c-conf{font:400 13px/1.3 var(--body);color:var(--muted)}
-.resumen-mini{font:400 13.5px/1.4 var(--body);color:var(--ink-2)}
-/* la ruta: la pregunta inicial, cerrada; lo demás, pendiente y con borde discontinuo, como lo que está en el taller */
-.ruta{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;text-align:left}
-.ruta-fase{position:relative;padding:18px 8px 0 0}
-.ruta-fase::before{content:"";position:absolute;left:0;top:0;width:11px;height:11px;border-radius:50%;border:1.5px dashed var(--ink-2);background:var(--paper)}
-.ruta-fase--cerrada::before{border:0;background:var(--ink)}
-.ruta-fase::after{content:"";position:absolute;left:16px;right:5px;top:5px;height:1px;background:var(--line)}
-.ruta-fase:last-child::after{content:none}
-.ruta-l{display:block;font:400 12.5px/1.25 var(--body);color:var(--ink-2)}
-.ruta-e{display:block;margin-top:2px;font:400 10px/1.35 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
-.ruta-fase--cerrada .ruta-e{color:var(--ink)}
 
 /* tres sellos del mismo tamaño; un trazo los une a la hoja que examinan los tres:
    son tres especialidades leyendo el mismo trabajo, no tres retratos de máquinas */
@@ -285,30 +266,25 @@ html[lang="en"] .f-cita p::before{content:"“"}
    Con JavaScript, archivo.js prueba cada esquina en su tamaño real y guarda lo justo (data-guardado);
    sin él, estos umbrales hacen lo mismo de forma aproximada y la esquina se puede recorrer por dentro. */
 [data-guardado]{display:none!important}
-@container esquina (height < 236px){html:not(.ajusta) .q--preguntas .q-gancho{display:none}}
-@container esquina (height < 212px){html:not(.ajusta) .q--preguntas .tri-nota dd{display:none}}
-@container esquina (height < 150px){html:not(.ajusta) .q--preguntas .triptico{display:none}}
-@container esquina (height < 424px){html:not(.ajusta) .q--laboratorio .q-gancho{display:none}}
-@container esquina (330px <= height < 392px){html:not(.ajusta) .q--laboratorio > .q-enlace{display:none}}
-@container esquina (330px <= height < 360px){html:not(.ajusta) .q--laboratorio > .q-rotulo{display:none}}
-@container esquina (height < 330px){html:not(.ajusta) .q--laboratorio .rotador{display:none}}
-@container esquina (height < 175px){html:not(.ajusta) .q--laboratorio .cifras{display:none}}
-@container esquina (height < 356px){html:not(.ajusta) .q--resultados .q-gancho{display:none}}
-@container esquina (height < 325px){html:not(.ajusta) .q--resultados .resumen-mini{display:none}}
-@container esquina (height < 262px){html:not(.ajusta) .q--resultados .ruta{display:none}}
-@container esquina (height < 196px){html:not(.ajusta) .q--resultados .cohorte-mini{display:none}}
-@container esquina (height < 310px){html:not(.ajusta) .q--como-medimos .q-gancho{display:none}}
-@container esquina (height < 278px){html:not(.ajusta) .q--como-medimos .q-alcance{display:none}}
-@container esquina (height < 232px){html:not(.ajusta) .q--como-medimos .sello-q{display:none}}
-@container esquina (height < 165px){html:not(.ajusta) .q--como-medimos .sellos{display:none}}
+@container esquina (height < 300px){html:not(.ajusta) .q--preguntas > .q-rotulo{display:none}}
+@container esquina (height < 272px){html:not(.ajusta) .q--preguntas .tri-nota dd{display:none}}
+@container esquina (height < 212px){html:not(.ajusta) .q--preguntas .triptico{display:none}}
+@container esquina (height < 166px){html:not(.ajusta) .q--preguntas .q-cuerpo{display:none}}
+@container esquina (height < 350px){html:not(.ajusta) .q--laboratorio > .q-rotulo{display:none}}
+@container esquina (height < 325px){html:not(.ajusta) .q--laboratorio .rotador{display:none}}
+@container esquina (height < 153px){html:not(.ajusta) .q--laboratorio .q-cuerpo{display:none}}
+@container esquina (height < 302px){html:not(.ajusta) .q--resultados > .q-rotulo{display:none}}
+@container esquina (height < 276px){html:not(.ajusta) .q--resultados .x1-mini,html:not(.ajusta) .q--resultados .x1-mini-ley{display:none}}
+@container esquina (height < 170px){html:not(.ajusta) .q--resultados .q-cuerpo{display:none}}
+@container esquina (height < 318px){html:not(.ajusta) .q--como-medimos > .q-rotulo{display:none}}
+@container esquina (height < 292px){html:not(.ajusta) .q--como-medimos .sello-q{display:none}}
+@container esquina (height < 270px){html:not(.ajusta) .q--como-medimos .sellos{display:none}}
+@container esquina (height < 166px){html:not(.ajusta) .q--como-medimos .q-cuerpo{display:none}}
 @container esquina (width < 340px){
   .q--preguntas .triptico{grid-template-columns:minmax(0,1fr)}
   .q--preguntas .tri-nota{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:baseline;gap:0 8px;padding:5px 0;text-align:right}
   .q--preguntas .tri-nota+.tri-nota{border-left:0;border-top:1px solid var(--line)}
   .q--preguntas .tri-nota dd{margin:0}
-  .q--resultados .ruta{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:8px}
-  .q--resultados .ruta-fase:nth-child(2)::after{content:none}
-  .q--resultados .c-conf{display:none}
 }
 
 .langs{position:absolute;z-index:1;top:clamp(14px,2vw,28px);right:clamp(14px,2vw,28px);display:flex;gap:4px}
@@ -614,6 +590,124 @@ html[lang="en"] .lectura-cita p::after{content:"”"}
 .limites-lista{list-style:none;padding:0;display:grid;max-width:52rem;margin:22px auto 0;text-align:left}
 .limites-lista li{position:relative;padding:12px 0 12px 26px;border-top:1px solid var(--line);font-size:16px;line-height:1.55;color:var(--ink-2)}
 .limites-lista li::before{content:"";position:absolute;left:4px;top:1.2em;width:9px;height:9px;border-radius:50%;border:1.5px solid var(--clay)}
+/* ---------- ED02-X1: la cifra, su fragilidad y la filosofía que la sostiene ----------
+   La etiqueta «Piloto exploratorio · ED02-X1» va en la placa y encima de cada parte con cifras.
+   El orden condicional se lee con los dos motores al lado; ED01 sigue debajo, aparte. */
+.edicion-aparte{position:relative;max-width:46ch;margin:clamp(88px,12vh,128px) auto 0;padding-top:22px;border-top:1px solid var(--ink);font:italic 400 clamp(19px,1.7vw,22px)/1.4 var(--book);color:var(--ink);text-align:center;text-wrap:balance}
+.sec--ed01{padding-top:0}
+.sec--ed01::before{content:none}
+.sec--ed01 .edicion-aparte{margin-top:0;margin-bottom:40px}
+.x1-badge{margin-bottom:22px}
+.x1-nota{max-width:62ch;margin:14px auto 0;font-size:16.5px;line-height:1.6;color:var(--ink-2)}
+.x1-orden,.x1-sensibilidad,.x1-fuera,.x1-limites{position:relative;margin-top:104px}
+.x1-orden::before,.x1-sensibilidad::before,.x1-fuera::before,.x1-limites::before{content:"";position:absolute;left:50%;bottom:calc(100% + 18px);height:64px;width:1px;background:var(--eje)}
+/* el orden condicional: una tabla de libro mayor, sin podio. La columna del índice combinado manda;
+   las de los motores, al lado, marcan quién va primero para cada uno */
+.x1-tabla-caja{max-width:64rem;margin:28px auto 0;overflow-x:auto;background:var(--sheet);border:1px solid var(--line);border-top:3px solid var(--ink)}
+.x1-tabla{width:100%;min-width:40rem;border-collapse:collapse;text-align:left}
+.x1-tabla caption{caption-side:bottom;padding:14px 18px 16px;border-top:1px solid var(--line);font:italic 400 16px/1.45 var(--book);color:var(--ink-2);text-align:left}
+.x1-tabla th,.x1-tabla td{padding:16px 18px;border-bottom:1px solid var(--line);vertical-align:baseline}
+.x1-tabla thead th{padding-block:12px 10px;border-bottom:1.5px solid var(--ink);font:400 10.5px/1.35 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.x1-tabla tbody tr:last-child > *{border-bottom:0}
+.x1-pos{width:3.2em;font:500 22px/1 var(--display);color:var(--muted)}
+.x1-modelo{display:block;font:500 20px/1.2 var(--display);color:var(--ink)}
+.x1-conf{display:block;margin-top:3px;font:400 12px/1.45 var(--mono);color:var(--muted)}
+.x1-num{font:500 22px/1.1 var(--display);color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.x1-num--combinado{font-size:34px;color:var(--ink)}
+.x1-num--primero{color:var(--ink)}
+.x1-primero{display:block;margin-top:5px;font:400 10px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--red);white-space:normal}
+.x1-primero::before{content:"";display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--red);vertical-align:1px}
+.x1-exactos{max-width:64rem;margin:10px auto 0;font:400 11.5px/1.6 var(--mono);color:var(--muted);text-align:left}
+/* los 42 escenarios, partidos por motor: dos bloques de 7 × 3. Lleno: GPT-6.1-sol primero; rayado: Claude Opus 5.5 primero */
+.x1-esc{display:flex;flex-wrap:wrap;justify-content:center;gap:28px 56px;margin:30px auto 0}
+.esc-grupo{display:flex;flex-direction:column;align-items:center;gap:10px;margin:0}
+.esc-motor{font:500 16px/1.3 var(--display);color:var(--ink)}
+.esc-rejilla{list-style:none;padding:0;display:grid;grid-template-columns:repeat(7,22px);gap:5px}
+.esc{display:block;width:22px;height:22px}
+.esc--m04{background:var(--ink)}
+.esc--m03{border:1.5px solid var(--red);background:repeating-linear-gradient(135deg,var(--red) 0 2px,transparent 2px 5px)}
+.esc-ejes{margin-top:12px;font:400 11.5px/1.5 var(--mono);letter-spacing:.04em;color:var(--muted)}
+.esc-leyenda{list-style:none;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 24px;margin-top:10px;font-size:14.5px;color:var(--ink-2)}
+.esc-leyenda li{display:inline-flex;align-items:center;gap:8px}
+.esc-leyenda .esc{width:14px;height:14px}
+.x1-lectura{max-width:44ch;margin:26px auto 0;font:italic 400 clamp(21px,2vw,26px)/1.35 var(--book);color:var(--ink);text-wrap:balance}
+.x1-nota--sesgo{font-size:15.5px}
+/* el aviso: la excepción de X1 a la vista, con el enlace a la nota completa */
+.aviso-x1{display:grid;gap:8px;max-width:46rem;margin:84px auto 0;padding:20px 24px 18px;background:var(--sheet);border:1px solid var(--line);border-left:4px solid var(--red);text-align:left}
+.aviso-x1 > p:not(.capa-rotulo){font-size:16px;line-height:1.55;color:var(--ink)}
+.aviso-x1 .capa-rotulo{color:var(--red)}
+/* fuera del índice: sin cero y sin puesto */
+.x1-fuera-lista{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:58rem;margin:24px auto 0;text-align:left}
+.x1-fuera-item{display:flex;flex-direction:column;gap:4px;padding:14px 16px;border:1.5px dashed var(--coal-line-2)}
+.x1-fuera-e{margin-top:6px;font:400 10.5px/1.5 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.x1-fuera-nota{max-width:62ch;margin:16px auto 0;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.x1-limites .limites-lista{margin-bottom:36px}
+.x1-perfiles{max-width:64rem;margin:0 auto;text-align:left;border-top:2px solid var(--ink)}
+.x1-perfil{min-width:44rem}
+.x1-perfil .x1-num{font-size:16px}
+.x1-perfil thead th[colspan]{text-align:center;border-bottom:1px solid var(--line)}
+
+/* ED02-X1 en las esquinas y en los tráileres */
+.q-cuerpo{max-width:34em;font:400 14.5px/1.5 var(--body);color:var(--ink-2);text-wrap:pretty}
+.triptico--x1 dt{display:flex;justify-content:center;align-items:baseline;gap:6px;font-size:21px}
+.triptico--x1 dt .crit-id{margin:0;font-size:11.5px}
+.triptico--x1 dt .tri-peso{font:400 11px/1 var(--mono);color:var(--ink-2)}
+.triptico--x1 dd{font-size:14px}
+.x1-mini{border-collapse:collapse;font-size:14px;line-height:1.3}
+.x1-mini th,.x1-mini td{padding:4px 7px;border-bottom:1px solid var(--line);text-align:right}
+.x1-mini thead th{font:400 9.5px/1.3 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.x1-mini tbody th{font:500 14px/1.3 var(--display);color:var(--ink);text-align:left;white-space:nowrap}
+.x1-mini .x1-num{font-size:15px}
+.x1-mini .x1-num--primero{position:relative}
+.x1-mini .x1-num--primero::after{content:"";position:absolute;right:1px;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--red)}
+.x1-mini tbody tr:last-child > *{border-bottom:0}
+.x1-mini-ley{display:inline-flex;align-items:center;gap:6px;font:400 10px/1.3 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.x1-mini-punto{width:5px;height:5px;border-radius:50%;background:var(--red)}
+.tr-aviso{max-width:38ch;padding-left:12px;border-left:2px solid var(--red);font:400 14.5px/1.5 var(--body);color:var(--ink-2);text-align:left}
+
+/* el laboratorio de X1: cuatro unidades, un carrusel de pasajes citados y los doce recorridos */
+.x1-lab .x1-badge{margin-bottom:18px}
+.cifras--x1{max-width:52rem;margin:28px auto 0;justify-content:center;padding-block:16px 18px;border-top:2px solid var(--ink);border-bottom:0}
+.cifras--x1 .cifras-lista{justify-content:center;gap:10px 40px}
+.cifras--x1 .cifra{font-size:clamp(34px,3.4vw,46px)}
+.cifras--x1 .cifra-l{font-size:16px}
+.definiciones--x1{grid-template-columns:repeat(4,minmax(0,1fr));max-width:64rem;margin:6px auto 0}
+.x1-unidades .voces-nota{margin-top:18px}
+.x1-voces{position:relative;margin-top:96px}
+.x1-voces .rotador{max-width:46rem;margin:28px auto 0;text-align:left}
+.x1-voces .rot-controles{justify-content:center;margin-top:14px}
+.fragmento--x1 .f-cita p{text-wrap:pretty}
+.x1-voces .fragmento--x1{padding:22px 24px 18px;background:var(--sheet);border:1px solid var(--line);border-top:3px solid var(--ink)}
+.x1-voces .fragmento--x1 .f-cita p{font-size:20px;line-height:1.42}
+.x1-casos{position:relative;margin-top:96px}
+.x1-casos-lista{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:68rem;margin:24px auto 0;text-align:left}
+.x1-caso{display:flex;flex-direction:column;gap:8px;padding:20px 20px 16px;background:var(--sheet);border:1px solid var(--line);border-top:3px solid var(--ink)}
+.x1-caso-id{font:400 11px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.x1-caso-t{font:500 22px/1.15 var(--display);color:var(--ink)}
+.x1-caso-pre{padding-left:12px;border-left:2px solid var(--clay);font:italic 400 17px/1.4 var(--book);color:var(--ink-2)}
+.x1-rec{list-style:none;padding:0;display:grid;gap:6px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+.x1-rec li{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px}
+.x1-rec-modelo{flex-basis:100%;font:400 12px/1.4 var(--mono);color:var(--ink-2)}
+.x1-rec-a{display:inline-flex;align-items:center;min-height:36px;padding:4px 12px;border:1px solid var(--ink-2);background:var(--paper);color:var(--ink);font:400 14.5px/1.2 var(--body);text-decoration:none}
+@media (hover:hover){.x1-rec-a:hover{background:var(--ink);color:var(--paper)}}
+
+/* cómo medimos en X1: tres especialidades, cada una con sus criterios, y los dos motores que las puntúan */
+.x1-medimos{margin-top:clamp(64px,10vh,104px)}
+.x1-medimos .x1-badge{margin-bottom:18px}
+.x1-jueces{max-width:58ch;margin:-14px auto 34px;padding:12px 16px;border:1px solid var(--ink);font:500 16.5px/1.5 var(--body);color:var(--ink)}
+.x1-persp-lista{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;text-align:left}
+.x1-persp{display:flex;flex-direction:column;gap:12px;padding:24px 22px 20px;background:var(--sheet);border:1px solid var(--line);border-top:4px solid var(--ink)}
+.x1-persp .card-top{flex-direction:row;justify-content:space-between;align-items:center}
+.x1-persp h4{font:500 clamp(21px,1.9vw,26px)/1.12 var(--display);letter-spacing:-.01em;text-wrap:balance}
+.x1-persp > p{font-size:16px;line-height:1.55;color:var(--ink-2)}
+.x1-crit-lista{list-style:none;padding:0;display:grid;gap:8px;margin-top:4px;padding-top:12px;border-top:1px solid var(--line)}
+.x1-crit-lista li{font-size:15px;line-height:1.4}
+.x1-crit-meta{display:block;font:400 11px/1.5 var(--mono);color:var(--muted)}
+.crit-original{display:block;font:italic 400 13.5px/1.35 var(--book);color:var(--muted)}
+.x1-persp > .x1-motores{margin-top:auto;padding-top:10px;border-top:1px solid var(--line);font:400 11.5px/1.5 var(--mono);letter-spacing:.04em;color:var(--ink)}
+.x1-variantes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.x1-variantes ul{list-style:none;padding:0;display:grid;gap:4px;font:400 12.5px/1.5 var(--mono);color:var(--ink-2)}
+.x1-materiales{margin-top:30px}
 .sec--pacto{background:var(--band)}
 
 /* el pacto: lo que no vas a encontrar aquí */
@@ -676,6 +770,153 @@ html.viva:not([data-sala="centro"]) .brujula{transition:opacity .25s,visibility 
 .lost-titulo{max-width:20ch;font:500 clamp(26px,min(6.4vw,4.6svh),44px)/1.08 var(--display);letter-spacing:-.02em;text-wrap:balance}
 .lost-sub{margin-top:14px;max-width:52ch;font:400 17px/1.55 var(--body);color:var(--ink-2)}
 .lost-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:26px}
+
+/* ---------- las páginas de lectura de ED02-X1: un recorrido entero, de la pregunta a la transferencia ----------
+   Cinco textos del modelo, dos críticas, el caso y las 32 lecturas de los dos motores, lado a lado.
+   Cada voz con su rótulo y su forma: el modelo en letra de libro, sobre la hoja; el juez en un recuadro firme;
+   la crítica sobre la banda, con su filo; el material del caso con borde punteado; lo editorial con su filo de arcilla. */
+body.lectura-x1{background:var(--paper)}
+.rc-barra{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;padding:6px clamp(12px,3vw,32px);background:var(--paper);border-bottom:1px solid var(--line)}
+.rc-volver{display:inline-flex;align-items:center;gap:8px;min-height:44px;font:italic 400 17px/1.2 var(--book);color:var(--ink);text-underline-offset:4px}
+.rc-marca{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:var(--ink);text-decoration:none}
+.rc-marca .simbolo--golem{width:24px;height:24px;color:var(--ink)}
+.rc-marca-t{font:400 23px/1 var(--gothic);letter-spacing:-.02em}
+.rc-langs{position:static}
+.rc{max-width:74rem;margin:0 auto;padding:clamp(32px,6vh,64px) var(--gutter) 104px}
+.rc-cabeza{display:flex;flex-direction:column;align-items:center;gap:14px;max-width:50rem;margin:0 auto;text-align:center}
+.rc-cabeza .eyebrow{margin:0}
+.rc-cabeza .stamp{margin-bottom:6px}
+.rc-titulo{font:500 clamp(34px,4.2vw,56px)/1.04 var(--display);letter-spacing:-.022em;text-wrap:balance}
+.rc-modelo{display:block}
+.rc-caso-t{display:block;margin-top:6px;font:italic 400 .82em/1.1 var(--book);letter-spacing:0;color:var(--ink-2)}
+.rc-sub{max-width:52ch;font-size:15.5px;line-height:1.5;color:var(--ink-2)}
+.rc-ident{display:block;margin-top:2px;font:400 11.5px/1.5 var(--mono);color:var(--muted)}
+.rc-preview{display:grid;gap:4px;max-width:40ch;padding-left:14px;border-left:2px solid var(--clay);text-align:left}
+.rc-preview > p:not(.capa-rotulo){font:italic 400 19px/1.4 var(--book);color:var(--ink)}
+.rc-voces{list-style:none;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-top:6px}
+.rc-voz{display:inline-flex;align-items:center;gap:7px;font:400 10.5px/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.rc-voz::before{content:"";width:16px;height:12px}
+.rc-voz--modelo::before{background:var(--sheet);border:1px solid var(--line);border-top:3px solid var(--ink)}
+.rc-voz--juez::before{background:var(--paper);border:1px solid var(--ink-2)}
+.rc-voz--critica::before{background:var(--band);border-left:3px solid var(--ink-2)}
+.rc-voz--caso::before{border:1px dotted var(--coal-line-2)}
+.rc-voz--editorial::before{width:3px;margin:0 6px;background:var(--clay)}
+.rc-avisos{max-width:62ch;font-size:14px;line-height:1.55;color:var(--muted)}
+.rc-avisos a,.rc-critica-nota a{color:var(--red);text-underline-offset:3px}
+/* los enlaces dentro de un renglón: 24 px de alto para el dedo, sin mover el texto */
+.rc-avisos a,.rc-critica-nota a,.tr-aviso a,.aviso-x1 a,.lp-por a,.x1-materiales a{padding-block:5px}
+/* la ruta del recorrido: queda a la vista mientras se lee */
+.rc-ruta{position:sticky;top:60px;z-index:10;margin:44px calc(var(--gutter) * -1) 0;padding:0 var(--gutter);background:var(--paper);border-block:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.rc-ruta::-webkit-scrollbar{display:none}
+.rc-ruta ol{list-style:none;display:flex;justify-content:center;gap:2px;width:max-content;min-width:100%;margin:0;padding:0}
+.rc-ruta a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;font:400 13px/1 var(--mono);letter-spacing:.06em;color:var(--ink);text-decoration:none;white-space:nowrap}
+.rc-ruta a:hover{color:var(--red)}
+.rc-ruta a[aria-current="true"]{box-shadow:inset 0 -3px 0 var(--red)}
+.rc-etapa,.rc-rama,.p-a,.juicio,.rc-criterio,.lp{scroll-margin-top:136px}
+.rc-etapa{margin-top:clamp(64px,9vh,104px)}
+.rc-etapa-t{max-width:30ch;margin:0 auto;font:500 clamp(24px,2.5vw,33px)/1.12 var(--display);letter-spacing:-.012em;text-align:center;text-wrap:balance}
+.rc-meta{margin-top:10px;font:400 11.5px/1.5 var(--mono);letter-spacing:.03em;color:var(--muted);text-align:center}
+.rc-meta-sep{margin:0 6px;color:var(--clay)}
+.rc-meta--incidente span:last-child{color:var(--red)}
+.rc-texto-caja{max-width:46rem;margin:18px auto 0;padding:20px 28px 26px;background:var(--sheet);border:1px solid var(--line);border-top:3px solid var(--ink);text-align:left}
+.rc-original{margin-top:2px;font:italic 400 13.5px/1.4 var(--book);color:var(--muted)}
+.rc-texto{margin-top:12px;font:400 18.5px/1.66 var(--book);color:var(--ink);text-wrap:pretty}
+.rc-texto > * + *{margin-top:.8em}
+.rc-texto ul,.rc-texto ol{padding-left:1.25em}
+.rc-texto li + li{margin-top:.35em}
+/* lo que el modelo escribió en negrita o como título sigue en su letra (Newsreader 600): la letra de la
+   interfaz es la de la página, y un título suyo no debe pasar por un rótulo nuestro */
+.rc-texto .t-h{margin-top:1.2em;font:600 1.05em/1.35 var(--book)}
+.rc-texto strong{font-weight:600}
+.rc-critica-texto strong,.rc-material-texto strong{font-weight:500}
+/* un pasaje citado: subrayado de puntos, como lo marcaría un lector con lápiz. El que se sigue se ilumina entero */
+.cita{text-decoration:underline dotted var(--clay) 1.5px;text-underline-offset:4px;text-decoration-skip-ink:none}
+.cita.activa,.p-a:target + .cita{background:rgba(185,139,106,.4);text-decoration:none;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.rc-pasajes{max-width:46rem;margin:10px auto 0;text-align:left}
+.rc-pasajes > summary{display:inline-flex;align-items:center;min-height:44px;font:italic 400 16px/1.3 var(--book);color:var(--red);cursor:pointer}
+.rc-pasajes-nota{font-size:14px;line-height:1.55;color:var(--muted)}
+.lp-lista{display:grid;gap:14px;margin-top:12px;padding-left:1.6em}
+.lp q{font:400 16px/1.45 var(--book);color:var(--ink)}
+.lp-ver{margin-left:6px;padding-block:4px;font:italic 400 14.5px/1.3 var(--book);color:var(--red);white-space:nowrap}
+.lp-por{margin-top:4px;font:400 12px/1.7 var(--mono);color:var(--muted)}
+.lp-por a{color:var(--ink-2);text-underline-offset:3px}
+.lp-rol{color:var(--muted)}
+.lp:target{outline:2px solid var(--clay);outline-offset:6px}
+.rc-huella{max-width:46rem;margin:8px auto 0;font:400 10.5px/1.6 var(--mono);color:var(--muted);overflow-wrap:anywhere;text-align:left}
+.rc-huella code{font:inherit}
+/* las lecturas: cada criterio con los dos motores, uno al lado del otro. Ahí se lee el desacuerdo */
+.rc-lecturas{max-width:74rem;margin:56px auto 0}
+.rc-lecturas-t{font:500 clamp(20px,1.8vw,24px)/1.2 var(--display);text-align:center}
+.rc-criterio{margin-top:30px;padding-top:14px;border-top:2px solid var(--ink)}
+.rc-crit-t{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;font:500 19px/1.3 var(--display);text-align:left}
+.rc-crit-t .crit-id{margin:0}
+.rc-crit-t .crit-original{flex-basis:100%;font-size:14px}
+.rc-crit-peso{font:400 11px/1.4 var(--mono);letter-spacing:.03em;color:var(--muted)}
+.rc-par{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:14px;align-items:start}
+.juicio{display:flex;flex-direction:column;gap:12px;min-width:0;padding:16px 20px 14px;background:var(--paper);border:1px solid var(--ink-2);text-align:left}
+.juicio-quien{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;font:500 17px/1.2 var(--display)}
+.juicio-crit{font:400 11.5px/1 var(--mono);color:var(--muted)}
+.juicio-nivel{display:grid;gap:6px;padding:10px 12px 10px;background:var(--sheet);border:1px solid var(--line)}
+.juicio-n{font-size:14px;line-height:1.4;color:var(--ink-2)}
+.juicio-ancla{font-size:13.5px;line-height:1.4;color:var(--muted)}
+.juicio-ancla span[lang]{font:italic 400 14.5px/1.4 var(--book);color:var(--ink-2)}
+.juicio-cuerpo{display:grid;gap:12px}
+.j-campo{display:grid;gap:4px}
+.j-rot{font:400 10.5px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.j-campo > p[lang]{font:400 15.5px/1.6 var(--body);color:var(--ink)}
+.j-campo--limite{padding-top:10px;border-top:1px solid var(--line)}
+.j-vacio{font:italic 400 15px/1.5 var(--book);color:var(--muted)}
+.j-rot-in{font:400 10px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.j-sub{font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.juicio-mas{border-top:1px solid var(--line)}
+.juicio-mas > summary{display:inline-flex;align-items:center;min-height:40px;font:italic 400 15.5px/1.3 var(--book);color:var(--red);cursor:pointer}
+.juicio-mas-in{display:grid;gap:16px;padding:6px 0 4px}
+.j-citas{list-style:none;padding:0;display:grid;gap:8px}
+.j-citas q{font:400 15px/1.45 var(--book);color:var(--ink)}
+.ref-cita{color:inherit;text-decoration:underline dotted var(--clay) 1.5px;text-underline-offset:3px}
+.ref-cita:hover{color:var(--red)}
+.ref-otra q{color:var(--ink-2)}
+.ref-nota{display:block;margin-top:2px;font:400 12px/1.5 var(--body);color:var(--muted)}
+.j-proc{display:grid;gap:14px;padding-left:1.3em}
+.j-proc > li > p[lang]{font-size:15px;line-height:1.55}
+.j-alertas{list-style:none;padding:0;display:grid;gap:12px}
+.j-alerta{display:inline-block;padding:1px 8px;border:1.5px solid var(--red);font:400 10.5px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.j-archivo{font:400 10.5px/1.6 var(--mono);color:var(--muted);overflow-wrap:anywhere}
+.j-archivo code{font:inherit}
+/* las ramas: la crítica que llega y la respuesta del modelo */
+.rc-rama{margin-top:44px}
+.rc-rama-t{font:400 12.5px/1.4 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--red);text-align:center}
+.rc-critica{max-width:46rem;margin:14px auto 0;padding:16px 22px 14px;background:var(--band);border-left:3px solid var(--ink-2);text-align:left}
+.rc-critica-texto{margin-top:8px;font:400 16px/1.62 var(--body);color:var(--ink)}
+.rc-critica-texto > * + *{margin-top:.7em}
+.rc-critica-nota{margin-top:12px;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.rc-rama .rc-meta{margin-top:24px}
+.rc-e-rama{margin-top:10px;font:italic 400 16.5px/1.4 var(--book);color:var(--ink-2);text-align:center}
+.rc-material{max-width:46rem;margin:14px auto 0;padding:14px 20px 12px;background:var(--paper);border:1px dotted var(--coal-line-2);text-align:left}
+.rc-material-texto{margin-top:8px;font:400 15px/1.6 var(--body);color:var(--ink-2)}
+.rc-material-texto > * + *{margin-top:.6em}
+.rc-material-texto ul,.rc-material-texto ol{padding-left:1.25em}
+.rc-material-nota{margin-top:6px;font-size:13.5px;color:var(--muted)}
+.rc-caso-nota{margin-top:8px;font:italic 400 16.5px/1.45 var(--book);color:var(--ink-2);text-align:center}
+.rc-etapa--caso .desplegable{max-width:46rem;margin:0 auto}
+.rc-etapa--caso .desplegable:first-of-type{margin-top:22px;border-top:2px solid var(--ink)}
+.rc-etapa .aviso-x1{margin-top:22px}
+/* método y materiales */
+.metodo-bloque{max-width:60rem;margin:clamp(64px,9vh,96px) auto 0;text-align:center}
+.metodo-bloque .limites-lista{max-width:58rem}
+.nota-x1-texto{max-width:66ch;margin:12px auto 0;font-size:16px;line-height:1.65;color:var(--ink);text-align:left}
+.panel-contenido.nota-x1 .nota-x1-texto{margin-left:0}
+.desplegables--x1{max-width:52rem;margin:22px auto 0}
+.definiciones--x1 dd{font-size:14.5px}
+.rc--metodo .definiciones--x1{grid-template-columns:repeat(3,minmax(0,1fr))}
+/* el panel de un pasaje: el pasaje en su texto y las lecturas que lo citan */
+.px1-meta{font:400 11.5px/1.6 var(--mono);letter-spacing:.03em;color:var(--muted)}
+.px1-h{margin-top:18px;font:400 10.5px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.px1-caja{max-height:min(44vh,26rem);margin-top:8px;overflow:auto;overscroll-behavior:contain;padding:14px 18px;background:var(--sheet);border:1px solid var(--line);border-top:3px solid var(--ink)}
+.px1-caja .rc-texto{margin-top:0;font-size:17px}
+.px1-jueces{display:grid;gap:14px;margin-top:8px}
+.px1-jueces .juicio-mas{display:none}
+.px1-abrir{display:inline-flex;align-items:center;min-height:44px;margin-top:16px;font:italic 400 17px/1.3 var(--book);color:var(--red);text-underline-offset:4px}
 
 /* ---------- anchos ---------- */
 @media (max-width:1100px){
@@ -758,7 +999,6 @@ html.viva:not([data-sala="centro"]) .brujula{transition:opacity .25s,visibility 
   .tr-titular{font:500 clamp(25px,7vw,31px)/1.1 var(--display);letter-spacing:-.015em;text-wrap:balance}
   .tr-cuerpo{max-width:38ch;font-size:16.5px;line-height:1.55;color:var(--ink-2)}
   .tr-muestra{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;margin-top:4px}
-  .tr-gancho{max-width:28ch;font:italic 400 20px/1.35 var(--book);color:var(--ink);text-wrap:balance}
   .tr-enlace{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:4px 2px;font:italic 400 18.5px/1.3 var(--book);color:var(--red);text-decoration-thickness:1px;text-underline-offset:4px}
   .tr-muestra .cifras{justify-content:center;text-align:center}
   .tr-muestra .cifras-lista{justify-content:center}
@@ -769,14 +1009,7 @@ html.viva:not([data-sala="centro"]) .brujula{transition:opacity .25s,visibility 
   .tr-muestra .f-acciones{justify-content:center}
   .tr-muestra .rot-controles{justify-content:center}
   .tr-muestra .rot-btn{width:44px;height:44px}
-  .tr-muestra .cohorte-mini li{justify-content:center}
   .tr-muestra .sellos{justify-self:center}
-  .tr-muestra .ruta{max-width:30rem}
-}
-/* la ruta de los tráileres: con poco ancho, dos y dos */
-@media (max-width:479px){
-  .tr-muestra .ruta{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:12px}
-  .tr-muestra .ruta-fase:nth-child(2)::after{content:none}
 }
 @media (max-width:899px) and (max-height:620px){
   .cuadrante > .q-resumen{display:none}
@@ -842,6 +1075,48 @@ html.viva:not([data-sala="centro"]) .brujula{transition:opacity .25s,visibility 
   .ranking-tabla caption{padding:24px 12px 28px;font-size:17px}
   .pl-cuerpo{padding:18px 16px 24px}
   .panel-lectura{width:calc(100vw - 16px);max-height:calc(100dvh - 24px)}
+}
+
+/* ED02-X1 en anchos medianos y en el celular */
+@media (max-width:1100px){
+  .x1-persp-lista,.x1-casos-lista{grid-template-columns:minmax(0,1fr)}
+  .x1-persp-lista,.x1-casos-lista{max-width:40rem;margin-inline:auto}
+  .definiciones--x1,.rc--metodo .definiciones--x1{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:899px){
+  .rc-par{grid-template-columns:minmax(0,1fr)}
+  .x1-fuera-lista{grid-template-columns:minmax(0,1fr);max-width:28rem}
+  .x1-variantes{grid-template-columns:minmax(0,1fr)}
+  .tr-muestra .x1-mini{margin-inline:auto}
+  .tr-muestra .triptico--x1{max-width:30rem}
+  .rc-ruta{top:56px}
+  .rc-barra{min-height:56px}
+  .rc-marca-t{font-size:20px}
+}
+@media (max-width:640px){
+  .x1-tabla{min-width:0}
+  .x1-tabla th,.x1-tabla td{padding:12px 6px}
+  .x1-tabla thead th{padding:10px 6px;font:500 11px/1.3 var(--body);letter-spacing:0;text-transform:none;-webkit-hyphens:auto;hyphens:auto}
+  .x1-pos{width:auto;font-size:18px}
+  .x1-modelo{font-size:16px}
+  .x1-conf{font-size:10.5px;overflow-wrap:anywhere}
+  .x1-num{font-size:18px}
+  .x1-num--combinado{font-size:26px}
+  .x1-primero{font-size:9px;letter-spacing:.02em}
+  .x1-primero::before{display:block;margin:0 0 3px}
+  .x1-perfil{min-width:36rem}
+  .definiciones--x1,.rc--metodo .definiciones--x1{grid-template-columns:minmax(0,1fr)}
+  .esc-rejilla{grid-template-columns:repeat(7,18px);gap:4px}
+  .esc{width:18px;height:18px}
+  .x1-esc{gap:22px 32px}
+  .rc-texto-caja{padding:16px 16px 20px}
+  .rc-texto{font-size:17.5px}
+  .juicio{padding:14px 14px 12px}
+  .rc-critica,.rc-material{padding-inline:14px}
+}
+@media (max-width:479px){
+  .rc-barra{gap:6px;padding-inline:8px}
+  .rc-marca-t{display:none}
 }
 
 /* ---------- movimiento: un solo momento, los meridianos salen del nombre ---------- */

@@ -1,6 +1,6 @@
 # Verificación de la portada
 
-**113 de 113 comprobaciones correctas** · 2026-10-18 05:30 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
+**133 de 133 comprobaciones correctas** · 2026-10-20 01:12 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
 
 Inspección automática. No sustituye pruebas con personas, lectores de pantalla reales, otros navegadores ni la revisión del sitio ya publicado en Cloudflare.
 
@@ -18,7 +18,12 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | La hoja de estilos no lleva caché larga (cambia con cada versión) |  |
 | ✓ | CSS y JS llevan la huella de su versión (?v=) en todas las páginas y se sirven con ella |  |
 | ✓ | robots.txt enlaza el sitemap |  |
-| ✓ | sitemap.xml es XML válido con las dos páginas |  |
+| ✓ | sitemap.xml es XML válido con las dos portadas y las 26 páginas de ED02-X1 |  |
+| ✓ | HTTP: /ed02-x1/m03-c02-r1/ responde 200 con HTML |  |
+| ✓ | HTTP: /en/ed02-x1/m03-c02-r1/ responde 200 con HTML |  |
+| ✓ | HTTP: /ed02-x1/m04-c01-r1/ responde 200 con HTML |  |
+| ✓ | HTTP: /ed02-x1/metodo/ responde 200 con HTML |  |
+| ✓ | HTTP: /en/ed02-x1/metodo/ responde 200 con HTML |  |
 | ✓ | favicon.ico trae 16, 32 y 48 px |  |
 | ✓ | apple-touch-icon.png mide 180×180 |  |
 | ✓ | og-es.jpg mide 1200×630 |  |
@@ -41,6 +46,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | [es] enlaces internos válidos y solo los externos previstos |  |
 | ✓ | [es] ED01: solo se nombran las cuatro configuraciones de la cohorte |  |
 | ✓ | [es] ED01: lo pendiente dice «Pendiente», sin ranking ni notas por frase; dos reglas con una marca; las tres voces con su rótulo; F004 con su nota |  |
+| ✓ | [es] ED02-X1: «Piloto exploratorio · ED02-X1» en la placa y en resultados; orden condicional con los dos motores; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; doce recorridos; ED01 aparte |  |
 | ✓ | [es] sin restos del otro idioma fuera de lo marcado con lang |  |
 | ✓ | [en] sin errores de consola ni violaciones de la CSP |  |
 | ✓ | [en] las cinco familias de la base cargan desde el propio sitio |  |
@@ -58,13 +64,14 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | [en] enlaces internos válidos y solo los externos previstos |  |
 | ✓ | [en] ED01: solo se nombran las cuatro configuraciones de la cohorte |  |
 | ✓ | [en] ED01: lo pendiente dice «Pending», sin ranking ni notas por frase; dos reglas con una marca; las tres voces con su rótulo; F004 con su nota |  |
+| ✓ | [en] ED02-X1: «Exploratory pilot · ED02-X1» en la placa y en resultados; orden condicional con los dos motores; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; doce recorridos; ED01 aparte |  |
 | ✓ | [en] sin restos del otro idioma fuera de lo marcado con lang |  |
 | ✓ | [404] sin errores de consola ni violaciones de la CSP |  |
 | ✓ | [404] fuentes de la marca cargadas |  |
 | ✓ | [404] todo se sirve desde el mismo origen |  |
 | ✓ | [404] peso total de la página ≤ 700 KB |  |
 | ✓ | Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces (sin contar el original español que acompaña a la traducción) |  |
-| ✓ | Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px |  |
+| ✓ | Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px (portadas, 404, recorridos y método) |  |
 | ✓ | Objetivos táctiles ≥ 24 px en móvil (WCAG 2.5.8) |  |
 | ✓ | Teclado: el primer Tab se queda en el centro, a la vista (selector de idioma) |  |
 | ✓ | Teclado: desde el centro, ES → EN → cada estación con lo de su esquina: ↑, →, ←, ↓ |  |
@@ -111,11 +118,24 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | Cruz [en · móvil]: la brújula se esconde en el centro y aparece al alejarse |  |
 | ✓ | Centro sin choques: tráileres, rumbos, flechas y placa no se tocan en diez tamaños; nada se sale de su esquina ni de su estación; los cuatro recuadros miden lo mismo y la placa sigue en el centro |  |
 | ✓ | Cruz sin JavaScript: todo el contenido sigue ahí, con sus enlaces |  |
-| ✓ | Sin JavaScript: cada fragmento rotativo queda quieto en GB-ED01-F001, sin controles, y «Leer en contexto» lleva a la ficha completa de su fuente |  |
-| ✓ | Fragmentos: orden barajado de cinco por visita; «siguiente» avanza uno y el foco se queda en el botón; sin avance automático; el inglés conserva el mismo fragmento |  |
-| ✓ | Movimiento reducido: el cambio de fragmento aparece sin animación (con movimiento, un fundido corto) |  |
-| ✓ | Panel de lectura: «Leer en contexto» abre la fuente con la cita marcada a la vista; se cierra con Esc, con su botón o tocando afuera, y el foco vuelve al enlace; si falta la fuente lo dice |  |
-| ✓ | axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (3 páginas × 2 anchos) |  |
+| ✓ | Sin JavaScript: cada carrusel de ED02-X1 queda quieto en su primer pasaje, sin controles; «Leer en contexto» lleva al pasaje en la página de su recorrido y cada ficha está en la página |  |
+| ✓ | Pasajes de ED02-X1: los 60 de la plantilla, barajados una vez por visita; «siguiente» avanza uno y el foco se queda en el botón; sin avance automático; el inglés conserva el mismo pasaje |  |
+| ✓ | Movimiento reducido: el cambio de pasaje aparece sin animación (con movimiento, un fundido corto) |  |
+| ✓ | Panel de lectura: «Leer en contexto» abre el pasaje marcado a la vista en su texto original y las lecturas que lo citan (rótulo, nivel, justificación y límite), con el enlace a su recorrido; la nota de incidencias se abre igual; se cierra con Esc, con su botón o tocando afuera, el foco vuelve al enlace y, si algo falta, lo dice |  |
+| ✓ | [rc-es] ED02-X1: sin errores ni violaciones de la CSP; idioma, h1, canónica y hreflang; la etiqueta del piloto; cada voz con su rótulo y los cuerpos en español; enlaces que llegan |  |
+| ✓ | [rc-es] ED02-X1: el recorrido trae 5 textos, 2 críticas y 32 lecturas, cada una con una sola marca en su regla de 0 a 4; la transferencia de 351 palabras lleva su aviso |  |
+| ✓ | [rc-es] ED02-X1: seguir un pasaje lo ilumina entero (todos sus tramos, ninguno más) y lo deja a la vista bajo la ruta |  |
+| ✓ | [rc-en] ED02-X1: sin errores ni violaciones de la CSP; idioma, h1, canónica y hreflang; la etiqueta del piloto; cada voz con su rótulo y los cuerpos en español; enlaces que llegan |  |
+| ✓ | [rc-en] ED02-X1: el recorrido trae 5 textos, 2 críticas y 32 lecturas, cada una con una sola marca en su regla de 0 a 4; la transferencia de 351 palabras lleva su aviso |  |
+| ✓ | [rc-en] ED02-X1: seguir un pasaje lo ilumina entero (todos sus tramos, ninguno más) y lo deja a la vista bajo la ruta |  |
+| ✓ | [rc-gpt] ED02-X1: sin errores ni violaciones de la CSP; idioma, h1, canónica y hreflang; la etiqueta del piloto; cada voz con su rótulo y los cuerpos en español; enlaces que llegan |  |
+| ✓ | [rc-gpt] ED02-X1: el recorrido trae 5 textos, 2 críticas y 32 lecturas, cada una con una sola marca en su regla de 0 a 4 |  |
+| ✓ | [rc-gpt] ED02-X1: seguir un pasaje lo ilumina entero (todos sus tramos, ninguno más) y lo deja a la vista bajo la ruta |  |
+| ✓ | [metodo-es] ED02-X1: sin errores ni violaciones de la CSP; idioma, h1, canónica y hreflang; la etiqueta del piloto; cada voz con su rótulo y los cuerpos en español; enlaces que llegan |  |
+| ✓ | [metodo-en] ED02-X1: sin errores ni violaciones de la CSP; idioma, h1, canónica y hreflang; la etiqueta del piloto; cada voz con su rótulo y los cuerpos en español; enlaces que llegan |  |
+| ✓ | En el celular la etiqueta del piloto queda a la vista al llegar; el tráiler de resultados y su sala conservan las advertencias (orden condicional, escenarios, sesgo, 351 palabras, fuera del índice, límites) y la tabla cabe sin desplazarse |  |
+| ✓ | Cambio de idioma: el mismo pasaje, palabra por palabra, sigue en español original (lang=es) y avisa que no está traducido; la interfaz cambia, la voz del modelo no |  |
+| ✓ | axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (8 páginas × 2 anchos: portadas, 404, recorridos y método) |  |
 | ✓ | axe-core · buenas prácticas: sin avisos |  |
 | ✓ | Espaciado de texto ampliado (WCAG 1.4.12): no se pierde texto |  |
 | ✓ | Capturas de escritorio y móvil, ES, EN y 404 |  |

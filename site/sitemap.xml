@@ -2,16 +2,174 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://golembench.org/</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://golembench.org/"/>
   </url>
   <url>
     <loc>https://golembench.org/en/</loc>
-    <lastmod>2026-10-18</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://golembench.org/"/>
   </url>
+  <!-- x1 -->
+  <url>
+    <loc>https://golembench.org/ed02-x1/m03-c01-r1/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m03-c01-r1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m03-c01-r1/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/en/ed02-x1/m03-c01-r1/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m03-c01-r1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m03-c01-r1/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/ed02-x1/m04-c01-r1/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m04-c01-r1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m04-c01-r1/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/en/ed02-x1/m04-c01-r1/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m04-c01-r1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m04-c01-r1/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/ed02-x1/m04-c02-r1/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m04-c02-r1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m04-c02-r1/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/en/ed02-x1/m04-c02-r1/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m04-c02-r1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m04-c02-r1/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/ed02-x1/m03-c02-r1/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m03-c02-r1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m03-c02-r1/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/en/ed02-x1/m03-c02-r1/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m03-c02-r1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m03-c02-r1/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/ed02-x1/m03-c03-r1/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m03-c03-r1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m03-c03-r1/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/en/ed02-x1/m03-c03-r1/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m03-c03-r1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m03-c03-r1/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/ed02-x1/m04-c03-r1/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m04-c03-r1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m04-c03-r1/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/en/ed02-x1/m04-c03-r1/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m04-c03-r1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m04-c03-r1/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/ed02-x1/m04-c03-r2/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m04-c03-r2/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m04-c03-r2/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/en/ed02-x1/m04-c03-r2/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m04-c03-r2/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m04-c03-r2/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/ed02-x1/m03-c03-r2/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m03-c03-r2/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m03-c03-r2/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/en/ed02-x1/m03-c03-r2/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m03-c03-r2/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m03-c03-r2/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/ed02-x1/m03-c02-r2/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m03-c02-r2/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m03-c02-r2/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/en/ed02-x1/m03-c02-r2/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m03-c02-r2/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m03-c02-r2/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/ed02-x1/m04-c02-r2/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m04-c02-r2/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m04-c02-r2/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/en/ed02-x1/m04-c02-r2/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m04-c02-r2/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m04-c02-r2/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/ed02-x1/m04-c01-r2/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m04-c01-r2/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m04-c01-r2/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/en/ed02-x1/m04-c01-r2/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m04-c01-r2/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m04-c01-r2/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/ed02-x1/m03-c01-r2/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m03-c01-r2/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m03-c01-r2/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/en/ed02-x1/m03-c01-r2/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/m03-c01-r2/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/m03-c01-r2/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/ed02-x1/metodo/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/metodo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/metodo/"/>
+  </url>
+  <url>
+    <loc>https://golembench.org/en/ed02-x1/metodo/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://golembench.org/ed02-x1/metodo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://golembench.org/en/ed02-x1/metodo/"/>
+  </url>
+  <!-- /x1 -->
 </urlset>

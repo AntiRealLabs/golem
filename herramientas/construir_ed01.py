@@ -6,7 +6,8 @@ Uso:  python3 -I herramientas/construir_ed01.py CARPETA_DEL_PAQUETE site [--rank
 El paquete (Golem_portada_contenidos_Claude_v0_1, de coordinación) no vive en este repo. Este script
 lee solo sus campos de contenido público (01, 02, 03, 04, 06 y 07) y los escribe entre los marcadores
 <!-- ed01:NOMBRE --> … <!-- /ed01:NOMBRE --> de site/index.html y site/en/index.html. Lo que hay entre
-marcadores no se edita a mano: se regenera. Nunca copia instrucciones, manifiestos, la verificación
+marcadores no se edita a mano: se regenera. Desde ED02-X1 (19 oct 2026) las esquinas del centro, la cartela
+de la placa y los tráileres del celular son de ED02-X1 (construir_ed02x1.py); ED01 queda en sus salas, aparte. Nunca copia instrucciones, manifiestos, la verificación
 del paquete ni huellas de dictámenes.
 
 Cada texto del paquete pasa tal cual (escapado para HTML). Lo único escrito aquí son los rótulos
@@ -112,8 +113,6 @@ ROT = {
     "voces_lista": ("Fragmentos de ED01", "ED01 excerpts"),
     "taller": ("En el taller", "In the workshop"),
 }
-NO_DISPONIBLE = ("Este fragmento todavía no está disponible. Puedes explorar las preguntas del laboratorio.",
-                 "This excerpt is not available yet. You can explore the lab’s questions.")
 PENDIENTE_NOTA = ("Los resultados de esta fase siguen pendientes. Un dato pendiente no equivale a cero.",
                   "Results for this phase are still pending. A pending result is not zero.")
 ERROR_FUENTE = ("No pudimos cargar la fuente. Intenta de nuevo.", "We couldn’t load the source. Try again.")
@@ -122,6 +121,10 @@ SIN_RANKING = ("Sin clasificación general publicada", "No overall ranking publi
 PULL_NOTA = ("Cada dictamen guarda una razón, una lectura alternativa y la evidencia que cambiaría la nota.",
              "Every assessment keeps a reason, an alternative reading and the evidence that would change the score.")
 JUECES_T = ("Del número al argumento.", "From the number to the argument.")
+# ✎ desde ED02-X1: ED01 queda en cada sala, debajo y aparte, con este separador
+APARTE = ("Otra serie, aparte: ED01, el primer corte. Sus cifras no se suman a las de ED02-X1.",
+          "A separate series: ED01, the first release. Its figures are not added to ED02-X1’s.")
+ED01_T = ("ED01 · Primer corte", "ED01 · First release")
 
 
 def L(par, lang):
@@ -164,28 +167,7 @@ def simbolo(nombre, extra=""):
     return f'<svg class="simbolo{extra}" aria-hidden="true" focusable="false"><use href="#s-{nombre}"/></svg>'
 
 
-SIMB = {"preguntas": "preguntas", "laboratorio": "laboratorio", "resultados": "resultados", "como-medimos": "medimos"}
-DESTINO = {"preguntas": "#apuestas", "laboratorio": "#laboratorio", "resultados": "#resultados", "como-medimos": "#como-medimos"}
-FLECHA = {"preguntas": "↑", "laboratorio": "→", "resultados": "↓", "como-medimos": "←"}
-
-
-def enlace(qid, lang, clase):
-    f, txt = FLECHA[qid], t(Q[qid]["cta"], lang)
-    cuerpo = f'{txt} <span aria-hidden="true">{f}</span>' if f == "→" else f'<span aria-hidden="true">{f}</span> {txt}'
-    return f'<a class="{clase}" href="{DESTINO[qid]}">{cuerpo}</a>'
-
-
-def rotulo(qid, lang, clase):
-    return f'<p class="{clase}">{simbolo(SIMB[qid])}<span>{t(Q[qid]["eyebrow"], lang)}</span></p>'
-
-
-# ---------------------------------------------------------------- muestras
-
-def triptico(lang):
-    notas = "".join(f'<div class="tri-nota"><dt>{t(v["label"], lang)}</dt><dd>{t(v["line"], lang)}</dd></div>'
-                    for v in Q["preguntas"]["visual_items"])
-    return f'<dl class="triptico">{notas}</dl>'
-
+# ---------------------------------------------------------------- piezas que siguen en las salas
 
 def cifras(lang, que=True):
     """La franja de datos: siempre con su alcance al lado."""
@@ -208,14 +190,12 @@ def autoria(f, lang, enlace=False):
             f'<span class="f-quien">{e(f["model_name"])} · {t(f["configuration"], lang)}</span> '
             f'<span class="f-caso">{e(f["case_id"])} · {t(CASO[f["case_id"]], lang)}{leer}</span>{trad}</figcaption>')
 
-
 def guia(f, lang, clase="f-guia"):
     """La guía editorial: otra voz, con su rótulo; nunca entre las comillas de la cita."""
     return (f'<div class="{clase}" data-voz="editorial"><p class="capa-rotulo">{t(SH["editorial_label"], lang)}</p>'
             f'<p><span class="f-sub">{r("contexto", lang)}</span> {t(f["context"], lang)}</p>'
             f'<p><span class="f-sub">{r("pregunta_ed", lang)}</span> {t(f["editorial_question"], lang)}</p>'
             f'<p><span class="f-sub">{r("limite", lang)}</span> {t(f["editorial_limit"], lang)}</p></div>')
-
 
 def fragmento(f, lang, completo, visible=True, extra=""):
     fid = f["id"]
@@ -236,95 +216,8 @@ def fragmento(f, lang, completo, visible=True, extra=""):
     h.append("</div>")
     return "".join(h)
 
-
-def rotador(lang, clave):
-    """Cinco fragmentos, uno a la vista. Sin JavaScript queda F001, quieto; con él, el orden se baraja
-    una vez por visita y se avanza a mano. Los controles aparecen solo si el script los atiende."""
-    items = F["items"]
-    figs = "".join(fragmento(f, lang, False, f["id"] == Q["laboratorio"]["fallback_quote_id"]) for f in items)
-    ctl = Q["laboratorio"]["quote_controls"]
-    return (f'<div class="rotador" data-rotador="{clave}">'
-            f'<div class="rot-pila">{figs}</div>'
-            f'<p class="rot-vacio" hidden>{e(L(NO_DISPONIBLE, lang))}</p>'
-            f'<div class="rot-controles" data-rot-controles hidden>'
-            f'<button type="button" class="rot-btn" data-rot="-1" aria-label="{t(ctl["previous"], lang)}"><span aria-hidden="true">←</span></button>'
-            f'<p class="rot-cuenta" aria-live="polite" aria-atomic="true"><span class="sr-only">{r("cuenta_pre", lang)} </span>'
-            f'<span data-n>1</span> {r("cuenta_de", lang)} <span data-t>{len(items)}</span></p>'
-            f'<button type="button" class="rot-btn" data-rot="1" aria-label="{t(ctl["next"], lang)}"><span aria-hidden="true">→</span></button>'
-            f'</div></div>')
-
-
 def estado_etapa(et, lang):
     return r("cerrada", lang) if et["status"] == "closed" else t(SH["pending"], lang)
-
-
-def ruta(lang, etapas=("A", "B", "R", "E")):
-    """A cerrada → propuesta, críticas y transferencia pendientes. No es un porcentaje."""
-    items = "".join(f'<li class="ruta-fase{" ruta-fase--cerrada" if ETAPA[k]["status"] == "closed" else ""}">'
-                    f'<span class="ruta-l">{t(ETAPA[k]["label"], lang)}</span> <span class="ruta-e">{e(estado_etapa(ETAPA[k], lang))}</span></li>'
-                    for k in etapas)
-    return f'<ol class="ruta" role="list" aria-label="{r("fases_aria", lang)}">{items}</ol>'
-
-
-def cohorte_mini(lang):
-    filas = "".join(f'<li><span class="c-nombre">{e(c["name"])}</span> <span class="c-conf">{t(c["configuration"], lang)}</span></li>'
-                    for c in E["cohort"])
-    return f'<ul class="cohorte-mini" role="list">{filas}</ul>'
-
-
-def resumen_mini(lang):
-    a = E["administrative_summary"]
-    return (f'<p class="resumen-mini"><span class="cifra-s">{a["within_limit"]}</span> {r("dentro", lang)} '
-            f'<span aria-hidden="true">·</span> <span class="cifra-s">{a["outside_comparison"]}</span> {r("fuera_c", lang)}</p>')
-
-
-def sellos(lang):
-    """Tres sellos del mismo tamaño; un trazo los une a la hoja que examinan los tres."""
-    items = "".join(f'<li class="sello"><span class="sello-txt"><span class="sello-t"><span class="sr-only">{j["id"]} · </span>{t(j["short_title"], lang)}</span> '
-                    f'<span class="sello-q">{t(j["question"], lang)}</span></span><span class="seal seal--sello" aria-hidden="true">{j["id"]}</span></li>'
-                    for j in M["judges"])
-    return (f'<div class="sellos"><ul class="sellos-lista" role="list">{items}</ul>'
-            f'<span class="sellos-traza" aria-hidden="true"></span><span class="sellos-hoja" aria-hidden="true"></span></div>')
-
-
-def muestra(qid, lang, ancho):
-    if qid == "preguntas":
-        return triptico(lang)
-    if qid == "laboratorio":
-        return cifras(lang) + rotador(lang, f"breve-{ancho}")
-    if qid == "resultados":
-        return (f'<p class="stamp stamp--estado">{t(Q["resultados"]["status_badge"], lang)}</p>'
-                + cohorte_mini(lang) + ruta(lang) + resumen_mini(lang))
-    if qid == "como-medimos":
-        return sellos(lang) + f'<p class="q-alcance">{t(Q["como-medimos"]["current_scope"], lang)}</p>'
-
-
-def cuadrante(qid, lang, pos):
-    q = Q[qid]
-    return (f'<div class="cuadrante cuadrante--{pos} q q--{qid}">'
-            f'<p class="q-resumen">{t(q["headline"], lang)}</p>'
-            f'{rotulo(qid, lang, "q-rotulo")}'
-            f'<h2 class="q-titular">{t(q["headline"], lang)}</h2>'
-            f'<div class="q-muestra">{muestra(qid, lang, "q")}</div>'
-            f'<p class="q-gancho">{t(q["hook"], lang)}</p>'
-            f'{enlace(qid, lang, "q-enlace")}</div>')
-
-
-def trailers(lang):
-    """En el celular los cuatro tráileres van apilados, debajo del centro: preguntas → laboratorio → resultados → método."""
-    arts = []
-    for qid in ("preguntas", "laboratorio", "resultados", "como-medimos"):
-        q = Q[qid]
-        tid = f"tr-{qid}"
-        arts.append(f'<article class="trailer trailer--{qid}" aria-labelledby="{tid}">'
-                    f'{rotulo(qid, lang, "tr-rotulo")}'
-                    f'<h3 class="tr-titular" id="{tid}">{t(q["headline"], lang)}</h3>'
-                    f'<p class="tr-cuerpo">{t(q["body"], lang)}</p>'
-                    f'<div class="tr-muestra">{muestra(qid, lang, "tr")}</div>'
-                    f'<p class="tr-gancho">{t(q["hook"], lang)}</p>'
-                    f'{enlace(qid, lang, "tr-enlace")}</article>')
-    return (f'<section class="trailers" aria-labelledby="trailers-t"><h2 class="sr-only" id="trailers-t">{r("rumbos_t", lang)}</h2>\n      '
-            + "\n      ".join(arts) + "\n    </section>")
 
 
 # ---------------------------------------------------------------- arriba: las seis apuestas
@@ -373,16 +266,31 @@ def fuente(s, lang):
             f'{voz}{texto}<p class="fuente-aviso">{t(s["notice"], lang)}</p>{huellas}</div></details>')
 
 
-def lab(lang):
+def taller(lang):
+    """Golem Lab y sus tres puertas: lo que está en el taller, con borde discontinuo."""
     d = P["lab_detail"]
-    q = Q["laboratorio"]
-    f4 = FRAG[F004]
     destinos = (("#fuentes", "ir_fuentes"), ("#dos-lecturas", "ir_dos"), ("#voces", "ir_voces"))
     puertas = "".join(
         f'<li class="door"><h3>{t(ro["name"], lang)}</h3><p>{t(ro["body"], lang)}</p>'
         f'<p class="door-estado"><span class="door-sello">{r("puerta_estado", lang)}</span> '
         f'{r("mientras", lang)} <a href="{destinos[i][0]}">{r(destinos[i][1], lang)}</a>.</p></li>'
         for i, ro in enumerate(d["routes"]))
+    n = chr(10) + " " * 14
+    return n.join([
+        '<div class="taller">',
+        f'  <div class="lab-head"><p class="lockup"><span class="lockup-par"><svg class="marca-golem" viewBox="10.6 2.9 34.5 53.2" aria-hidden="true" focusable="false"><use href="#s-golem" width="64" height="64"/></svg><span class="lockup-g">Golem</span></span> <span class="lockup-lab">Lab</span></p>'
+        f'<p class="lab-sub">{t(d["subtitle"], lang)}</p><p class="stamp">{r("taller", lang)}</p></div>',
+        f'  <p class="lab-text">{t(d["intro"], lang)}</p>',
+        f'  <ul class="doors" role="list">{puertas}</ul>',
+        '</div>',
+    ])
+
+
+def lab(lang):
+    """Lo que ED01 dejó en el laboratorio, debajo de ED02-X1 y aparte."""
+    d = P["lab_detail"]
+    q = Q["laboratorio"]
+    f4 = FRAG[F004]
     temas = "".join(f'<li><span class="tema-l">{t(th["label"], lang)}</span> <span class="tema-caso">{e(th["case"])} · {t(CASO[th["case"]], lang)}</span></li>'
                     for th in d["themes"])
     definiciones = "".join(f'<div><dt><span class="cifra-s">{m["value"]}</span> {t(m["label"], lang)}</dt><dd>{t(m["definition"], lang)}</dd></div>'
@@ -392,12 +300,7 @@ def lab(lang):
     invitacion = f'<p class="supuesto-discutir"><a class="btn btn--carbon" href="mailto:admin@antireallabs.com?subject={asunto}">{r("discutir", lang)}</a></p>'
     n = chr(10) + " " * 14
     return n.join([
-        '<div class="taller">',
-        f'  <div class="lab-head"><p class="lockup"><span class="lockup-par"><svg class="marca-golem" viewBox="10.6 2.9 34.5 53.2" aria-hidden="true" focusable="false"><use href="#s-golem" width="64" height="64"/></svg><span class="lockup-g">Golem</span></span> <span class="lockup-lab">Lab</span></p>'
-        f'<p class="lab-sub">{t(d["subtitle"], lang)}</p><p class="stamp">{r("taller", lang)}</p></div>',
-        f'  <p class="lab-text">{t(d["intro"], lang)}</p>',
-        f'  <ul class="doors" role="list">{puertas}</ul>',
-        '</div>',
+        f'<p class="edicion-aparte">{e(L(APARTE, lang))}</p>',
         f'<section class="lab-bloque lab-cifras" aria-labelledby="cifras-t"><h3 class="lab-h" id="cifras-t">{t(q["headline"], lang)}</h3>'
         f'<p class="lab-lead">{t(q["body"], lang)}</p>{cifras(lang, que=False)}'
         f'<div class="que-contamos" id="que-contamos"><div class="panel-contenido" data-panel-titulo="{r("que_contamos", lang)}">'
@@ -440,6 +343,7 @@ def medimos(lang):
     q = Q["como-medimos"]
     n = chr(10) + " " * 12
     return n.join([
+        f'<p class="edicion-aparte">{e(L(APARTE, lang))}</p>',
         f'<h3 class="sec-titulo sec-titulo--jueces">{e(L(JUECES_T, lang))}</h3>',
         f'<p class="sec-lead">{t(M["roles_vs_engines"], lang)}</p>',
         f'<ul class="cards" role="list">{cards}</ul>',
@@ -585,10 +489,10 @@ def resultados(lang):
         for et in E["stages"])
     adm = E["administrative_summary"]
     limites = "".join(f"<li>{e(x)}</li>" for x in E["limitations"][lang])
-    return f"""<section class="sec sec--resultados" id="resultados" aria-labelledby="t-resultados">
+    return f"""<section class="sec sec--resultados sec--ed01" id="ed01-resultados" aria-labelledby="t-ed01-resultados">
       <div class="wrap">
-        <h2 class="sr-only" id="t-resultados">{"Resultados de evaluaciones" if lang == "es" else "Evaluation results"}</h2>
-        {simbolo("resultados", " simbolo--sala")}
+        <p class="edicion-aparte">{e(L(APARTE, lang))}</p>
+        <h2 class="sr-only" id="t-ed01-resultados">{e(L(ED01_T, lang))}</h2>
         <p class="eyebrow">{t(SH["cutoff"], lang)}</p>
         <p class="stamp stamp--estado">{t(SH["status"], lang)}</p>
         <h3 class="sec-titulo">{t(q["headline"], lang)}</h3>
@@ -636,20 +540,11 @@ def panel(lang):
             f'</dialog>')
 
 
-def placa(lang):
-    return f'<p class="placa-estado">{t(SH["status"], lang)}</p>'
-
-
 BLOQUES = {
-    "placa": placa,
-    "q-preguntas": lambda l: cuadrante("preguntas", l, "no"),
-    "q-laboratorio": lambda l: cuadrante("laboratorio", l, "ne"),
-    "q-medimos": lambda l: cuadrante("como-medimos", l, "so"),
-    "q-resultados": lambda l: cuadrante("resultados", l, "se"),
+    "taller": taller,
     "apuestas": apuestas,
     "lab": lab,
     "medimos": medimos,
-    "trailers": trailers,
     "resultados": resultados,
     "panel": panel,
 }

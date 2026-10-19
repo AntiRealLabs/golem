@@ -27,12 +27,31 @@
     return cruce.getBoundingClientRect().top + w.pageYOffset;
   }
 
+  // un ancla dentro de una sala lateral (#x1-recorridos, #fuentes…): la sala y el lugar adentro
+  function salaDe(id) {
+    var el = id ? d.getElementById(id) : null;
+    var panel = el && el.closest ? el.closest('.panel--lado') : null;
+    return panel && panel !== el ? { panel: panel.id, el: el } : null;
+  }
+  function dentro(el, como) {
+    var sc = el.closest('.lado-scroll');
+    if (!sc) return;
+    sc.scrollTo({ top: sc.scrollTop + el.getBoundingClientRect().top - sc.getBoundingClientRect().top - 24, behavior: como });
+  }
+
   /* 1. Aterrizar en el centro: solo en una visita nueva y sin destino en la dirección.
         Si la persona vuelve atrás o recarga, el navegador recuerda dónde estaba. */
   var tocado = false;
   function aterrizar() {
     if (tocado) return;
     var destino = location.hash.slice(1);
+    var lado = salaDe(destino);
+    if (lado) {   // quien llega a un lugar de una sala lateral (desde un recorrido, por ejemplo) lo encuentra ahí
+      fila.scrollLeft = d.getElementById(lado.panel).offsetLeft;
+      w.scrollTo({ top: Math.max(0, alturaCruce()), left: 0, behavior: 'instant' });
+      dentro(lado.el, 'instant');
+      return;
+    }
     // la fila mira al centro salvo que el enlace pida una de sus salas laterales
     if (destino !== 'como-medimos' && destino !== 'laboratorio') fila.scrollLeft = centro.offsetLeft;
     if (destino || tipoDeLlegada() !== 'navigate') return;
@@ -102,7 +121,18 @@
   d.addEventListener('click', function (e) {
     var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
     if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (a.hasAttribute('data-panel') || a.hasAttribute('data-x1-pasaje')) return;   // esos abren el panel (archivo.js)
     var destino = a.getAttribute('href').slice(1);
+    var lado = ORDEN.indexOf(destino) === -1 ? salaDe(destino) : null;
+    if (lado) {   // un lugar dentro de una sala lateral: la fila se desliza y la sala baja hasta él
+      e.preventDefault();
+      tocado = true;
+      var modo = reducir() ? 'instant' : 'smooth';
+      irA(lado.panel, modo);
+      dentro(lado.el, modo);
+      if (location.hash !== '#' + destino) history.pushState(null, '', '#' + destino);
+      return;
+    }
     if (ORDEN.indexOf(destino) === -1) return;
     e.preventDefault();
     tocado = true;
@@ -115,7 +145,11 @@
     var destino = location.hash.slice(1) || 'centro';
     if (ORDEN.indexOf(destino) !== -1) fila.scrollTo({ left: ORDEN.indexOf(destino) * fila.clientWidth, behavior: 'instant' });
   });
-  w.addEventListener('hashchange', function () { irA(location.hash.slice(1), 'instant'); });
+  w.addEventListener('hashchange', function () {
+    var destino = location.hash.slice(1), lado = salaDe(destino);
+    if (lado) { irA(lado.panel, 'instant'); dentro(lado.el, 'instant'); return; }
+    irA(destino, 'instant');
+  });
   if (ORDEN.indexOf(location.hash.slice(1)) !== -1) irA(location.hash.slice(1), 'instant');
 
   /* 4. Con el teclado: ← y → recorren la fila cuando está a la vista. */
