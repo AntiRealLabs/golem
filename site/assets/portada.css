@@ -230,13 +230,6 @@ html[lang="en"] .f-cita p::before{content:"“"}
 .q-muestra .rot-btn{width:28px;height:28px}
 .q-muestra .rotador--vivo .f-tipo{display:flex;align-items:center;min-height:28px;padding-right:9rem}
 
-/* el tríptico: tres notas al margen, cada palabra con su línea */
-.triptico{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;border-block:1px solid var(--line)}
-.tri-nota{padding:9px 12px 10px;text-align:center}
-.tri-nota+.tri-nota{border-left:1px solid var(--line)}
-.tri-nota dt{font:500 15.5px/1.2 var(--display);color:var(--ink)}
-.tri-nota dd{margin-top:5px;font:italic 400 15px/1.3 var(--book);color:var(--ink-2)}
-
 /* la franja de datos: tres cifras, siempre con su alcance, aparte del fragmento */
 .cifras{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:inherit;gap:2px 14px;width:100%;padding-bottom:7px;border-bottom:1px solid var(--line)}
 .cifras-lista{flex-basis:100%;order:-1}
@@ -246,29 +239,12 @@ html[lang="en"] .f-cita p::before{content:"“"}
 .cifra-l{font:400 14px/1.3 var(--body);color:var(--ink-2)}
 
 
-/* tres sellos del mismo tamaño; un trazo los une a la hoja que examinan los tres:
-   son tres especialidades leyendo el mismo trabajo, no tres retratos de máquinas */
-.sellos{--g:7px;display:grid;grid-template-columns:auto 26px 26px;align-items:stretch}
-.sellos-lista{list-style:none;padding:0;display:grid;gap:var(--g)}
-.sello{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:10px;text-align:right}
-.sello::after{content:"";position:absolute;left:100%;top:50%;width:10px;border-top:1px solid var(--ink-2)}
-.sello::before{content:"";position:absolute;left:calc(100% + 10px);top:calc(var(--g) / -2);bottom:calc(var(--g) / -2);border-left:1px solid var(--ink-2)}
-.sello:first-child::before{top:50%}
-.sello:last-child::before{bottom:50%}
-.sello-txt{display:flex;flex-direction:column}
-.sello-t{font:500 15px/1.2 var(--display);color:var(--ink)}
-.sello-q{font:italic 400 15px/1.3 var(--book);color:var(--ink-2)}
-.seal--sello{width:30px;height:30px;font-size:12px}
-.sellos-hoja{position:relative;align-self:center;width:26px;height:33px;padding:7px 5px 6px;border:1px solid var(--ink);background:repeating-linear-gradient(180deg,var(--ink-2) 0 1px,transparent 1px 5px) content-box,var(--sheet)}
-.sellos-hoja::before{content:"";position:absolute;right:100%;top:50%;width:16px;border-top:1px solid var(--ink-2)}
-
 /* lo que no cabe en cada esquina se guarda entero, de lo accesorio a lo esencial: la letra no se achica.
    Con JavaScript, archivo.js prueba cada esquina en su tamaño real y guarda lo justo (data-guardado);
    sin él, estos umbrales hacen lo mismo de forma aproximada y la esquina se puede recorrer por dentro. */
 [data-guardado]{display:none!important}
-@container esquina (height < 300px){html:not(.ajusta) .q--preguntas > .q-rotulo{display:none}}
-@container esquina (height < 272px){html:not(.ajusta) .q--preguntas .tri-nota dd{display:none}}
-@container esquina (height < 212px){html:not(.ajusta) .q--preguntas .triptico{display:none}}
+@container esquina (height < 272px){html:not(.ajusta) .q--preguntas > .q-rotulo{display:none}}
+@container esquina (height < 247px){html:not(.ajusta) .q--preguntas .pesa{display:none}}
 @container esquina (height < 166px){html:not(.ajusta) .q--preguntas .q-cuerpo{display:none}}
 @container esquina (height < 350px){html:not(.ajusta) .q--laboratorio > .q-rotulo{display:none}}
 @container esquina (height < 325px){html:not(.ajusta) .q--laboratorio .rotador{display:none}}
@@ -276,16 +252,9 @@ html[lang="en"] .f-cita p::before{content:"“"}
 @container esquina (height < 302px){html:not(.ajusta) .q--resultados > .q-rotulo{display:none}}
 @container esquina (height < 276px){html:not(.ajusta) .q--resultados .x1-mini,html:not(.ajusta) .q--resultados .x1-mini-ley{display:none}}
 @container esquina (height < 170px){html:not(.ajusta) .q--resultados .q-cuerpo{display:none}}
-@container esquina (height < 318px){html:not(.ajusta) .q--como-medimos > .q-rotulo{display:none}}
-@container esquina (height < 292px){html:not(.ajusta) .q--como-medimos .sello-q{display:none}}
-@container esquina (height < 270px){html:not(.ajusta) .q--como-medimos .sellos{display:none}}
+@container esquina (height < 305px){html:not(.ajusta) .q--como-medimos > .q-rotulo{display:none}}
+@container esquina (height < 280px){html:not(.ajusta) .q--como-medimos .lee{display:none}}
 @container esquina (height < 166px){html:not(.ajusta) .q--como-medimos .q-cuerpo{display:none}}
-@container esquina (width < 340px){
-  .q--preguntas .triptico{grid-template-columns:minmax(0,1fr)}
-  .q--preguntas .tri-nota{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:baseline;gap:0 8px;padding:5px 0;text-align:right}
-  .q--preguntas .tri-nota+.tri-nota{border-left:0;border-top:1px solid var(--line)}
-  .q--preguntas .tri-nota dd{margin:0}
-}
 
 .langs{position:absolute;z-index:1;top:clamp(14px,2vw,28px);right:clamp(14px,2vw,28px);display:flex;gap:4px}
 .langs a{display:inline-grid;place-items:center;min-width:44px;min-height:44px;padding:0 10px;border:1px solid transparent;background:var(--paper);color:var(--muted);font:400 13px/1 var(--mono);letter-spacing:.08em;text-decoration:none}
@@ -357,26 +326,26 @@ html[lang="en"] .pull blockquote p::after{content:"”"}
 .anclas li{display:flex;align-items:baseline;gap:12px;font-size:16px;line-height:1.4}
 .ancla-n{display:inline-grid;place-items:center;flex:none;width:28px;height:28px;border:1px solid var(--ink);font:500 14px/1 var(--display)}
 
-/* el laboratorio: el borde discontinuo marca lo que está en el taller (las tres puertas);
-   lo que ya existe de ED01 va debajo, con borde firme */
-.taller{padding:clamp(24px,4vw,48px);background:var(--sheet);border:2px dashed var(--coal-line-2)}
-.lab-head{display:flex;flex-direction:column;align-items:center;gap:12px;container-type:inline-size}
+/* el laboratorio: primero lo que ya existe (ED02-X1 y, aparte, ED01); al final, compacto y con borde
+   discontinuo, Golem Lab y sus tres puertas, que siguen en el taller */
+.taller{margin-top:clamp(72px,10vh,104px);padding:clamp(20px,3vw,34px);background:var(--sheet);border:2px dashed var(--coal-line-2)}
+.lab-head{display:flex;flex-direction:column;align-items:center;gap:10px;container-type:inline-size}
 /* «Golem Lab»: la mascota va pegada a «Golem», de su tamaño y a su altura, como en la placa. El par no se
    separa nunca; en un celular estrecho la letra baja lo justo para que el par quepa en .lab-head. */
-.lockup{--lg:clamp(58px,7vw,88px);display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:2px 14px}
-@supports (width:1cqi){.lockup{--lg:clamp(40px,min(max(58px,7vw),100cqi / 3.1),88px)}}
+.lockup{--lg:clamp(44px,4.6vw,60px);display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:2px 14px}
+@supports (width:1cqi){.lockup{--lg:clamp(40px,min(max(44px,4.6vw),100cqi / 3.1),60px)}}
 .lockup-par{display:inline-flex;align-items:baseline;gap:calc(var(--lg) * .14)}
 .lockup .marca-golem{position:relative;top:calc(var(--lg) * .02);height:calc(var(--lg) * .74);color:var(--ink)}
 .lockup-g{font:400 var(--lg)/.95 var(--gothic);letter-spacing:-.02em;color:var(--ink)}
 .lockup-lab{margin-right:-.32em;font:500 clamp(18px,2vw,24px)/1 var(--display);letter-spacing:.32em;text-transform:uppercase;color:var(--red)}
 .lab-sub{font:400 12.5px/1.45 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
-.lab-text{margin:22px auto 0;max-width:40ch;font:italic 400 clamp(21px,2vw,26px)/1.42 var(--book);color:var(--ink)}
-.doors{list-style:none;padding:0;margin-top:30px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 28px}
-.door{padding:18px 0 4px;border-top:1px solid var(--line)}
-.door h3{margin-bottom:8px;font:500 21px/1.25 var(--display)}
-.door p{font-size:16px;line-height:1.55;color:var(--ink-2)}
-.door .door-estado{margin-top:12px;font-size:14.5px}
-.door-sello{display:table;margin:0 auto 6px;padding:1px 8px;border:1.5px dashed var(--coal-line-2);font:400 10.5px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+.lab-text{margin:14px auto 0;max-width:50ch;font:italic 400 clamp(18px,1.5vw,20px)/1.45 var(--book);color:var(--ink)}
+.doors{list-style:none;padding:0;margin-top:20px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 24px}
+.door{padding:12px 0 2px;border-top:1px solid var(--line)}
+.door h3{margin-bottom:4px;font:500 18px/1.25 var(--display)}
+.door p{font-size:15px;line-height:1.5;color:var(--ink-2)}
+.door .door-estado{margin-top:6px;font-size:14px}
+.door-sello{display:table;margin:0 auto 3px;padding:0 6px;border:1.5px dashed var(--coal-line-2);font:400 10px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
 .door-estado a{color:var(--red);text-underline-offset:3px}
 .lab-bloque{position:relative;margin-top:clamp(72px,10vh,104px)}
 .lab-bloque::before{content:"";position:absolute;left:50%;bottom:calc(100% + 16px);height:clamp(40px,6vh,64px);width:1px;background:var(--eje)}
@@ -609,6 +578,12 @@ html[lang="en"] .lectura-cita p::after{content:"”"}
 .x1-tabla th,.x1-tabla td{padding:16px 18px;border-bottom:1px solid var(--line);vertical-align:baseline}
 .x1-tabla thead th{padding-block:12px 10px;border-bottom:1.5px solid var(--ink);font:400 10.5px/1.35 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .x1-tabla tbody tr:last-child > *{border-bottom:0}
+.x1-tabla thead th[rowspan]{vertical-align:bottom}
+.x1-tabla thead .x1-giro-th{padding:14px 18px 0;border-bottom:0}
+.x1-giro-t{position:relative;display:block;padding-bottom:9px;border-bottom:2px solid var(--red);font:500 17px/1.25 var(--display);letter-spacing:0;text-transform:none;color:var(--red)}
+.x1-giro-t::before,.x1-giro-t::after{content:"";position:absolute;bottom:-2px;width:2px;height:9px;background:var(--red)}
+.x1-giro-t::before{left:0}
+.x1-giro-t::after{right:0}
 .x1-pos{width:3.2em;font:500 22px/1 var(--display);color:var(--muted)}
 .x1-modelo{display:block;font:500 20px/1.2 var(--display);color:var(--ink)}
 .x1-conf{display:block;margin-top:3px;font:400 12px/1.45 var(--mono);color:var(--muted)}
@@ -649,10 +624,31 @@ html[lang="en"] .lectura-cita p::after{content:"”"}
 
 /* ED02-X1 en las esquinas y en los tráileres */
 .q-cuerpo{max-width:34em;font:400 14.5px/1.5 var(--body);color:var(--ink-2);text-wrap:pretty}
-.triptico--x1 dt{display:flex;justify-content:center;align-items:baseline;gap:6px;font-size:21px}
-.triptico--x1 dt .crit-id{margin:0;font-size:11.5px}
-.triptico--x1 dt .tri-peso{font:400 11px/1 var(--mono);color:var(--ink-2)}
-.triptico--x1 dd{font-size:14px}
+.x1-giro{font-weight:500;color:var(--red)}
+/* preguntas: lo que pesan en el índice, sin cifras. La barra es el índice en sus tres tercios (las tres
+   especialidades); en cada uno, en burdeos y con su «?», la parte de su pregunta: 30 de 100 en la especialidad */
+.pesa{width:26rem;max-width:100%;margin:2px 0 0}
+.pesa-barra{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.pesa-tercio{display:grid;grid-template-rows:24px 13px auto;row-gap:6px;justify-items:start;text-align:left}
+.pesa-signo{width:24px;height:24px;margin-left:calc(15% - 12px);color:var(--red);stroke-width:1.6}
+/* una sola barra: el índice; los filetes la parten en tercios y cada tercio empieza por su pregunta */
+.pesa-tramo{position:relative;justify-self:stretch;border:1px solid var(--ink);border-right:0;background:var(--sheet)}
+.pesa-tercio:last-child .pesa-tramo{border-right:1px solid var(--ink)}
+.pesa-tramo::before{content:"";position:absolute;top:0;bottom:0;left:0;width:30%;background:var(--red)}
+.pesa-l{font:italic 400 15px/1.25 var(--book);color:var(--ink-2)}
+/* cómo medimos: tres especialidades, dos motores; cada especialidad la leen los dos, con sus razones (la hoja
+   con renglones). Los motores, en el mismo orden que la tabla de resultados del otro lado */
+.lee{border-collapse:collapse}
+.lee th,.lee td{padding-block:5px;padding-inline:18px 0;border-bottom:1px solid var(--line);vertical-align:middle}
+.lee thead td{padding:0;border-bottom:0}
+.lee thead th{padding-block:0 6px;font:400 10px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;white-space:nowrap}
+.lee tbody tr:last-child > *{border-bottom:0}
+.lee tbody th{padding-inline-start:0;font-weight:400;text-align:start}
+.lee td{text-align:center}
+.lee-esp{display:inline-flex;align-items:center;gap:9px}
+.seal--lee{width:28px;height:28px;font-size:11.5px}
+.lee-v{font:italic 400 15px/1.2 var(--book);color:var(--ink-2)}
+.lee-hoja{display:inline-block;width:15px;height:19px;padding:4px 3px;border:1px solid var(--ink);background:repeating-linear-gradient(180deg,var(--ink-2) 0 1px,transparent 1px 4px) content-box,var(--sheet);vertical-align:middle}
 .x1-mini{border-collapse:collapse;font-size:14px;line-height:1.3}
 .x1-mini th,.x1-mini td{padding:4px 7px;border-bottom:1px solid var(--line);text-align:right}
 .x1-mini thead th{font:400 9.5px/1.3 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
@@ -667,14 +663,18 @@ html[lang="en"] .lectura-cita p::after{content:"”"}
 
 /* el laboratorio de X1: cuatro unidades, un carrusel de pasajes citados y los doce recorridos */
 .x1-lab .x1-badge{margin-bottom:18px}
-.cifras--x1{max-width:52rem;margin:28px auto 0;justify-content:center;padding-block:16px 18px;border-top:2px solid var(--ink);border-bottom:0}
-.cifras--x1 .cifras-lista{justify-content:center;gap:10px 40px}
+/* las cuatro unidades: cada cifra una sola vez, con su nombre y, debajo, lo que cuenta */
+.cifras--x1{max-width:64rem;margin:28px auto 0;padding:0;border-top:2px solid var(--ink);border-bottom:0}
+.cifras--x1 .cifras-lista{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 24px;text-align:left}
+.cifras--x1 .cifras-lista li{display:block;padding-top:14px;white-space:normal}
 .cifras--x1 .cifra{font-size:clamp(34px,3.4vw,46px)}
 .cifras--x1 .cifra-l{font-size:16px}
+.cifra-d{display:block;margin-top:8px;font:400 14.5px/1.55 var(--body);color:var(--ink-2)}
 .definiciones--x1{grid-template-columns:repeat(4,minmax(0,1fr));max-width:64rem;margin:6px auto 0}
 .x1-unidades .voces-nota{margin-top:18px}
 .x1-voces{position:relative;margin-top:96px}
 .x1-voces .rotador{max-width:46rem;margin:28px auto 0;text-align:left}
+.x1-como{max-width:46rem;margin:22px auto 0;text-align:left}
 .x1-voces .rot-controles{justify-content:center;margin-top:14px}
 .fragmento--x1 .f-cita p{text-wrap:pretty}
 .x1-voces .fragmento--x1{padding:22px 24px 18px;background:var(--sheet);border:1px solid var(--line);border-top:3px solid var(--ink)}
@@ -694,7 +694,6 @@ html[lang="en"] .lectura-cita p::after{content:"”"}
 /* cómo medimos en X1: tres especialidades, cada una con sus criterios, y los dos motores que las puntúan */
 .x1-medimos{margin-top:clamp(64px,10vh,104px)}
 .x1-medimos .x1-badge{margin-bottom:18px}
-.x1-jueces{max-width:58ch;margin:-14px auto 34px;padding:12px 16px;border:1px solid var(--ink);font:500 16.5px/1.5 var(--body);color:var(--ink)}
 .x1-persp-lista{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;text-align:left}
 .x1-persp{display:flex;flex-direction:column;gap:12px;padding:24px 22px 20px;background:var(--sheet);border:1px solid var(--line);border-top:4px solid var(--ink)}
 .x1-persp .card-top{flex-direction:row;justify-content:space-between;align-items:center}
@@ -703,6 +702,11 @@ html[lang="en"] .lectura-cita p::after{content:"”"}
 .x1-crit-lista{list-style:none;padding:0;display:grid;gap:8px;margin-top:4px;padding-top:12px;border-top:1px solid var(--line)}
 .x1-crit-lista li{font-size:15px;line-height:1.4}
 .x1-crit-meta{display:block;font:400 11px/1.5 var(--mono);color:var(--muted)}
+.x1-crit--pregunta{position:relative}
+.x1-crit--pregunta::before,.x1-pesos::before{content:"";position:absolute;left:-12px;top:.2em;bottom:.2em;width:3px;background:var(--red)}
+.x1-crit--pregunta .x1-crit-meta{color:var(--red)}
+.x1-pesos{position:relative;max-width:60ch;margin:26px auto 0;padding-left:12px;font:500 16px/1.55 var(--body);color:var(--ink);text-align:left}
+.x1-pesos::before{left:0}
 .crit-original{display:block;font:italic 400 13.5px/1.35 var(--book);color:var(--muted)}
 .x1-persp > .x1-motores{margin-top:auto;padding-top:10px;border-top:1px solid var(--line);font:400 11.5px/1.5 var(--mono);letter-spacing:.04em;color:var(--ink)}
 .x1-variantes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
@@ -927,6 +931,15 @@ body.lectura-x1{background:var(--paper)}
   .cohorte-lista{grid-template-columns:repeat(2,minmax(0,1fr))}
   .voces-lista,.dl-lecturas{grid-template-columns:minmax(0,1fr)}
 }
+/* «Volver al centro» acostado mide 164 px (179 en inglés) y por debajo de unos 1300 px se metía en el texto de
+   la sala (a 1165 px tapaba «Un caso nuevo»): hasta 1339 px se para de lado y ocupa 40 px del margen */
+@media (max-width:1339px){
+  .volver-lado{flex-direction:column;gap:10px;padding:14px 8px}
+  .volver-lado .volver-t{writing-mode:vertical-rl}
+  .volver-lado--o .volver-t{transform:rotate(180deg)}
+  .volver-lado--e{right:4px}
+  .volver-lado--o{left:4px}
+}
 @media (max-width:899px){
   /* en el celular cada estación es una baldosa (boceto de Juan): el recuadro junto a la placa, el susurro
      hacia afuera y la baldosa entera se puede tocar. La placa sigue en el centro exacto. Los cuatro
@@ -968,11 +981,6 @@ body.lectura-x1{background:var(--paper)}
   /* el recuadro se estira sobre toda la baldosa: se toca en cualquier parte */
   .lugar::after{content:"";position:absolute;inset:0}
   .lado-in{padding:28px 58px 88px}
-  .volver-lado{flex-direction:column;gap:10px;padding:14px 8px}
-  .volver-lado .volver-t{writing-mode:vertical-rl}
-  .volver-lado--o .volver-t{transform:rotate(180deg)}
-  .volver-lado--e{right:4px}
-  .volver-lado--o{left:4px}
   .rules{grid-template-columns:minmax(0,1fr)}
   .suelo-in{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center}
   .golem{max-width:420px}
@@ -1009,7 +1017,6 @@ body.lectura-x1{background:var(--paper)}
   .tr-muestra .f-acciones{justify-content:center}
   .tr-muestra .rot-controles{justify-content:center}
   .tr-muestra .rot-btn{width:44px;height:44px}
-  .tr-muestra .sellos{justify-self:center}
 }
 @media (max-width:899px) and (max-height:620px){
   .cuadrante > .q-resumen{display:none}
@@ -1022,8 +1029,6 @@ body.lectura-x1{background:var(--paper)}
   .estacion--laboratorio{padding-right:28px}
   .estacion--medimos{padding-left:28px}
   .lugar{padding-inline:10px;gap:7px}
-  .tr-muestra .triptico{grid-template-columns:minmax(0,1fr)}
-  .tr-muestra .tri-nota+.tri-nota{border-left:0;border-top:1px solid var(--line)}
 }
 /* teléfonos de 320 px: todo todavía más ceñido */
 @media (max-width:359px){
@@ -1081,14 +1086,13 @@ body.lectura-x1{background:var(--paper)}
 @media (max-width:1100px){
   .x1-persp-lista,.x1-casos-lista{grid-template-columns:minmax(0,1fr)}
   .x1-persp-lista,.x1-casos-lista{max-width:40rem;margin-inline:auto}
-  .definiciones--x1,.rc--metodo .definiciones--x1{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .definiciones--x1,.rc--metodo .definiciones--x1,.cifras--x1 .cifras-lista{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:899px){
   .rc-par{grid-template-columns:minmax(0,1fr)}
   .x1-fuera-lista{grid-template-columns:minmax(0,1fr);max-width:28rem}
   .x1-variantes{grid-template-columns:minmax(0,1fr)}
   .tr-muestra .x1-mini{margin-inline:auto}
-  .tr-muestra .triptico--x1{max-width:30rem}
   .rc-ruta{top:56px}
   .rc-barra{min-height:56px}
   .rc-marca-t{font-size:20px}
@@ -1105,7 +1109,7 @@ body.lectura-x1{background:var(--paper)}
   .x1-primero{font-size:9px;letter-spacing:.02em}
   .x1-primero::before{display:block;margin:0 0 3px}
   .x1-perfil{min-width:36rem}
-  .definiciones--x1,.rc--metodo .definiciones--x1{grid-template-columns:minmax(0,1fr)}
+  .definiciones--x1,.rc--metodo .definiciones--x1,.cifras--x1 .cifras-lista{grid-template-columns:minmax(0,1fr)}
   .esc-rejilla{grid-template-columns:repeat(7,18px);gap:4px}
   .esc{width:18px;height:18px}
   .x1-esc{gap:22px 32px}

@@ -8,7 +8,8 @@ Comprueba, sin usar el código que construye las páginas:
   · que cada archivo del paquete tiene la huella del manifiesto;
   · que el índice cuadra: 2 configuraciones, 12 recorridos, 60 textos, 24 críticas, 144 lecturas, 384 niveles;
   · que los textos editoriales, las notas y las cifras aparecen tal cual y en su idioma, y la etiqueta
-    «Piloto exploratorio · ED02-X1» a la vista; que ninguna cifra del índice lleva «%»;
+    «Piloto exploratorio · ED02-X1» a la vista; que ninguna cifra del índice lleva «%»; los que la revisión
+    de la portada reemplazó (ed02x1_ajustes.json) ya no se muestran y sus reemplazos sí;
   · que cada página de recorrido trae sus cinco textos completos, sus dos críticas, sus 32 lecturas con el
     nivel, la justificación y el límite de cada una, y cada pasaje citado en su sitio y con todos sus vínculos;
   · que cada pasaje del carrusel abre su fuente correcta (recorrido, etapa y bytes);
@@ -115,6 +116,11 @@ def debe(lang, valor, donde, en=None):
     ok(v in (en if en is not None else TX[lang]), f"[{lang}] falta {donde}: «{v[:80]}»")
 
 
+# los textos que la revisión de la portada (20 oct 2026) cambió: viven en ed02x1_ajustes.json, con su origen,
+# y ese archivo dice qué texto del paquete reemplaza cada uno. Lo reemplazado ya no se muestra; lo nuevo sí.
+AJ = json.loads((Path(__file__).resolve().parent / "ed02x1_ajustes.json").read_text(encoding="utf-8"))
+REEMPLAZADOS = set(AJ["reemplaza"])
+
 for lang in ("es", "en"):
     w = WEB[lang]
     for k in ("headline", "badge", "ranking_title", "ranking_note", "sensitivity_note", "scope", "length_note", "judges_note",
@@ -122,7 +128,16 @@ for lang in ("es", "en"):
         debe(lang, w[k], k)
     for q, d in w["quadrants"].items():
         for k in ("title", "preview", "cta"):
-            debe(lang, d[k], f"{q}.{k}")
+            if f"quadrants.{q}.{k}" in REEMPLAZADOS:
+                ok(norm(d[k]) not in TX[lang], f"[{lang}] {q}.{k} sigue a la vista aunque la revisión lo reemplazó")
+            else:
+                debe(lang, d[k], f"{q}.{k}")
+    for clave, t in AJ["textos"].items():
+        debe(lang, t[lang], f"texto de la revisión «{clave}»")
+    # «Cambiar de motor invierte el orden», junto a las cifras: encima de las dos columnas de los motores
+    giro = re.search(r'<th scope="colgroup" colspan="2" class="x1-giro-th">(.*?)</th>', X1[lang], re.S)
+    ok(giro and norm(plano(giro.group(1))) + "." in norm(w["quadrants"]["resultados"]["preview"]),
+       f"[{lang}] la tabla no dice, encima de los motores, que cambiar de motor invierte el orden")
     for c in MAPA["cases"]:
         debe(lang, c["title_" + lang], f"caso {c['id']}")
         debe(lang, c["preview_" + lang], f"caso {c['id']} vista previa")

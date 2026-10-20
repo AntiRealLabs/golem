@@ -16,6 +16,8 @@ Los textos del paquete pasan tal cual (escapados para HTML): los del modelo, los
 materiales y los editoriales. Nada se traduce aquí: en inglés cambian la interfaz y las explicaciones
 editoriales del paquete; los cuerpos siguen en español original. Lo único escrito en este archivo son
 los rótulos funcionales de ROT y las notas de N (✎ propuesta de Claude; las aprueba coordinación).
+Los textos editoriales que una revisión aprobada cambió viven en ed02x1_ajustes.json, con su origen:
+ese archivo dice qué texto del paquete reemplaza cada uno.
 No calcula notas, órdenes ni promedios: muestra las cifras del índice con su redondeo publicado. Cuenta
 (registros, pasajes distintos) solo para decir qué se muestra, nunca para puntuar.
 Después de correrlo: versionar_recursos.py, cotejar_ed02x1.py y verificar_portada.py.
@@ -56,6 +58,8 @@ def leer(rel):
 
 IDX = leer("indice_publico_X1.json")
 WEB = leer("editorial/Contenido_web_X1_ES_EN.json")
+# los textos de la revisión de la portada (20 oct 2026): viven fuera del paquete, con su origen
+AJUSTES = json.loads((Path(__file__).resolve().parent / "ed02x1_ajustes.json").read_text(encoding="utf-8"))["textos"]
 MAPA = leer("editorial/Mapa_editorial_casos_y_jueces_X1_ES_EN.json")
 NOTA = leer("editorial/Nota_publica_incidentes_ES_EN_X1.json")
 RESUMEN = texto("editorial/Resumen_resultados_X1_ES_EN.txt")
@@ -149,6 +153,8 @@ ROT = {
     "juez_JC": ("Motor juez Claude", "Claude judging engine"),
     "primero_motor": ("primero para este motor", "first for this engine"),
     "primero_cada": ("primero para cada motor", "first for each engine"),
+    "lee_t": ("Quién puntúa cada especialidad", "Who scores each perspective"),
+    "puntua": ("puntúa", "scores"),
     "esfuerzo": ("esfuerzo", "effort"),
     "exactos": ("Valores exactos del índice combinado: {a}. La cifra con un decimal es una presentación.",
                 "Exact combined index values: {a}. The one-decimal figure is a presentation."),
@@ -181,8 +187,8 @@ ROT = {
     "u_lecturas_d": ("Dictámenes de los dos motores: doce por recorrido. Juntas fijan 384 niveles (16 criterios × 2 motores × 12 recorridos).",
                      "Judgments by the two engines: twelve per run. Together they set 384 levels (16 criteria × 2 engines × 12 runs)."),
     "carrusel_t": (FRAG["label_es"][0].upper() + FRAG["label_es"][1:], FRAG["label_en"][0].upper() + FRAG["label_en"][1:]),
-    "carrusel_regla": ("Uno por cada uno de los 60 textos: el primer pasaje que un juez citó, entre los de 60 a 240 caracteres. Cada visita los baraja. No es una selección de las mejores ideas.",
-                       "One for each of the 60 texts: the first passage a judge cited, among those of 60 to 240 characters. Each visit shuffles them. It is not a selection of the best ideas."),
+    "carrusel_regla": ("Uno por cada uno de los 60 textos: el primer pasaje que un juez citó, entre los de 60 a 240 caracteres. Cada visita los baraja.",
+                       "One for each of the 60 texts: the first passage a judge cited, among those of 60 to 240 characters. Each visit shuffles them."),
     "casos_t": ("Tres casos ficticios, doce recorridos", "Three fictional cases, twelve runs"),
     "casos_orden": ("Orden fijo de registro: no es un orden de resultados.", "Fixed registration order: not an order of results."),
     "recorrido_n": ("Recorrido {n}", "Run {n}"),
@@ -345,6 +351,23 @@ def e(s):
 def w(campo, lang):
     """Un texto del contenido web del paquete, en su idioma."""
     return e(WEB[lang][campo])
+
+
+def aj(clave, lang):
+    """Un texto de la revisión de la portada (ed02x1_ajustes.json), en su idioma."""
+    return e(AJUSTES[clave][lang])
+
+
+# «Cambiar de motor invierte el orden»: la frase del paquete que va junto a las cifras, tal cual
+GIRO = {"es": "Cambiar de motor invierte el orden.", "en": "Switching judging engines reverses the order."}
+for _l, _g in GIRO.items():
+    assert WEB[_l]["quadrants"]["resultados"]["preview"].count(_g) == 1, f"la frase del giro no está en el paquete ({_l})"
+
+
+def con_giro(texto_plano, lang):
+    """El texto, escapado, con la frase del giro destacada (sigue siendo el mismo texto)."""
+    a, b = texto_plano.split(GIRO[lang])
+    return f'{e(a)}<strong class="x1-giro">{e(GIRO[lang])}</strong>{e(b)}'
 
 
 def num(valor, lang):
@@ -996,16 +1019,6 @@ def rotulo(qid, lang, clase):
     return f'<p class="{clase}">{simbolo(SIMB[qid])}<span>{r("rotulo_" + qid, lang)}</span></p>'
 
 
-def tres_preguntas(lang):
-    """De dónde sale el 30 %: el criterio de preguntas de cada especialidad, con su peso (30 de 100 en ella).
-    El número lleva la palabra «peso»: sin ella, «J1.1 30» se lee como una nota."""
-    peso = r("peso", lang).lower()
-    items = "".join(f'<div class="tri-nota"><dt><span class="crit-id">{c}</span> <span class="tri-peso">{peso}</span> {CRIT[c]["peso"]}</dt>'
-                    f'<dd>{nombre_criterio(c, lang, breve=True)}</dd></div>'
-                    for c in ("J1.1", "J2.1", "J3.1"))
-    return f'<dl class="triptico triptico--x1">{items}</dl>'
-
-
 def primero_para(motor):
     """La configuración que cada motor pone primero, leída del índice publicado (no se recalcula)."""
     campo = "judge_GPT_index" if motor == "JG" else "judge_Claude_index"
@@ -1030,14 +1043,6 @@ def tabla_mini(lang):
             f'<thead><tr><th scope="col"><span class="sr-only">{r("configuracion", lang)}</span></th><th scope="col">{r("combinado", lang)}</th>'
             f'<th scope="col">{r("motor_JG", lang)}</th><th scope="col">{r("motor_JC", lang)}</th></tr></thead><tbody>{filas}</tbody></table>'
             f'<p class="x1-mini-ley"><span class="x1-mini-punto" aria-hidden="true"></span>{r("primero_cada", lang)}</p>')
-
-
-def sellos(lang):
-    items = "".join(f'<li class="sello"><span class="sello-txt"><span class="sello-t"><span class="sr-only">{p["id"]} · </span>{e(p["title_" + lang])}</span> '
-                    f'<span class="sello-q">{e(p["weight"])}</span></span><span class="seal seal--sello" aria-hidden="true">{p["id"]}</span></li>'
-                    for p in MAPA["perspectives"])
-    return (f'<div class="sellos"><ul class="sellos-lista" role="list">{items}</ul>'
-            f'<span class="sellos-traza" aria-hidden="true"></span><span class="sellos-hoja" aria-hidden="true"></span></div>')
 
 
 # el carrusel: un pasaje por texto, en el orden fijo de registro (configuración, caso, recorrido, etapa)
@@ -1081,25 +1086,76 @@ def rotador(lang, clave):
             f'</div></div>')
 
 
+# Las palabras de las dos muestras de la izquierda salen del texto del paquete, tal cual (en minúscula).
+PESA = {"es": ("formulación", "fecundidad", "revisión"), "en": ("formulation", "fruitfulness", "revision")}
+VERBOS = {"es": ("comprender", "crear", "revisar"), "en": ("understand", "create", "revise")}
+for _l in ("es", "en"):
+    assert all(x in WEB[_l]["quadrants"]["preguntas_abiertas"]["preview"].lower() for x in PESA[_l]), _l
+    assert all(x in WEB[_l]["quadrants"]["como_medimos"]["preview"].lower() and x in AJUSTES["medimos_esquina"][_l].lower()
+               for x in VERBOS[_l]), _l
+assert [p["id"] for p in MAPA["perspectives"]] == ["J1", "J2", "J3"] and all(w == "1/3" for w in (p["weight"] for p in MAPA["perspectives"]))
+
+
+def pesa_preguntas(lang):
+    """El 30 % de las preguntas, dibujado sin cifras (revisión de la portada, 20 oct 2026: los tres «peso 30»
+    junto al «30 %» confundían). La barra es el índice, partida en sus tres especialidades, que valen un tercio
+    cada una; en cada tercio, en burdeos y con su «?», la parte de su criterio de la pregunta: 30 de 100 dentro de
+    la especialidad (el 30 % del ancho de cada tercio, en portada.css). Repite en dibujo lo que dice el texto de al
+    lado: va oculta a los lectores de pantalla."""
+    partes = "".join(f'<li class="pesa-tercio">{simbolo("preguntas", " pesa-signo")}<span class="pesa-tramo"></span>'
+                     f'<span class="pesa-l">{e(n)}</span></li>' for n in PESA[lang])
+    return f'<figure class="pesa" aria-hidden="true"><ul class="pesa-barra">{partes}</ul></figure>'
+
+
+def lee_motores(lang):
+    """Tres especialidades, dos motores (revisión de la portada, 20 oct 2026): los sellos J1, J2 y J3 con su verbo,
+    sin nombres completos ni pesos (viven en Cómo medimos), y en cada motor una hoja con renglones: una lectura
+    con sus razones. Los motores van en el mismo orden que en la tabla de resultados."""
+    filas = "".join(
+        f'<tr><th scope="row"><span class="lee-esp"><span class="seal seal--lee" aria-hidden="true">{p["id"]}</span>'
+        f'<span class="lee-v"><span class="sr-only">{p["id"]} · </span>{e(v)}</span></span></th>'
+        + "".join(f'<td><span class="lee-hoja" aria-hidden="true"></span><span class="sr-only">{r("puntua", lang)}</span></td>' for _ in MOTORES)
+        + "</tr>" for p, v in zip(MAPA["perspectives"], VERBOS[lang]))
+    cab = "".join(f'<th scope="col">{r("motor_" + m, lang)}</th>' for m in MOTORES)
+    return (f'<table class="lee"><caption class="sr-only">{r("lee_t", lang)}</caption>'
+            f'<thead><tr><td></td>{cab}</tr></thead><tbody>{filas}</tbody></table>')
+
+
 def muestra(qid, lang, ancho):
+    """La muestra de cada esquina: lo que pesan las preguntas, un pasaje, las cifras con sus dos motores y quién
+    puntúa cada especialidad. Ninguna repite los nombres completos de J1, J2 y J3 ni sus pesos: viven en Cómo
+    medimos (revisión de la portada, 20 oct 2026)."""
     if qid == "preguntas":
-        return tres_preguntas(lang)
+        return pesa_preguntas(lang)
     if qid == "laboratorio":
         return rotador(lang, f"x1-{ancho}")
     if qid == "resultados":
         return f'<p class="stamp stamp--estado">{r("badge", lang)}</p>' + tabla_mini(lang)
     if qid == "como-medimos":
-        return sellos(lang)
+        return lee_motores(lang)
+    return ""
+
+
+def cuerpo(qid, lang):
+    """El texto de cada esquina y de su tráiler: del paquete, salvo lo que la revisión acortó."""
+    if qid == "laboratorio":
+        return aj("laboratorio", lang)
+    if qid == "como-medimos":
+        return aj("medimos_esquina", lang)
+    if qid == "resultados":
+        return con_giro(cuadro(qid, lang)["preview"], lang)
+    return e(cuadro(qid, lang)["preview"])
 
 
 def cuadrante(qid, lang, pos):
     q = cuadro(qid, lang)
+    m = muestra(qid, lang, "q")
     return (f'<div class="cuadrante cuadrante--{pos} q q--{qid} q--x1">'
             f'<p class="q-resumen">{e(q["title"])}</p>'
             f'{rotulo(qid, lang, "q-rotulo")}'
             f'<h2 class="q-titular">{e(q["title"])}</h2>'
-            f'<p class="q-cuerpo">{e(q["preview"])}</p>'
-            f'<div class="q-muestra">{muestra(qid, lang, "q")}</div>'
+            f'<p class="q-cuerpo">{cuerpo(qid, lang)}</p>'
+            + (f'<div class="q-muestra">{m}</div>' if m else "") +
             f'{enlace(qid, lang, "q-enlace")}</div>')
 
 
@@ -1114,11 +1170,12 @@ def trailers(lang):
             extra = (f'<p class="tr-aviso">{w("sensitivity_note", lang)}</p>'
                      f'<p class="tr-aviso">{w("length_note", lang)} '
                      f'<a href="#x1-incidencias" data-panel="x1-incidencias">{r("nota_completa", lang)}</a></p>')
+        m = muestra(qid, lang, "tr")
         arts.append(f'<article class="trailer trailer--{qid}" aria-labelledby="{tid}">'
                     f'{rotulo(qid, lang, "tr-rotulo")}'
                     f'<h3 class="tr-titular" id="{tid}">{e(q["title"])}</h3>'
-                    f'<p class="tr-cuerpo">{e(q["preview"])}</p>'
-                    f'<div class="tr-muestra">{muestra(qid, lang, "tr")}</div>{extra}'
+                    f'<p class="tr-cuerpo">{cuerpo(qid, lang)}</p>'
+                    + (f'<div class="tr-muestra">{m}</div>' if m else "") + extra +
                     f'{enlace(qid, lang, "tr-enlace")}</article>')
     titulo = "Los cuatro rumbos" if lang == "es" else "The four bearings"
     return (f'<section class="trailers" aria-labelledby="trailers-t"><h2 class="sr-only" id="trailers-t">{titulo}</h2>\n      '
@@ -1144,10 +1201,15 @@ def tabla_orden(lang):
                   f'<td class="x1-num{" x1-num--primero" if prim_c else ""}">{num(f["judge_Claude_index"], lang)}{marca if prim_c else ""}</td></tr>')
     exactos = "; ".join(f'{e(FILA[c]["model"])} {A["primary_comparison"]["scores"][c]["exact"]}'
                         for c in sorted(CONFIGS, key=lambda c: FILA[c]["position_in_primary_index"]))
+    # junto a las cifras, encima de las dos columnas de los motores: la frase del paquete que dice el desacuerdo
+    giro = e(GIRO[lang].rstrip("."))
     return (f'<div class="x1-tabla-caja" role="region" tabindex="0" aria-labelledby="x1-tabla-cap">'
             f'<table class="x1-tabla"><caption id="x1-tabla-cap">{e(L(S["indice"], lang))}</caption>'
-            f'<thead><tr><th scope="col">{r("orden", lang)}</th><th scope="col">{r("configuracion", lang)}</th>'
-            f'<th scope="col">{r("combinado", lang)}</th><th scope="col">{r("juez_JG", lang)}</th><th scope="col">{r("juez_JC", lang)}</th></tr></thead>'
+            f'<colgroup><col span="3"><col span="2" class="x1-col-motores"></colgroup>'
+            f'<thead><tr><th scope="col" rowspan="2">{r("orden", lang)}</th><th scope="col" rowspan="2">{r("configuracion", lang)}</th>'
+            f'<th scope="col" rowspan="2">{r("combinado", lang)}</th>'
+            f'<th scope="colgroup" colspan="2" class="x1-giro-th"><span class="x1-giro-t">{giro}</span></th></tr>'
+            f'<tr><th scope="col">{r("juez_JG", lang)}</th><th scope="col">{r("juez_JC", lang)}</th></tr></thead>'
             f'<tbody>{filas}</tbody></table></div>'
             f'<p class="x1-exactos">{r("exactos", lang, a=exactos)}</p>')
 
@@ -1262,12 +1324,15 @@ def resultados(lang):
 # ---------------------------------------------------------------- → laboratorio
 
 def unidades(lang):
-    defs = (("trajectories", "u_recorridos", r("u_recorridos_d", lang)), ("visible_texts", "u_textos", e(L(S["textos"], lang))),
+    """Cada unidad una sola vez: la cifra, su nombre y qué cuenta. La definición de los textos es la frase del
+    resumen desde sus dos puntos: la cifra ya está arriba (revisión de la portada, 20 oct 2026)."""
+    textos = L(S["textos"], lang)
+    assert textos.count(": ") == 1, textos
+    defs = (("trajectories", "u_recorridos", r("u_recorridos_d", lang)), ("visible_texts", "u_textos", e(textos.split(": ")[1])),
             ("critiques", "u_criticas", r("u_criticas_d", lang)), ("selected_judge_bodies", "u_lecturas", r("u_lecturas_d", lang)))
-    items = "".join(f'<li><span class="cifra">{CTA[k]}</span> <span class="cifra-l">{r(rot, lang)}</span></li>' for k, rot, _ in defs)
-    dl = "".join(f'<div><dt><span class="cifra-s">{CTA[k]}</span> {r(rot, lang)}</dt><dd>{d}</dd></div>' for k, rot, d in defs)
-    return (f'<div class="cifras cifras--x1"><ul class="cifras-lista" role="list">{items}</ul></div>'
-            f'<dl class="definiciones definiciones--x1">{dl}</dl>')
+    items = "".join(f'<li><span class="cifra">{CTA[k]}</span> <span class="cifra-l">{r(rot, lang)}</span>'
+                    f'<span class="cifra-d">{d}</span></li>' for k, rot, d in defs)
+    return f'<div class="cifras cifras--x1"><ul class="cifras-lista" role="list">{items}</ul></div>'
 
 
 def lista_recorridos(lang, h="h5"):
@@ -1285,18 +1350,23 @@ def lista_recorridos(lang, h="h5"):
 
 
 def lab(lang):
+    """Lo disponible primero: el pasaje, las cuatro unidades y los doce recorridos (revisión del 20 oct 2026).
+    El procedimiento exacto del carrusel queda en un desplegable debajo de él."""
     q = cuadro("laboratorio", lang)
+    como = (f'<details class="desplegable x1-como"><summary>{aj("carrusel_como", lang)}</summary><div class="desplegable-cuerpo">'
+            f'<p>{r("carrusel_regla", lang)}</p><p>{e(L(S["fragmentos"], lang))} {e(L(S["novedad"], lang))}</p></div></details>')
     return f"""<section class="lab-bloque x1-lab" id="x1-laboratorio" aria-labelledby="x1-lab-t">
               <p class="stamp stamp--estado x1-badge">{r("badge", lang)}</p>
               <h3 class="lab-h" id="x1-lab-t">{e(q["title"])}</h3>
-              <p class="lab-lead">{e(q["preview"])}</p>
-              <section class="x1-unidades" aria-labelledby="x1-unidades-t"><h4 class="sr-only" id="x1-unidades-t">{r("unidades_t", lang)}</h4>{unidades(lang)}
-              <p class="voces-nota">{e(L(S["estricto"], lang))} {e(MAPA["case_status"][lang])}</p></section>
+              <p class="lab-lead">{aj("laboratorio", lang)}</p>
               <section class="x1-voces" aria-labelledby="x1-voces-t">
                 <h4 class="sub-titulo" id="x1-voces-t">{r("carrusel_t", lang)}</h4>
-                <p class="voces-nota">{r("carrusel_regla", lang)} {e(L(S["fragmentos"], lang))} {e(L(S["novedad"], lang))}</p>
+                <p class="voces-nota">{aj("carrusel", lang)}</p>
                 {rotador(lang, "x1-sala")}
+                {como}
               </section>
+              <section class="x1-unidades" aria-labelledby="x1-unidades-t"><h4 class="sr-only" id="x1-unidades-t">{r("unidades_t", lang)}</h4>{unidades(lang)}
+              <p class="voces-nota">{e(L(S["estricto"], lang))} {e(MAPA["case_status"][lang])}</p></section>
               <section class="x1-casos" id="x1-recorridos" aria-labelledby="x1-casos-t">
                 <h4 class="sub-titulo" id="x1-casos-t">{r("casos_t", lang)}</h4>
                 {lista_recorridos(lang)}
@@ -1306,11 +1376,18 @@ def lab(lang):
 
 # ---------------------------------------------------------------- ← cómo medimos
 
+# los criterios de la pregunta en cada especialidad: los que suman el 30 % del índice (question_note del paquete)
+PREGUNTA = ("J1.1", "J2.1", "J3.1")
+MARCA_PREGUNTA = ' class="x1-crit--pregunta"'
+assert all(CRIT[c]["peso"] == 30 for c in PREGUNTA) and "30%" in WEB["es"]["question_note"]
+
 def medimos(lang):
     q = cuadro("como-medimos", lang)
     persp = ""
     for p in MAPA["perspectives"]:
-        crits = "".join(f'<li><span class="crit-id">{c["id"]}</span> {nombre_criterio(c["id"], lang)} '
+        # J1.1, J2.1 y J3.1 son los criterios de la pregunta: van marcados, y la línea de pesos dice de dónde sale el 30 %
+        crits = "".join(f'<li{MARCA_PREGUNTA if c["id"] in PREGUNTA else ""}>'
+                        f'<span class="crit-id">{c["id"]}</span> {nombre_criterio(c["id"], lang)} '
                         f'<span class="x1-crit-meta">{r("peso", lang)} {c["peso"]} · {r("lee", lang)} {e(c["fase"])}</span></li>'
                         for c in IDX["criteria"] if c["id"].startswith(p["id"] + "."))
         motores = " · ".join(r("motor_" + m, lang) for m in MOTORES)
@@ -1330,12 +1407,12 @@ def medimos(lang):
     return f"""<section class="x1-medimos" id="x1-medimos" aria-labelledby="x1-med-t">
               <p class="stamp stamp--estado x1-badge">{r("badge", lang)}</p>
               <h3 class="sec-titulo" id="x1-med-t">{e(q["title"])}</h3>
-              <p class="sec-lead">{e(q["preview"])}</p>
-              <p class="x1-jueces">{w("judges_note", lang)}</p>
+              <p class="sec-lead">{aj("medimos_sala", lang)}</p>
               <ul class="x1-persp-lista" role="list">{persp}</ul>
-              <p class="alcance">{e(L(S["panel"], lang))} {e(L(S["tercios"], lang))}</p>
+              <p class="x1-pesos">{aj("pesos", lang)}</p>
+              <p class="alcance">{e(L(S["panel"], lang))}</p>
               <div class="desplegables">
-                <details class="desplegable"><summary>{r("escala_t", lang)}</summary><div class="desplegable-cuerpo"><ol class="anclas" role="list">{anclas}</ol>{nota_es}<p>{e(L(S["indice"], lang))}</p><p>{e(MAPA["question_priority"][lang])}</p></div></details>
+                <details class="desplegable"><summary>{r("escala_t", lang)}</summary><div class="desplegable-cuerpo"><p>{w("judges_note", lang)}</p><ol class="anclas" role="list">{anclas}</ol>{nota_es}<p>{e(L(S["indice"], lang))}</p><p>{e(MAPA["question_priority"][lang])}</p></div></details>
                 <details class="desplegable"><summary>{r("sensibilidad_t", lang)}</summary><div class="desplegable-cuerpo"><p>{w("sensitivity_note", lang)}</p><p>{e(L(S["escenarios"], lang))}</p><div class="x1-variantes"><ul role="list">{lista_p}</ul><ul role="list">{lista_c}</ul></div></div></details>
                 <details class="desplegable"><summary>{r("orden_t", lang)}</summary><div class="desplegable-cuerpo"><p>{w("question_note", lang)}</p></div></details>
                 {nota_incidencias(lang, "x1-incidencias", panel=True)}

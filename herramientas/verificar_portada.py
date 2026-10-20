@@ -341,8 +341,26 @@ def main():
                       const aviso = document.querySelector('#resultados .aviso-x1');
                       if (!aviso || !/351/.test(aviso.textContent) || !/59/.test(aviso.textContent) || !aviso.querySelector('a[data-panel="x1-incidencias"]')) out.push('aviso');
                       if (!document.querySelector('#x1-incidencias .panel-contenido[data-voz="editorial"] .capa-rotulo')) out.push('nota completa');
-                      // las cuatro unidades del laboratorio, cada una con lo que cuenta
-                      if (document.querySelectorAll('.cifras--x1 .cifras-lista li').length !== 4 || document.querySelectorAll('.definiciones--x1 > div').length < 4) out.push('unidades');
+                      // las cuatro unidades del laboratorio, cada cifra una sola vez y con lo que cuenta
+                      if (document.querySelectorAll('.cifras--x1 .cifras-lista li').length !== 4 || document.querySelectorAll('.cifras--x1 .cifras-lista li .cifra-d').length !== 4) out.push('unidades');
+                      // a la izquierda, muestras sin cifras: lo que pesan las preguntas, dibujado (tres tercios, cada uno con su
+                      // pregunta), y quién puntúa cada especialidad (J1–J3 por dos motores). Nombres completos y pesos, en su sala
+                      for (const q of document.querySelectorAll('.q--preguntas, .q--como-medimos, .trailer--preguntas, .trailer--como-medimos')) {
+                        if (/J\\d\\.\\d|1\\/3|(peso|weight)\\s*\\d/i.test(q.textContent)) out.push('pesos en ' + q.className.split(' ').pop());
+                        const pesa = q.querySelector('.pesa'), lee = q.querySelector('.lee');
+                        if (/preguntas/.test(q.className) && (!pesa || pesa.querySelectorAll('.pesa-tercio .pesa-tramo').length !== 3)) out.push('la barra de las preguntas');
+                        if (/medimos/.test(q.className) && (!lee || lee.querySelectorAll('tbody tr').length !== 3 || lee.querySelectorAll('tbody .lee-hoja').length !== 6)) out.push('quién puntúa');
+                      }
+                      if (document.querySelectorAll('#x1-medimos .x1-crit--pregunta').length !== 3 || !document.querySelector('#x1-medimos .x1-persp-lista + .x1-pesos')) out.push('de dónde sale el 30 %');
+                      // junto a las cifras, encima de los dos motores: cambiar de motor invierte el orden
+                      const giro = document.querySelector('.x1-tabla thead th.x1-giro-th[colspan="2"][scope="colgroup"]');
+                      if (!giro || !vis(giro) || !document.querySelector('.q--resultados .x1-giro')) out.push('el giro junto a las cifras');
+                      // en el laboratorio, primero lo disponible: el pasaje, las unidades y los recorridos; el taller, al final
+                      const antes = (a, b) => { const x = document.querySelector(a), y = document.querySelector(b);
+                        return x && y && (x.compareDocumentPosition(y) & Node.DOCUMENT_POSITION_FOLLOWING); };
+                      if (!antes('#x1-laboratorio .x1-voces', '#x1-laboratorio .x1-unidades') || !antes('#x1-laboratorio', '#laboratorio .taller')
+                          || !antes('#laboratorio .edicion-aparte', '#laboratorio .taller')) out.push('orden del laboratorio');
+                      if (!document.querySelector('.x1-voces .rotador + details.x1-como')) out.push('cómo se eligen los pasajes');
                       // los doce recorridos, enlazados
                       if (document.querySelectorAll('#x1-recorridos a.x1-rec-a').length !== 12) out.push('recorridos');
                       // ED02-X1 no se mezcla con ED01: cada serie en su lugar
@@ -355,7 +373,7 @@ def main():
                     }""",
                     BADGE[key],
                 )
-                check(f"[{key}] ED02-X1: «{BADGE[key]}» en la placa y en resultados; orden condicional con los dos motores; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; doce recorridos; ED01 aparte",
+                check(f"[{key}] ED02-X1: «{BADGE[key]}» en la placa y en resultados; orden condicional con los dos motores y, encima de ellos, que cambiar de motor invierte el orden; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; cada unidad una vez; a la izquierda, el 30 % dibujado y quién puntúa cada especialidad, sin pesos; el 30 % explicado en su sala; el laboratorio empieza por el pasaje y deja el taller al final; doce recorridos; ED01 aparte",
                       not x1, "; ".join(sorted(set(x1))))
                 other = visible_text(page, exclude_lang="es" if key == "en" else "en")
                 hint = (SPANISH_HINTS if key == "en" else ENGLISH_HINTS).findall(other)
@@ -378,6 +396,34 @@ def main():
                     overflow.append(f"{key}@{w}: {sw}")
             ctx.close()
         check("Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px (portadas, 404, recorridos y método)", not overflow, str(overflow))
+
+        # ---------- «Volver al centro» no se mete en el texto de su sala ----------
+        # Está fijo en el borde de cada sala lateral y el texto pasa por debajo al bajar: basta con que ninguna
+        # caja con texto de la sala comparta columnas con él. A 1165 px tapaba «Un caso nuevo» (revisión del 20 oct).
+        cruces = []
+        for w, h in ((960, 700), (1000, 700), (1100, 700), (1165, 720), (1200, 760), (1280, 720), (1300, 760), (1340, 768), (1366, 768), (1440, 900), (1920, 1080)):
+            ctx = browser.new_context(viewport={"width": w, "height": h})
+            page = ctx.new_page()
+            for key in ("es", "en"):
+                page.goto(base + PAGES[key], wait_until="networkidle")
+                page.evaluate("document.fonts.ready")
+                for c in page.evaluate("""() => {
+                    const out = [];
+                    for (const v of document.querySelectorAll('.volver-lado')) {
+                      const b = v.getBoundingClientRect(), sala = v.closest('.panel--lado');
+                      if (!b.width) continue;
+                      for (const el of sala.querySelectorAll('.lado-in :is(h2,h3,h4,h5,p,li,dt,dd,summary,td,th,blockquote,figcaption,a,button)')) {
+                        const r = el.getBoundingClientRect();
+                        if (r.width && r.height && el.textContent.trim() && Math.min(r.right, b.right) - Math.max(r.left, b.left) > .5)
+                          out.push(sala.id + ': ' + el.textContent.trim().slice(0, 30));
+                      }
+                    }
+                    return out;
+                  }"""):
+                    cruces.append(f"{key}@{w}: {c}")
+            ctx.close()
+        check("«Volver al centro» no se cruza con el texto de su sala entre 960 y 1920 px, en los dos idiomas y con los desplegables (acostado desde 1340; de lado por debajo)",
+              not cruces, str(sorted(set(cruces))[:6]))
 
         # ---------- objetivos táctiles, teclado ----------
         ctx = browser.new_context(viewport={"width": 390, "height": 844}, has_touch=True, is_mobile=True)

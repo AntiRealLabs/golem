@@ -103,12 +103,10 @@
   // Cada lista va de la versión completa a la mínima. Lo que se guarda primero es lo accesorio;
   // en resultados, la etiqueta del piloto y la cifra con su advertencia son lo último que se guarda.
   var ETAPAS = {
-    'q--preguntas': [[], ['.q-rotulo'], ['.q-rotulo', '.tri-nota dd'], ['.q-rotulo', '.triptico'],
-      ['.q-rotulo', '.triptico', '.q-cuerpo']],
+    'q--preguntas': [[], ['.q-rotulo'], ['.q-rotulo', '.pesa'], ['.q-rotulo', '.pesa', '.q-cuerpo']],
     'q--laboratorio': [[], ['.q-rotulo'], ['.q-rotulo', '.rotador'], ['.q-rotulo', '.rotador', '.q-cuerpo']],
     'q--resultados': [[], ['.q-rotulo'], ['.q-rotulo', '.x1-mini', '.x1-mini-ley'], ['.q-rotulo', '.x1-mini', '.x1-mini-ley', '.q-cuerpo']],
-    'q--como-medimos': [[], ['.q-rotulo'], ['.q-rotulo', '.sello-q'], ['.q-rotulo', '.sellos'],
-      ['.q-rotulo', '.sellos', '.q-cuerpo']]
+    'q--como-medimos': [[], ['.q-rotulo'], ['.q-rotulo', '.lee'], ['.q-rotulo', '.lee', '.q-cuerpo']]
   };
   var esquinas = lista('.cuadrante');
   function cabe(c) {

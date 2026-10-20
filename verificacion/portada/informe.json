@@ -1,7 +1,7 @@
 {
- "fecha": "2026-10-20 01:12 (UTC−5)",
- "correctas": 133,
- "total": 133,
+ "fecha": "2026-10-20 20:02 (UTC−5)",
+ "correctas": 134,
+ "total": 134,
  "resultados": [
   {
    "comprobacion": "Puerta de publicación: site/ contiene solo la portada",
@@ -136,12 +136,12 @@
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:34407'}"
+   "detalle": "{'127.0.0.1:44279'}"
   },
   {
    "comprobacion": "[es] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "468878 bytes"
+   "detalle": "470481 bytes"
   },
   {
    "comprobacion": "[es] idioma del documento declarado",
@@ -204,7 +204,7 @@
    "detalle": ""
   },
   {
-   "comprobacion": "[es] ED02-X1: «Piloto exploratorio · ED02-X1» en la placa y en resultados; orden condicional con los dos motores; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; doce recorridos; ED01 aparte",
+   "comprobacion": "[es] ED02-X1: «Piloto exploratorio · ED02-X1» en la placa y en resultados; orden condicional con los dos motores y, encima de ellos, que cambiar de motor invierte el orden; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; cada unidad una vez; a la izquierda, el 30 % dibujado y quién puntúa cada especialidad, sin pesos; el 30 % explicado en su sala; el laboratorio empieza por el pasaje y deja el taller al final; doce recorridos; ED01 aparte",
    "ok": true,
    "detalle": ""
   },
@@ -226,12 +226,12 @@
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:34407'}"
+   "detalle": "{'127.0.0.1:44279'}"
   },
   {
    "comprobacion": "[en] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "482482 bytes"
+   "detalle": "484119 bytes"
   },
   {
    "comprobacion": "[en] idioma del documento declarado",
@@ -294,7 +294,7 @@
    "detalle": ""
   },
   {
-   "comprobacion": "[en] ED02-X1: «Exploratory pilot · ED02-X1» en la placa y en resultados; orden condicional con los dos motores; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; doce recorridos; ED01 aparte",
+   "comprobacion": "[en] ED02-X1: «Exploratory pilot · ED02-X1» en la placa y en resultados; orden condicional con los dos motores y, encima de ellos, que cambiar de motor invierte el orden; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; cada unidad una vez; a la izquierda, el 30 % dibujado y quién puntúa cada especialidad, sin pesos; el 30 % explicado en su sala; el laboratorio empieza por el pasaje y deja el taller al final; doce recorridos; ED01 aparte",
    "ok": true,
    "detalle": ""
   },
@@ -316,20 +316,25 @@
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:34407'}"
+   "detalle": "{'127.0.0.1:44279'}"
   },
   {
    "comprobacion": "[404] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "207566 bytes"
+   "detalle": "208355 bytes"
   },
   {
    "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces (sin contar el original español que acompaña a la traducción)",
    "ok": true,
-   "detalle": "{'es': [10, 22, 166, 481, 230], 'en': [10, 22, 166, 481, 230]}"
+   "detalle": "{'es': [10, 22, 166, 484, 230], 'en': [10, 22, 166, 484, 230]}"
   },
   {
    "comprobacion": "Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px (portadas, 404, recorridos y método)",
+   "ok": true,
+   "detalle": "[]"
+  },
+  {
+   "comprobacion": "«Volver al centro» no se cruza con el texto de su sala entre 960 y 1920 px, en los dos idiomas y con los desplegables (acostado desde 1340; de lado por debajo)",
    "ok": true,
    "detalle": "[]"
   },
@@ -571,7 +576,7 @@
   {
    "comprobacion": "Pasajes de ED02-X1: los 60 de la plantilla, barajados una vez por visita; «siguiente» avanza uno y el foco se queda en el botón; sin avance automático; el inglés conserva el mismo pasaje",
    "ok": true,
-   "detalle": "{'orden': ['m03-c02-r2:p-e-103-294', 'm03-c02-r2:p-r2-13-112', 'm04-c02-r2:p-b-49-268', 'm03-c02-r1:p-e-22-187', 'm03-c01-r2:p-a-2-186', 'm03-c01-r2:p-r2-32-163', 'm03-c01-r2:p-e-107-211', 'm04-c01-r1:p-a-2-161', 'm04-c03-r2:p-r2-0-104', 'm04-c02-r1:p-r1-346-498', 'm03-c03-r2:p-b-21-171', 'm03-c02-r1:p-b-11-100', 'm03-c01-r2:p-b-326-407', 'm04-c02-r2:p-r1-0-183', 'm03-c02-r2:p-a-14-210', 'm03-c02-r1:p-r2-13-90', 'm04-c03-r1:p-e-0-101', 'm03-c03-r1:p-b-11-172', 'm04-c03-r2:p-e-126-295', 'm04-c02-r1:p-e-52-141', 'm04-c03-r2:p-r1-0-82', 'm03-c02-r1:p-a-14-128', 'm04-c01-r1:p-r2-540-779', 'm04-c02-r1:p-b-40-154', 'm03-c01-r1:p-r1-203-299', 'm03-c03-r2:p-r2-13-89', 'm04-c02-r2:p-r2-0-118', 'm04-c03-r2:p-a-2-133', 'm03-c03-r1:p-r2-73-139', 'm03-c01-r1:p-e-59-302', 'm03-c01-r1:p-r2-45-163', 'm04-c01-r1:p-r1-0-181', 'm04-c03-r2:p-b-231-377', 'm04-c03-r1:p-r2-176-301', 'm04-c03-r1:p-a-0-154', 'm03-c03-r1:p-a-14-158', 'm03-c01-r1:p-b-247-388', 'm03-c03-r2:p-a-2-170', 'm03-c02-r2:p-r1-13-99', 'm04-c01-r2:p-r2-474-686', 'm03-c01-r2:p-r1-136-276', 'm04-c02-r1:p-r2-168-290', 'm04-c01-r2:p-r1-32-148', 'm04-c02-r2:p-e-163-324', 'm04-c02-r1:p-a-2-153', 'm04-c02-r2:p-a-0-204', 'm03-c03-r2:p-r1-517-675', 'm04-c03-r1:p-b-174-330', 'm03-c03-r1:p-r1-174-390', 'm04-c01-r1:p-e-2-79', 'm03-c03-r1:p-e-28-155', 'm03-c03-r2:p-e-279-366', 'm04-c01-r2:p-e-104-216', 'm04-c01-r2:p-a-36-250', 'm04-c01-r2:p-b-170-306', 'm04-c03-r1:p-r1-217-331', 'm03-c01-r1:p-a-38-228', 'm03-c02-r1:p-r1-55-193', 'm04-c01-r1:p-b-150-345', 'm03-c02-r2:p-b-105-248'], 'actual': 'm03-c02-r2:p-e-103-294'} ['m03-c02-r2:p-e-103-294', 'Pasaje 1 de 60'] ['m03-c02-r2:p-r2-13-112', 'Pasaje 2 de 60'] ['m03-c02-r2:p-r2-13-112', 'Pasaje 2 de 60'] ['m03-c02-r2:p-r2-13-112', 'Passage 2 of 60'] foco=True"
+   "detalle": "{'orden': ['m04-c01-r2:p-b-170-306', 'm04-c01-r1:p-b-150-345', 'm03-c01-r2:p-r2-32-163', 'm04-c02-r2:p-r1-0-183', 'm03-c01-r1:p-r2-45-163', 'm04-c03-r1:p-a-0-154', 'm03-c01-r2:p-b-326-407', 'm03-c03-r2:p-r1-517-675', 'm03-c02-r1:p-b-11-100', 'm03-c01-r1:p-r1-203-299', 'm04-c01-r2:p-r1-32-148', 'm03-c03-r1:p-r1-174-390', 'm04-c02-r2:p-b-49-268', 'm03-c01-r1:p-a-38-228', 'm03-c01-r2:p-a-2-186', 'm03-c03-r1:p-r2-73-139', 'm03-c01-r1:p-e-59-302', 'm04-c01-r2:p-a-36-250', 'm03-c03-r1:p-a-14-158', 'm04-c02-r1:p-r2-168-290', 'm04-c02-r1:p-b-40-154', 'm04-c01-r1:p-a-2-161', 'm03-c02-r1:p-r1-55-193', 'm04-c03-r2:p-b-231-377', 'm03-c01-r1:p-b-247-388', 'm04-c02-r2:p-e-163-324', 'm03-c02-r2:p-e-103-294', 'm04-c01-r2:p-e-104-216', 'm03-c03-r2:p-e-279-366', 'm04-c02-r2:p-a-0-204', 'm04-c01-r1:p-r1-0-181', 'm04-c03-r1:p-r2-176-301', 'm04-c03-r1:p-e-0-101', 'm04-c03-r1:p-r1-217-331', 'm03-c02-r2:p-b-105-248', 'm03-c02-r2:p-a-14-210', 'm04-c01-r2:p-r2-474-686', 'm04-c02-r2:p-r2-0-118', 'm04-c02-r1:p-a-2-153', 'm03-c03-r1:p-b-11-172', 'm04-c01-r1:p-e-2-79', 'm03-c03-r2:p-a-2-170', 'm04-c03-r2:p-e-126-295', 'm04-c03-r2:p-r1-0-82', 'm03-c02-r1:p-r2-13-90', 'm03-c02-r1:p-e-22-187', 'm03-c02-r1:p-a-14-128', 'm03-c03-r1:p-e-28-155', 'm04-c02-r1:p-r1-346-498', 'm04-c03-r2:p-a-2-133', 'm04-c01-r1:p-r2-540-779', 'm03-c01-r2:p-e-107-211', 'm04-c02-r1:p-e-52-141', 'm04-c03-r1:p-b-174-330', 'm03-c03-r2:p-r2-13-89', 'm03-c02-r2:p-r2-13-112', 'm03-c02-r2:p-r1-13-99', 'm04-c03-r2:p-r2-0-104', 'm03-c01-r2:p-r1-136-276', 'm03-c03-r2:p-b-21-171'], 'actual': 'm04-c01-r2:p-b-170-306'} ['m04-c01-r2:p-b-170-306', 'Pasaje 1 de 60'] ['m04-c01-r1:p-b-150-345', 'Pasaje 2 de 60'] ['m04-c01-r1:p-b-150-345', 'Pasaje 2 de 60'] ['m04-c01-r1:p-b-150-345', 'Passage 2 of 60'] foco=True"
   },
   {
    "comprobacion": "Movimiento reducido: el cambio de pasaje aparece sin animación (con movimiento, un fundido corto)",
@@ -646,7 +651,7 @@
   {
    "comprobacion": "Cambio de idioma: el mismo pasaje, palabra por palabra, sigue en español original (lang=es) y avisa que no está traducido; la interfaz cambia, la voz del modelo no",
    "ok": true,
-   "detalle": "['m03-c02-r1:p-r2-13-90', 'La crítica alcanza B, §4, no la pregunta de A ni la tesis identitaria de B.', 'es'] ['m03-c02-r1:p-r2-13-90', 'La crítica alcanza B, §4, no la pregunta de A ni la tesis identitaria de B.', 'es', True]"
+   "detalle": "['m04-c02-r2:p-a-0-204', '¿Qué justificaría llamar «la misma práctica» a Trama de paso después de sustituir la tela, sin que esa identificación niegue la pérdida descrita por Mara ni descalifique la incorporación de Ivo?', 'es'] ['m04-c02-r2:p-a-0-204', '¿Qué justificaría llamar «la misma práctica» a Trama de paso después de sustituir la tela, sin que esa identificación niegue la pérdida descrita por Mara ni descalifique la incorporación de Ivo?', 'es', True]"
   },
   {
    "comprobacion": "axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (8 páginas × 2 anchos: portadas, 404, recorridos y método)",

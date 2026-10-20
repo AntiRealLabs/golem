@@ -1,6 +1,6 @@
 # Verificación de la portada
 
-**133 de 133 comprobaciones correctas** · 2026-10-20 01:12 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
+**134 de 134 comprobaciones correctas** · 2026-10-20 20:02 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
 
 Inspección automática. No sustituye pruebas con personas, lectores de pantalla reales, otros navegadores ni la revisión del sitio ya publicado en Cloudflare.
 
@@ -46,7 +46,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | [es] enlaces internos válidos y solo los externos previstos |  |
 | ✓ | [es] ED01: solo se nombran las cuatro configuraciones de la cohorte |  |
 | ✓ | [es] ED01: lo pendiente dice «Pendiente», sin ranking ni notas por frase; dos reglas con una marca; las tres voces con su rótulo; F004 con su nota |  |
-| ✓ | [es] ED02-X1: «Piloto exploratorio · ED02-X1» en la placa y en resultados; orden condicional con los dos motores; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; doce recorridos; ED01 aparte |  |
+| ✓ | [es] ED02-X1: «Piloto exploratorio · ED02-X1» en la placa y en resultados; orden condicional con los dos motores y, encima de ellos, que cambiar de motor invierte el orden; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; cada unidad una vez; a la izquierda, el 30 % dibujado y quién puntúa cada especialidad, sin pesos; el 30 % explicado en su sala; el laboratorio empieza por el pasaje y deja el taller al final; doce recorridos; ED01 aparte |  |
 | ✓ | [es] sin restos del otro idioma fuera de lo marcado con lang |  |
 | ✓ | [en] sin errores de consola ni violaciones de la CSP |  |
 | ✓ | [en] las cinco familias de la base cargan desde el propio sitio |  |
@@ -64,7 +64,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | [en] enlaces internos válidos y solo los externos previstos |  |
 | ✓ | [en] ED01: solo se nombran las cuatro configuraciones de la cohorte |  |
 | ✓ | [en] ED01: lo pendiente dice «Pending», sin ranking ni notas por frase; dos reglas con una marca; las tres voces con su rótulo; F004 con su nota |  |
-| ✓ | [en] ED02-X1: «Exploratory pilot · ED02-X1» en la placa y en resultados; orden condicional con los dos motores; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; doce recorridos; ED01 aparte |  |
+| ✓ | [en] ED02-X1: «Exploratory pilot · ED02-X1» en la placa y en resultados; orden condicional con los dos motores y, encima de ellos, que cambiar de motor invierte el orden; 42 escenarios partidos por motor; sin porcentajes; fuera del índice sin cifras; el aviso de 351 palabras con su nota; cada unidad una vez; a la izquierda, el 30 % dibujado y quién puntúa cada especialidad, sin pesos; el 30 % explicado en su sala; el laboratorio empieza por el pasaje y deja el taller al final; doce recorridos; ED01 aparte |  |
 | ✓ | [en] sin restos del otro idioma fuera de lo marcado con lang |  |
 | ✓ | [404] sin errores de consola ni violaciones de la CSP |  |
 | ✓ | [404] fuentes de la marca cargadas |  |
@@ -72,6 +72,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | [404] peso total de la página ≤ 700 KB |  |
 | ✓ | Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces (sin contar el original español que acompaña a la traducción) |  |
 | ✓ | Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px (portadas, 404, recorridos y método) |  |
+| ✓ | «Volver al centro» no se cruza con el texto de su sala entre 960 y 1920 px, en los dos idiomas y con los desplegables (acostado desde 1340; de lado por debajo) |  |
 | ✓ | Objetivos táctiles ≥ 24 px en móvil (WCAG 2.5.8) |  |
 | ✓ | Teclado: el primer Tab se queda en el centro, a la vista (selector de idioma) |  |
 | ✓ | Teclado: desde el centro, ES → EN → cada estación con lo de su esquina: ↑, →, ←, ↓ |  |

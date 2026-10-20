@@ -13,7 +13,8 @@ Idioma de trabajo: español. Todo contenido público va en español y en inglés
 - `herramientas/`: puerta de publicación, servidor local que imita Pages, verificación de la
   portada, huellas de versión de CSS y JS, generador del favicon y de las imágenes para compartir,
   el constructor del primer corte ED01 (`construir_ed01.py`) con su cotejo (`cotejar_ed01.py`) y el
-  de ED02-X1 (`construir_ed02x1.py`) con el suyo (`cotejar_ed02x1.py`).
+  de ED02-X1 (`construir_ed02x1.py`) con el suyo (`cotejar_ed02x1.py`) y los textos que cambió la revisión
+  de la portada (`ed02x1_ajustes.json`).
 - `DEPLOY.md`: cómo se despliega y registro de publicaciones.
 
 El prototipo de Golem Lab (propuesta v0.1) no está en este repo: contiene materiales del piloto
@@ -98,18 +99,27 @@ cualquier rama que toque `site/` se publica como vista previa en `<rama>.golembe
 - Es un piloto exploratorio con desviaciones, no un cierre de ED02 estricto. La etiqueta «Piloto exploratorio
   · ED02-X1» va en la cartela de la placa y encima de cada parte con cifras.
 - El índice combinado es un orden condicional, nunca un ganador ni un porcentaje: la tabla lleva al lado los
-  dos motores, cada uno con su primero marcado, y los valores exactos. Los 42 escenarios van en dos rejillas de
-  7 × 3, una por motor (✎ lectura de Claude: ningún peso ni conversión cambia el orden; lo cambia el motor).
+  dos motores, cada uno con su primero marcado, y los valores exactos. Encima de las dos columnas de los
+  motores, junto a las cifras, la frase del paquete «Cambiar de motor invierte el orden»; en la esquina y en
+  el tráiler va destacada en el texto. Los 42 escenarios van en dos rejillas de 7 × 3, una por motor
+  (✎ lectura de Claude: ningún peso ni conversión cambia el orden; lo cambia el motor).
 - El aviso de las 351 palabras va con la nota completa de incidencias (en Cómo medimos y en el panel). Los 60
   textos son 59 admitidos en ED02 más 1 de X1: nunca 60 admisiones estrictas. Las desviaciones de las críticas
   quedan en el método. Las dos configuraciones no admitidas no tienen cero ni puesto; Gemini dice «Pendiente».
-- 12 recorridos, 60 textos, 24 críticas y 144 lecturas son unidades distintas, cada una con lo que cuenta.
-  Tres especialidades puntuadas por dos motores, no tres jueces.
+- 12 recorridos, 60 textos, 24 críticas y 144 lecturas son unidades distintas, cada una con lo que cuenta: en
+  el laboratorio cada cifra va una sola vez, con lo que cuenta debajo. Tres especialidades puntuadas por dos
+  motores, no tres jueces: en Cómo medimos lo dice la entrada y, entera, la nota de los jueces en el
+  desplegable de la escala. Los criterios de la pregunta (J1.1, J2.1, J3.1) van marcados, y una línea dice de
+  dónde sale el 30 % (30 de 100 en cada especialidad, que vale un tercio). La portada lo dibuja sin cifras.
 - Los pasajes son citas verificadas que usó un juez, no una selección de ideas. Un pasaje es una frase visible
   en su fuente y etapa (la misma citada con o sin sus «**» cuenta una vez): 2.282 registros, 1.222 pasajes. Cada
   uno conserva todos sus vínculos de juez y criterio. Las 488 referencias no promovidas se muestran dentro del
   dictamen, nunca se destacan. Carrusel (✎): de cada texto, el primer pasaje citado entre los de 60 a 240
-  caracteres; 60 en una plantilla, barajados por visita.
+  caracteres; 60 en una plantilla, barajados por visita. Encima va «Un pasaje citado por cada texto, en orden
+  aleatorio. No es una selección de las mejores ideas.»; el procedimiento, en «Cómo se eligen estos pasajes».
+- La revisión de la portada (20 oct 2026, ocho propuestas traídas por Juan) cambió algunos textos editoriales:
+  viven en `herramientas/ed02x1_ajustes.json`, con su origen y el texto del paquete que reemplazan. El
+  constructor los usa y el cotejo comprueba que lo reemplazado ya no se ve y que lo nuevo sí.
 - Cada recorrido trae sus cinco textos, las dos críticas, el contraste T, el caso y las 32 lecturas lado a lado
   por motor: nivel en su regla («vale para la etapa, no para una frase»), justificación y límite a la vista; el
   resto del dictamen, desplegable. Siete dictámenes de nivel 4 no registran límite: la página lo dice.
@@ -149,9 +159,15 @@ centro, cuatro rumbos alrededor, nada de arquitectura tradicional (sin barra sup
   de lo que hay allá (`.susurro`; a los lados va debajo del recuadro). En los cuatro cuadrantes que forma
   la cruz, un tráiler de su sala en rueda de molino: noroeste → preguntas, noreste → laboratorio,
   sureste → resultados, suroeste → cómo medimos. Cada tráiler dice lo mismo en el mismo orden: rótulo,
-  titular, una muestra concreta y una invitación. Son de ED02-X1: el 30 % de las preguntas
-  (J1.1, J2.1 y J3.1, cada uno con «peso 30»: sin la palabra, el número se leería como una nota), un pasaje citado por un juez, el orden condicional con los dos motores y las tres
-  especialidades; la etiqueta del piloto y la cifra con su advertencia son lo último que se guarda. En el HTML cada rumbo y su cuadrante van juntos en
+  titular, una frase corta, una muestra concreta y una invitación. Son de ED02-X1. Preguntas: lo que pesan
+  las preguntas, dibujado sin cifras (`.pesa`: la barra es el índice en sus tres tercios y cada tercio empieza
+  por su pregunta, en burdeos y con su «?»). Cómo medimos: los sellos J1, J2 y J3 con su verbo y, frente a los
+  dos motores, una hoja con renglones, una lectura con sus razones (`.lee`, en el orden de motores de la tabla
+  de resultados). La revisión del 20 oct 2026 quitó de la portada los tres «peso 30», que junto al «30 %»
+  confundían, y los nombres completos de J1–J3: viven en su sala. Juan, el mismo día: recortar sí, pero la
+  izquierda con elementos visuales y no texto plano; la derecha le gusta por vibrante. Laboratorio lleva un
+  pasaje citado por un juez; Resultados, el orden condicional con los dos motores y «Cambiar de motor invierte
+  el orden» destacado. La etiqueta del piloto y la cifra con su advertencia son lo último que se guarda. En el HTML cada rumbo y su cuadrante van juntos en
   una estación (`.estacion--preguntas`, `--laboratorio`, `--medimos`, `--resultados`; en escritorio son
   `display:contents`). Es donde aterriza una visita nueva.
 - **Las esquinas** (✎ propuesta de Claude, 18 oct 2026): los tráileres de arriba cuelgan del borde
@@ -179,17 +195,19 @@ centro, cuatro rumbos alrededor, nada de arquitectura tradicional (sin barra sup
   16 px antes del signo, mida lo que mida el pie. En el celular la línea termina en el punto de la
   primera pregunta. La verificación comprueba que ninguna línea toque el signo.
 - **← Cómo medimos** (`#como-medimos`): el recorrido de cuatro pasos; después, ED02-X1
-  (`#x1-medimos`: tres especialidades puntuadas por dos motores, cada una con sus criterios; la escala, la
-  sensibilidad, el orden de lectura, la nota completa de incidencias `#x1-incidencias` y los límites; el
-  enlace a la rúbrica y los materiales) y, aparte, ED01: las tres especialidades (J1, J2 y J3 no son
+  (`#x1-medimos`: una sola entrada —comprender, crear y revisar pesan un tercio cada uno; los motores GPT y
+  Claude puntúan las tres especialidades—, las tres especialidades con sus criterios, la línea de dónde sale
+  el 30 %; en desplegables, la escala con la nota de los jueces, la sensibilidad, el orden de lectura, la nota
+  completa de incidencias `#x1-incidencias` y los límites; el enlace a la rúbrica y los materiales) y, aparte, ED01: las tres especialidades (J1, J2 y J3 no son
   modelos: GPT y Claude son motores que hacen lecturas), su alcance en ese corte, y en desplegables los
   criterios y pesos, los referentes, la escala, el índice candidato y las razones y límites. Cierra la cita.
-- **→ Laboratorio** (`#laboratorio`): Golem Lab y sus tres puertas, en el taller (borde discontinuo:
-  cada puerta dice que no está construida y qué existe mientras tanto). Después, ED02-X1
-  (`#x1-laboratorio`: las cuatro unidades, el carrusel de pasajes citados y los tres casos con sus doce
-  recorridos, `#x1-recorridos`). Debajo, con borde firme y aparte, lo que hay de ED01: las cifras con lo
-  que cuentan, los fragmentos («Una voz del archivo»), el supuesto a examen, los temas del lote, las cinco
-  fuentes completas y la nota de IA-01, aparte.
+- **→ Laboratorio** (`#laboratorio`): primero lo que ya existe (revisión del 20 oct 2026). ED02-X1
+  (`#x1-laboratorio`: el pasaje citado, con «Cómo se eligen estos pasajes» plegado debajo; las cuatro
+  unidades, cada cifra una vez; y los tres casos con sus doce recorridos, `#x1-recorridos`). Debajo, con
+  borde firme y aparte, lo que hay de ED01: las cifras con lo que cuentan, los fragmentos («Una voz del
+  archivo»), el supuesto a examen, los temas del lote, las cinco fuentes completas y la nota de IA-01, aparte.
+  Al final, compacto, Golem Lab y sus tres puertas, en el taller (borde discontinuo: cada puerta dice que
+  todavía está en el taller y qué existe mientras tanto).
 - **↓ Resultados de evaluaciones** (`#resultados`): primero ED02-X1 (el orden condicional
   con los dos motores, los 42 escenarios, el aviso de 351 palabras, lo que queda fuera del índice, los
   límites y los perfiles); después, aparte, el primer corte ED01 (`#ed01-resultados`: las cuatro
@@ -206,7 +224,10 @@ rejilla de `main` lo pone en medio. El centro es una rejilla en cruz de 5×5; la
 miden lo mismo, así que la placa queda en el centro exacto (la verificación lo mide). De la placa
 salen dos meridianos que atraviesan la página: suben por la escalera y bajan por cada sección hasta
 el barro. La fila del centro es un carrusel horizontal con `scroll-snap` de una pantalla de alto; las
-salas laterales se recorren por dentro, así no queda vacío entre el centro y los resultados.
+salas laterales se recorren por dentro, así no queda vacío entre el centro y los resultados. En el borde
+de cada sala, fijo, «Volver al centro»: acostado mide 164 px (179 en inglés) y se metía en el texto (a
+1165 px tapaba «Un caso nuevo»), así que hasta 1339 px va de lado y ocupa 40 px del margen. La
+verificación comprueba en once anchos, en los dos idiomas y con los desplegables, que no se cruce con el texto.
 `site/assets/centro.js` (pequeño, sin dependencias) aterriza en el centro en una visita nueva, mueve
 los dos ejes con los enlaces, marca la brújula y atiende ← →. La brújula, un sello pequeño, aparece
 cuando uno se aleja del centro. Sin JavaScript todo sigue accesible con enlaces. El scroll es el del

@@ -1,0 +1,41 @@
+{
+  "origen": "Revisión de la portada traída por Juan el 20 oct 2026 (ocho propuestas para aligerar la lectura). Los textos en español son de la revisión; las versiones en inglés, «Los motores» en medimos_sala y el texto de pesos son ✎ de Claude.",
+  "reemplaza": {
+    "quadrants.laboratorio.preview": "laboratorio",
+    "quadrants.como_medimos.preview": "medimos_esquina y medimos_sala"
+  },
+  "textos": {
+    "medimos_esquina": {
+      "es": "Comprender, crear y revisar: tres especialidades, dos motores y razones a la vista.",
+      "en": "Understand, create and revise: three perspectives, two engines and the reasons in plain sight.",
+      "donde": "esquina y tráiler de Cómo medimos"
+    },
+    "medimos_sala": {
+      "es": "Comprender, crear y revisar pesan un tercio cada uno. Los motores GPT y Claude puntúan las tres especialidades.",
+      "en": "Understanding, creating and revising weigh a third each. The GPT and Claude engines score all three perspectives.",
+      "donde": "entrada de la sala Cómo medimos; reúne la vista previa y la nota de los jueces, que pasa al desplegable de la escala",
+      "nota": "La revisión decía «GPT y Claude puntúan»; ✎ «Los motores GPT y Claude», para no confundirlos con los modelos evaluados."
+    },
+    "pesos": {
+      "es": "Los tres criterios de la pregunta (J1.1, J2.1 y J3.1) pesan 30 de 100 dentro de su especialidad. Como cada especialidad vale un tercio, juntos aportan el 30% del índice.",
+      "en": "The three question criteria (J1.1, J2.1 and J3.1) weigh 30 out of 100 within their perspective. Since each perspective counts for a third, together they make up 30% of the index.",
+      "donde": "debajo de las tres especialidades, en Cómo medimos",
+      "nota": "✎ Claude: los pesos de la rúbrica y la nota de la pregunta del paquete, dichos juntos. No es una cifra nueva."
+    },
+    "laboratorio": {
+      "es": "Abre un fragmento y sigue su pregunta, argumento y evaluación.",
+      "en": "Open a passage and follow its question, argument and evaluation.",
+      "donde": "esquina, tráiler y entrada de la sala Laboratorio"
+    },
+    "carrusel": {
+      "es": "Un pasaje citado por cada texto, en orden aleatorio. No es una selección de las mejores ideas.",
+      "en": "One cited passage per text, in random order. It is not a selection of the best ideas.",
+      "donde": "encima del carrusel de la sala"
+    },
+    "carrusel_como": {
+      "es": "Cómo se eligen estos pasajes",
+      "en": "How these passages are chosen",
+      "donde": "desplegable debajo del carrusel, con el procedimiento exacto"
+    }
+  }
+}
