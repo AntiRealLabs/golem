@@ -59,7 +59,11 @@ def leer(rel):
 IDX = leer("indice_publico_X1.json")
 WEB = leer("editorial/Contenido_web_X1_ES_EN.json")
 # los textos de la revisión de la portada (20 oct 2026): viven fuera del paquete, con su origen
-AJUSTES = json.loads((Path(__file__).resolve().parent / "ed02x1_ajustes.json").read_text(encoding="utf-8"))["textos"]
+_AJ = json.loads((Path(__file__).resolve().parent / "ed02x1_ajustes.json").read_text(encoding="utf-8"))
+AJUSTES = _AJ["textos"]
+# el resumen de las baldosas del celular: los principios en una palabra (una de cada apuesta, tal cual en su título)
+PRINCIPIOS = _AJ["resumen_movil"]["principios"]
+assert all(len(PRINCIPIOS[l]) == 6 for l in ("es", "en"))
 MAPA = leer("editorial/Mapa_editorial_casos_y_jueces_X1_ES_EN.json")
 NOTA = leer("editorial/Nota_publica_incidentes_ES_EN_X1.json")
 RESUMEN = texto("editorial/Resumen_resultados_X1_ES_EN.txt")
@@ -155,6 +159,9 @@ ROT = {
     "primero_cada": ("primero para cada motor", "first for each engine"),
     "lee_t": ("Quién puntúa cada especialidad", "Who scores each perspective"),
     "puntua": ("puntúa", "scores"),
+    "res_apuestas": ("Seis apuestas", "Six commitments"),
+    "res_motores": ("Motores", "Engines"),
+    "u_textos_corto": ("textos", "texts"),
     "esfuerzo": ("esfuerzo", "effort"),
     "exactos": ("Valores exactos del índice combinado: {a}. La cifra con un decimal es una presentación.",
                 "Exact combined index values: {a}. The one-decimal figure is a presentation."),
@@ -1147,11 +1154,34 @@ def cuerpo(qid, lang):
     return e(cuadro(qid, lang)["preview"])
 
 
+def resumen(qid, lang):
+    """La baldosa de cada estación en el celular (Juan, 20 oct 2026): un resumen pequeño, concreto y visual en la
+    vista inicial. Preguntas: los seis principios, una palabra de cada apuesta. Laboratorio: las cuatro unidades.
+    Cómo medimos: J1–J3 con su verbo y su peso, y los dos motores que puntúan. Resultados: el orden del índice
+    combinado con la frase del paquete que dice el desacuerdo. En el escritorio no se ve: ahí va el tráiler entero."""
+    if qid == "preguntas":
+        palabras = "".join(f"<li>{e(p)}</li>" for p in PRINCIPIOS[lang])
+        cuerpo = f'<p class="res-t">{r("res_apuestas", lang)}</p><ul class="res-palabras">{palabras}</ul>'
+    elif qid == "laboratorio":
+        uds = (("trajectories", "u_recorridos"), ("visible_texts", "u_textos_corto"), ("critiques", "u_criticas"), ("selected_judge_bodies", "u_lecturas"))
+        cuerpo = '<ul class="res-cifras">' + "".join(f'<li><span class="res-n">{CTA[k]}</span> <span class="res-l">{r(rot, lang)}</span></li>' for k, rot in uds) + "</ul>"
+    elif qid == "como-medimos":
+        filas = "".join(f'<li><span class="seal seal--res" aria-hidden="true">{p["id"]}</span><span class="res-v"><span class="sr-only">{p["id"]} · </span>{e(v)}</span> '
+                        f'<span class="res-p">{e(p["weight"])}</span></li>' for p, v in zip(MAPA["perspectives"], VERBOS[lang]))
+        cuerpo = f'<ul class="res-esp">{filas}</ul><p class="res-t">{r("res_motores", lang)}: GPT · Claude</p>'
+    else:
+        filas = "".join(f'<li><span class="res-pos">{f["position_in_primary_index"]}</span> <span class="res-m">{e(f["model"])}</span> '
+                        f'<span class="res-n">{num(f["primary_index"], lang)}</span></li>'
+                        for f in sorted(FILAS, key=lambda x: x["position_in_primary_index"]))
+        cuerpo = f'<p class="res-t">{r("combinado", lang)}</p><ol class="res-orden">{filas}</ol><p class="res-giro">{e(GIRO[lang])}</p>'
+    return f'<div class="q-resumen res res--{qid}">{cuerpo}</div>'
+
+
 def cuadrante(qid, lang, pos):
     q = cuadro(qid, lang)
     m = muestra(qid, lang, "q")
     return (f'<div class="cuadrante cuadrante--{pos} q q--{qid} q--x1">'
-            f'<p class="q-resumen">{e(q["title"])}</p>'
+            f'{resumen(qid, lang)}'
             f'{rotulo(qid, lang, "q-rotulo")}'
             f'<h2 class="q-titular">{e(q["title"])}</h2>'
             f'<p class="q-cuerpo">{cuerpo(qid, lang)}</p>'
@@ -1189,28 +1219,35 @@ def placa(lang):
 # ---------------------------------------------------------------- ↓ resultados
 
 def tabla_orden(lang):
+    """La tabla del orden condicional. En el celular cada fila se lee como una tarjeta: los roles ARIA mantienen la
+    tabla para los lectores de pantalla aunque cambie su forma, y la etiqueta de cada cifra (.x1-l) solo se ve ahí
+    (para los lectores ya la dice el encabezado de su columna)."""
     filas = ""
+    etiqueta = lambda k: f'<span class="x1-l" aria-hidden="true">{r(k, lang)}</span>'
     for f in sorted(FILAS, key=lambda x: x["position_in_primary_index"]):
         c = f["configuration"]
         prim_g, prim_c = primero_para("JG") == c, primero_para("JC") == c
         marca = f' <span class="x1-primero">{r("primero_motor", lang)}</span>'
-        filas += (f'<tr><th scope="row" class="x1-pos">{f["position_in_primary_index"]}</th>'
-                  f'<td><span class="x1-modelo">{e(f["model"])}</span> <span class="x1-conf">{e(c)} · {r("esfuerzo", lang)} {e(esfuerzo_de(c, lang))}</span></td>'
-                  f'<td class="x1-num x1-num--combinado">{num(f["primary_index"], lang)}</td>'
-                  f'<td class="x1-num{" x1-num--primero" if prim_g else ""}">{num(f["judge_GPT_index"], lang)}{marca if prim_g else ""}</td>'
-                  f'<td class="x1-num{" x1-num--primero" if prim_c else ""}">{num(f["judge_Claude_index"], lang)}{marca if prim_c else ""}</td></tr>')
+        filas += (f'<tr role="row"><th scope="row" class="x1-pos" role="rowheader">{f["position_in_primary_index"]}</th>'
+                  f'<td class="x1-cfg" role="cell"><span class="x1-modelo">{e(f["model"])}</span> <span class="x1-conf">{e(c)} · {r("esfuerzo", lang)} {e(esfuerzo_de(c, lang))}</span></td>'
+                  f'<td class="x1-num x1-num--combinado" role="cell">{num(f["primary_index"], lang)}{etiqueta("combinado")}</td>'
+                  f'<td class="x1-num{" x1-num--primero" if prim_g else ""} x1-num--jg" role="cell">{num(f["judge_GPT_index"], lang)}{marca if prim_g else ""}{etiqueta("juez_JG")}</td>'
+                  f'<td class="x1-num{" x1-num--primero" if prim_c else ""} x1-num--jc" role="cell">{num(f["judge_Claude_index"], lang)}{marca if prim_c else ""}{etiqueta("juez_JC")}</td></tr>')
     exactos = "; ".join(f'{e(FILA[c]["model"])} {A["primary_comparison"]["scores"][c]["exact"]}'
                         for c in sorted(CONFIGS, key=lambda c: FILA[c]["position_in_primary_index"]))
     # junto a las cifras, encima de las dos columnas de los motores: la frase del paquete que dice el desacuerdo
     giro = e(GIRO[lang].rstrip("."))
+    # en el celular la franja va encima de las tarjetas (la cabecera se guarda): la misma frase, solo a la vista
     return (f'<div class="x1-tabla-caja" role="region" tabindex="0" aria-labelledby="x1-tabla-cap">'
-            f'<table class="x1-tabla"><caption id="x1-tabla-cap">{e(L(S["indice"], lang))}</caption>'
+            f'<p class="x1-giro-movil" aria-hidden="true">{giro}</p>'
+            f'<table class="x1-tabla" role="table"><caption id="x1-tabla-cap">{e(L(S["indice"], lang))}</caption>'
             f'<colgroup><col span="3"><col span="2" class="x1-col-motores"></colgroup>'
-            f'<thead><tr><th scope="col" rowspan="2">{r("orden", lang)}</th><th scope="col" rowspan="2">{r("configuracion", lang)}</th>'
-            f'<th scope="col" rowspan="2">{r("combinado", lang)}</th>'
-            f'<th scope="colgroup" colspan="2" class="x1-giro-th"><span class="x1-giro-t">{giro}</span></th></tr>'
-            f'<tr><th scope="col">{r("juez_JG", lang)}</th><th scope="col">{r("juez_JC", lang)}</th></tr></thead>'
-            f'<tbody>{filas}</tbody></table></div>'
+            f'<thead role="rowgroup"><tr role="row"><th scope="col" rowspan="2" role="columnheader">{r("orden", lang)}</th>'
+            f'<th scope="col" rowspan="2" role="columnheader">{r("configuracion", lang)}</th>'
+            f'<th scope="col" rowspan="2" role="columnheader">{r("combinado", lang)}</th>'
+            f'<th scope="colgroup" colspan="2" class="x1-giro-th" role="columnheader"><span class="x1-giro-t">{giro}</span></th></tr>'
+            f'<tr role="row"><th scope="col" role="columnheader">{r("juez_JG", lang)}</th><th scope="col" role="columnheader">{r("juez_JC", lang)}</th></tr></thead>'
+            f'<tbody role="rowgroup">{filas}</tbody></table></div>'
             f'<p class="x1-exactos">{r("exactos", lang, a=exactos)}</p>')
 
 
@@ -1282,21 +1319,24 @@ def aviso(lang, extra=""):
 
 
 def resultados(lang):
+    """La sala de resultados empieza por el orden (Juan, 20 oct 2026: quien llega quiere ver primero el resultado y
+    después leer). Antes de la tabla, solo la etiqueta del piloto y el titular; pegadas a ella, la frase del giro y
+    la advertencia del porcentaje; justo debajo, la nota del orden, el alcance y el corte."""
     limites = "".join(f"<li>{x}</li>" for x in (w("question_note", lang), w("originality_note", lang), e(L(S["esfuerzo"], lang)) + " " + e(L(S["computo"], lang)), w("language_note", lang)))
     eyebrow = CORTE if lang == "es" else "Cutoff: 18 October 2026, America/Bogota. Fictional cases; real responses."
     return f"""<section class="sec sec--resultados sec--x1" id="resultados" aria-labelledby="t-resultados">
       <div class="wrap">
         <h2 class="sr-only" id="t-resultados">{"Resultados de evaluaciones" if lang == "es" else "Evaluation results"}</h2>
         {simbolo("resultados", " simbolo--sala")}
-        <p class="eyebrow">{e(eyebrow)}</p>
         <p class="stamp stamp--estado x1-badge">{r("badge", lang)}</p>
         <h3 class="sec-titulo">{w("headline", lang)}</h3>
-        <p class="sec-lead">{w("scope", lang)}</p>
 
         <section class="x1-orden" aria-labelledby="x1-orden-t">
           <h4 class="sub-titulo" id="x1-orden-t">{w("ranking_title", lang)}</h4>
-          <p class="x1-nota">{w("ranking_note", lang)}</p>
           {tabla_orden(lang)}
+          <p class="x1-nota">{w("ranking_note", lang)}</p>
+          <p class="x1-nota x1-alcance">{w("scope", lang)}</p>
+          <p class="eyebrow x1-corte">{e(eyebrow)}</p>
         </section>
 
         <section class="x1-sensibilidad" aria-labelledby="x1-esc-t">

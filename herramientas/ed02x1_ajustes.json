@@ -37,5 +37,26 @@
       "en": "How these passages are chosen",
       "donde": "desplegable debajo del carrusel, con el procedimiento exacto"
     }
+  },
+  "resumen_movil": {
+    "origen": "Pedido de Juan (20 oct 2026): en la vista inicial del celular, un resumen muy pequeño, concreto y visual de cada estación. Para Preguntas, los principios en una palabra: ✎ Claude tomó una palabra de cada apuesta, tal cual en su título (paquete de contenidos v0.1, principles_detail), en el mismo orden.",
+    "principios": {
+      "es": [
+        "pregunta",
+        "pluralidad",
+        "diferencia",
+        "revisar",
+        "evidencia",
+        "examen"
+      ],
+      "en": [
+        "question",
+        "plurality",
+        "difference",
+        "revising",
+        "evidence",
+        "test"
+      ]
+    }
   }
 }

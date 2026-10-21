@@ -179,9 +179,13 @@ centro, cuatro rumbos alrededor, nada de arquitectura tradicional (sin barra sup
   comprueba en diez tamaños que nada se toque ni se salga.
 - **En el celular** (boceto de Juan, 18 oct 2026) el centro no copia el escritorio: cada estación es
   una baldosa que se toca entera (el enlace del recuadro se estira sobre ella), con el recuadro junto a
-  la placa, el resumen hacia afuera (el titular del tráiler) y una flecha en la mitad del borde por donde
-  se sale: ↑ arriba, → derecha, ← izquierda, ↓ abajo. El lado de la flecha guarda margen para que nada
-  la toque. Sin susurros ni enlaces secundarios: la baldosa es el enlace. El tinte al pasar el puntero
+  la placa, el resumen hacia afuera y una flecha en la mitad del borde por donde se sale: ↑ arriba,
+  → derecha, ← izquierda, ↓ abajo. El resumen (`.q-resumen.res`, pedido de Juan del 20 oct 2026) es pequeño,
+  concreto y visual. En Preguntas van los seis principios, una palabra de cada apuesta tal cual en su título
+  (`resumen_movil` en `ed02x1_ajustes.json`). En Laboratorio, las cuatro unidades. En Cómo medimos, J1–J3 con
+  su verbo y su peso (1/3) y los dos motores. En Resultados, el orden del índice combinado con «Cambiar de
+  motor invierte el orden». Por debajo de 620 px de alto el resumen se guarda. El lado de la flecha guarda
+  margen para que nada la toque. Sin susurros ni enlaces secundarios: la baldosa es el enlace. El tinte al pasar el puntero
   solo existe donde hay puntero (`hover:hover`); en un teléfono no se queda pegado. Debajo del centro
   van los cuatro tráileres completos, apilados en una columna: preguntas → laboratorio → resultados →
   método.
@@ -208,9 +212,12 @@ centro, cuatro rumbos alrededor, nada de arquitectura tradicional (sin barra sup
   archivo»), el supuesto a examen, los temas del lote, las cinco fuentes completas y la nota de IA-01, aparte.
   Al final, compacto, Golem Lab y sus tres puertas, en el taller (borde discontinuo: cada puerta dice que
   todavía está en el taller y qué existe mientras tanto).
-- **↓ Resultados de evaluaciones** (`#resultados`): primero ED02-X1 (el orden condicional
-  con los dos motores, los 42 escenarios, el aviso de 351 palabras, lo que queda fuera del índice, los
-  límites y los perfiles); después, aparte, el primer corte ED01 (`#ed01-resultados`: las cuatro
+- **↓ Resultados de evaluaciones** (`#resultados`): primero ED02-X1. Quien llega ve primero el orden (Juan,
+  20 oct 2026): la etiqueta, el titular y enseguida la tabla del orden condicional con los dos motores. Debajo
+  de la tabla, la nota del orden, el alcance y el corte; luego los 42 escenarios, el aviso de 351 palabras, lo
+  que queda fuera del índice, los límites y los perfiles. En el celular la tabla se lee en tarjetas: cada
+  configuración con su índice y, debajo, sus dos motores, con la franja del giro encima; los roles ARIA la
+  mantienen como tabla para los lectores de pantalla. Después, aparte, el primer corte ED01 (`#ed01-resultados`: las cuatro
   configuraciones en orden fijo de cohorte, las 10 entregas dentro del límite y las 2 fuera de
   comparación, las fases cerradas y pendientes, el ranking en preparación, «Una pregunta. Dos lecturas.» y
   los límites), el pacto y el suelo de barro con el golem que entreabre los ojos y el contacto. El pie va

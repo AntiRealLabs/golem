@@ -1,6 +1,6 @@
 # Verificación de la portada
 
-**134 de 134 comprobaciones correctas** · 2026-10-20 20:02 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
+**134 de 134 comprobaciones correctas** · 2026-10-21 02:09 (UTC−5) · Chromium (Playwright) contra `herramientas/servidor_local.py`.
 
 Inspección automática. No sustituye pruebas con personas, lectores de pantalla reales, otros navegadores ni la revisión del sitio ya publicado en Cloudflare.
 
@@ -134,7 +134,7 @@ Inspección automática. No sustituye pruebas con personas, lectores de pantalla
 | ✓ | [rc-gpt] ED02-X1: seguir un pasaje lo ilumina entero (todos sus tramos, ninguno más) y lo deja a la vista bajo la ruta |  |
 | ✓ | [metodo-es] ED02-X1: sin errores ni violaciones de la CSP; idioma, h1, canónica y hreflang; la etiqueta del piloto; cada voz con su rótulo y los cuerpos en español; enlaces que llegan |  |
 | ✓ | [metodo-en] ED02-X1: sin errores ni violaciones de la CSP; idioma, h1, canónica y hreflang; la etiqueta del piloto; cada voz con su rótulo y los cuerpos en español; enlaces que llegan |  |
-| ✓ | En el celular la etiqueta del piloto queda a la vista al llegar; el tráiler de resultados y su sala conservan las advertencias (orden condicional, escenarios, sesgo, 351 palabras, fuera del índice, límites) y la tabla cabe sin desplazarse |  |
+| ✓ | En el celular la etiqueta del piloto y el resumen de las cuatro estaciones quedan a la vista al llegar; tocar Resultados lleva primero al orden; el tráiler de resultados y su sala conservan las advertencias (orden condicional, escenarios, sesgo, 351 palabras, fuera del índice, límites) y la tabla cabe sin desplazarse |  |
 | ✓ | Cambio de idioma: el mismo pasaje, palabra por palabra, sigue en español original (lang=es) y avisa que no está traducido; la interfaz cambia, la voz del modelo no |  |
 | ✓ | axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (8 páginas × 2 anchos: portadas, 404, recorridos y método) |  |
 | ✓ | axe-core · buenas prácticas: sin avisos |  |

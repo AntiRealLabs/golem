@@ -344,9 +344,10 @@ def main():
                       // las cuatro unidades del laboratorio, cada cifra una sola vez y con lo que cuenta
                       if (document.querySelectorAll('.cifras--x1 .cifras-lista li').length !== 4 || document.querySelectorAll('.cifras--x1 .cifras-lista li .cifra-d').length !== 4) out.push('unidades');
                       // a la izquierda, muestras sin cifras: lo que pesan las preguntas, dibujado (tres tercios, cada uno con su
-                      // pregunta), y quién puntúa cada especialidad (J1–J3 por dos motores). Nombres completos y pesos, en su sala
+                      // pregunta), y quién puntúa cada especialidad (J1–J3 por dos motores). Nombres completos y pesos, en su sala.
+                      // Se mira lo que se ve en el escritorio: el resumen de la baldosa del celular sí lleva el peso de J1–J3 (Juan)
                       for (const q of document.querySelectorAll('.q--preguntas, .q--como-medimos, .trailer--preguntas, .trailer--como-medimos')) {
-                        if (/J\\d\\.\\d|1\\/3|(peso|weight)\\s*\\d/i.test(q.textContent)) out.push('pesos en ' + q.className.split(' ').pop());
+                        if (/J\\d\\.\\d|1\\/3|(peso|weight)\\s*\\d/i.test(q.innerText)) out.push('pesos en ' + q.className.split(' ').pop());
                         const pesa = q.querySelector('.pesa'), lee = q.querySelector('.lee');
                         if (/preguntas/.test(q.className) && (!pesa || pesa.querySelectorAll('.pesa-tercio .pesa-tramo').length !== 3)) out.push('la barra de las preguntas');
                         if (/medimos/.test(q.className) && (!lee || lee.querySelectorAll('tbody tr').length !== 3 || lee.querySelectorAll('tbody .lee-hoja').length !== 6)) out.push('quién puntúa');
@@ -776,10 +777,19 @@ def main():
                 return {cartela: vis(cart) && rc.top >= 0 && rc.bottom <= innerHeight && cart.textContent.trim() === badge,
                         trailer: vis(tr) && vis(tr.querySelector('.stamp')) && tr.querySelectorAll('.tr-aviso').length === 2 && [...tr.querySelectorAll('.tr-aviso')].every(vis) && vis(tr.querySelector('.x1-mini')),
                         sala: ['.x1-orden .x1-nota', '.x1-tabla', '.x1-sensibilidad .x1-nota', '.x1-nota--sesgo', '#resultados .aviso-x1', '.x1-fuera-lista', '.x1-limites .limites-lista'].map(s => vis(document.querySelector(s))),
-                        tabla: document.querySelector('.x1-tabla-caja').scrollWidth <= document.querySelector('.x1-tabla-caja').clientWidth + 1}; }""", BADGE[key])
-            if not (r["cartela"] and r["trailer"] and all(r["sala"]) and r["tabla"]):
+                        tabla: document.querySelector('.x1-tabla-caja').scrollWidth <= document.querySelector('.x1-tabla-caja').clientWidth + 1,
+                        // la vista inicial resume las cuatro estaciones a la vista, y la de resultados dice que el motor invierte el orden
+                        resumenes: [...document.querySelectorAll('.onfalo .q-resumen.res')].filter(e => vis(e) && e.getBoundingClientRect().top >= 0
+                                     && e.getBoundingClientRect().bottom <= innerHeight).length === 4 && vis(document.querySelector('.res--resultados .res-giro'))}; }""", BADGE[key])
+            # al tocar la baldosa de resultados, lo primero que se ve es el orden: la primera fila entera, con la etiqueta encima
+            page.click(".estacion--resultados .lugar")
+            page.wait_for_timeout(1200)
+            r["llegada"] = page.evaluate("""() => { const f = document.querySelector('.x1-tabla tbody tr').getBoundingClientRect(),
+                b = document.querySelector('#resultados .x1-badge').getBoundingClientRect();
+                return f.top >= 0 && f.bottom <= innerHeight && b.top >= 0; }""")
+            if not (r["cartela"] and r["trailer"] and all(r["sala"]) and r["tabla"] and r["resumenes"] and r["llegada"]):
                 movil.append(f"{key}: {r}")
-        check("En el celular la etiqueta del piloto queda a la vista al llegar; el tráiler de resultados y su sala conservan las advertencias (orden condicional, escenarios, sesgo, 351 palabras, fuera del índice, límites) y la tabla cabe sin desplazarse",
+        check("En el celular la etiqueta del piloto y el resumen de las cuatro estaciones quedan a la vista al llegar; tocar Resultados lleva primero al orden; el tráiler de resultados y su sala conservan las advertencias (orden condicional, escenarios, sesgo, 351 palabras, fuera del índice, límites) y la tabla cabe sin desplazarse",
               not movil, "; ".join(movil))
         # el cambio de idioma no mezcla voces: el mismo pasaje sigue en español y con el mismo destino
         page.goto(base + "/", wait_until="networkidle")

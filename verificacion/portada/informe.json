@@ -1,5 +1,5 @@
 {
- "fecha": "2026-10-20 20:02 (UTC−5)",
+ "fecha": "2026-10-21 02:09 (UTC−5)",
  "correctas": 134,
  "total": 134,
  "resultados": [
@@ -136,12 +136,12 @@
   {
    "comprobacion": "[es] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:44279'}"
+   "detalle": "{'127.0.0.1:44601'}"
   },
   {
    "comprobacion": "[es] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "470481 bytes"
+   "detalle": "476336 bytes"
   },
   {
    "comprobacion": "[es] idioma del documento declarado",
@@ -226,12 +226,12 @@
   {
    "comprobacion": "[en] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:44279'}"
+   "detalle": "{'127.0.0.1:44601'}"
   },
   {
    "comprobacion": "[en] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "484119 bytes"
+   "detalle": "489999 bytes"
   },
   {
    "comprobacion": "[en] idioma del documento declarado",
@@ -316,17 +316,17 @@
   {
    "comprobacion": "[404] todo se sirve desde el mismo origen",
    "ok": true,
-   "detalle": "{'127.0.0.1:44279'}"
+   "detalle": "{'127.0.0.1:44601'}"
   },
   {
    "comprobacion": "[404] peso total de la página ≤ 700 KB",
    "ok": true,
-   "detalle": "208355 bytes"
+   "detalle": "211971 bytes"
   },
   {
    "comprobacion": "Paridad ES/EN: mismos h2, h3, elementos de lista, párrafos y enlaces (sin contar el original español que acompaña a la traducción)",
    "ok": true,
-   "detalle": "{'es': [10, 22, 166, 484, 230], 'en': [10, 22, 166, 484, 230]}"
+   "detalle": "{'es': [10, 22, 181, 485, 230], 'en': [10, 22, 181, 485, 230]}"
   },
   {
    "comprobacion": "Sin desplazamiento horizontal a 1440, 1024, 768, 390 y 320 px (portadas, 404, recorridos y método)",
@@ -576,7 +576,7 @@
   {
    "comprobacion": "Pasajes de ED02-X1: los 60 de la plantilla, barajados una vez por visita; «siguiente» avanza uno y el foco se queda en el botón; sin avance automático; el inglés conserva el mismo pasaje",
    "ok": true,
-   "detalle": "{'orden': ['m04-c01-r2:p-b-170-306', 'm04-c01-r1:p-b-150-345', 'm03-c01-r2:p-r2-32-163', 'm04-c02-r2:p-r1-0-183', 'm03-c01-r1:p-r2-45-163', 'm04-c03-r1:p-a-0-154', 'm03-c01-r2:p-b-326-407', 'm03-c03-r2:p-r1-517-675', 'm03-c02-r1:p-b-11-100', 'm03-c01-r1:p-r1-203-299', 'm04-c01-r2:p-r1-32-148', 'm03-c03-r1:p-r1-174-390', 'm04-c02-r2:p-b-49-268', 'm03-c01-r1:p-a-38-228', 'm03-c01-r2:p-a-2-186', 'm03-c03-r1:p-r2-73-139', 'm03-c01-r1:p-e-59-302', 'm04-c01-r2:p-a-36-250', 'm03-c03-r1:p-a-14-158', 'm04-c02-r1:p-r2-168-290', 'm04-c02-r1:p-b-40-154', 'm04-c01-r1:p-a-2-161', 'm03-c02-r1:p-r1-55-193', 'm04-c03-r2:p-b-231-377', 'm03-c01-r1:p-b-247-388', 'm04-c02-r2:p-e-163-324', 'm03-c02-r2:p-e-103-294', 'm04-c01-r2:p-e-104-216', 'm03-c03-r2:p-e-279-366', 'm04-c02-r2:p-a-0-204', 'm04-c01-r1:p-r1-0-181', 'm04-c03-r1:p-r2-176-301', 'm04-c03-r1:p-e-0-101', 'm04-c03-r1:p-r1-217-331', 'm03-c02-r2:p-b-105-248', 'm03-c02-r2:p-a-14-210', 'm04-c01-r2:p-r2-474-686', 'm04-c02-r2:p-r2-0-118', 'm04-c02-r1:p-a-2-153', 'm03-c03-r1:p-b-11-172', 'm04-c01-r1:p-e-2-79', 'm03-c03-r2:p-a-2-170', 'm04-c03-r2:p-e-126-295', 'm04-c03-r2:p-r1-0-82', 'm03-c02-r1:p-r2-13-90', 'm03-c02-r1:p-e-22-187', 'm03-c02-r1:p-a-14-128', 'm03-c03-r1:p-e-28-155', 'm04-c02-r1:p-r1-346-498', 'm04-c03-r2:p-a-2-133', 'm04-c01-r1:p-r2-540-779', 'm03-c01-r2:p-e-107-211', 'm04-c02-r1:p-e-52-141', 'm04-c03-r1:p-b-174-330', 'm03-c03-r2:p-r2-13-89', 'm03-c02-r2:p-r2-13-112', 'm03-c02-r2:p-r1-13-99', 'm04-c03-r2:p-r2-0-104', 'm03-c01-r2:p-r1-136-276', 'm03-c03-r2:p-b-21-171'], 'actual': 'm04-c01-r2:p-b-170-306'} ['m04-c01-r2:p-b-170-306', 'Pasaje 1 de 60'] ['m04-c01-r1:p-b-150-345', 'Pasaje 2 de 60'] ['m04-c01-r1:p-b-150-345', 'Pasaje 2 de 60'] ['m04-c01-r1:p-b-150-345', 'Passage 2 of 60'] foco=True"
+   "detalle": "{'orden': ['m04-c01-r1:p-r1-0-181', 'm03-c01-r2:p-b-326-407', 'm04-c02-r1:p-b-40-154', 'm03-c03-r1:p-e-28-155', 'm03-c01-r2:p-a-2-186', 'm04-c03-r2:p-r1-0-82', 'm04-c01-r2:p-r1-32-148', 'm04-c01-r2:p-b-170-306', 'm04-c02-r1:p-a-2-153', 'm03-c01-r1:p-a-38-228', 'm04-c03-r1:p-r2-176-301', 'm03-c03-r2:p-r2-13-89', 'm03-c01-r1:p-r1-203-299', 'm04-c01-r2:p-a-36-250', 'm03-c03-r2:p-e-279-366', 'm04-c02-r2:p-e-163-324', 'm04-c02-r1:p-r2-168-290', 'm04-c03-r1:p-a-0-154', 'm04-c03-r2:p-r2-0-104', 'm03-c03-r1:p-b-11-172', 'm03-c03-r1:p-r1-174-390', 'm03-c01-r2:p-e-107-211', 'm04-c03-r1:p-b-174-330', 'm04-c01-r2:p-e-104-216', 'm04-c01-r1:p-r2-540-779', 'm03-c02-r1:p-r2-13-90', 'm03-c02-r2:p-r1-13-99', 'm04-c01-r2:p-r2-474-686', 'm03-c03-r1:p-r2-73-139', 'm03-c02-r1:p-b-11-100', 'm04-c02-r1:p-e-52-141', 'm04-c01-r1:p-a-2-161', 'm04-c02-r2:p-a-0-204', 'm03-c03-r2:p-a-2-170', 'm04-c03-r2:p-a-2-133', 'm03-c03-r1:p-a-14-158', 'm03-c02-r2:p-e-103-294', 'm03-c02-r2:p-r2-13-112', 'm04-c03-r2:p-b-231-377', 'm03-c01-r1:p-e-59-302', 'm04-c03-r2:p-e-126-295', 'm03-c03-r2:p-r1-517-675', 'm03-c02-r1:p-a-14-128', 'm04-c01-r1:p-e-2-79', 'm03-c03-r2:p-b-21-171', 'm04-c03-r1:p-e-0-101', 'm03-c02-r1:p-e-22-187', 'm04-c02-r2:p-r1-0-183', 'm04-c01-r1:p-b-150-345', 'm04-c02-r2:p-r2-0-118', 'm03-c01-r2:p-r2-32-163', 'm04-c02-r2:p-b-49-268', 'm03-c02-r2:p-a-14-210', 'm04-c02-r1:p-r1-346-498', 'm03-c01-r1:p-r2-45-163', 'm04-c03-r1:p-r1-217-331', 'm03-c02-r2:p-b-105-248', 'm03-c02-r1:p-r1-55-193', 'm03-c01-r2:p-r1-136-276', 'm03-c01-r1:p-b-247-388'], 'actual': 'm04-c01-r1:p-r1-0-181'} ['m04-c01-r1:p-r1-0-181', 'Pasaje 1 de 60'] ['m03-c01-r2:p-b-326-407', 'Pasaje 2 de 60'] ['m03-c01-r2:p-b-326-407', 'Pasaje 2 de 60'] ['m03-c01-r2:p-b-326-407', 'Passage 2 of 60'] foco=True"
   },
   {
    "comprobacion": "Movimiento reducido: el cambio de pasaje aparece sin animación (con movimiento, un fundido corto)",
@@ -644,14 +644,14 @@
    "detalle": "[] [] [] []"
   },
   {
-   "comprobacion": "En el celular la etiqueta del piloto queda a la vista al llegar; el tráiler de resultados y su sala conservan las advertencias (orden condicional, escenarios, sesgo, 351 palabras, fuera del índice, límites) y la tabla cabe sin desplazarse",
+   "comprobacion": "En el celular la etiqueta del piloto y el resumen de las cuatro estaciones quedan a la vista al llegar; tocar Resultados lleva primero al orden; el tráiler de resultados y su sala conservan las advertencias (orden condicional, escenarios, sesgo, 351 palabras, fuera del índice, límites) y la tabla cabe sin desplazarse",
    "ok": true,
    "detalle": ""
   },
   {
    "comprobacion": "Cambio de idioma: el mismo pasaje, palabra por palabra, sigue en español original (lang=es) y avisa que no está traducido; la interfaz cambia, la voz del modelo no",
    "ok": true,
-   "detalle": "['m04-c02-r2:p-a-0-204', '¿Qué justificaría llamar «la misma práctica» a Trama de paso después de sustituir la tela, sin que esa identificación niegue la pérdida descrita por Mara ni descalifique la incorporación de Ivo?', 'es'] ['m04-c02-r2:p-a-0-204', '¿Qué justificaría llamar «la misma práctica» a Trama de paso después de sustituir la tela, sin que esa identificación niegue la pérdida descrita por Mara ni descalifique la incorporación de Ivo?', 'es', True]"
+   "detalle": "['m04-c01-r1:p-e-2-79', 'T no satisface las condiciones de aplicación de mi propuesta revisada en R1.', 'es'] ['m04-c01-r1:p-e-2-79', 'T no satisface las condiciones de aplicación de mi propuesta revisada en R1.', 'es', True]"
   },
   {
    "comprobacion": "axe-core 4.14 · WCAG 2.0/2.1/2.2 A y AA: sin violaciones (8 páginas × 2 anchos: portadas, 404, recorridos y método)",

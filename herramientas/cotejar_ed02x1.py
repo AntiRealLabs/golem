@@ -135,7 +135,7 @@ for lang in ("es", "en"):
     for clave, t in AJ["textos"].items():
         debe(lang, t[lang], f"texto de la revisión «{clave}»")
     # «Cambiar de motor invierte el orden», junto a las cifras: encima de las dos columnas de los motores
-    giro = re.search(r'<th scope="colgroup" colspan="2" class="x1-giro-th">(.*?)</th>', X1[lang], re.S)
+    giro = re.search(r'<th scope="colgroup" colspan="2" class="x1-giro-th"[^>]*>(.*?)</th>', X1[lang], re.S)
     ok(giro and norm(plano(giro.group(1))) + "." in norm(w["quadrants"]["resultados"]["preview"]),
        f"[{lang}] la tabla no dice, encima de los motores, que cambiar de motor invierte el orden")
     for c in MAPA["cases"]:
@@ -158,13 +158,13 @@ for lang in ("es", "en"):
 # las cifras: la tabla del orden condicional, fila por fila, en el orden del índice
 for lang in ("es", "en"):
     f = (lambda x: f"{x:.1f}".replace(".", ",")) if lang == "es" else (lambda x: f"{x:.1f}")
-    tabla = re.search(r'<table class="x1-tabla">.*?</table>', PAG[lang], re.S)
+    tabla = re.search(r'<table class="x1-tabla"[^>]*>.*?</table>', PAG[lang], re.S)
     ok(tabla, f"[{lang}] falta la tabla del orden condicional")
     if tabla:
-        filas = re.findall(r"<tr><th scope=\"row\" class=\"x1-pos\">(\d)</th>(.*?)</tr>", tabla.group(0), re.S)
+        filas = re.findall(r'<tr[^>]*><th scope="row" class="x1-pos"[^>]*>(\d)</th>(.*?)</tr>', tabla.group(0), re.S)
         ok(len(filas) == 2, f"[{lang}] la tabla no tiene dos filas")
         for (pos, cuerpo), rr in zip(filas, sorted(WEB["rank_rows"], key=lambda x: x["position_in_primary_index"])):
-            celdas = re.findall(r'<td class="x1-num[^"]*">([\d.,]+)', cuerpo)
+            celdas = re.findall(r'<td class="x1-num[^"]*"[^>]*>([\d.,]+)', cuerpo)
             ok(pos == str(rr["position_in_primary_index"]) and rr["model"] in cuerpo, f"[{lang}] fila {pos}: modelo u orden")
             ok(celdas == [f(rr["primary_index"]), f(rr["judge_GPT_index"]), f(rr["judge_Claude_index"])],
                f"[{lang}] fila {pos}: cifras {celdas}")
@@ -185,6 +185,24 @@ for lang in ("es", "en"):
     # las cuatro unidades del laboratorio
     for n, k in ((12, "trajectories"), (60, "visible_texts"), (24, "critiques"), (144, "selected_judge_bodies")):
         ok(f'<span class="cifra">{n}</span>' in X1[lang] and IDX["counts"][k] == n, f"[{lang}] unidad {n}")
+    # el resumen de las baldosas del celular: cada cosa que dice sale del índice, del mapa, del paquete o de las apuestas
+    res = {q: re.search(rf'<div class="q-resumen res res--{q}">(.*?)</div>', X1[lang], re.S) for q in ("preguntas", "laboratorio", "como-medimos", "resultados")}
+    ok(all(res.values()), f"[{lang}] falta el resumen de alguna baldosa")
+    if all(res.values()):
+        orden = re.findall(r'<span class="res-pos">(\d)</span> <span class="res-m">([^<]+)</span> <span class="res-n">([\d.,]+)</span>', res["resultados"].group(1))
+        ok(orden == [(str(rr["position_in_primary_index"]), rr["model"], f(rr["primary_index"])) for rr in sorted(WEB["rank_rows"], key=lambda x: x["position_in_primary_index"])],
+           f"[{lang}] el orden de la baldosa de resultados no es el del índice: {orden}")
+        giro_b = re.search(r'<p class="res-giro">(.*?)</p>', res["resultados"].group(1))
+        ok(giro_b and norm(html.unescape(giro_b.group(1))) in norm(WEB[lang]["quadrants"]["resultados"]["preview"]),
+           f"[{lang}] la baldosa de resultados no dice, con la frase del paquete, que cambiar de motor invierte el orden")
+        ok([int(x) for x in re.findall(r'<span class="res-n">(\d+)</span>', res["laboratorio"].group(1))] ==
+           [IDX["counts"][k] for k in ("trajectories", "visible_texts", "critiques", "selected_judge_bodies")], f"[{lang}] las unidades de la baldosa del laboratorio")
+        pesos = re.findall(r'aria-hidden="true">(J\d)</span>.*?<span class="res-p">([^<]+)</span>', res["como-medimos"].group(1))
+        ok(pesos == [(p["id"], p["weight"]) for p in MAPA["perspectives"]], f"[{lang}] especialidades y pesos de la baldosa de cómo medimos: {pesos}")
+        palabras = re.findall(r"<li>([^<]+)</li>", res["preguntas"].group(1))
+        titulos = [html.unescape(t) for t in re.findall(r'<span class="ap-t">([^<]+)</span>', PAG[lang])]
+        ok(palabras == AJ["resumen_movil"]["principios"][lang] and len(titulos) == 6 and all(w.lower() in t.lower() for w, t in zip(palabras, titulos)),
+           f"[{lang}] los principios de la baldosa de preguntas no salen, uno a uno, de los títulos de las apuestas")
     # fuera del índice: sin cifra
     fuera = re.search(r'<ul class="x1-fuera-lista".*?</ul>', X1[lang], re.S)
     ok(fuera and not re.search(r"\d+[.,]\d", plano(fuera.group(0))) and "Gemini" in fuera.group(0), f"[{lang}] fuera del índice: sin cifras y con Gemini")
